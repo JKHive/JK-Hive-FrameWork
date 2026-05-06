@@ -1,0 +1,22 @@
+/**
+ * Tokens parciales JK Hive (:root excerpt).
+ * Fuente canónica en runtime: showcase/assets/css/jk-hive.css (no eliminar duplicación hasta migración completa).
+ */
+:root {
+  --jk-primary-blue: #0ea5e9;
+  --jk-primary-blue-light: #38bdf8;
+  --jk-primary-blue-dark: #0284c7;
+  --jk-primary-blue-darker: #075985;
+  --jk-secondary-green: #14b8a6;
+  --jk-accent-honey: #d4a017;
+  --jk-accent-honey-light: #f4c430;
+  --jk-metal-light: #e2e8f0;
+  --jk-tech-darker: #0f172a;
+  --jk-tech-dark: #1e293b;
+  --jk-tech-medium: #334155;
+  --jk-white: #ffffff;
+  --jk-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --jk-glow-blue: 0 0 20px rgba(14, 165, 233, 0.5), 0 0 40px rgba(14, 165, 233, 0.3);
+  --jk-spacing-md: 1rem;
+  --jk-spacing-xl: 2rem;
+}

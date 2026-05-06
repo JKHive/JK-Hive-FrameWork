@@ -1,0 +1,29 @@
+---
+description: Flujo de trabajo JK Hive Framework — copia XAMPP (JKHFW) vs repositorio y GitHub
+alwaysApply: true
+---
+
+# Regla operativa: XAMPP (trabajo) ↔ repo (aprobado)
+
+## Directorios
+
+- **Trabajo (solo aquí se iteran cambios con el usuario):** `c:\xampp\htdocs\JKHFW`
+- **Versión del proyecto (no tocar el showcase “final” sin aprobación):** `showcase/` en el repo `JK-Hive-FrameWork`
+
+El usuario revisa en el navegador vía XAMPP (p. ej. `http://localhost/JKHFW/`).
+
+## Mientras no haya aprobación explícita
+
+1. Implementar **solo** en `c:\xampp\htdocs\JKHFW` lo que pida (agregar / quitar / modificar).
+2. Mantener alineados **PHP** (`*.php`), `includes/`, `assets/` y scripts que correspondan a esa carpeta.
+3. **No** aplicar esos mismos cambios al `showcase/` del repo ni a `docs/` “de release” ni hacer **commit/push** a GitHub basados en cambios aún no aprobados.
+
+## Cuando el usuario confirme que algo “ha quedado bien”
+
+1. **Replicar** los cambios aprobados desde `JKHFW` hacia `showcase/` (y el resto del repo que aplique).
+2. **Actualizar documentación** (`docs/`, `README.md`, etc.) para reflejar el estado aprobado.
+3. Hacer **commit** con mensaje claro (convencional, descriptivo) y **push** a GitHub como entrega versionada.
+
+## Sincronización inicial o “cargar showcase completo” en JKHFW
+
+Cuando se pida dejar el showcase completo en XAMPP: copiar el contenido vigente del `showcase/` del repo hacia `c:\xampp\htdocs\JKHFW` (estructura lista para servir: `index.php`, demás `*.php`, `includes/`, `assets/`, `.htaccess` si aplica), sobrescribiendo la copia de trabajo salvo indicación contraria del usuario.

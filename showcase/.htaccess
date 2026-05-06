@@ -1,0 +1,11 @@
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^index\.html$ index.php [R=301,L]
+  RewriteRule ^about\.html$ about.php [R=301,L]
+  RewriteRule ^contact\.html$ contact.php [R=301,L]
+  RewriteRule ^messaging\.html$ messaging.php [R=301,L]
+  RewriteRule ^users\.html$ users.php [R=301,L]
+  RewriteRule ^products\.html$ products.php [R=301,L]
+</IfModule>
