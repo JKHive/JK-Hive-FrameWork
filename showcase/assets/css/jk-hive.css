@@ -597,8 +597,8 @@ body.page-public .jkhive-main-content {
    celeste, relleno interior miel; hover invierte (exterior miel, interior oscuro).
 
    Ancho:
-   - Por defecto (intrínseco): al ancho del contenido — width: max-content. Opcional: .jkhive-btn-hex-h--fit
-   - .jkhive-btn-hex-h--fixed + --jkhive-btn-hex-h-w (anchura fija; déf. 4.5rem).
+   - Por defecto (intrínseco): al ancho del contenido (etiqueta + iconos) — width: max-content.
+   - .jkhive-btn-hex-h--fixed + --jkhive-btn-hex-h-w (anchura fija del cuerpo útil; déf. 4.5rem).
    ======================================== */
 .jkhive-btn-hex-h {
   --jkhive-btn-hex-h-tip: 12px;
@@ -633,7 +633,7 @@ body.page-public .jkhive-main-content {
   border: none;
 }
 
-/* Coincide con base; explícito si hace falta sobrescribir un contexto que fuerce ancho */
+/* Coincide con base; útil si un padre fuerza ancho */
 .jkhive-btn-hex-h.jkhive-btn-hex-h--fit {
   width: max-content;
   max-width: 100%;
@@ -1375,6 +1375,28 @@ body.page-public .jkhive-main-content {
   opacity: 0.9;
   position: relative;
   z-index: 2;
+}
+
+/* Enlace inline canónico JK Hive (usable en texto dentro de hex/modales/galerías) */
+.jkhive-link-inline {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+/* Utilidades canónicas de framework (no parches por caso). */
+.jkhive-gallery-align-left {
+  justify-content: flex-start !important;
+}
+
+.jkhive-gallery-align-center {
+  justify-content: center !important;
+}
+
+.jkhive-gallery-align-right {
+  justify-content: flex-end !important;
 }
 
 .jkhive-hex-gallery-badge {

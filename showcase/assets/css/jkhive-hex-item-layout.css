@@ -123,6 +123,21 @@
   border-radius: 3px;
 }
 
+/* Utilidad canónica: desactiva barras hover/focus en body del hex (p. ej. launchers). */
+.jkhive-hex-item.jkhive-hex-no-hover-scrollbars .jkhive-hex-item-body-scroll,
+.jkhive-hex-item.jkhive-hex-no-hover-scrollbars:hover .jkhive-hex-item-body-scroll,
+.jkhive-hex-item.jkhive-hex-no-hover-scrollbars:focus-within .jkhive-hex-item-body-scroll {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.jkhive-hex-item.jkhive-hex-no-hover-scrollbars .jkhive-hex-item-body-scroll::-webkit-scrollbar,
+.jkhive-hex-item.jkhive-hex-no-hover-scrollbars:hover .jkhive-hex-item-body-scroll::-webkit-scrollbar,
+.jkhive-hex-item.jkhive-hex-no-hover-scrollbars:focus-within .jkhive-hex-item-body-scroll::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+}
+
 .jkhive-hex-item-foot,
 .jkhive-why-me-hex .jkhive-why-me-footer {
   flex: 0 0 25%;
