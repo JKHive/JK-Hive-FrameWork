@@ -61,6 +61,10 @@
   --honeycomb-size-sections: 35px 60px;  /* Tamaño para secciones (hero, etc.) */
   --honeycomb-size-sidebar: 28px 48px;   /* Tamaño para el sidebar */
   --honeycomb-url: url('../img/honeycomb-pattern.svg');
+  --jk-hero-pattern-color-rgb: 244, 196, 48; /* Color de textura hero (framework token) */
+  --jk-hero-pattern-opacity: 0.42;           /* Intensidad de textura hero (framework token) */
+  --jk-theme-highlight: var(--jk-primary-blue-light); /* Resalte activo de controles (sidebar/nav/hex) */
+  --jk-theme-highlight-rgb: 56, 189, 248; /* RGB del resalte activo para glows/drop-shadows */
   
   /* Spacing */
   --jk-spacing-xs: 0.25rem;
@@ -101,6 +105,173 @@
   --jkhive-canonical-blue-hex-shadow-hover: 0 12px 40px rgba(14, 165, 233, 0.5), 0 0 60px rgba(244, 196, 48, 0.3),
     inset 0 0 60px rgba(14, 165, 233, 0.25);
   --jkhive-canonical-blue-hex-glow-radial: radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.3) 0%, transparent 70%);
+}
+
+/* Superficies canónicas reutilizables (framework, tema visual). */
+.jkhive-surface-theme-body {
+  --jk-surface-fill: var(--jk-tech-darker);
+  --jk-surface-gradient: linear-gradient(135deg, var(--jk-tech-darker) 0%, var(--jk-tech-dark) 50%, var(--jk-tech-darker) 100%);
+  --jk-surface-honeycomb-size: var(--honeycomb-size-body);
+}
+
+.jkhive-surface-theme-sidebar {
+  --jk-surface-fill: var(--jk-tech-darker);
+  --jk-surface-gradient: linear-gradient(180deg, var(--jk-tech-darker) 0%, var(--jk-tech-dark) 100%);
+  --jk-surface-honeycomb-size: var(--honeycomb-size-sidebar);
+}
+
+.jkhive-surface-theme-modal {
+  --jk-surface-fill: rgba(244, 196, 48, 0.78);
+  --jk-surface-gradient: linear-gradient(180deg, rgba(244, 196, 48, 0.78) 0%, rgba(244, 196, 48, 0.78) 100%);
+  --jk-surface-honeycomb-size: 32px 55px;
+  backdrop-filter: blur(10px);
+}
+
+.jkhive-surface-theme-body,
+.jkhive-surface-theme-sidebar,
+.jkhive-surface-theme-modal {
+  background-color: var(--jk-surface-fill) !important;
+  background-image:
+    var(--honeycomb-url),
+    var(--jk-surface-gradient) !important;
+  background-size: var(--jk-surface-honeycomb-size), 100% 100% !important;
+  background-repeat: repeat, no-repeat !important;
+  background-position: 0 0, 0 0 !important;
+  background-clip: padding-box !important;
+}
+
+/* Contrato framework: cualquier control con superficie body/modal mantiene fondo estable. */
+input:is(.jkhive-surface-theme-body, .jkhive-surface-theme-modal),
+textarea:is(.jkhive-surface-theme-body, .jkhive-surface-theme-modal),
+select:is(.jkhive-surface-theme-body, .jkhive-surface-theme-modal),
+input:is(.jkhive-surface-theme-body, .jkhive-surface-theme-modal):hover,
+textarea:is(.jkhive-surface-theme-body, .jkhive-surface-theme-modal):hover,
+select:is(.jkhive-surface-theme-body, .jkhive-surface-theme-modal):hover,
+input:is(.jkhive-surface-theme-body, .jkhive-surface-theme-modal):focus,
+textarea:is(.jkhive-surface-theme-body, .jkhive-surface-theme-modal):focus,
+select:is(.jkhive-surface-theme-body, .jkhive-surface-theme-modal):focus,
+input:is(.jkhive-surface-theme-body, .jkhive-surface-theme-modal):active,
+textarea:is(.jkhive-surface-theme-body, .jkhive-surface-theme-modal):active,
+select:is(.jkhive-surface-theme-body, .jkhive-surface-theme-modal):active {
+  background-color: var(--jk-surface-fill) !important;
+  background-image:
+    var(--honeycomb-url),
+    var(--jk-surface-gradient) !important;
+  background-size: var(--jk-surface-honeycomb-size), 100% 100% !important;
+  background-repeat: repeat, no-repeat !important;
+  background-position: 0 0, 0 0 !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  border-radius: 8px;
+}
+
+/*
+ * Sidebar en inputs: igual que #jkhive-sidebar-container + tema en jkfw-themes —
+ * gradiente de superficie + capa única honeycomb SVG con mascara y tinte por tokens.
+ * El contenedor admite ::before (input nativo no); la clase va en el wrap, no en el control.
+ */
+.jkhive-field-surface.jkhive-surface-theme-sidebar {
+  position: relative;
+  display: block;
+  width: 100%;
+  border-radius: 8px;
+  isolation: isolate;
+  /*
+   * Gana sobre .jkhive-surface-theme-sidebar (!important): no pintar aquí var(--honeycomb-url).
+   * Donde la máscara del ::before es transparente debe verse solo el gradiente de superficie;
+   * si no, tras el velo aparecen los trazos SVG “body” (claritos / efecto blanco).
+   */
+  background-color: var(--jk-theme-surface-start, var(--jk-tech-darker)) !important;
+  background-image: linear-gradient(
+    180deg,
+    var(--jk-theme-surface-start, var(--jk-tech-darker)) 0%,
+    var(--jk-theme-surface-end, var(--jk-tech-dark)) 100%
+  ) !important;
+  background-size: 100% 100% !important;
+  background-repeat: no-repeat !important;
+  background-position: 0 0 !important;
+  background-clip: padding-box !important;
+}
+
+.jkhive-field-surface.jkhive-surface-theme-sidebar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: inherit;
+  background-image: none;
+  background-color: rgba(var(--jk-hero-pattern-color-rgb), var(--jk-hero-pattern-opacity));
+  -webkit-mask-image: var(--honeycomb-url);
+  mask-image: var(--honeycomb-url);
+  -webkit-mask-size: var(--jk-theme-surface-pattern-size, var(--honeycomb-size-sidebar));
+  mask-size: var(--jk-theme-surface-pattern-size, var(--honeycomb-size-sidebar));
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
+}
+
+.jkhive-field-surface.jkhive-surface-theme-sidebar > input,
+.jkhive-field-surface.jkhive-surface-theme-sidebar > textarea,
+.jkhive-field-surface.jkhive-surface-theme-sidebar > select {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  background-color: transparent !important;
+  background-image: none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+
+input:is(.jkhive-surface-theme-body, .jkhive-surface-theme-modal):-webkit-autofill,
+input:is(.jkhive-surface-theme-body, .jkhive-surface-theme-modal):-webkit-autofill:hover,
+input:is(.jkhive-surface-theme-body, .jkhive-surface-theme-modal):-webkit-autofill:focus,
+textarea:is(.jkhive-surface-theme-body, .jkhive-surface-theme-modal):-webkit-autofill,
+textarea:is(.jkhive-surface-theme-body, .jkhive-surface-theme-modal):-webkit-autofill:hover,
+textarea:is(.jkhive-surface-theme-body, .jkhive-surface-theme-modal):-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--jk-metal-light) !important;
+  -webkit-box-shadow: 0 0 0 1000px var(--jk-surface-fill) inset !important;
+}
+
+.jkhive-field-surface.jkhive-surface-theme-sidebar input:-webkit-autofill,
+.jkhive-field-surface.jkhive-surface-theme-sidebar input:-webkit-autofill:hover,
+.jkhive-field-surface.jkhive-surface-theme-sidebar input:-webkit-autofill:focus,
+.jkhive-field-surface.jkhive-surface-theme-sidebar textarea:-webkit-autofill,
+.jkhive-field-surface.jkhive-surface-theme-sidebar textarea:-webkit-autofill:hover,
+.jkhive-field-surface.jkhive-surface-theme-sidebar textarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--jk-metal-light) !important;
+  -webkit-box-shadow: 0 0 0 1000px var(--jk-theme-surface-start, var(--jk-tech-darker)) inset !important;
+}
+
+/* Alias legacy (mantener compatibilidad con clases ya usadas). */
+.jkhive-surface-honeycomb-sidebar {
+  background-image: var(--honeycomb-url);
+  background-size: var(--honeycomb-size-sidebar);
+  background-repeat: repeat;
+  background-position: 0 0;
+}
+
+/* Superficie framework: sección delimitada con patrón honeycomb pequeño visible. */
+.jkhive-surface-panel-honeycomb-sm {
+  background-image:
+    var(--honeycomb-url),
+    linear-gradient(180deg, rgba(10, 22, 36, 0.62) 0%, rgba(8, 18, 30, 0.56) 100%);
+  background-size: var(--honeycomb-size-sidebar), 100% 100%;
+  background-repeat: repeat, no-repeat;
+  background-position: 0 0, 0 0;
+  border: 1px solid rgba(14, 165, 233, 0.24);
+  box-shadow: 0 0 0 1px rgba(244, 196, 48, 0.08) inset;
+}
+
+/* Utilidad framework: transparente explícito. */
+.jkhive-surface-transparent {
+  background: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
 }
 
 /* ========================================

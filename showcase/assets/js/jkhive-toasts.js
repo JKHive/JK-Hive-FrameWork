@@ -59,6 +59,10 @@
       '</div>';
     appendTo.appendChild(wrap);
 
+    if (!inModal && options.fixedTopPx !== undefined && options.fixedTopPx !== null) {
+      wrap.style.top = typeof options.fixedTopPx === 'number' ? options.fixedTopPx + 'px' : String(options.fixedTopPx);
+    }
+
     var t = null;
     function closeToast() {
       if (!wrap.parentNode) return;

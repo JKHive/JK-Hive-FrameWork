@@ -36,6 +36,7 @@
           type: state,
           anchorEl: anchor,
           autoCloseMs: opts.autoCloseMs !== undefined ? opts.autoCloseMs : 2800,
+          onClose: typeof opts.onClose === 'function' ? opts.onClose : undefined,
         });
         return;
       }
@@ -46,7 +47,11 @@
 
     /* showToastBar(message, type, options) donde type es tipo visual success|info|… */
     if (typeof window.showToastBar === 'function') {
-      window.showToastBar(message, state, { autoCloseMs: autoCloseMs });
+      window.showToastBar(message, state, {
+        autoCloseMs: autoCloseMs,
+        onClose: typeof opts.onClose === 'function' ? opts.onClose : undefined,
+        fixedTopPx: opts.fixedTopPx !== undefined ? opts.fixedTopPx : undefined,
+      });
       return;
     }
 

@@ -1,52 +1,247 @@
 /**
- * Temas JK Hive Showcase — sustituyen primarios / tech / glows.
- * INVARIANTE: --jk-accent-honey* no se redefine (identidad abeja / miel metálico).
+ * Temas JK Hive Showcase — primarios, tech, glows y fondos del launchpad.
+ *
+ * INVARIANTES
+ * - No redefinir `--jk-accent-honey*` (miel metálico en bordes hex / acentos identitarios).
+ * - Lo que difieren los temas son superficies, primarios secundarios y atmósfera; el miel se mantiene donde el core ya lo usa.
+ *
+ * Línea de producto: CANON (tech) · ELEGANT (mármol) · Brasas (ember) · NATURE (bosque).
  */
 
-/* --- Aurora: frescura digital, teal + violeta profundo --- */
-body.jkfw-theme-aurora {
-  --jk-primary-blue: #2dd4bf;
-  --jk-primary-blue-light: #5eead4;
-  --jk-primary-blue-dark: #14b8a6;
-  --jk-primary-blue-darker: #0f766e;
-  --jk-secondary-green: #a78bfa;
-  --jk-secondary-green-light: #c4b5fd;
-  --jk-secondary-green-dark: #7c3aed;
-  --jk-tech-darker: #0c1222;
-  --jk-tech-dark: #151b2e;
-  --jk-tech-medium: #2d3a5c;
-  --jk-tech-light: #3d4f7a;
-  --jk-glow-blue: 0 0 22px rgba(45, 212, 191, 0.45), 0 0 44px rgba(167, 139, 250, 0.25);
-  --jk-glow-cyan: 0 0 20px rgba(167, 139, 250, 0.4), 0 0 40px rgba(45, 212, 191, 0.2);
-  --jkhive-canonical-blue-hex-shadow: 0 8px 32px rgba(45, 212, 191, 0.28), inset 0 0 40px rgba(167, 139, 250, 0.12);
-  --jkhive-canonical-blue-hex-shadow-hover: 0 12px 40px rgba(45, 212, 191, 0.42), 0 0 60px rgba(244, 196, 48, 0.28),
-    inset 0 0 60px rgba(167, 139, 250, 0.2);
-  --jkhive-canonical-blue-hex-glow-radial: radial-gradient(circle at 50% 0%, rgba(45, 212, 191, 0.28) 0%, transparent 70%);
+/* --- CANON: baseline en :root (jk-hive.css); sin overrides de tokens aquí. --- */
+body.jkfw-theme-canonical {
+  --jk-hero-pattern-color-rgb: 255, 214, 79;
+  --jk-hero-pattern-opacity: 0.92;
+  --jk-canon-surface-start: rgb(10, 22, 36);
+  --jk-canon-surface-end: rgb(8, 18, 30);
+  --jk-theme-highlight: #38bdf8;
+  --jk-theme-highlight-rgb: 56, 189, 248;
 }
 
-/* --- Cobalt: corporativo frío, azul acero --- */
-body.jkfw-theme-cobalt {
-  --jk-primary-blue: #3b82f6;
-  --jk-primary-blue-light: #60a5fa;
-  --jk-primary-blue-dark: #2563eb;
-  --jk-primary-blue-darker: #1e3a8a;
-  --jk-secondary-green: #22d3ee;
-  --jk-secondary-green-light: #67e8f9;
-  --jk-secondary-green-dark: #0891b2;
-  --jk-tech-darker: #020617;
-  --jk-tech-dark: #0f172a;
-  --jk-tech-medium: #1e293b;
-  --jk-tech-light: #334155;
-  --jk-glow-blue: 0 0 20px rgba(59, 130, 246, 0.45), 0 0 40px rgba(34, 211, 238, 0.2);
-  --jk-glow-cyan: 0 0 20px rgba(34, 211, 238, 0.4), 0 0 40px rgba(59, 130, 246, 0.2);
-  --jkhive-canonical-blue-hex-shadow: 0 8px 32px rgba(59, 130, 246, 0.3), inset 0 0 40px rgba(34, 211, 238, 0.1);
-  --jkhive-canonical-blue-hex-shadow-hover: 0 12px 40px rgba(59, 130, 246, 0.45), 0 0 60px rgba(244, 196, 48, 0.25),
-    inset 0 0 60px rgba(34, 211, 238, 0.18);
-  --jkhive-canonical-blue-hex-glow-radial: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.25) 0%, transparent 70%);
+/* Regla canónica global de superficies JK Hive:
+ * - mismas escalas SVG en todos los temas/tipos de plantilla
+ * - cambian solo color/intensidad según tokens de tema */
+body.jkfw-theme-canonical,
+body.jkfw-theme-elegant,
+body.jkfw-theme-ember,
+body.jkfw-theme-nature {
+  --jk-theme-surface-start: var(--jk-canon-surface-start, var(--jk-tech-darker));
+  --jk-theme-surface-end: var(--jk-canon-surface-end, var(--jk-tech-dark));
+  --jk-theme-surface-pattern-size: var(--honeycomb-size-sidebar);
 }
 
-/* --- Ember: calor humano, coral + carbón cálido (miel resalta más) --- */
+body.jkfw-theme-canonical .hero-section,
+body.jkfw-theme-elegant .hero-section,
+body.jkfw-theme-ember .hero-section,
+body.jkfw-theme-nature .hero-section {
+  background: linear-gradient(180deg, var(--jk-theme-surface-start) 0%, var(--jk-theme-surface-end) 100%);
+}
+
+body.jkfw-theme-canonical .hero-section::before,
+body.jkfw-theme-elegant .hero-section::before,
+body.jkfw-theme-ember .hero-section::before,
+body.jkfw-theme-nature .hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(var(--jk-hero-pattern-color-rgb), var(--jk-hero-pattern-opacity));
+  -webkit-mask-image: var(--honeycomb-url);
+  mask-image: var(--honeycomb-url);
+  -webkit-mask-size: var(--jk-theme-surface-pattern-size);
+  mask-size: var(--jk-theme-surface-pattern-size);
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body.jkfw-theme-canonical .hero-section > *,
+body.jkfw-theme-elegant .hero-section > *,
+body.jkfw-theme-ember .hero-section > *,
+body.jkfw-theme-nature .hero-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+body.jkfw-theme-canonical #jkhive-sidebar-container,
+body.jkfw-theme-elegant #jkhive-sidebar-container,
+body.jkfw-theme-ember #jkhive-sidebar-container,
+body.jkfw-theme-nature #jkhive-sidebar-container {
+  background: linear-gradient(180deg, var(--jk-theme-surface-start) 0%, var(--jk-theme-surface-end) 100%);
+}
+
+body.jkfw-theme-canonical #jkhive-sidebar-container::before,
+body.jkfw-theme-elegant #jkhive-sidebar-container::before,
+body.jkfw-theme-ember #jkhive-sidebar-container::before,
+body.jkfw-theme-nature #jkhive-sidebar-container::before {
+  background-image: none;
+  background-color: rgba(var(--jk-hero-pattern-color-rgb), var(--jk-hero-pattern-opacity));
+  -webkit-mask-image: var(--honeycomb-url);
+  mask-image: var(--honeycomb-url);
+  -webkit-mask-size: var(--jk-theme-surface-pattern-size);
+  mask-size: var(--jk-theme-surface-pattern-size);
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
+}
+
+body.jkfw-theme-canonical .jkhive-navbar,
+body.jkfw-theme-elegant .jkhive-navbar,
+body.jkfw-theme-ember .jkhive-navbar,
+body.jkfw-theme-nature .jkhive-navbar {
+  background: linear-gradient(180deg, var(--jk-theme-surface-start) 0%, var(--jk-theme-surface-end) 100%);
+}
+
+body.jkfw-theme-canonical .jkhive-navbar::before,
+body.jkfw-theme-elegant .jkhive-navbar::before,
+body.jkfw-theme-ember .jkhive-navbar::before,
+body.jkfw-theme-nature .jkhive-navbar::before {
+  background-image: none;
+  background-color: rgba(var(--jk-hero-pattern-color-rgb), var(--jk-hero-pattern-opacity));
+  -webkit-mask-image: var(--honeycomb-url);
+  mask-image: var(--honeycomb-url);
+  -webkit-mask-size: var(--jk-theme-surface-pattern-size);
+  mask-size: var(--jk-theme-surface-pattern-size);
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
+}
+
+body.jkfw-theme-canonical .jkhive-footer,
+body.jkfw-theme-elegant .jkhive-footer,
+body.jkfw-theme-ember .jkhive-footer,
+body.jkfw-theme-nature .jkhive-footer,
+body.jkfw-theme-canonical .jkhive-footer-crm,
+body.jkfw-theme-elegant .jkhive-footer-crm,
+body.jkfw-theme-ember .jkhive-footer-crm,
+body.jkfw-theme-nature .jkhive-footer-crm,
+body.jkfw-theme-canonical .jkhive-crm-footer,
+body.jkfw-theme-elegant .jkhive-crm-footer,
+body.jkfw-theme-ember .jkhive-crm-footer,
+body.jkfw-theme-nature .jkhive-crm-footer {
+  background: linear-gradient(180deg, var(--jk-theme-surface-start) 0%, var(--jk-theme-surface-end) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+body.jkfw-theme-canonical .jkhive-footer::after,
+body.jkfw-theme-elegant .jkhive-footer::after,
+body.jkfw-theme-ember .jkhive-footer::after,
+body.jkfw-theme-nature .jkhive-footer::after,
+body.jkfw-theme-canonical .jkhive-footer-crm::after,
+body.jkfw-theme-elegant .jkhive-footer-crm::after,
+body.jkfw-theme-ember .jkhive-footer-crm::after,
+body.jkfw-theme-nature .jkhive-footer-crm::after,
+body.jkfw-theme-canonical .jkhive-crm-footer::after,
+body.jkfw-theme-elegant .jkhive-crm-footer::after,
+body.jkfw-theme-ember .jkhive-crm-footer::after,
+body.jkfw-theme-nature .jkhive-crm-footer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(var(--jk-hero-pattern-color-rgb), var(--jk-hero-pattern-opacity));
+  -webkit-mask-image: var(--honeycomb-url);
+  mask-image: var(--honeycomb-url);
+  -webkit-mask-size: var(--jk-theme-surface-pattern-size);
+  mask-size: var(--jk-theme-surface-pattern-size);
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body.jkfw-theme-canonical .jkhive-footer .jkhive-footer-inner,
+body.jkfw-theme-elegant .jkhive-footer .jkhive-footer-inner,
+body.jkfw-theme-ember .jkhive-footer .jkhive-footer-inner,
+body.jkfw-theme-nature .jkhive-footer .jkhive-footer-inner,
+body.jkfw-theme-canonical .jkhive-crm-footer .jkhive-crm-footer-inner,
+body.jkfw-theme-elegant .jkhive-crm-footer .jkhive-crm-footer-inner,
+body.jkfw-theme-ember .jkhive-crm-footer .jkhive-crm-footer-inner,
+body.jkfw-theme-nature .jkhive-crm-footer .jkhive-crm-footer-inner {
+  position: relative;
+  z-index: 1;
+}
+
+/**
+ * ELEGANT — mármol claro, acentos fríos elegantes. `--jk-tech-*` claros + texto vía `--jk-metal-*` oscurecido.
+ * Sobre panal/honey/metal claro se re-enlaza `--jk-ui-ink` como `--jk-tech-darker` localmente.
+ */
+body.jkfw-theme-elegant {
+  --jk-hero-pattern-color-rgb: 212, 160, 23;
+  --jk-hero-pattern-opacity: 0.36;
+  --jk-theme-highlight: #94a3b8;
+  --jk-theme-highlight-rgb: 148, 163, 184;
+  --jk-ui-ink: #161412;
+  --jk-primary-blue: #64748b;
+  --jk-primary-blue-light: #94a3b8;
+  --jk-primary-blue-dark: #475569;
+  --jk-primary-blue-darker: #334155;
+  --jk-secondary-green: #a1a09b;
+  --jk-secondary-green-light: #c9c5bf;
+  --jk-secondary-green-dark: #6f6964;
+  --jk-tech-darker: #f4f1ec;
+  --jk-tech-dark: #e9e3da;
+  --jk-tech-medium: #d9d1c5;
+  --jk-tech-light: #c8bfb1;
+  --jk-metal-light: #1c1917;
+  --jk-metal: #3f3a36;
+  --jk-metal-dark: #575049;
+  --jk-metal-darker: #6e6660;
+  --jk-glow-blue: 0 0 22px rgba(100, 116, 139, 0.22), 0 0 42px rgba(212, 160, 23, 0.14);
+  --jk-glow-cyan: 0 0 18px rgba(148, 163, 184, 0.28), 0 0 36px rgba(212, 160, 23, 0.1);
+  --jkhive-canonical-blue-hex-shadow: 0 8px 32px rgba(100, 116, 139, 0.2), inset 0 0 44px rgba(212, 160, 23, 0.08);
+  --jkhive-canonical-blue-hex-shadow-hover: 0 12px 42px rgba(100, 116, 139, 0.3), 0 0 52px rgba(244, 196, 48, 0.24),
+    inset 0 0 60px rgba(212, 160, 23, 0.1);
+  --jkhive-canonical-blue-hex-glow-radial: radial-gradient(circle at 50% 0%, rgba(148, 163, 184, 0.2) 0%, transparent 72%);
+}
+
+/* Texto oscuro sobre miel / metal claro (el tema aclara --jk-tech-darker para fondos). */
+body.jkfw-theme-elegant .jkhive-hex-accent,
+body.jkfw-theme-elegant .jkhive-hex-accent .jkhive-hex-content,
+body.jkfw-theme-elegant .jkhive-btn-hex-accent,
+body.jkfw-theme-elegant .jkhive-btn-hex-h,
+body.jkfw-theme-elegant .jkhive-hex-white,
+body.jkfw-theme-elegant .jkhive-hex-white .jkhive-hex-content {
+  --jk-tech-darker: var(--jk-ui-ink);
+}
+
+/* --- NATURE — bosque profundo, verdes naturales --- */
+body.jkfw-theme-nature {
+  --jk-hero-pattern-color-rgb: 132, 204, 22;
+  --jk-hero-pattern-opacity: 0.34;
+  --jk-theme-highlight: #6ee7b7;
+  --jk-theme-highlight-rgb: 110, 231, 183;
+  --jk-primary-blue: #34d399;
+  --jk-primary-blue-light: #6ee7b7;
+  --jk-primary-blue-dark: #10b981;
+  --jk-primary-blue-darker: #065f46;
+  --jk-secondary-green: #84cc16;
+  --jk-secondary-green-light: #bef264;
+  --jk-secondary-green-dark: #4d7c0f;
+  --jk-tech-darker: #07120c;
+  --jk-tech-dark: #0f2016;
+  --jk-tech-medium: #1a3325;
+  --jk-tech-light: #284a34;
+  --jk-glow-blue: 0 0 22px rgba(52, 211, 153, 0.38), 0 0 44px rgba(132, 204, 22, 0.22);
+  --jk-glow-cyan: 0 0 20px rgba(132, 204, 22, 0.35), 0 0 42px rgba(16, 185, 129, 0.2);
+  --jkhive-canonical-blue-hex-shadow: 0 8px 32px rgba(16, 185, 129, 0.26), inset 0 0 40px rgba(132, 204, 22, 0.1);
+  --jkhive-canonical-blue-hex-shadow-hover: 0 12px 42px rgba(52, 211, 153, 0.36), 0 0 60px rgba(244, 196, 48, 0.26),
+    inset 0 0 60px rgba(132, 204, 22, 0.14);
+  --jkhive-canonical-blue-hex-glow-radial: radial-gradient(circle at 50% 0%, rgba(52, 211, 153, 0.24) 0%, transparent 70%);
+}
+
+/* --- Brasas (ember): calor humano, coral + carbón cálido --- */
 body.jkfw-theme-ember {
+  --jk-hero-pattern-color-rgb: 249, 115, 22;
+  --jk-hero-pattern-opacity: 0.36;
+  --jk-theme-highlight: #fb923c;
+  --jk-theme-highlight-rgb: 251, 146, 60;
   --jk-primary-blue: #f97316;
   --jk-primary-blue-light: #fb923c;
   --jk-primary-blue-dark: #ea580c;
@@ -67,3 +262,81 @@ body.jkfw-theme-ember {
     inset 0 0 60px rgba(244, 63, 94, 0.15);
   --jkhive-canonical-blue-hex-glow-radial: radial-gradient(circle at 50% 0%, rgba(249, 115, 22, 0.22) 0%, transparent 70%);
 }
+
+/* =============================================================================
+ * Launchpad (index.php): fondo + doble capa honeycomb SVG — miel en bordes intacta en componentes; aquí solo matiz de textura.
+ * ============================================================================= */
+
+/*
+ * CANON en el launchpad: sin override aquí → se usa el fondo oficial de `jkfw-launcher.css`
+ * (lavado miel translúcido + doble capa honeycomb SVG). El tema CANON marca tokens tech en :root/jkfw-themes corporales,
+ * no sustituye la identidad de fondo del selector.
+ */
+
+/* ELEGANT — mármol, panal velado cálido */
+body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher__bg {
+  background: linear-gradient(165deg, #faf8f5 0%, #ebe6df 45%, #e0d8cc 100%);
+  backdrop-filter: blur(14px);
+}
+
+body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher__bg::before,
+body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher__bg::after {
+  filter: brightness(0) invert(1) opacity(0.09);
+}
+
+body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher__title,
+body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher__subtitle {
+  color: var(--jk-ui-ink);
+  text-shadow: 0 0 22px rgba(255, 255, 255, 0.65), 0 2px 0 rgba(90, 75, 60, 0.15);
+}
+
+body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher__themes a {
+  color: var(--jk-ui-ink);
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(212, 160, 23, 0.42);
+}
+
+body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher .jkfw-launcher-section-heading.jkhive-section-title {
+  color: var(--jk-ui-ink);
+  text-shadow: 0 0 16px rgba(255, 255, 255, 0.5);
+}
+
+body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher .jkfw-launcher-section-heading.jkhive-section-title::after {
+  background: var(--jk-ui-ink);
+  opacity: 0.35;
+}
+
+/* NATURE — bosque, panal teñido verde */
+body.jkfw-theme-nature.jkfw-launcher-body .jkfw-launcher__bg {
+  background: linear-gradient(168deg, #0a1810 0%, #12271a 48%, #0c1f14 100%);
+  backdrop-filter: blur(12px);
+}
+
+body.jkfw-theme-nature.jkfw-launcher-body .jkfw-launcher__bg::before,
+body.jkfw-theme-nature.jkfw-launcher-body .jkfw-launcher__bg::after {
+  filter: brightness(0) saturate(100%) invert(48%) sepia(52%) hue-rotate(92deg) saturate(380%) brightness(0.72) opacity(0.42);
+}
+
+body.jkfw-theme-nature.jkfw-launcher-body .jkfw-launcher__title,
+body.jkfw-theme-nature.jkfw-launcher-body .jkfw-launcher__subtitle {
+  color: var(--jk-metal-light);
+  text-shadow: 0 0 26px rgba(52, 211, 153, 0.35), 0 2px 0 rgba(0, 0, 0, 0.45);
+}
+
+body.jkfw-theme-nature.jkfw-launcher-body .jkfw-launcher__themes a {
+  color: var(--jk-metal-light);
+  background: rgba(10, 35, 22, 0.55);
+  border: 1px solid rgba(212, 160, 23, 0.5);
+}
+
+body.jkfw-theme-nature.jkfw-launcher-body .jkfw-launcher .jkfw-launcher-section-heading.jkhive-section-title {
+  color: var(--jk-metal-light);
+  text-shadow: 0 0 18px rgba(52, 211, 153, 0.25);
+}
+
+body.jkfw-theme-nature.jkfw-launcher-body .jkfw-launcher .jkfw-launcher-section-heading.jkhive-section-title::after {
+  background: linear-gradient(90deg, transparent, var(--jk-accent-honey), transparent);
+  opacity: 0.9;
+}
+
+/* Brasas: mantiene el lavado cálido por defecto de jkfw-launcher.css (sin bloque = comportamiento actual). */

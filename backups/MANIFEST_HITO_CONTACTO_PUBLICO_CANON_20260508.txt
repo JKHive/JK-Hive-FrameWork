@@ -1,0 +1,22 @@
+Hito cerrado 2026-05-08 — Formulario de contacto público JK Hive canónico
+================================================================================
+
+Fuente autoritativa antes del commit de cierre (mesa): c:\xampp\htdocs\JKHFW
+Espejo en repo: JK-Hive-FrameWork/showcase/
+
+Árboles tocados principalmente por este hito:
+  showcase/demo-landing-simple-contact.php
+  showcase/includes/jkfw-landing-simple-hero.php
+  showcase/includes/jkfw-landing-simple-sidebar.php
+  showcase/assets/css/jk-hive.css
+  showcase/assets/css/jkfw-launcher.css
+  showcase/assets/css/jkfw-themes.css
+  showcase/assets/css/jkhive-sidebar.css
+  showcase/assets/js/jkhive-toasts.js
+  showcase/assets/js/jk-hive-toast-api.js
+
+Documentación: docs/CONTACT_FORM_PUBLIC_CANON.md
+
+Notas:
+  • El estado final queda registrado por git (commit etiquetación manual opcional por el equipo).
+  • Para comparar contra mesa tras futuros cambios locales, ejecutar diff entre mesa JKHFW y showcase.

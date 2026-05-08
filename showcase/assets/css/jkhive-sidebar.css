@@ -19,7 +19,7 @@
   z-index: 999;
   box-sizing: border-box;
   background: var(--jk-tech-darker);
-  border-right: 2px solid rgba(14, 165, 233, 0.3);
+  border-right: 2px solid var(--jk-primary-blue);
   box-shadow: none;
 }
 
@@ -55,7 +55,7 @@
   padding: calc(30px + (85px * 1.1547 - 24px)) 0 var(--jk-spacing-lg) 0;
   box-shadow: none;
   overflow-y: auto;
-  overflow-x: hidden !important;
+  overflow-x: visible !important;
   border-right: none;
 }
 
@@ -332,32 +332,51 @@
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   background: linear-gradient(135deg, var(--jk-tech-medium) 0%, var(--jk-tech-dark) 100%);
   margin: 0;
-  border: 1px solid rgba(14, 165, 233, 0.3);
+  border: none;
+  color: rgba(14, 165, 233, 0.3);
   box-shadow: 
     0 4px 6px -1px rgba(0, 0, 0, 0.4), 
     0 2px 4px -1px rgba(0, 0, 0, 0.3), 
     inset 0 0 20px rgba(14, 165, 233, 0.1);
+  filter: drop-shadow(0 0 0 1px rgba(14, 165, 233, 0.3));
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 #jkhive-sidebar .jkhive-nav-item .jkhive-hex:hover,
 .jkhive-sidebar .jkhive-nav-item .jkhive-hex:hover {
   background: linear-gradient(135deg, var(--jk-primary-blue-dark) 0%, var(--jk-primary-blue) 100%);
-  border-color: var(--jk-primary-blue-light);
+  border: none;
+  color: var(--jk-primary-blue-light);
   transform: scale(1.05);
   box-shadow: var(--jk-shadow-lg), var(--jk-glow-blue);
+  filter: drop-shadow(0 0 0 2px var(--jk-primary-blue-light)) drop-shadow(0 0 12px rgba(56, 189, 248, 0.4));
   position: relative;
   z-index: 5;
 }
 
 #jkhive-sidebar .jkhive-nav-item.active .jkhive-hex,
-.jkhive-sidebar .jkhive-nav-item.active .jkhive-hex {
-  background: linear-gradient(135deg, var(--jk-secondary-green-dark) 0%, var(--jk-secondary-green) 100%);
-  border-color: var(--jk-secondary-green-light);
-  box-shadow: var(--jk-shadow-lg), var(--jk-glow-cyan);
+.jkhive-sidebar .jkhive-nav-item.active .jkhive-hex,
+#jkhive-sidebar .jkhive-nav-item a.active .jkhive-hex,
+.jkhive-sidebar .jkhive-nav-item a.active .jkhive-hex {
+  background: linear-gradient(135deg, var(--jk-primary-blue-dark) 0%, var(--jk-primary-blue) 50%, var(--jk-primary-blue-light) 100%) !important;
+  border: none !important;
+  color: var(--jk-theme-highlight) !important;
+  box-shadow: var(--jk-shadow-lg) !important;
+  filter: drop-shadow(0 0 0 4px var(--jk-theme-highlight)) drop-shadow(0 0 22px rgba(var(--jk-theme-highlight-rgb), 0.95));
   animation: jkhive-anmtn-sidebar-activenav-pulse 2s ease-in-out infinite;
   position: relative;
   z-index: 5;
+}
+
+#jkhive-sidebar .jkhive-nav-item.active .jkhive-hex .jkhive-hex-content,
+.jkhive-sidebar .jkhive-nav-item.active .jkhive-hex .jkhive-hex-content,
+#jkhive-sidebar .jkhive-nav-item.active .jkhive-hex .jkhive-hex-icon,
+.jkhive-sidebar .jkhive-nav-item.active .jkhive-hex .jkhive-hex-icon,
+#jkhive-sidebar .jkhive-nav-item a.active .jkhive-hex .jkhive-hex-content,
+.jkhive-sidebar .jkhive-nav-item a.active .jkhive-hex .jkhive-hex-content,
+#jkhive-sidebar .jkhive-nav-item a.active .jkhive-hex .jkhive-hex-icon,
+.jkhive-sidebar .jkhive-nav-item a.active .jkhive-hex .jkhive-hex-icon {
+  color: var(--jk-theme-highlight) !important;
 }
 
 /* Cuando el submenú está ABIERTO (jkhive-submenu-expanded): el toggle padre muestra "expanded" (ámbar).
@@ -380,10 +399,10 @@
 
 @keyframes jkhive-anmtn-sidebar-activenav-pulse {
   0%, 100% {
-    box-shadow: var(--jk-shadow-lg), 0 0 20px rgba(20, 184, 166, 0.5);
+    filter: drop-shadow(0 0 0 4px var(--jk-theme-highlight)) drop-shadow(0 0 20px rgba(var(--jk-theme-highlight-rgb), 0.9));
   }
   50% {
-    box-shadow: var(--jk-shadow-lg), 0 0 30px rgba(20, 184, 166, 0.8);
+    filter: drop-shadow(0 0 0 4px var(--jk-theme-highlight)) drop-shadow(0 0 30px rgba(var(--jk-theme-highlight-rgb), 1));
   }
 }
 
@@ -409,7 +428,7 @@
   position: relative;
   z-index: 1;
   text-align: center;
-  color: var(--jk-metal-light);
+  color: currentColor;
   padding: var(--jk-spacing-md);
   width: 100%;
   height: 100%;
@@ -423,7 +442,7 @@
 /* Estilos para hex-icon dentro de los items de navegación del sidebar */
 #jkhive-sidebar .jkhive-nav-item .jkhive-hex-icon,
 .jkhive-sidebar .jkhive-nav-item .jkhive-hex-icon {
-  color: var(--jk-metal-light);
+  color: currentColor;
   text-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
 }
 
@@ -739,16 +758,20 @@ body > .jkhive-submenu-horizontal .jkhive-submenu-item.active {
 #jkhive-sidebar .jkhive-submenu-item.active .jkhive-hex,
 .jkhive-sidebar .jkhive-submenu-item.active .jkhive-hex,
 body > .jkhive-submenu-horizontal .jkhive-submenu-item.active .jkhive-hex {
-  background: linear-gradient(135deg, var(--jk-secondary-green-dark) 0%, var(--jk-secondary-green) 100%) !important;
+  background: linear-gradient(135deg, var(--jk-tech-medium) 0%, var(--jk-tech-dark) 100%) !important;
   border: none !important;
-  box-shadow: none !important;
-  filter: drop-shadow(0 0 1px rgba(20, 184, 166, 1)) drop-shadow(0 0 18px rgba(20, 184, 166, 0.6)) !important;
+  box-shadow: var(--jk-shadow-lg) !important;
+  filter: drop-shadow(0 0 0 2px var(--jk-theme-highlight)) drop-shadow(0 0 14px rgba(56, 189, 248, 0.45)) !important;
   animation: jkhive-anmtn-sidebar-submenu-pulse 2s ease-in-out infinite;
 }
 
 @keyframes jkhive-anmtn-sidebar-submenu-pulse {
-  0%, 100% { filter: drop-shadow(0 0 1px rgba(20, 184, 166, 1)) drop-shadow(0 0 15px rgba(20, 184, 166, 0.5)) !important; }
-  50% { filter: drop-shadow(0 0 1px rgba(20, 184, 166, 1)) drop-shadow(0 0 22px rgba(20, 184, 166, 0.75)) !important; }
+  0%, 100% {
+    filter: drop-shadow(0 0 0 2px var(--jk-theme-highlight)) drop-shadow(0 0 12px rgba(56, 189, 248, 0.42)) !important;
+  }
+  50% {
+    filter: drop-shadow(0 0 0 2px var(--jk-theme-highlight)) drop-shadow(0 0 20px rgba(56, 189, 248, 0.7)) !important;
+  }
 }
 
 /* Base: hexágonos del submenú - solo filter: drop-shadow (sin box-shadow: inset evita rayas con clip-path) */

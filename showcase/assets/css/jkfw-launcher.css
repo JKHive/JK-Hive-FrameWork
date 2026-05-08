@@ -671,3 +671,366 @@ main.jkfw-launcher-hive-main .jkhive-hex-gallery .jkhive-itemgallery-med .jkhive
   line-height: 1.45;
   color: var(--jk-metal-light);
 }
+
+/* --- Landing básica (single-page) --- */
+.jkfw-landing-basic-body .jkhive-main-content {
+  margin-top: 0 !important;
+}
+
+.jkfw-landing-basic-body .jkhive-content-wrap,
+.jkfw-landing-basic-body .jkhive-page-container {
+  width: 100%;
+  max-width: none;
+  padding: 0 !important;
+}
+
+.jkfw-landing-basic-body .hero-jkhive-hub {
+  margin-bottom: 1.25rem;
+}
+
+.jkfw-landing-basic-hero {
+  width: 100%;
+  max-width: none;
+  margin: 0 0 1.1rem;
+  min-height: clamp(360px, 58vh, 620px);
+  padding: clamp(1.4rem, 3.5vh, 2.2rem) clamp(1rem, 2vw, 1.8rem);
+  text-align: center;
+  border: 0;
+  border-bottom: 3px solid var(--jk-primary-blue);
+  border-radius: 0;
+  background: linear-gradient(180deg, rgb(10, 22, 36) 0%, rgb(8, 18, 30) 100%) !important;
+  box-shadow: 0 0 0 1px rgba(244, 196, 48, 0.08) inset;
+  display: block !important;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Fuerza explícita para vencer .hero-section de jkhive-style.css */
+.hero-section.jkfw-landing-basic-hero,
+.hero-section.jkfw-landing-basic-hero.jkhive-surface-panel-honeycomb-sm {
+  background: linear-gradient(180deg, rgb(10, 22, 36) 0%, rgb(8, 18, 30) 100%) !important;
+}
+
+.jkfw-landing-basic-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(var(--jk-hero-pattern-color-rgb), var(--jk-hero-pattern-opacity));
+  -webkit-mask-image: var(--honeycomb-url);
+  mask-image: var(--honeycomb-url);
+  -webkit-mask-size: 28px 48px;
+  mask-size: 28px 48px;
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.jkfw-landing-basic-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.jkfw-landing-basic-hero-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+
+.jkfw-landing-basic-hero-logo .jkhive-editorial-hero-logo {
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Override explícito al lock de 90px definido en hero-hex-animation.css */
+.hero-section.jkfw-landing-basic-hero .jkhive-editorial-hero-logo .jkhive-hex {
+  width: 180px !important;
+  height: calc(180px * 1.1547) !important;
+  --hex-size: 180px !important;
+}
+
+.hero-section.jkfw-landing-basic-hero .jkhive-editorial-hero-logo .jkhive-logo-main {
+  font-size: 3rem !important;
+}
+
+.hero-section.jkfw-landing-basic-hero .jkhive-editorial-hero-logo .jkhive-logo-sub {
+  font-size: 1rem !important;
+}
+
+.jkfw-landing-basic-hero-title {
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.4rem, 2.35vw, 2rem);
+  color: var(--jk-metal-light);
+  line-height: 1.2;
+  text-shadow: 0 0 14px rgba(14, 165, 233, 0.28);
+}
+
+.jkfw-landing-basic-hero-subtitle {
+  margin: 0 auto;
+  max-width: 64rem;
+  color: var(--jk-primary-blue-light);
+  font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+  line-height: 1.5;
+}
+
+.jkfw-landing-basic-section {
+  max-width: 1100px;
+  margin: 0 auto 1.5rem;
+  padding: 1rem clamp(0.95rem, 2vw, 1.35rem) 1.4rem;
+}
+
+.jkfw-landing-basic-body .jkhive-lead-wrap,
+.jkfw-landing-basic-body .jkhive-index-lead {
+  text-align: center;
+}
+
+.jkfw-landing-basic-body .jkhive-lead-text {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 62rem;
+}
+
+.jkfw-landing-basic-lead {
+  margin: 0 0 0.75rem;
+  color: var(--jk-primary-blue-light);
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+.jkfw-landing-basic-text {
+  margin: 0;
+  max-width: 60rem;
+  color: var(--jk-metal-light);
+  line-height: 1.6;
+}
+
+.jkfw-landing-basic-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 1.2rem;
+}
+
+.jkfw-landing-basic-cta-link {
+  text-decoration: none;
+}
+
+.jkfw-landing-basic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.95rem;
+}
+
+/* Galerías en landing básica: transparentes por defecto (muestran fondo del body o del contenedor padre). */
+.jkfw-landing-basic-body .jkhive-hex-gallery,
+.jkfw-landing-basic-body .jkfw-launcher-hex-gallery,
+.jkfw-landing-basic-body .jkhive-hex-gallery-medium,
+.jkfw-landing-basic-body .jkhive-hex-gallery-small {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border: 0 !important;
+}
+
+/* Galerías landing básica: orden estable y centrado (desktop/mobile) */
+.jkfw-landing-basic-body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium,
+.jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-small {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  gap: clamp(0.65rem, 1.8vw, 1rem) !important;
+  padding: 0 !important;
+}
+
+.jkfw-landing-basic-body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkhive-itemgallery-med,
+.jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-small .jkhive-itemgallery-small {
+  margin: 0 !important;
+  transform: none !important;
+}
+
+.jkfw-landing-basic-grid-contact {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.jkfw-landing-basic-card {
+  padding: 1.1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(14, 165, 233, 0.25);
+  background:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.76) 0%, rgba(10, 18, 30, 0.72) 100%),
+    var(--honeycomb-url) repeat 0 0;
+  background-size: 100% 100%, var(--honeycomb-size-sidebar);
+}
+
+.jkfw-landing-basic-card-title {
+  margin: 0 0 0.45rem;
+  color: var(--jk-accent-honey-light);
+  font-size: 1rem;
+}
+
+.jkfw-landing-basic-card-text {
+  margin: 0;
+  color: var(--jk-metal-light);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.jkfw-landing-basic-carousel {
+  margin-top: 0.65rem;
+}
+
+.jkfw-landing-basic-contact-link-wrap {
+  margin-top: 0.65rem;
+}
+
+.jkfw-landing-basic-contact-link {
+  color: var(--jk-primary-blue-light);
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
+.jkfw-contact-form {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.jkfw-contact-form-label {
+  font-size: 0.9rem;
+  color: var(--jk-metal-light);
+  font-weight: 600;
+}
+
+.jkfw-contact-form-input {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid rgba(14, 165, 233, 0.35);
+  background-color: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  color: var(--jk-metal-light);
+  padding: 0.55rem 0.65rem;
+}
+
+.jkfw-contact-form-input:focus {
+  outline: none;
+  border-color: var(--jk-accent-honey);
+  box-shadow: 0 0 0 2px rgba(212, 160, 23, 0.25);
+}
+
+.jkfw-contact-form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.jkfw-contact-form-submit-wrap {
+  margin-top: 0.6rem;
+  display: flex;
+  justify-content: center;
+}
+
+.jkfw-contact-form-submit {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.jkfw-contact-form-result {
+  margin-top: 0.6rem;
+  font-size: 0.82rem;
+  color: var(--jk-metal-light);
+  min-height: 1.2rem;
+}
+
+.jkfw-contact-form-result--ok {
+  color: var(--jk-primary-blue-light);
+}
+
+.jkfw-contact-info-text {
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.jkfw-contact-info-text .jkhive-link-inline {
+  color: var(--jk-primary-blue-light);
+  font-weight: 600;
+  text-underline-offset: 0.16em;
+}
+
+.jkfw-landing-basic-grid-contact .jkfw-landing-basic-card-title {
+  font-size: 1.15rem;
+}
+
+.jkfw-landing-simple-home-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(0.95rem, 2vw, 1.35rem);
+}
+
+.jkfw-landing-basic-body .jkfw-landing-simple-home-page .jkhive-index-section {
+  max-width: 1100px;
+  margin: 0 auto 1.5rem;
+  padding: 1rem clamp(0.95rem, 2vw, 1.35rem);
+}
+
+.jkfw-landing-basic-body .jkfw-landing-simple-home-page .jkhive-index-why-sub {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 62rem;
+}
+
+.jkfw-simple-why-icon-a,
+.jkfw-simple-why-icon-b {
+  font-size: 1.91rem;
+}
+
+.jkfw-simple-why-icon-a {
+  color: var(--jk-accent-honey);
+}
+
+.jkfw-simple-why-icon-b {
+  color: var(--jk-primary-blue);
+}
+
+.jkfw-simple-why-title-a,
+.jkfw-simple-why-title-b {
+  font-size: 1rem;
+}
+
+.jkfw-simple-why-title-a {
+  color: var(--jk-primary-blue);
+}
+
+.jkfw-simple-why-title-b {
+  color: var(--jk-accent-honey);
+}
+
+.jkfw-simple-why-sub {
+  font-size: 0.675rem;
+  color: var(--jk-metal-light);
+}
+
+@media (max-width: 768px) {
+  .jkfw-landing-basic-hero {
+    min-height: clamp(320px, 52vh, 460px);
+    border-radius: 0;
+  }
+
+  .jkfw-landing-basic-section {
+    padding-inline: 0.85rem;
+  }
+}

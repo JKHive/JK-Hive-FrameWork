@@ -61,6 +61,15 @@ Eso **no distingue** el hex grande del ítem del panal del **primer** nivel de c
 - Regla Cursor: `.cursor/rules/jkhfw-xampp-workflow.mdc`.
 - Validación por componente: `docs/VALIDACION_COMPONENTES.md` (extensible con esta matriz).
 
+## 7. Formulario de contacto público (canónico)
+
+- Contrato detallado en **`docs/CONTACT_FORM_PUBLIC_CANON.md`** (no duplicar aquí el checklist completo).
+- Invariantes que **no romper** en sitios públicos JK Hive:
+  - Campos dentro de **`jkhive-field-surface jkhive-surface-theme-sidebar`** (SVG panal único por máscara + tokens hero; sin segunda capa `var(--honeycomb-url)` en el wrap).
+  - Botón enviar hex **admoptions+bttn-big** como en showcase.
+  - Validación cliente en orden nombre → correo → mensaje; **asunto opcional**; errores tipo **B** sobre el botón; éxito tipo **A** con regla hero / posición estándar.
+- Producción puede añadir backend; la misma cascada UX debe mantenerse salvo especificación nueva.
+
 ---
 
 **Mantenimiento:** cualquier nueva familia de componente debe añadir aquí una subsección breve (qué token / qué archivo / qué no tocar).

@@ -7,6 +7,7 @@ Monorepo que **consolida en código real** el sistema visual JK Hive (JK Lubs, a
 | Documento | Contenido |
 |-----------|-----------|
 | [docs/JK_HIVE_FRAMEWORK_CONTRACT.md](docs/JK_HIVE_FRAMEWORK_CONTRACT.md) | Contrato único: tokens, galerías hex, temas, anti-patrones |
+| [docs/CONTACT_FORM_PUBLIC_CANON.md](docs/CONTACT_FORM_PUBLIC_CANON.md) | **Formulario contacto público** (HTML, superficies, validación, toasts A/B) |
 | [docs/PLAN_CONSOLIDACION_JK_HIVE.md](docs/PLAN_CONSOLIDACION_JK_HIVE.md) | Plan maestro y estado del build |
 | [docs/CONSOLIDACION_EJECUTADA_RESUMEN.md](docs/CONSOLIDACION_EJECUTADA_RESUMEN.md) | Resumen ejecutable de lo entregado |
 | [docs/INVENTARIO_FUENTES_JK_HIVE.md](docs/INVENTARIO_FUENTES_JK_HIVE.md) | Fase 1 — índice multi-fuente |
@@ -29,6 +30,7 @@ Regla Copilot/Cursor (**XAMPP trabajo ↔ repo aprobación**): [`.cursor/rules/j
 
 - **Repo:** carpeta [`showcase/`](showcase/) — `includes/`, `config/navigation.json`, `*.php`, `assets/` (snapshot **jkhive `www/public/assets`** + capas `jkfw-*`, `jk-hive-toast-api.js`, `error-handler.js`, `jkfw-crud-demo.js`).
 - **Características:** grilla JK Hive + **footer**; navbar/sidebar/footer desde **JSON**; tooltips JK Hive (**sin** `title`); toasts (**`toast()` / `jkHiveToast`**, tipo A/B, persistente en demo Home); tabla admin demo + **modal CRUD**; eliminar → **`showDeleteConfirmToast`**; animación **`jkhive-btn-anim-shake`** en crear.
+- **Contacto público (canónico):** ver `docs/CONTACT_FORM_PUBLIC_CANON.md` y **`showcase/demo-landing-simple-contact.php`** (wrap `jkhive-field-surface`, validación escalonada + toasts tipo B/A, sin envío real en demo).
 - **XAMPP (trabajo diario):** `c:\xampp\htdocs\JKHFW` — `http://localhost/JKHFW/index.php`
 
 ```bash
