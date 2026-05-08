@@ -1,39 +1,50 @@
 ---
-description: Mesa XAMPP (JKHFW) = trabajo vivo; repo = solo lo aprobado y verificado
+description: Regla inquebrantable: mesa XAMPP primero, repo/GitHub solo por hito aprobado
 alwaysApply: true
 ---
 
-# JK Hive — mesa de trabajo vs repositorio
+# JK Hive - flujo inquebrantable de trabajo
 
-## Qué es cada cosa
+## Regla madre (obligatoria, sin excepciones)
 
-- **`c:\xampp\htdocs\JKHFW`** es la **mesa de trabajo**: aquí el asistente y el usuario iteran todo lo que se prueba en el navegador (`http://localhost/JKHFW/`). Todo cambio que importe para “que funcione” nace **aquí primero**.
+Todo trabajo se realiza primero en la mesa `c:\xampp\htdocs\JKHFW`.
+El repo `JK-Hive-FrameWork` y GitHub solo se actualizan cuando el usuario da aprobacion final de un hito completo y funcional.
 
-- **`JK-Hive-FrameWork` (repo, p. ej. `showcase/`, `docs/`)** es el **resultado archivado** de ese trabajo: entra **únicamente** lo que el usuario da por **correcto, funcional y aceptado**. No es el taller diario; es la copia de respaldo / historial de lo ya validado.
+Nunca se rompe este flujo bajo ninguna circunstancia, salvo orden explicita del usuario para hacer algo distinto.
 
-## Regla de oro
+## Definiciones canonicas (sin duplicidades)
 
-El repo **solo cambia cuando** lo de la mesa está bien. No se “ensaya” en el repo primero ni se rellena el repo esperando sincronizar después sin aprobación explícita.
+- **Mesa (XAMPP):** `c:\xampp\htdocs\JKHFW`. Taller vivo para iterar, corregir y validar en navegador.
+- **Repo local:** `c:\Users\JK\projects\JK-Hive-FrameWork`. Respaldo versionado de estados aprobados.
+- **GitHub:** espejo remoto de hitos cerrados, no de pruebas intermedias.
 
----
+## Flujo oficial por hito
 
-## Instrucción de trabajo (cada petición)
+1. Implementar y corregir en mesa.
+2. Validar funcionamiento en mesa (incluye responsive y no regresiones).
+3. Iterar en mesa todas las veces necesarias hasta estado correcto.
+4. Esperar aprobacion explicita del usuario del hito.
+5. Al aprobarse el hito: sincronizar mesa -> repo.
+6. Actualizar documentacion del hito en `docs/`/`README` al mismo tiempo.
+7. Crear respaldo versionado del hito (archivo/copia de hito acordada).
+8. Hacer commit y push limpios del hito completo.
 
-Para **cada** cosa que pida el usuario, el asistente debe:
+## Politica de versionado (estricta)
 
-1. **Entender** la petición y acotar el alcance (qué archivos, qué comportamiento esperado).
-2. **Plan breve** mental o en lista: dependencias, CSS/PHP/JS tocados.
-3. **Revisar obstáculos**: overrides, `!important`, otras reglas que pisen lo mismo, orden de carga de CSS, selectores que ya resolvieron otro bug.
-4. **Comprobar interferencias**: que el cambio **no rompa** lo que ya está aceptado en secciones vecinas, breakpoints o páginas que comparten el mismo partial.
-5. **Implementar solo en la mesa** — editar **`c:\xampp\htdocs\JKHFW`** (y rutas que cuelguen de esa carpeta). No tocar el repo en este paso.
-6. **Verificar** en contexto: coherencia mobile/desktop, variables canónicas JK Hive, sin hacks duplicados.
-7. **Cuando el usuario confirme** que quedó OK (o dé por cerrado el punto), **entonces** replicar lo aprobado al repo (`showcase/` y lo que corresponda en `docs/` si aplica) para respaldo.
+- No se suben commits intermedios de pruebas, intentos o estados parciales.
+- No se ensucia `backups/` ni GitHub con versiones a medio terminar.
+- Solo se versiona el estado final funcional del hito aprobado.
+- Si un hito no esta aprobado, repo y GitHub no se tocan.
 
-## Prohibido
+## Prohibiciones
 
-- Hacer el flujo al revés (repo primero, XAMPP después) salvo orden explícito del usuario.
-- Subir al repo trabajo a medio probar o “para luego corregir”.
+- Repo primero y mesa despues.
+- "Guardar por si acaso" en repo/GitHub antes de aprobacion.
+- Mezclar basura tecnica (temporales, recuperados, bundles de prueba) en commits de hito.
 
-## Documentación en el repo
+## Criterio de cierre de hito
 
-Los `README` / `docs/` que describen el estado **oficial** del framework se actualizan **junto con** el traspaso a repo de lo aprobado, no antes.
+Un hito se considera cerrado solo cuando:
+- La mesa funciona como se definio.
+- El usuario lo aprueba explicitamente.
+- Repo, respaldo y documentacion quedan sincronizados con ese estado final.
