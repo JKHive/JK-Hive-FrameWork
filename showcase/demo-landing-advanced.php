@@ -1,13 +1,27 @@
 <?php
 declare(strict_types=1);
 
+require_once __DIR__ . '/includes/jkfw-launcher-blocks.php';
+
 $jk_nav = 'standalone';
 $jk_page_title = 'Landing avanzada — JK Hive';
-$jk_breadcrumb = 'Landing + administración';
-$jk_body_class = 'page-public jkhive-showcase-body';
-$jk_demo_auth = true;
+$jk_breadcrumb = 'Landing pro + administración';
+$jk_body_class = 'page-public jkhive-showcase-body admin-layout crm-layout';
+$jk_demo_auth = false;
 $jk_hide_demo_modal = true;
-$jk_extra_css = '<link rel="stylesheet" href="assets/css/jkfw-catalog-demo.css">' . "\n";
+$jk_landing_pro_nav_active = 'home';
+require_once __DIR__ . '/includes/jkfw-landing-pro-navbar.php';
+$jk_extra_css =
+    '<link rel="stylesheet" href="assets/css/jkfw-catalog-demo.css">' . "\n" .
+    '<link rel="stylesheet" href="assets/css/jkfw-launcher.css">' . "\n";
+
+$themeActiveLanding = jkfw_theme_apply_from_request();
+$themeLabelsAdmin = [
+    'canonical' => 'Canónico',
+    'aurora' => 'Aurora',
+    'cobalt' => 'Cobalto',
+    'ember' => 'Brasas',
+];
 
 require __DIR__ . '/includes/layout-head.php';
 require __DIR__ . '/includes/layout-sidebar.php';
@@ -15,11 +29,50 @@ require __DIR__ . '/includes/layout-main-open.php';
 $h = static fn (string $s): string => htmlspecialchars($s, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 ?>
 
-        <h1 class="jkhive-section-title" style="margin-top:0;">Landing con capa de aplicación</h1>
+        <h1 class="jkhive-section-title" style="margin-top:0;">Landing pro con autoadministración</h1>
         <p style="color:var(--jk-metal-light);max-width:52rem;line-height:1.55;margin:0 0 1rem;">
-          <?= $h('Incluye menú superior, sidebar y acceso demo (usuario «Visita Web», contraseña «123456»): toast tipo A al iniciar sesión, sin backend.') ?>
-          Lorem ipsum sit amet — el texto largo es sólo relleno; las etiquetas de función (listados, alta, etc.) se mantienen claras.
+          <?= $h('Misma estructura tipo jkhive: Home / About / Galería / Contáctanos, pero con login demo y capa de administración activa.') ?>
+          <?= $h('Incluye selector visual para recorrer estilos administrativos del framework sin salir del showcase.') ?>
         </p>
+
+        <nav class="jkfw-landing-nav" aria-label="Secciones landing pro">
+          <a href="demo-landing-advanced.php" data-tooltip="Home">Home</a>
+          <a href="demo-landing-advanced-about.php" data-tooltip="About">About</a>
+          <a href="demo-landing-advanced-gallery.php" data-tooltip="Galería">Galería</a>
+          <a href="demo-landing-advanced-contact.php" data-tooltip="Contáctanos">Contáctanos</a>
+        </nav>
+
+        <section id="landing-home">
+          <h2 class="jkhive-section-title" style="font-size:1.05rem;">Home (pro)</h2>
+          <p style="color:var(--jk-metal-light);max-width:48rem;line-height:1.55;">Bloque principal de propuesta de valor y CTA administrables con el shell JK Hive activo.</p>
+        </section>
+
+        <section id="landing-about">
+          <h2 class="jkhive-section-title" style="font-size:1.05rem;">About</h2>
+          <p style="color:var(--jk-metal-light);max-width:48rem;line-height:1.55;">Sección informativa editable en versión real mediante módulo de contenido.</p>
+        </section>
+
+        <section id="landing-gallery">
+        <h2 class="jkhive-section-title sm">Galería de productos / servicios</h2>
+        <div class="jkhive-hex-gallery jkhive-hex-gallery-medium jkfw-launcher-hex-gallery">
+          <?= jkfw_launcher_hex_link('#landing-gallery', 'fas fa-gem', 'Servicio A', 'Demo administrable sobre panal oficial.', 'jkhive-itemgallery-med', 'jkhive-hex-cyan-item') ?>
+          <?= jkfw_launcher_hex_link('#landing-gallery', 'fas fa-bezier-curve', 'Servicio B', 'Misma geometría med que el selector.', 'jkhive-itemgallery-med', 'jkhive-hex-blue-item') ?>
+          <?= jkfw_launcher_hex_link('#landing-gallery', 'fas fa-shield-halved', 'Servicio C', 'Sin layout flex improvisado.', 'jkhive-itemgallery-med', 'jkhive-hex-cyan-item') ?>
+          <?= jkfw_launcher_hex_link('#landing-gallery', 'fas fa-rocket', 'Servicio D', 'Responsive honeycomb JK Hive.', 'jkhive-itemgallery-med', 'jkhive-hex-blue-item') ?>
+        </div>
+        </section>
+
+        <section id="landing-contact">
+          <h2 class="jkhive-section-title" style="font-size:1.05rem;">Contáctanos</h2>
+          <p style="color:var(--jk-metal-light);max-width:48rem;line-height:1.55;">Formulario público + seguimiento desde mensajería interna.</p>
+          <p><a href="contact.php" style="color:var(--jk-primary-blue-light);"><?= $h('Abrir formulario de contacto') ?></a></p>
+        </section>
+
+        <h2 class="jkhive-section-title sm">Selector visual administrativo</h2>
+        <p style="color:var(--jk-metal-light);max-width:48rem;line-height:1.55;">Temas sobre pantallas autoadministrables (solo esta variante tiene selector en panel; Landing básica lo lleva dentro de su hex en el selector).</p>
+        <div class="jkfw-admin-theme-hexh-row"><?php foreach (jkfw_valid_theme_slugs() as $__tid) :
+            echo jkfw_admin_theme_horizontal_link($__tid, $themeLabelsAdmin[$__tid] ?? $__tid, $themeActiveLanding === $__tid);
+        endforeach; ?></div>
 
         <h2 class="jkhive-section-title" style="font-size:1.05rem;">Pantallas de gestión</h2>
         <div class="jkfw-portal-grid">

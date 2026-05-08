@@ -1,0 +1,3338 @@
+/**
+ * Modals JK Hive / Krauss
+ *
+ * Regla: los modales SIEMPRE cubren la pantalla completa (nav, sidebar, contenido).
+ * El contenedor del modal y el overlay usan position: fixed + inset: 0 con !important.
+ * Para que cubran todo el viewport, el modal debe ser hijo directo de body (no dentro de main ni de contenedores con transform).
+ *
+ * Responsive/mobile: el modal de carrito (#cartModal) mantiene en @media (max-width: 768px) position: fixed,
+ * inset: 0 y z-index máximo; body.jkhive-cart-modal-open bloquea scroll y touch. Ver MODAL-ESTRUCTURA-3-SECCIONES.md §8.
+ */
+
+/* ========================================
+   JKHIVE TRANSITION — Sistema replicable (modal + carrusel)
+   Prioridad máxima: autosuficiente, tamaño-agnóstico, mobile sin config.
+   Estructura: stage (contenedor) + frame (fondo fijo) + N slides (capas que animan).
+   Solo unidades relativas (%, scale). Sin px. Funciona en cualquier tamaño de hex o rectángulo.
+   ======================================== */
+.jkhive-transition-stage {
+  --jkhive-transition-duration: 1.5s;
+  --jkhive-transition-slide-duration: 3.5s;
+  --jkhive-transition-phase3-duration: 2.38s;
+  --jkhive-transition-phase4-duration: 1.5s;
+  --jkhive-transition-easing: cubic-bezier(0.32, 0.72, 0, 1);
+  --jkhive-transition-scale-off: 0.85;
+  --jkhive-transition-frame-bg: #000;
+  position: relative !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  /* width/height: el contenedor los define (modal = inline style; carrusel = 100% del cell) */
+}
+.jkhive-modal-hexfit-stage {
+  position: fixed !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 10001 !important;
+}
+/* Stage como hex completo (Tipos Vehículo): contenedor con forma y tamaño; centrado por el modal */
+.tipos-modal-stage.tipos-modal-stage-hex {
+  flex-shrink: 0 !important;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%) !important;
+}
+/* Frame = hex vacío: mismo borde cyan que el modal, relleno negro (solo visible en transición) */
+.tipos-modal-frame.tipos-modal-frame-hex {
+  background: transparent !important;
+  opacity: 0 !important;
+}
+.tipos-modal-stage.tipos-modal-stage-hex.jkhive-modal-tipos-transitioning .tipos-modal-frame.tipos-modal-frame-hex {
+  opacity: 1 !important;
+}
+.tipos-modal-frame.tipos-modal-frame-hex::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 3px !important;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%) !important;
+  background: var(--jkhive-transition-frame-bg, #000) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+.tipos-modal-frame.tipos-modal-frame-hex::after {
+  content: '' !important;
+  position: absolute !important;
+  inset: -3px !important;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%) !important;
+  background: #22d3ee !important;
+  z-index: -2 !important;
+  pointer-events: none !important;
+  filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.72)) !important;
+}
+.tipos-modal-frame-outer-overlay {
+  position: absolute !important;
+  inset: -1px !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+}
+.tipos-modal-stage.tipos-modal-stage-hex.jkhive-modal-tipos-phase2-active .tipos-modal-frame-outer-overlay {
+  z-index: 5 !important;
+  opacity: 1 !important;
+}
+.tipos-modal-frame-outer-overlay-svg {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: visible !important;
+}
+.tipos-modal-frame-outer-overlay-ring {
+  fill: #22d3ee !important;
+  filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.72));
+}
+.tipos-modal-frame-guide {
+  position: absolute !important;
+  inset: 2px !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+}
+.tipos-modal-stage.tipos-modal-stage-hex.jkhive-modal-tipos-transitioning .tipos-modal-frame-guide {
+  opacity: 1 !important;
+}
+.tipos-modal-stage.tipos-modal-stage-hex.jkhive-modal-tipos-phase2-active .tipos-modal-frame-guide {
+  z-index: 6 !important;
+}
+.tipos-modal-frame-guide-svg {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: visible !important;
+}
+.tipos-modal-frame-guide-outer-ring,
+.tipos-modal-frame-guide-outer {
+  opacity: 0 !important;
+}
+.tipos-modal-frame-guide-bands {
+  opacity: 1 !important;
+}
+.tipos-modal-frame-guide-band {
+  fill: var(--tipos-frame-guide-honey, url(#tiposFrameGuideHoney)) !important;
+}
+.tipos-modal-frame-guide-gloss {
+  fill: var(--tipos-frame-guide-gloss, url(#tiposFrameGuideGloss)) !important;
+  opacity: 0.45 !important;
+}
+.tipos-modal-frame-guide-lines line {
+  stroke: rgba(196, 137, 30, 0.76) !important;
+  stroke-width: 0.92 !important;
+  vector-effect: non-scaling-stroke !important;
+  filter: drop-shadow(0 0 2px rgba(77, 47, 6, 0.35));
+}
+.tipos-modal-frame-guide-inner {
+  fill: none !important;
+  stroke: rgba(34, 211, 238, 0.96) !important;
+  stroke-width: 1.45 !important;
+  vector-effect: non-scaling-stroke !important;
+  filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.38));
+}
+/* Slides = modal completo (header+body+footer); ya tienen .jkhive-modal-content.jkhive-modal-hex → mismo ::before/::after que el modal.
+   Forzar mismo lugar que el frame: sin margin ni desplazamiento (evita que reglas globales .jkhive-modal-content los muevan). */
+.tipos-modal-stage .jkhive-modal-content.jkhive-modal-hex.tipos-modal-slide {
+  margin: 0 !important;
+  left: 0 !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  inset: 0 !important;
+  isolation: isolate !important;
+  overflow: hidden !important;
+}
+.tipos-modal-stage .tipos-modal-slide.jkhive-transition-slide {
+  display: flex !important;
+  flex-direction: column !important;
+}
+.jkhive-modal-hexfit-stage .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-hexfit-slide {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  min-width: 0 !important;
+  min-height: 100% !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  isolation: isolate !important;
+  overflow: hidden !important;
+}
+.jkhive-modal-hexfit-stage .jkhive-modal-hexfit-slide.jkhive-transition-slide {
+  display: flex !important;
+  flex-direction: column !important;
+}
+/* Slide formulario: una sola geometría interna para normal y animado.
+   La transición solo debe escalar y desplazar el modal completo. */
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form {
+  --tipos-form-body-pad-top: 24px;
+  --tipos-form-nuevo-margin-top: 8vh;
+  --tipos-form-footer-margin-top: 12px;
+  --tipos-form-footer-padding: 0.5rem 1rem 0.75rem;
+  --tipos-form-exit-offset: -15px;
+}
+/* Slide formulario: el body contiene solo .tipos-form-body, debe llenar y hacer scroll */
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form > .jkhive-modal-body > .tipos-form-body {
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+}
+/* Footer honeycomb en slides (form): mismo patrón 2-1 que modal admin — Limpiar+Guardar arriba, Salir abajo centrado */
+.tipos-modal-slide .jkhive-modal-admin-footer.tipos-modal-footer-honeycomb {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 3px !important;
+  padding: var(--tipos-form-footer-padding, 0.5rem 1rem 0.75rem) !important;
+  margin-top: var(--tipos-form-footer-margin-top, 12px) !important;
+}
+.tipos-modal-slide .jkhive-modal-admin-footer-row1 {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 3px !important;
+}
+.tipos-modal-slide .jkhive-modal-admin-footer-row2 {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.tipos-modal-slide .jkhive-modal-admin-footer .jkhive-btn-cart-exit,
+.tipos-modal-slide .jkhive-modal-admin-footer .jkhive-bttn-modal-exit {
+  transform: translateY(var(--tipos-form-exit-offset, -15px)) !important;
+}
+@media (max-width: 768px) {
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form {
+    --tipos-form-body-pad-top: 10px;
+    --tipos-form-nuevo-margin-top: 1.9vh;
+    --tipos-form-footer-margin-top: -2px;
+    --tipos-form-footer-padding: 0.22rem 0.9rem 0.28rem;
+    --tipos-form-exit-offset: -20px;
+  }
+  .jkhive-transition-stage {
+    --jkhive-transition-duration: 1.5s;
+  }
+  /* Stage = mismo tamaño que .jkhive-modal-content.jkhive-modal-tipos en 768px (90%) */
+  .tipos-modal-stage.tipos-modal-stage-hex {
+    width: 90% !important;
+    max-width: 90% !important;
+    height: 85vh !important;
+    max-height: 88vh !important;
+    box-sizing: border-box !important;
+  }
+  /* Frame y slides: los 3 deben ser idénticos en tamaño y posición (llenan el stage).
+     Los slides tienen .jkhive-modal-content.jkhive-modal-hex y en mobile les aplican width 90%, margin 1rem, etc.:
+     anulamos todo para que frame y slides queden exactamente en el mismo lugar. */
+  .tipos-modal-stage .tipos-modal-frame.tipos-modal-frame-hex,
+  .tipos-modal-stage .jkhive-modal-content.jkhive-modal-hex.tipos-modal-slide {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    min-width: 0 !important;
+    min-height: 100% !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    left: 0 !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    inset: 0 !important;
+    animation: none !important;
+  }
+  .tipos-modal-stage .tipos-modal-frame.tipos-modal-frame-hex {
+    position: absolute !important;
+  }
+  .tipos-modal-stage .jkhive-modal-content.jkhive-modal-hex.tipos-modal-slide {
+    position: absolute !important;
+  }
+  .tipos-modal-slide .jkhive-modal-admin-footer.tipos-modal-footer-honeycomb {
+    padding: 0.5rem 0.75rem !important;
+    margin-top: 10px !important;
+  }
+  /* Form body en mobile: contenido más abajo, mismo criterio */
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form > .jkhive-modal-body > .tipos-form-body {
+    padding-top: 16px !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form .tipos-form-nuevo {
+    margin-top: 5vh !important;
+  }
+}
+@media (max-width: 480px) {
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form {
+    --tipos-form-body-pad-top: 8px;
+    --tipos-form-nuevo-margin-top: 1.35vh;
+    --tipos-form-footer-margin-top: -4px;
+    --tipos-form-footer-padding: 0.18rem 0.75rem 0.22rem;
+    --tipos-form-exit-offset: -19.5px;
+  }
+  /* Stage = mismo tamaño que .jkhive-modal-content[style*="max-width"] en 480px (95%) */
+  .tipos-modal-stage.tipos-modal-stage-hex {
+    width: 95% !important;
+    max-width: 95% !important;
+    max-height: 85vh !important;
+  }
+  /* Mismo criterio: frame y slides = 100% del stage, mismo lugar (sin margin ni desplazamiento) */
+  .tipos-modal-stage .tipos-modal-frame.tipos-modal-frame-hex,
+  .tipos-modal-stage .jkhive-modal-content.jkhive-modal-hex.tipos-modal-slide {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
+    left: 0 !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    inset: 0 !important;
+    animation: none !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form .tipos-form-nuevo {
+    margin-top: 4vh !important;
+  }
+}
+.jkhive-transition-frame {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 1 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  pointer-events: none !important;
+  background: var(--jkhive-transition-frame-bg) !important;
+  box-sizing: border-box !important;
+}
+.jkhive-transition-frame::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: var(--jkhive-transition-frame-bg) !important;
+  z-index: -1 !important;
+}
+.jkhive-transition-slide {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  box-sizing: border-box !important;
+  transform-origin: 50% 50% !important;
+  transition: transform var(--jkhive-transition-active-duration, var(--jkhive-transition-duration)) var(--jkhive-transition-easing) !important;
+  will-change: transform;
+  z-index: 2 !important;
+}
+.jkhive-transition-slide.jkhive-transition-visible {
+  z-index: 3 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: scale(1) translate(0, 0) !important;
+}
+.jkhive-transition-slide.jkhive-transition-visible.jkhive-transition-phase1-shrink-center {
+  transform: scale(var(--jkhive-transition-scale-off)) translate(0, 0) !important;
+}
+.jkhive-transition-slide.jkhive-transition-visible.jkhive-transition-phase3-from-left,
+.jkhive-transition-slide.jkhive-transition-visible.jkhive-transition-phase3-from-right,
+.jkhive-transition-slide.jkhive-transition-visible.jkhive-transition-phase3-from-up,
+.jkhive-transition-slide.jkhive-transition-visible.jkhive-transition-phase3-from-down {
+  transition: none !important;
+}
+.jkhive-transition-slide.jkhive-transition-visible.jkhive-transition-phase3-from-left {
+  transform: scale(var(--jkhive-transition-scale-off)) translate(-100%, 0) !important;
+}
+.jkhive-transition-slide.jkhive-transition-visible.jkhive-transition-phase3-from-right {
+  transform: scale(var(--jkhive-transition-scale-off)) translate(100%, 0) !important;
+}
+.jkhive-transition-slide.jkhive-transition-visible.jkhive-transition-phase3-from-up {
+  transform: scale(var(--jkhive-transition-scale-off)) translate(0, -100%) !important;
+}
+.jkhive-transition-slide.jkhive-transition-visible.jkhive-transition-phase3-from-down {
+  transform: scale(var(--jkhive-transition-scale-off)) translate(0, 100%) !important;
+}
+.jkhive-transition-slide.jkhive-transition-visible.jkhive-transition-phase3-reduced-center {
+  --jkhive-transition-active-duration: var(--jkhive-transition-phase3-duration);
+  transition-timing-function: ease-in-out !important;
+  transform: scale(var(--jkhive-transition-scale-off)) translate(0, 0) !important;
+}
+.jkhive-transition-slide.jkhive-transition-visible.jkhive-transition-phase4-grow-full {
+  --jkhive-transition-active-duration: var(--jkhive-transition-phase4-duration);
+  transition-timing-function: var(--jkhive-transition-easing) !important;
+  transform: scale(1) translate(0, 0) !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form.jkhive-transition-visible.jkhive-transition-phase3-from-left > .jkhive-modal-body > .tipos-form-body,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form.jkhive-transition-visible.jkhive-transition-phase3-from-right > .jkhive-modal-body > .tipos-form-body,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form.jkhive-transition-visible.jkhive-transition-phase3-from-up > .jkhive-modal-body > .tipos-form-body,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form.jkhive-transition-visible.jkhive-transition-phase3-from-down > .jkhive-modal-body > .tipos-form-body,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form.jkhive-transition-visible.jkhive-transition-phase3-reduced-center > .jkhive-modal-body > .tipos-form-body,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form.jkhive-transition-visible.jkhive-transition-phase4-grow-full > .jkhive-modal-body > .tipos-form-body {
+  padding-top: var(--tipos-form-body-pad-top, 24px) !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form.jkhive-transition-visible.jkhive-transition-phase3-from-left .tipos-form-nuevo,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form.jkhive-transition-visible.jkhive-transition-phase3-from-right .tipos-form-nuevo,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form.jkhive-transition-visible.jkhive-transition-phase3-from-up .tipos-form-nuevo,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form.jkhive-transition-visible.jkhive-transition-phase3-from-down .tipos-form-nuevo,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form.jkhive-transition-visible.jkhive-transition-phase3-reduced-center .tipos-form-nuevo,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form.jkhive-transition-visible.jkhive-transition-phase4-grow-full .tipos-form-nuevo {
+  margin-top: var(--tipos-form-nuevo-margin-top, 8vh) !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form.jkhive-transition-visible.jkhive-transition-phase3-from-left > .jkhive-modal-footer.tipos-modal-footer-honeycomb,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form.jkhive-transition-visible.jkhive-transition-phase3-from-right > .jkhive-modal-footer.tipos-modal-footer-honeycomb,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form.jkhive-transition-visible.jkhive-transition-phase3-from-up > .jkhive-modal-footer.tipos-modal-footer-honeycomb,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form.jkhive-transition-visible.jkhive-transition-phase3-from-down > .jkhive-modal-footer.tipos-modal-footer-honeycomb,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form.jkhive-transition-visible.jkhive-transition-phase3-reduced-center > .jkhive-modal-footer.tipos-modal-footer-honeycomb,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form.jkhive-transition-visible.jkhive-transition-phase4-grow-full > .jkhive-modal-footer.tipos-modal-footer-honeycomb {
+  margin-top: var(--tipos-form-footer-margin-top, 12px) !important;
+  padding: var(--tipos-form-footer-padding, 0.5rem 1rem 0.75rem) !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form.jkhive-transition-visible.jkhive-transition-phase3-from-left > .jkhive-modal-footer .jkhive-btn-cart-exit,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form.jkhive-transition-visible.jkhive-transition-phase3-from-right > .jkhive-modal-footer .jkhive-btn-cart-exit,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form.jkhive-transition-visible.jkhive-transition-phase3-from-up > .jkhive-modal-footer .jkhive-btn-cart-exit,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form.jkhive-transition-visible.jkhive-transition-phase3-from-down > .jkhive-modal-footer .jkhive-btn-cart-exit,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form.jkhive-transition-visible.jkhive-transition-phase3-reduced-center > .jkhive-modal-footer .jkhive-btn-cart-exit,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form.jkhive-transition-visible.jkhive-transition-phase4-grow-full > .jkhive-modal-footer .jkhive-btn-cart-exit {
+  transform: translateY(var(--tipos-form-exit-offset, -15px)) !important;
+}
+.jkhive-transition-slide.jkhive-transition-visible.jkhive-transition-phase2-out-left,
+.jkhive-transition-slide.jkhive-transition-visible.jkhive-transition-phase2-out-right,
+.jkhive-transition-slide.jkhive-transition-visible.jkhive-transition-phase2-out-up,
+.jkhive-transition-slide.jkhive-transition-visible.jkhive-transition-phase2-out-down {
+  --jkhive-transition-active-duration: var(--jkhive-transition-slide-duration);
+  transition-timing-function: ease-in-out !important;
+  pointer-events: none !important;
+  visibility: visible !important;
+}
+.jkhive-transition-slide.jkhive-transition-visible.jkhive-transition-phase2-out-left {
+  transform: scale(var(--jkhive-transition-scale-off)) translate(-160%, 0) !important;
+}
+.jkhive-transition-slide.jkhive-transition-visible.jkhive-transition-phase2-out-right {
+  transform: scale(var(--jkhive-transition-scale-off)) translate(160%, 0) !important;
+}
+.jkhive-transition-slide.jkhive-transition-visible.jkhive-transition-phase2-out-up {
+  transform: scale(var(--jkhive-transition-scale-off)) translate(0, -160%) !important;
+}
+.jkhive-transition-slide.jkhive-transition-visible.jkhive-transition-phase2-out-down {
+  transform: scale(var(--jkhive-transition-scale-off)) translate(0, 160%) !important;
+}
+.jkhive-transition-slide:not(.jkhive-transition-visible):not([class*="jkhive-transition-out-"]) {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+/* Posición inicial del slide oculto según dirección (entra desde ese lado). 200% = tamaño del propio slide, tamaño-agnóstico. */
+.jkhive-transition-stage.jkhive-transition-dir-left .jkhive-transition-slide:not(.jkhive-transition-visible):not([class*="jkhive-transition-out-"]) {
+  transform: scale(var(--jkhive-transition-scale-off)) translate(200%, 0) !important;
+}
+.jkhive-transition-stage.jkhive-transition-dir-right .jkhive-transition-slide:not(.jkhive-transition-visible):not([class*="jkhive-transition-out-"]) {
+  transform: scale(var(--jkhive-transition-scale-off)) translate(-200%, 0) !important;
+}
+.jkhive-transition-stage.jkhive-transition-dir-up .jkhive-transition-slide:not(.jkhive-transition-visible):not([class*="jkhive-transition-out-"]) {
+  transform: scale(var(--jkhive-transition-scale-off)) translate(0, 200%) !important;
+}
+.jkhive-transition-stage.jkhive-transition-dir-down .jkhive-transition-slide:not(.jkhive-transition-visible):not([class*="jkhive-transition-out-"]) {
+  transform: scale(var(--jkhive-transition-scale-off)) translate(0, -200%) !important;
+}
+/* Slide saliendo (se achica y se va) */
+.jkhive-transition-slide.jkhive-transition-out-left {
+  transform: scale(var(--jkhive-transition-scale-off)) translate(-200%, 0) !important;
+  pointer-events: none !important;
+  visibility: visible !important;
+}
+.jkhive-transition-slide.jkhive-transition-out-right {
+  transform: scale(var(--jkhive-transition-scale-off)) translate(200%, 0) !important;
+  pointer-events: none !important;
+  visibility: visible !important;
+}
+.jkhive-transition-slide.jkhive-transition-out-up {
+  transform: scale(var(--jkhive-transition-scale-off)) translate(0, -200%) !important;
+  pointer-events: none !important;
+  visibility: visible !important;
+}
+.jkhive-transition-slide.jkhive-transition-out-down {
+  transform: scale(var(--jkhive-transition-scale-off)) translate(0, 200%) !important;
+  pointer-events: none !important;
+  visibility: visible !important;
+}
+/* Slide entrando (vuelve al centro) */
+.jkhive-transition-slide.jkhive-transition-in-from-left,
+.jkhive-transition-slide.jkhive-transition-in-from-right,
+.jkhive-transition-slide.jkhive-transition-in-from-up,
+.jkhive-transition-slide.jkhive-transition-in-from-down {
+  transform: scale(1) translate(0, 0) !important;
+  pointer-events: auto !important;
+}
+
+/* ========================================
+   MODALES BASE — Siempre pantalla completa
+   ======================================== */
+.jkhive-modal {
+  display: none;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.jkhive-modal.show,
+.jkhive-modal.active {
+  display: flex;
+  opacity: 1;
+}
+
+/* Overlay: también fixed para cubrir todo el viewport, no solo el contenedor del modal */
+.jkhive-modal-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(244, 196, 48, 0.8); /* Amarillo miel metálico con opacidad */
+  backdrop-filter: blur(10px);
+}
+
+/* Fondo honeycomb en overlay (igual que CRM/jkhive-modals): dos capas SVG, color definido */
+.jkhive-modal-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../img/honeycomb-pattern.svg');
+  background-size: 32px 55px;
+  background-repeat: repeat;
+  background-position: 0 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 1;
+  filter: brightness(0) contrast(40);
+}
+
+.jkhive-modal-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../img/honeycomb-pattern.svg');
+  background-size: 32px 55px;
+  background-repeat: repeat;
+  background-position: 16px 28px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 1;
+  filter: brightness(0) contrast(40);
+}
+
+.jkhive-modal-content {
+  position: relative;
+  background: linear-gradient(135deg, var(--jk-tech-darker) 0%, var(--jk-tech-dark) 50%, var(--jk-primary-blue-darker) 100%);
+  border: 3px solid var(--jk-accent-cyan);
+  border-radius: 20px;
+  padding: 3rem 2.5rem;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* Ocultar barras de desplazamiento */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE y Edge */
+  box-shadow: 0 20px 60px rgba(14, 165, 233, 0.4), 
+              inset 0 0 60px rgba(14, 165, 233, 0.1);
+  animation: modalSlideIn 0.4s ease-out;
+  z-index: 10000;
+}
+
+/* Ocultar scrollbar en Chrome, Safari y Opera */
+.jkhive-modal-content::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: translateY(-50px) scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Estilos de .jkhive-modal-close y .jkhive-cart-empty-close están en jkhive-elements.css */
+
+.jkhive-modal-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.jkhive-modal-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 0 15px rgba(14, 165, 233, 0.5));
+}
+
+.jkhive-modal-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--jk-accent-honey);
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 10px rgba(212, 160, 23, 0.5);
+}
+
+.jkhive-modal-subtitle {
+  font-size: 1.1rem;
+  color: var(--jk-accent-cyan);
+  opacity: 0.9;
+}
+
+.jkhive-modal-body {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.jkhive-modal-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  color: var(--jk-metal-light);
+  text-align: center;
+}
+
+/* ========================================
+   MODAL HEXAGONAL — Hexágono regular (equilátero, todos los lados iguales)
+   Tamaño y proporción:
+   - Ancho de referencia: 90% viewport, máx 800px (--jkhive-modal-hex-width).
+   - aspect-ratio 1 / 1.1547 = 2/√3 asegura que los 6 lados sean iguales con el clip-path
+     de techo en punta (50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%).
+   - Altura resultante = ancho × 1.1547 (p. ej. 800px → 923.76px).
+   ======================================== */
+.jkhive-modal-content.jkhive-modal-hex {
+  border-radius: 0;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  padding: 4rem 3rem;
+  width: 90%;
+  max-width: 800px;
+  min-width: 0;
+  /* Equilátero: altura = ancho × (2/√3) ≈ ancho × 1.1547 → aspect-ratio width/height = 1/1.1547 */
+  aspect-ratio: 1 / 1.1547;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  box-sizing: border-box;
+  min-height: 0;
+  border: none; /* el borde real se dibuja con ::after (anillo hex) para que siga la forma */
+  background: transparent; /* el relleno va en ::before */
+}
+
+/* ========================================
+   GRILLA HEXAGONAL — 3 SECCIONES (header / body / footer)
+   Detalle completo: docs/MODAL-ESTRUCTURA-3-SECCIONES.md
+   HEADER 25% (contenido al borde inferior) | BODY 50% (scroll en .jkhive-modal-body-content) | FOOTER 25%
+   Regla: header = encabezado; body = contenido; footer = botones. Contenedor con altura explícita.
+   ======================================== */
+.jkhive-modal-content.jkhive-modal-hex:has(> .jkhive-modal-header) {
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.jkhive-modal-content.jkhive-modal-hex:has(> .jkhive-modal-header)::-webkit-scrollbar {
+  display: none;
+}
+
+/* Header: pirámide superior (25%); 10% superior reservado (punta); contenido al borde inferior del header */
+.jkhive-modal-content.jkhive-modal-hex > .jkhive-modal-header {
+  flex: 0 0 25% !important;
+  height: 25% !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  text-align: center !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.jkhive-modal-content.jkhive-modal-hex > .jkhive-modal-header::before {
+  content: '' !important;
+  flex: 0 0 10% !important;
+  flex-shrink: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Ancla el primer bloque de contenido (no el cierre absoluto) al borde inferior del header */
+.jkhive-modal-content.jkhive-modal-hex > .jkhive-modal-header > *:not(.jkhive-modal-close) {
+  margin-top: auto !important;
+}
+
+.jkhive-modal-content.jkhive-modal-hex > .jkhive-modal-header > *:not(.jkhive-modal-close) ~ *:not(.jkhive-modal-close) {
+  margin-top: 0 !important;
+}
+
+.jkhive-modal-content.jkhive-modal-hex > .jkhive-modal-header .jkhive-modal-header-top {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding-bottom: 0 !important;
+}
+
+.jkhive-modal-content.jkhive-modal-hex > .jkhive-modal-header .jkhive-modal-header-bottom {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.15rem !important;
+  padding: 0 !important;
+}
+
+.jkhive-modal-content.jkhive-modal-hex > .jkhive-modal-header .jkhive-modal-title,
+.jkhive-modal-content.jkhive-modal-hex > .jkhive-modal-header .jkhive-modal-header-bottom .jkhive-modal-title {
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
+  color: var(--jk-metal-light, rgba(255,255,255,0.9)) !important;
+  margin: 0 !important;
+  text-align: center !important;
+}
+
+.jkhive-modal-content.jkhive-modal-hex > .jkhive-modal-header .jkhive-modal-subtitle,
+.jkhive-modal-content.jkhive-modal-hex > .jkhive-modal-header .jkhive-modal-header-bottom .jkhive-modal-subtitle {
+  font-size: 0.75rem !important;
+  color: var(--jk-metal, rgba(255,255,255,0.6)) !important;
+  margin: 0 !important;
+  text-align: center !important;
+}
+
+/* Body: rectángulo central del hex (50% de la altura); scroll en .jkhive-modal-body-content */
+.jkhive-modal-content.jkhive-modal-hex > .jkhive-modal-body {
+  flex: 0 0 50% !important;
+  height: 50% !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  position: relative !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  z-index: 2 !important;
+}
+
+.jkhive-modal-content.jkhive-modal-hex > .jkhive-modal-body > .jkhive-modal-body-content {
+  flex: 1 !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding-right: 0.25rem !important;
+  box-sizing: border-box !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: var(--jk-primary-blue, #0ea5e9) var(--jk-tech-dark, #1e293b) !important;
+}
+
+.jkhive-modal-content.jkhive-modal-hex > .jkhive-modal-body > .jkhive-modal-body-content::-webkit-scrollbar {
+  width: 6px !important;
+}
+
+.jkhive-modal-content.jkhive-modal-hex > .jkhive-modal-body > .jkhive-modal-body-content::-webkit-scrollbar-track {
+  background: var(--jk-tech-dark, #1e293b) !important;
+  border-radius: 3px !important;
+}
+
+.jkhive-modal-content.jkhive-modal-hex > .jkhive-modal-body > .jkhive-modal-body-content::-webkit-scrollbar-thumb {
+  background: var(--jk-primary-blue, #0ea5e9) !important;
+  border-radius: 3px !important;
+}
+
+/* Modal mantenedor (Tipos envase, Tipos vehículo, Familia de producto) — patrón CRM Libros/Sagas.
+   Uso: admin/productos.php. Documentación: docs/ADMIN-PRODUCTOS-MANTENEDORES.md */
+.jkhive-mantenedor-modal {
+  display: none !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9999 !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.jkhive-mantenedor-modal[style*="flex"],
+.jkhive-mantenedor-modal.active,
+.jkhive-mantenedor-modal.show {
+  display: flex !important;
+}
+.jkhive-mantenedor-modal .jkhive-modal-content {
+  width: 90% !important;
+  max-width: 640px !important;
+  aspect-ratio: 1 / 1.1547 !important;
+}
+.jkhive-mantenedor-modal .jkhive-modal-body {
+  position: relative !important;
+  padding-top: 2.5rem !important;
+}
+.jkhive-mantenedor-modal .jkhive-modal-body-content {
+  padding-top: 0.25rem !important;
+}
+
+/* Footer: pirámide invertida inferior (25%); 10% inferior reservado (punta); contenido arriba del footer */
+.jkhive-modal-content.jkhive-modal-hex > .jkhive-modal-footer {
+  flex: 0 0 25% !important;
+  height: 25% !important;
+  width: 100% !important;
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  z-index: 2 !important;
+}
+
+/* Punta inferior 10%: sin margin-top:auto aquí — el empuje va al primer hijo para que el honeycomb
+   quede en la parte baja de la franja footer, no pegado al borde con el body (50%). */
+.jkhive-modal-content.jkhive-modal-hex > .jkhive-modal-footer::after {
+  content: '' !important;
+  flex: 0 0 10% !important;
+  flex-shrink: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin-top: 0 !important;
+}
+
+/* Primer bloque del pie (honeycomb o filas tipos): espacio flexible arriba → acciones ancladas abajo del 25% */
+.jkhive-modal-content.jkhive-modal-hex > .jkhive-modal-footer > :first-child {
+  margin-top: auto !important;
+}
+
+/* Pie formulario/mantenedor: sin padding del bloque genérico .jkhive-modal-admin-footer; honeycomb a ancho útil del hex */
+.jkhive-modal-content.jkhive-modal-hex > .jkhive-modal-footer.jkhive-modal-admin-footer {
+  padding: 0 !important;
+}
+
+.jkhive-modal-content.jkhive-modal-hex > .jkhive-modal-footer .jkhive-modal-admin-footer-honeycomb {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  align-self: stretch !important;
+  flex: 0 1 auto !important;
+}
+
+/* Modales Tipos (Vehículo, Familia, Envase): grilla 25/50/25; form+toolbar fuera del scroll; botón cerrar en esquina */
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos {
+  padding: 1rem 1.25rem !important;
+  box-sizing: border-box !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos > .jkhive-modal-header {
+  position: relative !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .jkhive-modal-close {
+  position: absolute !important;
+  top: 0.5rem !important;
+  right: 0.5rem !important;
+  margin: 0 !important;
+}
+
+/* --- Tipos modal: outer = dimensiones y centrado; stage = 100% del outer. Frame mismo hex que capas. --- */
+.tipos-modal-outer {
+  position: relative !important;
+  flex-shrink: 0 !important;
+  display: flex !important;
+  align-items: stretch !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  /* Dimensiones por inline style en el HTML (max-width 90%, width 640px, height 85vh, max-height 700px) */
+}
+.tipos-modal-outer .tipos-modal-wrap {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%) !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+.tipos-modal-wrap > .tipos-modal-frame {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%) !important;
+}
+.tipos-modal-wrap > .tipos-modal-frame::before {
+  background: var(--jkhive-transition-frame-bg, #000) !important;
+}
+.tipos-modal-wrap > .tipos-modal-layer {
+  display: flex !important;
+  flex-direction: column !important;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%) !important;
+}
+.tipos-modal-wrap.jkhive-modal-tipos-transitioning,
+.tipos-modal-stage.tipos-modal-stage-hex.jkhive-modal-tipos-transitioning {
+  box-shadow: none !important;
+}
+
+/* Doble borde hex durante la transición (segundo anillo interior) — cuando el content es el wrapper no aplica; se aplica arriba a .tipos-modal-wrap */
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.jkhive-modal-tipos-transitioning {
+  box-shadow: none !important;
+}
+/* Body mantenedor: toolbar + tabla (estructura dentro de la capa .tipos-modal-mantenedor) */
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-mantenedor > .jkhive-modal-body > .tipos-modal-body-top,
+.tipos-modal-wrap .tipos-modal-mantenedor > .jkhive-modal-body > .tipos-modal-body-top {
+  flex: 0 0 auto !important;
+  flex-shrink: 0 !important;
+  padding: 0.5rem 0.75rem !important;
+  border-bottom: 1px solid rgba(14, 165, 233, 0.25);
+  box-sizing: border-box !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-mantenedor > .jkhive-modal-body > .jkhive-modal-body-content,
+.tipos-modal-wrap .tipos-modal-mantenedor > .jkhive-modal-body > .jkhive-modal-body-content {
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .jkhive-modal-body-content {
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .admin-tipos-table {
+  margin-top: 0.5rem !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  --tipos-col-id: 12%;
+  --tipos-col-estado: 70px;
+  --tipos-col-acciones: 90px;
+  --tipos-col-nombre: calc(88% - var(--tipos-col-estado) - var(--tipos-col-acciones));
+}
+
+/* Encabezado siempre visible: header en .tipos-table-header-row; scroll solo en .tipos-table-body-scroll.
+   Mismo ancho reservado a la derecha en header y body (variable) para que las columnas coincidan. */
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-table-header-row {
+  flex: 0 0 auto !important;
+  padding-right: var(--tipos-table-scrollbar-width, 10px) !important;
+  box-sizing: border-box !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-table-body-scroll {
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  scrollbar-gutter: stable !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: var(--jk-primary-blue, #0ea5e9) var(--jk-tech-dark, #1e293b) !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-table-header-row .admin-tipos-table {
+  margin-bottom: 0 !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-table-body-scroll .admin-tipos-table {
+  margin-top: 0 !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-table-header-row .admin-tipos-table,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-table-body-scroll .admin-tipos-table {
+  table-layout: fixed !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .admin-tipos-table th:nth-child(1),
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .admin-tipos-table td:nth-child(1) {
+  width: var(--tipos-col-id) !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .admin-tipos-table th:nth-child(2),
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .admin-tipos-table td:nth-child(2) {
+  width: var(--tipos-col-nombre) !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .admin-tipos-table th:nth-child(3),
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .admin-tipos-table td:nth-child(3) {
+  width: var(--tipos-col-estado) !important;
+  min-width: var(--tipos-col-estado) !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .admin-tipos-table th:nth-child(4),
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .admin-tipos-table td:nth-child(4) {
+  width: var(--tipos-col-acciones) !important;
+  min-width: var(--tipos-col-acciones) !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .admin-tipos-table th.tipos-th-estado,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .admin-tipos-table th.tipos-th-acciones {
+  white-space: nowrap !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .admin-tipos-table .tipos-nombre-cell {
+  cursor: text;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .admin-tipos-table .tipos-nombre-cell input.jkhive-inline-input {
+  min-width: 120px;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-table-body-scroll::-webkit-scrollbar {
+  width: var(--tipos-table-scrollbar-width, 10px) !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-table-body-scroll::-webkit-scrollbar-track {
+  background: var(--jk-tech-dark, #1e293b) !important;
+  border-radius: 3px !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-table-body-scroll::-webkit-scrollbar-thumb {
+  background: var(--jk-primary-blue, #0ea5e9) !important;
+  border-radius: 3px !important;
+}
+
+@media (max-width: 768px) {
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .admin-tipos-table {
+    --tipos-col-estado: 49px;
+    --tipos-col-acciones: 54px;
+    --tipos-col-nombre: calc(88% - var(--tipos-col-estado) - var(--tipos-col-acciones));
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-table-header-row {
+    padding-right: var(--tipos-table-scrollbar-width, 6px) !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-table-body-scroll::-webkit-scrollbar {
+    width: var(--tipos-table-scrollbar-width, 6px) !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .admin-tipos-table th,
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .admin-tipos-table td {
+    padding-left: 0.22rem !important;
+    padding-right: 0.22rem !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .admin-tipos-table th.tipos-th-estado,
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .admin-tipos-table th.tipos-th-acciones {
+    font-size: 0.68rem !important;
+    letter-spacing: 0 !important;
+  }
+}
+
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-modal-header-icon {
+  font-size: 1.5rem !important;
+  color: var(--jk-accent-honey, #d4a017) !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .jkhive-modal-admin-footer {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding-top: 0.5rem !important;
+  flex-wrap: nowrap !important;
+}
+/* Modales simples (Producto, Envase): body con dos paneles directos, show/hide por .tipos-view-form */
+.jkhive-modal-tipos .jkhive-modal-body > .tipos-panel-mantenedor {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+}
+.jkhive-modal-tipos .jkhive-modal-body > .tipos-panel-form {
+  display: none !important;
+}
+.jkhive-modal-tipos.tipos-view-form .jkhive-modal-body > .tipos-panel-mantenedor {
+  display: none !important;
+}
+.jkhive-modal-tipos.tipos-view-form .jkhive-modal-body > .tipos-panel-form {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+}
+.jkhive-modal-tipos .tipos-panel-form > .tipos-form-body {
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+}
+.jkhive-modal-tipos .tipos-panel-mantenedor > .tipos-modal-body-top {
+  flex: 0 0 auto !important;
+  padding: 0.5rem 0.75rem !important;
+  border-bottom: 1px solid rgba(14, 165, 233, 0.25);
+  box-sizing: border-box !important;
+}
+.jkhive-modal-tipos .tipos-panel-mantenedor > .jkhive-modal-body-content {
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Vista mantenedor: solo footer Salir visible; vista form: solo footer Limpiar/Guardar/Cancelar (evita que !important del tres-bttns muestre ambos) */
+/* Con 3 capas, cada capa tiene su propio footer; no ocultar el del form (se ve cuando la capa form está visible) */
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-view-form .tipos-modal-footer-mantenedor {
+  display: none !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-view-form .tipos-modal-footer-form {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 3px !important;
+}
+/* Formulario agregar nuevo (pocos campos): contenido más abajo, espacio para toast y gap; no pegado al header.
+   Zona toasts + margen; bloque del form ~25% desde arriba del body (no centrado vertical, solo más abajo). */
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-view-form .tipos-form-body,
+.tipos-modal-wrap.tipos-view-form .tipos-form-body,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form > .jkhive-modal-body > .tipos-form-body {
+  padding-top: var(--tipos-form-body-pad-top, 24px) !important; /* zona toasts */
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-view-form .tipos-form-nuevo,
+.tipos-modal-wrap.tipos-view-form .tipos-form-nuevo,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form .tipos-form-nuevo {
+  margin-top: var(--tipos-form-nuevo-margin-top, 8vh) !important; /* contenido más abajo, gap bajo el header */
+  max-width: 100%;
+}
+/* Footer honeycomb: botones no tan abajo; menos margen superior */
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-modal-footer-honeycomb {
+  margin-top: 12px !important;
+}
+
+/* Ocultar scrollbar en Chrome, Safari y Opera para modal hexagonal */
+.jkhive-modal-content.jkhive-modal-hex::-webkit-scrollbar {
+  display: none;
+}
+
+/* Borde hexagonal: anillo que sigue el hex (::after = borde cyan, ::before = relleno + glow suave) */
+.jkhive-modal-content.jkhive-modal-hex::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: var(--jk-accent-cyan);
+  z-index: -2;
+  pointer-events: none;
+}
+
+.jkhive-modal-content.jkhive-modal-hex::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(135deg, var(--jk-tech-darker) 0%, var(--jk-tech-dark) 50%, var(--jk-primary-blue-darker) 100%);
+  z-index: -1;
+  pointer-events: none;
+  box-shadow: inset 0 0 40px rgba(14, 165, 233, 0.08);
+}
+
+/* Visibilidad del botón cerrar (hex/cart) definida en jkhive-elements.css */
+
+/* ========================================
+   MODAL CARRITO — Cubrir todo el sitio (navbar + sidebar) y layout interno
+   ======================================== */
+/* Modal carrito: cubrir toda la pantalla (nav + sidebar + contenido); debe ser hijo directo de body */
+#cartModal.jkhive-modal,
+#cartModal.jkhive-modal.active,
+#cartModal.jkhive-modal.show {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 1000000 !important;
+}
+
+#cartModal .jkhive-modal-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+}
+
+/* Con modal carrito abierto: evitar scroll del body y que nada quede por encima del modal (mobile y desktop). */
+body.jkhive-cart-modal-open {
+  overflow: hidden !important;
+  touch-action: none !important; /* Evitar scroll táctil en mobile mientras el modal está abierto */
+}
+
+/* ========================================
+   MODAL CARRITO — Responsive / Mobile
+   Mismo comportamiento que desktop: pantalla completa (nav, sidebar, galería), overlay honeycomb, modal encima.
+   En mobile el modal y el overlay DEBEN mantener position: fixed e inset: 0 y z-index muy alto para no quedar detrás de la galería/hero.
+   El JS (shopping-cart.js) mueve #cartModal al final de body al abrir para evitar contextos de apilamiento.
+   ======================================== */
+@media (max-width: 768px) {
+  body.jkhive-cart-modal-open {
+    background: transparent !important; /* No pintar body de amarillo; el overlay es el que lleva el fondo. */
+  }
+  #cartModal.jkhive-modal {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 2147483647 !important; /* Máximo z-index para quedar siempre encima (galería, hero, navbar, etc.) */
+    isolation: isolate !important; /* Nuevo contexto de apilamiento por encima del resto */
+  }
+  #cartModal.jkhive-modal.active,
+  #cartModal.jkhive-modal.show {
+    display: flex !important;
+  }
+  #cartModal .jkhive-modal-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 1 !important;
+  }
+  #cartModal .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-cart {
+    z-index: 2 !important;
+  }
+}
+
+/* ========================================
+  MODAL ADMIN PRODUCTO / FORMULARIOS JK HIVE
+  Pantalla completa + variante oficial de formulario administrativo.
+  Al abrir: JS debe appendChild(productModal, body) y body.classList.add('jkhive-admin-modal-open').
+  ======================================== */
+#productModal.jkhive-admin-product-modal,
+#productModal.jkhive-modal {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9999 !important;
+  display: none;
+  justify-content: center !important;
+  align-items: center !important;
+}
+#productModal.jkhive-admin-product-modal[style*="flex"],
+#productModal.jkhive-admin-product-modal.show,
+#productModal.jkhive-admin-product-modal.active {
+  display: flex !important;
+}
+#productModal .jkhive-modal-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+}
+body.jkhive-admin-modal-open {
+  overflow: hidden !important;
+  touch-action: none !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin {
+  width: 640px !important;
+  max-width: 90% !important;
+  height: 85vh !important;
+  max-height: 700px !important;
+  padding: 1rem 1.25rem !important;
+  box-sizing: border-box !important;
+  /* Altura explícita + grilla 25/50/25: el aspect-ratio del hex base rompe el reparto y el pie “flota” */
+  aspect-ratio: auto !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin > .jkhive-modal-header {
+  position: relative !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin .jkhive-modal-close {
+  display: flex !important;
+  position: absolute !important;
+  top: 0.5rem !important;
+  right: 0.5rem !important;
+  margin: 0 !important;
+  z-index: 5 !important;
+}
+
+/* Modal experiencia laboral (About): un solo bloque en el head (evita solapamiento con el body por margin-top:auto en cada hijo) */
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-experience > .jkhive-modal-header {
+  overflow: hidden !important;
+  min-height: 0 !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-experience .jkhive-modal-experience-header-stack {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 0.085rem !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  max-height: 100% !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  /* Mismo reserva a izquierda y derecha: centrado óptico en el hex; el × sigue absoluto arriba a la derecha */
+  padding: 0 2.125rem 0.043rem 2.125rem !important;
+  margin: 0 !important;
+  text-align: center !important;
+}
+/* Stack experiencia: escala homogénea −15 % (×0,85) para títulos largos en el 25 % del hex */
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-experience .jkhive-modal-experience-header-stack .jkhive-modal-icon {
+  font-size: 1.59rem !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+  flex-shrink: 0 !important;
+  filter: drop-shadow(0 0 8.5px rgba(14, 165, 233, 0.45)) !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-experience .jkhive-modal-experience-header-stack .jkhive-modal-title {
+  font-size: 1.245rem !important;
+  line-height: 1.2 !important;
+  margin: 0 !important;
+  max-width: 100% !important;
+  overflow-wrap: anywhere !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-experience .jkhive-modal-experience-header-stack .jkhive-modal-company {
+  font-size: 1.06rem !important;
+  line-height: 1.2 !important;
+  margin: 0 !important;
+  font-weight: 600 !important;
+  color: var(--jk-accent-cyan, #22d3ee) !important;
+  max-width: 100% !important;
+  overflow-wrap: anywhere !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-experience .jkhive-modal-experience-header-stack .jkhive-modal-period {
+  font-size: 0.9rem !important;
+  line-height: 1.24 !important;
+  margin: 0 !important;
+  color: var(--jk-metal, rgba(255, 255, 255, 0.6)) !important;
+  max-width: 100% !important;
+}
+
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin .jkhive-modal-header-top {
+  padding-bottom: 0 !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin .jkhive-modal-header-bottom .jkhive-modal-title {
+  max-width: 76%;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin > .jkhive-modal-body > .jkhive-modal-body-content {
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 0.15rem 0.35rem 0 0.12rem !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin .jkhive-modal-form-grid {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.65rem !important;
+  width: 100% !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin .jkhive-modal-form-row {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 0.7rem 1rem !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin .jkhive-modal-form-field {
+  display: grid !important;
+  grid-template-columns: minmax(7.25rem, 8.5rem) minmax(0, 1fr) !important;
+  align-items: center !important;
+  column-gap: 0.72rem !important;
+  margin: 0 !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin .jkhive-modal-form-label {
+  display: block !important;
+  margin: 0 !important;
+  color: var(--jk-accent-honey, #d4a017) !important;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+  text-align: left !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin .jkhive-modal-form-control,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin .jkhive-modal-form-field input,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin .jkhive-modal-form-field select,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin .jkhive-modal-form-field textarea {
+  width: 100% !important;
+  padding: 0.48rem 0.62rem !important;
+  background: rgba(30, 41, 59, 0.88) !important;
+  border: 1px solid rgba(14, 165, 233, 0.58) !important;
+  border-radius: 4px !important;
+  color: var(--jk-metal-light, rgba(255,255,255,0.9)) !important;
+  font-family: inherit !important;
+  font-size: 0.92rem !important;
+  line-height: 1.2 !important;
+  box-sizing: border-box !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin .jkhive-modal-form-field textarea {
+  min-height: 58px !important;
+  resize: vertical !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin > .jkhive-modal-footer.jkhive-modal-admin-footer {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  padding-top: 0 !important;
+}
+@media (max-width: 768px) {
+  body.jkhive-admin-modal-open {
+    background: transparent !important;
+  }
+  #productModal.jkhive-admin-product-modal,
+  #productModal.jkhive-modal,
+  #modalTiposVehiculo.jkhive-modal,
+  #modalTiposProducto.jkhive-modal,
+  #modalTiposEnvase.jkhive-modal {
+    z-index: 2147483647 !important;
+    isolation: isolate !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin {
+    width: 90% !important;
+    max-width: 90% !important;
+    height: 85vh !important;
+    max-height: 88vh !important;
+    padding: 0.9rem 1rem !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin .jkhive-modal-header-top {
+    padding-bottom: 0 !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin .jkhive-modal-header-bottom .jkhive-modal-title {
+    max-width: 82%;
+    font-size: 1rem !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin .jkhive-modal-form-row {
+    grid-template-columns: 1fr !important;
+    gap: 0.55rem !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin .jkhive-modal-form-field {
+    grid-template-columns: minmax(6.2rem, 6.95rem) minmax(0, 1fr) !important;
+    column-gap: 0.55rem !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin .jkhive-modal-form-label {
+    font-size: 0.84rem !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin .jkhive-modal-form-control,
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin .jkhive-modal-form-field input,
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin .jkhive-modal-form-field select,
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin .jkhive-modal-form-field textarea {
+    padding: 0.42rem 0.56rem !important;
+    font-size: 0.87rem !important;
+  }
+
+  /* Modal hex con período en el header (p. ej. portfolio): en móvil el margin-top:auto del primer hijo
+     empuja icono+título+empresa+período al borde inferior del 25 % y el período queda fuera de la franja. */
+  .jkhive-modal-content.jkhive-modal-hex > .jkhive-modal-header:has(> .jkhive-modal-period) > *:not(.jkhive-modal-close) {
+    margin-top: 0 !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex > .jkhive-modal-header:has(> .jkhive-modal-period) > .jkhive-modal-icon {
+    margin-top: 0.15rem !important;
+  }
+
+  /* Experiencia laboral (About): el stack con justify-content:flex-end + flex:1 pegaba el bloque al borde inferior. */
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-experience > .jkhive-modal-header > .jkhive-modal-experience-header-stack {
+    margin-top: 0 !important;
+    justify-content: center !important;
+    padding-bottom: 0.35rem !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-experience .jkhive-modal-experience-header-stack .jkhive-modal-period {
+    line-height: 1.18 !important;
+  }
+}
+@media (max-width: 480px) {
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin {
+    width: 95% !important;
+    max-width: 95% !important;
+    max-height: 85vh !important;
+    padding: 0.85rem 0.82rem !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin .jkhive-modal-header-bottom .jkhive-modal-title {
+    max-width: 80%;
+    font-size: 0.94rem !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin .jkhive-modal-form-field {
+    grid-template-columns: minmax(5.35rem, 6rem) minmax(0, 1fr) !important;
+    column-gap: 0.45rem !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin .jkhive-modal-form-label {
+    font-size: 0.8rem !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin .jkhive-modal-form-field textarea {
+    min-height: 54px !important;
+  }
+}
+
+/* Contenedor del modal carrito: altura fija para que la grilla 25/50/25 funcione (sin height los % no aplican) */
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-cart {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 90% !important;
+  max-width: 800px !important;
+  min-width: 0 !important;
+  height: 85vh !important;
+  min-height: 75vh !important;
+  max-height: 90vh !important;
+  padding: 1.25rem 1.5rem !important;
+  overflow: hidden !important;
+  aspect-ratio: auto !important;
+  position: relative !important;
+  box-sizing: border-box !important;
+}
+
+/* ----- Modal carrito: misma GRILLA HEXAGONAL 25% / 50% / 25% -----
+   #cartContent es el contenedor flex; header = pirámide superior, body = rectángulo central, footer = pirámide inferior. */
+
+/* #cartContent debe llenar el espacio del hex para que 25%/50%/25% se apliquen a su altura */
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-cart #cartContent {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* SECCIÓN 1 — Header = pirámide superior (25%); 10% punta superior; contenido al borde inferior */
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-cart #cartContent > .jkhive-modal-header {
+  flex: 0 0 25% !important;
+  height: 25% !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  text-align: center !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-cart #cartContent > .jkhive-modal-header::before {
+  content: '' !important;
+  flex: 0 0 10% !important;
+  flex-shrink: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-cart #cartContent > .jkhive-modal-header > *:not(.jkhive-modal-close) {
+  margin-top: auto !important;
+}
+
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-cart #cartContent > .jkhive-modal-header > *:not(.jkhive-modal-close) ~ *:not(.jkhive-modal-close) {
+  margin-top: 0 !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-cart #cartContent > .jkhive-modal-header .jkhive-modal-header-top {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding-bottom: 0 !important;
+  width: 100% !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-cart #cartContent > .jkhive-modal-header .jkhive-modal-header-bottom {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.15rem !important;
+  padding: 0 !important;
+  width: 100% !important;
+}
+.jkhive-modal-cart-icon-wrap {
+  display: flex !important;
+  justify-content: center !important;
+  margin-bottom: 0 !important;
+}
+/* Ícono carrito: 15% más grande (2rem × 1.15 ≈ 2.3rem) */
+.jkhive-modal-cart-icon-wrap svg {
+  width: 2.3rem !important;
+  height: 2.3rem !important;
+  fill: var(--jk-accent-honey-light, #f4c430) !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-cart #cartContent .jkhive-modal-cart-title,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-cart #cartContent .jkhive-modal-title.jkhive-modal-cart-title {
+  font-size: 1.35rem !important;
+  font-weight: 700 !important;
+  color: var(--jk-accent-honey, #d4a017) !important;
+  margin: 0 !important;
+  text-align: center !important;
+}
+.jkhive-modal-cart-count {
+  font-size: 0.75rem !important;
+  color: var(--jk-metal, rgba(255,255,255,0.6)) !important;
+  margin: 0 !important;
+  text-align: center !important;
+}
+
+/* SECCIÓN 2 — Body = rectángulo central del hex (50%); lista con scroll + total */
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-cart #cartContent > .jkhive-modal-body {
+  flex: 0 0 50% !important;
+  height: 50% !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-cart #cartContent > .jkhive-modal-body > .jkhive-modal-body-content.jkhive-modal-cart-list {
+  flex: 1 !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding-right: 0.25rem !important;
+  padding-bottom: 0.5rem !important;
+  box-sizing: border-box !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-cart #cartContent > .jkhive-modal-body > .jkhive-modal-body-content.jkhive-modal-cart-list::-webkit-scrollbar {
+  width: 6px;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-cart #cartContent > .jkhive-modal-body > .jkhive-modal-body-content.jkhive-modal-cart-list::-webkit-scrollbar-track {
+  background: var(--jk-tech-dark);
+  border-radius: 3px;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-cart #cartContent > .jkhive-modal-body > .jkhive-modal-body-content.jkhive-modal-cart-list::-webkit-scrollbar-thumb {
+  background: var(--jk-primary-blue);
+  border-radius: 3px;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-cart #cartContent > .jkhive-modal-body .jkhive-modal-cart-total {
+  flex-shrink: 0 !important;
+  text-align: right !important;
+  padding: 0.5rem 0 !important;
+  border-top: 1px solid var(--jk-tech-medium) !important;
+  margin-top: 0.5rem !important;
+  font-size: 0.9rem !important;
+  color: var(--jk-metal-light) !important;
+}
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-cart #cartContent > .jkhive-modal-body .jkhive-modal-cart-total span {
+  color: var(--jk-accent-honey) !important;
+  font-weight: 700 !important;
+}
+
+/* SECCIÓN 3 — Footer = pirámide invertida inferior (25%); 10% punta inferior reservada */
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-cart #cartContent > .jkhive-modal-footer {
+  flex: 0 0 25% !important;
+  height: 25% !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+}
+
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-cart #cartContent > .jkhive-modal-footer::after {
+  content: '' !important;
+  flex: 0 0 10% !important;
+  flex-shrink: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin-top: 0 !important;
+}
+
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-cart #cartContent > .jkhive-modal-footer > :first-child {
+  margin-top: auto !important;
+}
+/* Footer del modal carrito: honeycomb 3 hex — fila 1: Vaciar + Proceder, fila 2: Salir (misma lógica que galería, gap ≤3px) */
+.jkhive-modal-cart-footer {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 0 !important;
+  flex-shrink: 0 !important;
+  width: 100% !important;
+  padding: 0 1rem 0.75rem !important;
+}
+.jkhive-modal-cart-footer-honeycomb {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 3px !important;
+}
+.jkhive-modal-cart-footer-row1 {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 3px !important;
+}
+.jkhive-modal-cart-footer-row2 {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+/* Botón Salir: subir 5px para tener la separación correcta con la fila de arriba. */
+.jkhive-btn-cart-exit,
+.jkhive-bttn-modal-exit,
+#cartContent .jkhive-btn-cart-exit {
+  transform: translateY(-15px) !important;
+}
+/* Botón Salir: mismo estilo base que los otros (miel + interior oscuro), sin fondo blanco del <button>. */
+.jkhive-btn-cart-exit,
+.jkhive-btn-cart-exit button,
+.jkhive-bttn-modal-exit,
+.jkhive-bttn-modal-exit button,
+#cartContent .jkhive-btn-cart-exit,
+#cartContent .jkhive-btn-cart-exit button {
+  background: transparent !important;
+  border: none !important;
+}
+.jkhive-btn-cart-exit .jkhive-hex,
+.jkhive-bttn-modal-exit .jkhive-hex,
+#cartContent .jkhive-btn-cart-exit .jkhive-hex {
+  background: var(--jk-accent-honey-light, #f4c430) !important;
+  box-shadow: var(--jk-shadow-lg, 0 10px 30px rgba(0, 0, 0, 0.3)), 0 0 20px rgba(244, 196, 48, 0.6) !important;
+}
+.jkhive-btn-cart-exit .jkhive-hex::after,
+.jkhive-bttn-modal-exit .jkhive-hex::after,
+#cartContent .jkhive-btn-cart-exit .jkhive-hex::after {
+  background: var(--jk-tech-dark, #0a0e27) !important;
+}
+/* X más grande (10%) y negrita; sin transform para no pisar la animación inverseclock en hover. */
+.jkhive-btn-cart-exit .jkhive-hex-content svg,
+.jkhive-bttn-modal-exit .jkhive-hex-content svg,
+#cartContent .jkhive-btn-cart-exit .jkhive-hex-content svg {
+  color: var(--jk-accent-honey-light, #f4c430) !important;
+  fill: currentColor !important;
+  width: 1.21rem !important;
+  height: 1.21rem !important;
+  stroke: currentColor !important;
+  stroke-width: 0.8 !important;
+  stroke-linejoin: round !important;
+}
+/* Hover: rojo neon (no cyan). Animación inverseclock como en housesitting. */
+.jkhive-btn-cart-exit:hover .jkhive-hex,
+.jkhive-bttn-modal-exit:hover .jkhive-hex,
+#cartContent .jkhive-btn-cart-exit:hover .jkhive-hex {
+  background: var(--jk-accent-red-neon, #ef4444) !important;
+  transform: scale(1.05) !important;
+  box-shadow: var(--jk-shadow-lg, 0 10px 30px rgba(0, 0, 0, 0.3)), 0 0 30px rgba(239, 68, 68, 0.8) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.jkhive-btn-cart-exit:hover .jkhive-hex::after,
+.jkhive-bttn-modal-exit:hover .jkhive-hex::after,
+#cartContent .jkhive-btn-cart-exit:hover .jkhive-hex::after {
+  background: var(--jk-tech-dark, #0a0e27) !important;
+}
+.jkhive-btn-cart-exit:hover .jkhive-hex-content,
+.jkhive-btn-cart-exit:hover .jkhive-hex-content svg,
+.jkhive-bttn-modal-exit:hover .jkhive-hex-content,
+.jkhive-bttn-modal-exit:hover .jkhive-hex-content svg,
+#cartContent .jkhive-btn-cart-exit:hover .jkhive-hex-content,
+#cartContent .jkhive-btn-cart-exit:hover .jkhive-hex-content svg {
+  color: var(--jk-accent-red-neon, #ef4444) !important;
+  fill: currentColor !important;
+  opacity: 1 !important;
+  transition: color 0.3s ease !important;
+}
+@media (max-width: 576px) {
+  .jkhive-modal-cart-footer {
+    padding: 0.5rem !important;
+  }
+}
+
+/* Footer admin (producto, tipos): mismo patrón honeycomb 3 hex que carrito — Limpiar, Guardar, Salir */
+.jkhive-modal-admin-footer {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 0 !important;
+  flex-shrink: 0 !important;
+  width: 100% !important;
+  padding: 0.75rem 1rem !important;
+}
+.jkhive-modal-admin-footer-honeycomb {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 3px !important;
+}
+.jkhive-modal-admin-footer-row1 {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 3px !important;
+}
+.jkhive-modal-admin-footer-row2 {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.jkhive-modal-admin-footer .jkhive-btn-cart-exit {
+  transform: translateY(-15px) !important;
+}
+
+/**
+ * Variantes de uso (documentación + hooks):
+ * - .jkhive-modal-mantenedor: modal de solo lectura o vista simple; pie con una acción principal
+ *   (típicamente solo fila 2 «Salir» en .jkhive-modal-admin-footer-honeycomb). Contenido: .jkhive-modal-form-admin.
+ * - .jkhive-modal-formulario: mismo contenedor hex admin; pie con varias acciones hex en fila 1
+ *   (p. ej. enlace externo) y fila 2 «Salir», mismo patrón que formularios en profile.php.
+ * El aspecto lo define .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin; estas clases van en el root .jkhive-modal.
+ */
+
+/* Enlace hex en pie de modal (p. ej. LinkedIn): mismo reset que botones del honeycomb */
+.jkhive-modal-form-admin .jkhive-modal-footer a.jkhive-modal-footer-hex-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  box-sizing: border-box;
+}
+
+/* Ítems del listado compactos */
+.jkhive-modal-cart .cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.4rem;
+  border-bottom: 1px solid var(--jk-tech-medium);
+  margin-bottom: 0.4rem;
+  background: rgba(15, 32, 39, 0.3);
+  border-radius: 0.35rem;
+  gap: 0.5rem;
+}
+.jkhive-modal-cart .cart-item > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 0;
+}
+.jkhive-modal-cart .cart-item h4 {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--jk-metal-light);
+}
+.jkhive-modal-cart .cart-item p {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--jk-metal);
+}
+.jkhive-modal-cart .cart-item .cart-item-qty {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.jkhive-modal-cart .cart-item .cart-item-qty button {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  font-size: 0.9rem;
+  background: var(--jk-tech-dark);
+  border: 1px solid var(--jk-tech-medium);
+  color: var(--jk-metal-light);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.jkhive-modal-cart .cart-item .cart-item-price {
+  text-align: right;
+  min-width: 70px;
+}
+.jkhive-modal-cart .cart-item .cart-item-price .unit {
+  font-size: 0.7rem;
+  color: var(--jk-metal);
+}
+.jkhive-modal-cart .cart-item .cart-item-price .total {
+  font-size: 0.9rem;
+  color: var(--jk-accent-honey);
+  font-weight: 700;
+}
+
+/* Estilo y layout del botón papelera (jkhive-bttn-tbl) en jkhive-elements.css */
+
+/* ========================================
+   MODAL DE LOGIN - CLASE COMPLETAMENTE INDEPENDIENTE
+   No depende de otros estilos para evitar conflictos
+   ======================================== */
+
+/* Contenedor principal del modal de login */
+/* HEXÁGONO ALARGADO (panal de abejas) - lados verticales más largos que diagonales */
+.jkhive-modal-content.jkhive-modal-login,
+.jkhive-modal-hex.jkhive-modal-login,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-login {
+  /* Posicionamiento y estructura */
+  position: relative !important;
+  display: block !important;
+  margin: 0 auto !important;
+  
+  /* Dimensiones - Responsive */
+  width: 90% !important;
+  max-width: 450px !important;
+  min-width: 0 !important; /* Permitir que se reduzca en pantallas pequeñas */
+  height: auto !important;
+  min-height: auto !important;
+  max-height: 90vh !important; /* Limitar altura en pantallas pequeñas */
+  
+  /* Aspecto y forma hexagonal ALARGADA (panal de abejas) */
+  /* Ajustado: -10px a bordes laterales (20% -> ~17.8%), +10px a diagonales (0%/100% -> ~2.2%/97.8%) */
+  /* Para un ancho de 450px: 10px = ~2.22% */
+  aspect-ratio: unset !important;
+  clip-path: polygon(50% 0%, 100% 17.8%, 100% 82.2%, 50% 100%, 0% 82.2%, 0% 17.8%) !important;
+  
+  /* Fondo y bordes */
+  background: linear-gradient(135deg, var(--jk-tech-darker) 0%, var(--jk-tech-dark) 50%, var(--jk-primary-blue-darker) 100%) !important;
+  border: none !important; /* Sin borde directo - se usa ::before para el borde amarillo */
+  border-radius: 0 !important; /* Sin border-radius para mantener forma hexagonal */
+  
+  /* Espaciado interno */
+  padding: 3rem 2.5rem !important;
+  box-sizing: border-box !important;
+  
+  /* Overflow y scroll */
+  overflow-y: visible !important;
+  overflow-x: hidden !important;
+  
+  /* Sombra y efectos */
+  box-shadow: 0 20px 60px rgba(14, 165, 233, 0.4), 
+              inset 0 0 60px rgba(14, 165, 233, 0.1) !important;
+  
+  /* Z-index para estar por encima */
+  z-index: 10000 !important;
+  
+  /* Animación */
+  animation: modalSlideIn 0.4s ease-out !important;
+}
+
+/* Pseudo-elemento ::before para el borde del modal login */
+.jkhive-modal-content.jkhive-modal-login::before,
+.jkhive-modal-hex.jkhive-modal-login::before,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-login::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: -4px !important; /* 4px de borde alrededor */
+  /* Mismo clip-path alargado ajustado para el borde */
+  clip-path: polygon(50% 0%, 100% 17.8%, 100% 82.2%, 50% 100%, 0% 82.2%, 0% 17.8%) !important;
+  /* Borde azul JK Hive (sin mezcla cyan para no competir con el botón de envío) */
+  background: linear-gradient(135deg, var(--jk-primary-blue-dark) 0%, var(--jk-primary-blue) 50%, var(--jk-primary-blue-light) 100%) !important;
+  z-index: -1 !important;
+  opacity: 0.3 !important;
+  pointer-events: none !important;
+}
+
+/* Overlay amarillo miel metálico detrás del modal (como otros modales) */
+/* Se aplica al body cuando contiene el modal de login */
+body:has(.jkhive-modal-login)::before,
+body:has(.jkhive-modal-content.jkhive-modal-login)::before,
+body:has(.jkhive-modal-hex.jkhive-modal-login)::before {
+  content: '' !important;
+  position: fixed !important;
+  inset: 0 !important;
+  /* Amarillo miel metálico usando la variable CSS */
+  background: rgba(212, 160, 23, 0.8) !important; /* var(--jk-accent-honey) con opacidad */
+  backdrop-filter: blur(10px) !important;
+  z-index: 9998 !important; /* Detrás del modal pero encima del contenido */
+  pointer-events: none !important;
+}
+
+/* Primera capa de textura honeycomb en el overlay */
+body:has(.jkhive-modal-login)::after,
+body:has(.jkhive-modal-content.jkhive-modal-login)::after,
+body:has(.jkhive-modal-hex.jkhive-modal-login)::after {
+  content: '' !important;
+  position: fixed !important;
+  inset: 0 !important;
+  /* Textura honeycomb usando SVG - primera capa */
+  background-image: url('../img/honeycomb-pattern.svg') !important;
+  background-size: 32px 55px !important;
+  background-repeat: repeat !important;
+  background-position: 0 0 !important;
+  background-attachment: local !important;
+  pointer-events: none !important;
+  z-index: 9999 !important; /* Encima del overlay pero debajo del modal */
+  opacity: 1 !important;
+  /* Textura SVG visible sobre el fondo amarillo */
+  filter: brightness(0) contrast(40) !important;
+  /* Rendimiento */
+  -webkit-backface-visibility: hidden !important;
+  backface-visibility: hidden !important;
+  will-change: background-position !important;
+}
+
+/* Segunda capa de textura honeycomb para mayor densidad */
+/* Usamos un pseudo-elemento adicional en el main content */
+.jkhive-main-content:has(.jkhive-modal-login)::before,
+.jkhive-main-content:has(.jkhive-modal-content.jkhive-modal-login)::before,
+.jkhive-main-content:has(.jkhive-modal-hex.jkhive-modal-login)::before {
+  content: '' !important;
+  position: fixed !important;
+  inset: 0 !important;
+  /* Textura honeycomb usando SVG - segunda capa para mayor densidad */
+  background-image: url('../img/honeycomb-pattern.svg') !important;
+  background-size: 32px 55px !important;
+  background-repeat: repeat !important;
+  background-position: 16px 28px !important; /* Desplazado la mitad para crear densidad */
+  background-attachment: local !important;
+  pointer-events: none !important;
+  z-index: 9999 !important; /* Encima del overlay pero debajo del modal */
+  opacity: 1 !important;
+  /* Textura SVG visible sobre el fondo amarillo */
+  filter: brightness(0) contrast(40) !important;
+  /* Rendimiento */
+  -webkit-backface-visibility: hidden !important;
+  backface-visibility: hidden !important;
+  will-change: background-position !important;
+}
+
+/* Asegurar que el modal esté por encima del overlay */
+.jkhive-modal-content.jkhive-modal-login,
+.jkhive-modal-hex.jkhive-modal-login,
+.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-login {
+  position: relative !important;
+  z-index: 9999 !important; /* Por encima del overlay */
+}
+
+/* Header del modal de login */
+.jkhive-modal-login .jkhive-modal-header {
+  text-align: center !important;
+  margin-bottom: 2rem !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.jkhive-modal-login .jkhive-modal-icon {
+  font-size: 3rem !important;
+  color: var(--jk-accent-honey) !important;
+  margin-bottom: 1rem !important;
+  text-shadow: 0 0 20px rgba(244, 196, 48, 0.8) !important;
+}
+
+.jkhive-modal-login .jkhive-modal-title {
+  color: var(--jk-metal-light) !important;
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  margin: 0.5rem 0 !important;
+  text-shadow: 0 0 10px rgba(14, 165, 233, 0.5) !important;
+}
+
+.jkhive-modal-login .jkhive-modal-subtitle {
+  color: var(--jk-metal) !important;
+  font-size: 1rem !important;
+  margin-top: 0.5rem !important;
+}
+
+/* Body del modal de login */
+.jkhive-modal-login .jkhive-modal-body {
+  position: relative !important;
+  z-index: 1 !important;
+  overflow: visible !important;
+  max-height: none !important;
+  height: auto !important;
+}
+
+/* Formulario dentro del modal de login */
+.jkhive-modal-login .jkhive-form-group {
+  margin-bottom: 1.5rem !important;
+}
+
+.jkhive-modal-login .jkhive-form-label {
+  display: block !important;
+  color: var(--jk-metal-light) !important;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.jkhive-modal-login .jkhive-form-input {
+  width: 100% !important;
+  padding: 0.75rem 1rem !important;
+  background: rgba(30, 41, 59, 0.8) !important;
+  border: 2px solid var(--jk-primary-blue) !important;
+  border-radius: 0.5rem !important;
+  color: var(--jk-metal-light) !important;
+  font-size: 1rem !important;
+  transition: all 0.3s ease !important;
+  box-sizing: border-box !important;
+}
+
+.jkhive-modal-login .jkhive-form-input:focus {
+  outline: none !important;
+  border-color: var(--jk-accent-cyan) !important;
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.5) !important;
+}
+
+/* Alertas dentro del modal de login */
+.jkhive-modal-login .jkhive-alert {
+  padding: 1rem !important;
+  border-radius: 0.5rem !important;
+  margin-bottom: 1.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+}
+
+.jkhive-modal-login .jkhive-alert-error {
+  background: rgba(239, 68, 68, 0.2) !important;
+  border: 2px solid rgb(239, 68, 68) !important;
+  color: rgb(239, 68, 68) !important;
+}
+
+.jkhive-modal-login .jkhive-alert-success {
+  background: rgba(34, 197, 94, 0.2) !important;
+  border: 2px solid rgb(34, 197, 94) !important;
+  color: rgb(34, 197, 94) !important;
+}
+
+/* Botones de acción dentro del modal de login */
+.jkhive-modal-login .jkhive-actionbutton-med,
+.jkhive-modal-login .jkhive-actionbutton-small {
+  display: inline-block !important;
+  position: relative !important;
+}
+
+/* Responsive para modales hexagonales - Tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .jkhive-modal-content.jkhive-modal-hex {
+    width: 85%;
+    max-width: 700px;
+    padding: 3rem 2.5rem;
+    /* Mantener aspect-ratio */
+    aspect-ratio: 1 / 1.1547;
+  }
+  
+  /* Escalar elementos internos proporcionalmente */
+  .jkhive-modal-content.jkhive-modal-hex .jkhive-modal-icon {
+    font-size: 3.5rem;
+  }
+  
+  .jkhive-modal-content.jkhive-modal-hex .jkhive-modal-title {
+    font-size: 1.8rem;
+  }
+  
+  .jkhive-modal-content.jkhive-modal-hex .jkhive-modal-body {
+    font-size: 0.95rem;
+  }
+  
+  /* Asegurar que modales con estilos inline también se adapten */
+  .jkhive-modal-content.jkhive-modal-hex[style*="max-width"] {
+    width: 85% !important;
+    max-width: 85% !important;
+    min-width: 0 !important;
+  }
+}
+
+/* Responsive para modales hexagonales - Mobile */
+@media (max-width: 768px) {
+  .jkhive-modal-content.jkhive-modal-hex {
+    width: 90%;
+    max-width: 90%;
+    min-width: 0;
+    padding: 2.5rem 2rem;
+    /* Mantener aspect-ratio pero permitir scroll si es necesario */
+    aspect-ratio: 1 / 1.1547;
+    max-height: 90vh;
+    /* Si el contenido es muy alto, permitir que crezca pero mantener scroll */
+    min-height: 0;
+  }
+  
+  /* Escalar elementos internos proporcionalmente */
+  .jkhive-modal-content.jkhive-modal-hex .jkhive-modal-icon {
+    font-size: 3rem;
+  }
+  
+  .jkhive-modal-content.jkhive-modal-hex .jkhive-modal-title {
+    font-size: 1.5rem;
+  }
+  
+  .jkhive-modal-content.jkhive-modal-hex .jkhive-modal-body {
+    font-size: 0.9rem;
+  }
+  
+  .jkhive-modal-content.jkhive-modal-hex .jkhive-modal-header {
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Escalar botones y otros elementos */
+  .jkhive-modal-content.jkhive-modal-hex .jkhive-btn-hex,
+  .jkhive-modal-content.jkhive-modal-hex .jkhive-actionbutton-big,
+  .jkhive-modal-content.jkhive-modal-hex .jkhive-actionbutton-med {
+    transform: scale(0.9);
+  }
+  
+  /* Asegurar que modales con estilos inline también se adapten */
+  .jkhive-modal-content.jkhive-modal-hex[style*="max-width"] {
+    width: 90% !important;
+    max-width: 90% !important;
+    min-width: 0 !important;
+  }
+  
+  /* Modal Tipos (mantenedor + form): stage y formulario en mobile */
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos {
+    padding: 0.75rem 1rem !important;
+    max-height: 88vh !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-modal-stage {
+    min-height: 0 !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-panel-form .tipos-form-body {
+    padding: 0.75rem 0.5rem !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-form-nuevo {
+    max-width: 100%;
+    gap: 0.75rem;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-form-group label {
+    font-size: 0.85rem !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-form-input {
+    padding: 0.45rem 0.55rem !important;
+    font-size: 0.9rem !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-modal-footer-form {
+    gap: 0.5rem !important;
+  }
+  /* Honeycomb de los 3 botones (Limpiar/Guardar/Salir) 20px más arriba en mobile para no quedar pegado al borde del hexágono */
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-view-form .tipos-modal-footer-form {
+    margin-top: 10px !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-modal-header-icon {
+    font-size: 1.35rem !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .jkhive-modal-header .jkhive-modal-title {
+    font-size: 1rem !important;
+  }
+  /* Formulario Tipos en mobile: variante base correcta para tamaño normal.
+     El objetivo es que el body quede apenas por sobre el centro visual y que el honeycomb no caiga al borde inferior. */
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-view-form .tipos-form-body,
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form > .jkhive-modal-body > .tipos-form-body {
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    padding-top: 10px !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-view-form .tipos-form-nuevo,
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form .tipos-form-nuevo {
+    margin-top: 1.9vh !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-view-form .tipos-modal-footer-form,
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form > .jkhive-modal-footer.tipos-modal-footer-honeycomb {
+    margin-top: -2px !important;
+    padding: 0.22rem 0.9rem 0.28rem !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-view-form .tipos-modal-footer-form .jkhive-btn-cart-exit,
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form > .jkhive-modal-footer .jkhive-btn-cart-exit {
+    transform: translateY(-20px) !important;
+  }
+  
+  /* Modal de login específico */
+  .jkhive-modal-content.jkhive-modal-login,
+  .jkhive-modal-hex.jkhive-modal-login,
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-login {
+    width: 90% !important;
+    max-width: 90% !important;
+    min-width: 0 !important;
+    padding: 2rem 1.5rem !important;
+  }
+}
+
+/* Responsive para modales hexagonales - Very Small Mobile */
+@media (max-width: 480px) {
+  .jkhive-modal-content.jkhive-modal-hex {
+    width: 95%;
+    max-width: 95%;
+    padding: 2rem 1.5rem;
+    /* Mantener aspect-ratio */
+    aspect-ratio: 1 / 1.1547;
+    max-height: 85vh;
+    min-height: 0;
+  }
+  
+  /* Escalar elementos internos proporcionalmente */
+  .jkhive-modal-content.jkhive-modal-hex .jkhive-modal-icon {
+    font-size: 2.5rem;
+  }
+  
+  .jkhive-modal-content.jkhive-modal-hex .jkhive-modal-title {
+    font-size: 1.3rem;
+  }
+  
+  .jkhive-modal-content.jkhive-modal-hex .jkhive-modal-body {
+    font-size: 0.85rem;
+  }
+  
+  .jkhive-modal-content.jkhive-modal-hex .jkhive-modal-header {
+    margin-bottom: 1.25rem;
+  }
+  
+  /* Escalar botones y otros elementos */
+  .jkhive-modal-content.jkhive-modal-hex .jkhive-btn-hex,
+  .jkhive-modal-content.jkhive-modal-hex .jkhive-actionbutton-big,
+  .jkhive-modal-content.jkhive-modal-hex .jkhive-actionbutton-med {
+    transform: scale(0.85);
+  }
+  
+  /* Asegurar que modales con estilos inline también se adapten */
+  .jkhive-modal-content.jkhive-modal-hex[style*="max-width"] {
+    width: 95% !important;
+    max-width: 95% !important;
+    min-width: 0 !important;
+  }
+  
+  /* Tablas dentro de modales */
+  .jkhive-modal-content.jkhive-modal-hex table {
+    font-size: 0.8rem;
+  }
+  
+  .jkhive-modal-content.jkhive-modal-hex .table-responsive {
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+  
+  /* Modal de login específico */
+  .jkhive-modal-content.jkhive-modal-login,
+  .jkhive-modal-hex.jkhive-modal-login,
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-login {
+    width: 95% !important;
+    max-width: 95% !important;
+    min-width: 0 !important;
+    padding: 1.5rem 1.25rem !important;
+  }
+  
+  /* Modal Tipos: más compacto en pantallas muy pequeñas */
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos {
+    padding: 0.5rem 0.75rem !important;
+    max-height: 90vh !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-panel-form .tipos-form-body {
+    padding: 0.5rem 0.35rem !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-form-nuevo {
+    gap: 0.6rem;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-form-group label {
+    font-size: 0.8rem !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-form-input {
+    padding: 0.4rem 0.5rem !important;
+    font-size: 0.875rem !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-modal-footer-form {
+    gap: 0.4rem !important;
+  }
+  /* Honeycomb de los 3 botones 20px más arriba en pantallas muy pequeñas */
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-view-form .tipos-modal-footer-form {
+    margin-top: 10px !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .tipos-modal-header-icon {
+    font-size: 1.2rem !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos .jkhive-modal-header .jkhive-modal-title {
+    font-size: 0.95rem !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-view-form .tipos-form-body,
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form > .jkhive-modal-body > .tipos-form-body {
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    padding-top: 8px !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-view-form .tipos-form-nuevo,
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form .tipos-form-nuevo {
+    margin-top: 1.35vh !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-view-form .tipos-modal-footer-form,
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form > .jkhive-modal-footer.tipos-modal-footer-honeycomb {
+    margin-top: -4px !important;
+    padding: 0.18rem 0.75rem 0.22rem !important;
+  }
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-view-form .tipos-modal-footer-form .jkhive-btn-cart-exit,
+  .jkhive-modal-content.jkhive-modal-hex.jkhive-modal-tipos.tipos-modal-form > .jkhive-modal-footer .jkhive-btn-cart-exit {
+    transform: translateY(-19.5px) !important;
+  }
+}
+
+/* ========================================
+   MODAL UNIVERSAL DE TABLAS (ELIMINACIÓN/DESACTIVACIÓN)
+   ======================================== */
+/* Modal compacto con patrón de panal - Estilo universal para herramientas de gestión */
+.jkhive-tables-modal .jkhive-modal-content {
+  position: relative;
+  background-color: var(--jk-tech-dark) !important;
+  overflow: hidden;
+  max-width: 420px;
+  padding: 1.5rem;
+}
+
+/* Patrón de panal de abejas como fondo - primera capa adicional */
+.jkhive-tables-modal .jkhive-modal-content::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* Textura honeycomb usando SVG - primera capa */
+  background-image: url('../img/honeycomb-pattern.svg');
+  background-size: 32px 55px; /* Tamaño aumentado 15% (28*1.15=32.2, 48*1.15=55.2) */
+  background-repeat: repeat;
+  background-position: 0 0;
+  background-attachment: local;
+  /* rendimiento */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: background-position;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 1;
+  /* Aumentar intensidad visual */
+  filter: brightness(1.2);
+}
+
+/* Segunda capa del patrón para mayor densidad - aumentada en 1/3 más */
+.jkhive-tables-modal .jkhive-modal-content::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* Textura honeycomb usando SVG - segunda capa para mayor densidad */
+  background-image: url('../img/honeycomb-pattern.svg');
+  background-size: 32px 55px; /* Tamaño aumentado 15% (28*1.15=32.2, 48*1.15=55.2) */
+  background-repeat: repeat;
+  background-position: 16px 28px; /* Desplazado la mitad (32/2=16, 55/2=27.5) para crear densidad */
+  background-attachment: local;
+  /* rendimiento */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: background-position;
+  pointer-events: none;
+  z-index: 0;
+  /* Aumentar opacidad para intensidad adicional - aproximadamente 1/3 más (1 + 0.33 = 1.33) */
+  opacity: 1;
+  /* Aumentar intensidad visual en 1/3 más usando filtros más agresivos */
+  filter: brightness(1.4) contrast(1.3);
+}
+
+/* Asegurar que el contenido esté por encima de las capas de fondo */
+.jkhive-tables-modal .jkhive-modal-content > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Estilos para el título del modal */
+.jkhive-tables-modal .jkhive-modal-content h2 {
+  margin: 0 0 0.75rem 0 !important;
+  font-size: 1.5rem;
+  color: var(--jk-accent-honey);
+}
+
+/* Estilos para el texto descriptivo */
+.jkhive-tables-modal .jkhive-modal-content > p {
+  margin: 0 0 1.25rem 0;
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--jk-metal-light);
+}
+
+/* Resaltar el nombre del elemento en el texto */
+.jkhive-tables-modal .jkhive-modal-content strong {
+  color: var(--jk-accent-honey);
+}
+
+/* Contenedor de botones */
+.jkhive-tables-modal .jkhive-modal-content > div[style*="flex-direction: column"],
+.jkhive-tables-modal .jkhive-modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Botones de acción - tamaño compacto */
+.jkhive-tables-modal .jkhive-actionbutton-med {
+  width: 100%;
+  max-width: 100px;
+  margin: 0 auto;
+}
+
+/* Botones dentro del modal */
+.jkhive-tables-modal .jkhive-actionbutton-med button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Ocultar texto en los action buttons - solo mostrar iconos */
+.jkhive-tables-modal .jkhive-hex-text {
+  display: none !important;
+}
+
+/* Ocultar botón de cerrar en el modal de tablas */
+/* Visibilidad .jkhive-modal-close en tables-modal: jkhive-elements.css */
+
+/* Botón de desactivar - verde metálico inicial, amarillo en hover */
+.jkhive-tables-modal .jkhive-hex-green {
+  background: var(--jk-secondary-green) !important; /* Verde metálico #14b8a6 */
+  box-shadow: var(--jk-shadow-lg), 0 0 20px rgba(20, 184, 166, 0.6) !important;
+}
+
+.jkhive-tables-modal .jkhive-actionbutton-med:hover .jkhive-hex-green {
+  background: var(--jk-accent-honey-light) !important; /* Amarillo miel metálico */
+  box-shadow: var(--jk-shadow-lg), 0 0 30px rgba(244, 196, 48, 0.8) !important;
+}
+
+/* Texto descriptivo debajo de cada botón */
+.jkhive-tables-modal .jkhive-modal-content p[style*="font-size: 0.85rem"],
+.jkhive-tables-modal .jkhive-modal-description {
+  font-size: 0.85rem;
+  color: var(--jk-metal);
+  text-align: center;
+  margin: 0 0 0.5rem 0;
+}
+
+/* Responsive para modal de tablas */
+@media (max-width: 768px) {
+  .jkhive-tables-modal .jkhive-modal-content {
+    max-width: 90%;
+    padding: 1.25rem;
+  }
+  
+  .jkhive-tables-modal .jkhive-modal-content h2 {
+    font-size: 1.25rem;
+  }
+  
+  .jkhive-tables-modal .jkhive-actionbutton-med {
+    max-width: 80px;
+  }
+}
+
+/* ========================================
+   ESTILOS ADICIONALES DE MODALES
+   ======================================== */
+.jkhive-modal-section-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--jk-primary-blue);
+  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+}
+
+.jkhive-modal-features {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+}
+
+.jkhive-modal-feature {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(14, 165, 233, 0.2);
+  color: var(--jk-metal-light);
+  font-size: 0.95rem;
+}
+
+.jkhive-modal-feature:last-child {
+  border-bottom: none;
+}
+
+.jkhive-modal-deployment {
+  background: rgba(14, 165, 233, 0.1);
+  border-left: 4px solid var(--jk-accent-cyan);
+  padding: 1rem;
+  border-radius: 8px;
+  color: var(--jk-metal-light);
+  font-size: 0.9rem;
+  margin-top: 1.5rem;
+}
+
+.jkhive-modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2.5rem; /* 40px de separación vertical entre contenido y action buttons */
+}
+
+.jkhive-modal-actions .jkhive-btn-hex-carousel {
+  display: inline-flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Responsive para todos los modales */
+@media (max-width: 768px) {
+  .jkhive-modal-content {
+    margin: 1rem;
+    padding: 2rem 1.5rem;
+    max-width: 90%;
+  }
+  
+  .jkhive-modal-icon {
+    font-size: 3rem;
+  }
+  
+  .jkhive-modal-title {
+    font-size: 1.5rem;
+  }
+  
+  .jkhive-modal-actions {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+}
+
+/* Contenedores de action buttons dentro de modales con text-center y flex */
+.jkhive-modal-body .text-center[style*="display: flex"],
+.jkhive-modal-body > div.text-center[style*="flex"] {
+  margin-top: 2.5rem !important; /* 40px de separación vertical */
+}
+
+/* ========================================
+   ESTILOS ADICIONALES DE MODALES
+   ======================================== */
+.jkhive-modal-section-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--jk-primary-blue);
+  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+}
+
+.jkhive-modal-features {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+}
+
+.jkhive-modal-feature {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(14, 165, 233, 0.2);
+  color: var(--jk-metal-light);
+  font-size: 0.95rem;
+}
+
+.jkhive-modal-feature:last-child {
+  border-bottom: none;
+}
+
+.jkhive-modal-deployment {
+  background: rgba(14, 165, 233, 0.1);
+  border-left: 4px solid var(--jk-accent-cyan);
+  padding: 1rem;
+  border-radius: 8px;
+  color: var(--jk-metal-light);
+  font-size: 0.9rem;
+  margin-top: 1.5rem;
+}
+
+.jkhive-modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2.5rem; /* 40px de separación vertical entre contenido y action buttons */
+}
+
+.jkhive-modal-actions .jkhive-btn-hex-carousel {
+  display: inline-flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Responsive para todos los modales */
+@media (max-width: 768px) {
+  .jkhive-modal-content {
+    margin: 1rem;
+    padding: 2rem 1.5rem;
+    max-width: 90%;
+  }
+  
+  .jkhive-modal-icon {
+    font-size: 3rem;
+  }
+  
+  .jkhive-modal-title {
+    font-size: 1.5rem;
+  }
+  
+  .jkhive-modal-actions {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+}
+
+/* Contenedores de action buttons dentro de modales con text-center y flex */
+.jkhive-modal-body .text-center[style*="display: flex"],
+.jkhive-modal-body > div.text-center[style*="flex"] {
+  margin-top: 2.5rem !important; /* 40px de separación vertical */
+}
+
+
+
+/* ========================================
+   MODALES DE MENSAJER�A - ESTILOS INDEPENDIENTES
+   ======================================== */
+
+/* Contenedor del modal - ambos modales con el mismo tamaño */
+.jkhive-modal-msgs-vp .jkhive-modal-content,
+.jkhive-modal-msgs-e .jkhive-modal-content,
+.jkhive-msgs-alerts .jkhive-modal-content {
+  max-width: 306.886125px !important; /* 361.0425px * 0.85 = 306.886125px (15% más pequeño adicional) */
+  width: 306.886125px !important; /* Forzar el ancho para asegurar que se aplique */
+  padding: 1.5rem 1.75rem !important;
+}
+
+/* Hex�gono compacto y equil�tero */
+.jkhive-modal-msgs-vp .jkhive-modal-content.jkhive-modal-hex,
+.jkhive-modal-msgs-e .jkhive-modal-content.jkhive-modal-hex,
+.jkhive-msgs-alerts .jkhive-modal-content.jkhive-modal-hex {
+  /* Aspect-ratio para hexágono equilátero: altura = ancho * 1.1547 */
+  aspect-ratio: 1 / 1.1547 !important;
+  min-height: auto !important;
+  width: 306.886125px !important; /* Ancho fijo - 15% más pequeño adicional */
+  min-width: 306.886125px !important;
+  max-width: 306.886125px !important;
+  /* Hexágono equilátero: alargar laterales (0%/100%) y acortar diagonales (20%/80%) */
+  /* Clip-path estándar para hexágono equilátero - todos los lados iguales */
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%) !important;
+}
+
+/* Modal de vaciar papelera: 30px más alto verticalmente */
+.jkhive-modal-msgs-e .jkhive-modal-content.jkhive-modal-hex {
+  height: calc(306.886125px * 1.1547 + 30px) !important;
+  min-height: calc(306.886125px * 1.1547 + 30px) !important;
+  max-height: calc(306.886125px * 1.1547 + 30px) !important;
+  aspect-ratio: auto !important; /* Desactivar aspect-ratio para permitir altura personalizada */
+}
+
+.jkhive-modal-msgs-vp .jkhive-modal-content.jkhive-modal-hex::before,
+.jkhive-modal-msgs-e .jkhive-modal-content.jkhive-modal-hex::before,
+.jkhive-msgs-alerts .jkhive-modal-content.jkhive-modal-hex::before {
+  /* Clip-path estándar para hexágono equilátero - todos los lados iguales */
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%) !important;
+}
+
+/* Header, icono, t�tulo */
+.jkhive-modal-msgs-vp .jkhive-modal-header,
+.jkhive-modal-msgs-e .jkhive-modal-header,
+.jkhive-msgs-alerts .jkhive-modal-header {
+  margin-bottom: 0.75rem !important;
+}
+
+.jkhive-modal-msgs-vp .jkhive-modal-icon,
+.jkhive-modal-msgs-e .jkhive-modal-icon,
+.jkhive-msgs-alerts .jkhive-modal-icon {
+  font-size: 4rem !important; /* Duplicado: 2rem * 2 = 4rem (100% más grande) */
+  margin-bottom: 0.5rem !important;
+}
+
+/* Agrandar imágenes y SVGs dentro del ícono */
+.jkhive-modal-msgs-vp .jkhive-modal-icon img,
+.jkhive-modal-msgs-e .jkhive-modal-icon img,
+.jkhive-msgs-alerts .jkhive-modal-icon img,
+.jkhive-modal-msgs-vp .jkhive-modal-icon svg,
+.jkhive-modal-msgs-e .jkhive-modal-icon svg,
+.jkhive-msgs-alerts .jkhive-modal-icon svg {
+  width: 200% !important; /* Duplicar tamaño (100% más grande) */
+  height: 200% !important;
+  max-width: none !important;
+  max-height: none !important;
+}
+
+.jkhive-modal-msgs-vp .jkhive-modal-title,
+.jkhive-modal-msgs-e .jkhive-modal-title,
+.jkhive-msgs-alerts .jkhive-modal-title {
+  font-size: 1.25rem !important;
+  margin-bottom: 0.4rem !important;
+}
+
+.jkhive-modal-msgs-vp .jkhive-modal-body,
+.jkhive-modal-msgs-e .jkhive-modal-body,
+.jkhive-msgs-alerts .jkhive-modal-body {
+  margin-bottom: 1rem !important;
+}
+
+.jkhive-modal-msgs-vp .jkhive-modal-description,
+.jkhive-modal-msgs-e .jkhive-modal-description,
+.jkhive-msgs-alerts .jkhive-modal-description {
+  font-size: 0.95rem !important;
+  line-height: 1.4 !important;
+  margin-bottom: 0 !important;
+}
+
+/* ACCIONES - BOTONES JUNTOS - ESTILO COMPLETAMENTE INDEPENDIENTE */
+/* FORZAR display: block y text-align para juntar los botones con inline-block */
+.jkhive-modal-msgs-vp .jkhive-modal-actions,
+.jkhive-modal-msgs-e .jkhive-modal-actions,
+.jkhive-msgs-alerts .jkhive-modal-actions {
+  display: block !important;
+  text-align: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 0 !important;
+  row-gap: 0 !important;
+  column-gap: 0 !important;
+  flex-direction: unset !important;
+  flex-wrap: unset !important;
+  justify-content: unset !important;
+  align-items: unset !important;
+  font-size: 0 !important; /* Eliminar espacio entre elementos inline-block */
+  letter-spacing: 0 !important;
+  word-spacing: 0 !important;
+}
+
+/* Botones - ESTILOS DESHABILITADOS - usar solo jkhive-actionbutton-msgs */
+/* Estos estilos NO se aplican si el botón tiene la clase jkhive-actionbutton-msgs */
+
+/* ========================================
+   ESTILOS ESPECÍFICOS PARA ACTION BUTTONS DE MENSAJERÍA
+   Clase: jkhive-actionbutton-msgs
+   ======================================== */
+
+/* Contenedor de acciones con clase específica */
+.jkhive-modal-msgs-vp .jkhive-modal-actions,
+.jkhive-modal-msgs-e .jkhive-modal-actions {
+  font-size: 0 !important; /* Eliminar espacio entre inline-block */
+}
+
+/* Action buttons específicos de mensajería - MÁXIMA ESPECIFICIDAD CON ID */
+/* SEPARACIÓN MÍNIMA DE 1px */
+#jkhive-system-modal-container .jkhive-modal-msgs-vp .jkhive-modal-actions .jkhive-actionbutton-msgs,
+#jkhive-system-modal-container .jkhive-modal-msgs-e .jkhive-modal-actions .jkhive-actionbutton-msgs,
+#jkhive-system-modal-container .jkhive-msgs-alerts .jkhive-modal-actions .jkhive-actionbutton-msgs,
+.jkhive-modal-msgs-vp .jkhive-modal-actions .jkhive-actionbutton-msgs,
+.jkhive-modal-msgs-e .jkhive-modal-actions .jkhive-actionbutton-msgs,
+.jkhive-msgs-alerts .jkhive-modal-actions .jkhive-actionbutton-msgs {
+  margin: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 1px !important; /* Separación horizontal MÍNIMA de 1px */
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  min-width: 110px !important;
+  transform: scale(0.9) !important;
+  letter-spacing: 0 !important;
+  word-spacing: 0 !important;
+  float: none !important;
+  position: relative !important;
+  left: auto !important;
+  right: auto !important;
+  text-align: center !important;
+  box-sizing: border-box !important;
+}
+
+/* Último botón sin margen derecho */
+.jkhive-modal-msgs-vp .jkhive-modal-actions .jkhive-actionbutton-msgs:last-child,
+.jkhive-modal-msgs-e .jkhive-modal-actions .jkhive-actionbutton-msgs:last-child,
+.jkhive-msgs-alerts .jkhive-modal-actions .jkhive-actionbutton-msgs:last-child {
+  margin-right: 0 !important;
+}
+
+/* Link dentro del botón */
+.jkhive-modal-msgs-vp .jkhive-modal-actions .jkhive-actionbutton-msgs > a,
+.jkhive-modal-msgs-e .jkhive-modal-actions .jkhive-actionbutton-msgs > a {
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+  text-align: center !important;
+  width: 100% !important;
+  font-size: 1rem !important; /* Restaurar tamaño de fuente */
+}
+
+/* Hexágono dentro del botón */
+.jkhive-modal-msgs-vp .jkhive-actionbutton-msgs .jkhive-hex,
+.jkhive-modal-msgs-e .jkhive-actionbutton-msgs .jkhive-hex {
+  margin: 0 auto !important;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Restaurar tamaño de fuente en contenido interno */
+.jkhive-modal-msgs-vp .jkhive-modal-actions .jkhive-actionbutton-med > *,
+.jkhive-modal-msgs-e .jkhive-modal-actions .jkhive-actionbutton-med > * {
+  font-size: 1rem !important;
+}
+
+.jkhive-modal-msgs-vp .jkhive-modal-actions .jkhive-actionbutton-med:last-child,
+.jkhive-modal-msgs-e .jkhive-modal-actions .jkhive-actionbutton-med:last-child {
+  margin-right: 0 !important; /* Sin margen en el último botón */
+}
+
+/* Elementos internos sin m�rgenes */
+.jkhive-modal-msgs-vp .jkhive-modal-actions .jkhive-actionbutton-med > *,
+.jkhive-modal-msgs-e .jkhive-modal-actions .jkhive-actionbutton-med > * {
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+  font-size: 1rem !important; /* Restaurar tamaño de fuente después de font-size: 0 en el contenedor */
+}
+
+/* Hex�gono dentro del bot�n sin margin auto */
+.jkhive-modal-msgs-vp .jkhive-actionbutton-med .jkhive-hex,
+.jkhive-modal-msgs-e .jkhive-actionbutton-med .jkhive-hex {
+  margin: 0 auto !important; /* Centrar el hexágono dentro de su contenedor */
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* ESTILOS ADICIONALES CON MÁXIMA ESPECIFICIDAD PARA ASEGURAR CENTRADO COMPLETO */
+#jkhive-system-modal-container .jkhive-modal-msgs-vp .jkhive-modal-actions,
+#jkhive-system-modal-container .jkhive-modal-msgs-e .jkhive-modal-actions {
+  margin: 0 auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+#jkhive-system-modal-container .jkhive-modal-msgs-vp .jkhive-modal-actions .jkhive-actionbutton-med,
+#jkhive-system-modal-container .jkhive-modal-msgs-e .jkhive-modal-actions .jkhive-actionbutton-med {
+  float: none !important;
+  position: relative !important;
+  left: auto !important;
+  right: auto !important;
+  text-align: center !important;
+}
+
+#jkhive-system-modal-container .jkhive-modal-msgs-vp .jkhive-modal-actions .jkhive-actionbutton-med > a,
+#jkhive-system-modal-container .jkhive-modal-msgs-e .jkhive-modal-actions .jkhive-actionbutton-med > a {
+  text-align: center !important;
+  width: 100% !important;
+  display: block !important;
+}
+
+/* ========================================
+   MODAL CONTEXTO RIESGOS (index carrusel)
+   Overlay con textura honeycomb + contenido con fondo/borde correctos
+   ======================================== */
+.jkhive-modal-ctx-risks .jkhive-modal-overlay {
+  background: rgba(244, 196, 48, 0.8) !important;
+  backdrop-filter: blur(10px) !important;
+  position: fixed !important;
+  inset: 0 !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 10000 !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+.jkhive-modal-ctx-risks .jkhive-modal-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../img/honeycomb-pattern.svg');
+  background-size: 32px 55px;
+  background-repeat: repeat;
+  background-position: 0 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 1 !important;
+  filter: brightness(0) contrast(40) !important;
+}
+
+.jkhive-modal-ctx-risks .jkhive-modal-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../img/honeycomb-pattern.svg');
+  background-size: 32px 55px;
+  background-repeat: repeat;
+  background-position: 16px 28px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 1 !important;
+  filter: brightness(0) contrast(40) !important;
+}
+
+/* Contenido: hex alargado + honeycomb en fondo + borde cyan */
+.jkhive-modal-ctx-risks-content {
+  position: relative !important;
+  width: 90% !important;
+  max-width: 520px !important;
+  min-width: 0 !important;
+  height: auto !important;
+  min-height: auto !important;
+  max-height: 90vh !important;
+  aspect-ratio: unset !important;
+  clip-path: polygon(50% 0%, 100% 17.8%, 100% 82.2%, 50% 100%, 0% 82.2%, 0% 17.8%) !important;
+  background: var(--honeycomb-url) repeat, linear-gradient(135deg, var(--jk-tech-darker) 0%, var(--jk-tech-dark) 30%, var(--jk-primary-blue-darker) 70%, var(--jk-tech-dark) 100%) !important;
+  background-size: var(--honeycomb-size-sections), 100% 100% !important;
+  background-position: 0 0, 0 0 !important;
+  border: none !important;
+  padding: 3rem 2.5rem !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  box-shadow: 0 20px 60px rgba(14, 165, 233, 0.4), inset 0 0 60px rgba(14, 165, 233, 0.1) !important;
+  z-index: 10001 !important;
+  box-sizing: border-box !important;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.jkhive-modal-ctx-risks-content::-webkit-scrollbar {
+  display: none;
+}
+
+.jkhive-modal-ctx-risks-content::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: -4px !important;
+  clip-path: polygon(50% 0%, 100% 17.8%, 100% 82.2%, 50% 100%, 0% 82.2%, 0% 17.8%) !important;
+  background: linear-gradient(135deg, var(--jk-accent-cyan), var(--jk-primary-blue-light)) !important;
+  z-index: -1 !important;
+  opacity: 0.3 !important;
+  pointer-events: none !important;
+}
+
+/* Overlay con honeycomb pattern */
+.jkhive-modal-msgs-vp .jkhive-modal-overlay,
+.jkhive-modal-msgs-e .jkhive-modal-overlay,
+.jkhive-msgs-alerts .jkhive-modal-overlay {
+  background: rgba(244, 196, 48, 0.8) !important;
+  backdrop-filter: blur(10px) !important;
+  position: fixed !important;
+  inset: 0 !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 10000 !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+.jkhive-modal-msgs-vp .jkhive-modal-overlay::before,
+.jkhive-modal-msgs-e .jkhive-modal-overlay::before,
+.jkhive-msgs-alerts .jkhive-modal-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../img/honeycomb-pattern.svg');
+  background-size: 32px 55px;
+  background-repeat: repeat;
+  background-position: 0 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 1 !important;
+  /* Textura SVG en negro con alta intensidad */
+  filter: brightness(0) contrast(40) !important;
+}
+
+.jkhive-modal-msgs-vp .jkhive-modal-overlay::after,
+.jkhive-modal-msgs-e .jkhive-modal-overlay::after,
+.jkhive-msgs-alerts .jkhive-modal-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../img/honeycomb-pattern.svg');
+  background-size: 32px 55px;
+  background-repeat: repeat;
+  background-position: 16px 28px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 1 !important;
+  /* Textura SVG en negro con alta intensidad */
+  filter: brightness(0) contrast(40) !important;
+
+/* Botones de acci�n - colores */
+/* ESTILOS ESPECÍFICOS PARA ACTION BUTTONS DE MENSAJERÍA - COLORES */
+.jkhive-modal-msgs-vp .jkhive-actionbutton-msgs .jkhive-system-modal-btn[data-action="ok"] .jkhive-hex,
+.jkhive-modal-msgs-e .jkhive-actionbutton-msgs .jkhive-system-modal-btn[data-action="ok"] .jkhive-hex {
+  background: var(--jk-secondary-green) !important;
+  border-color: var(--jk-secondary-green) !important;
+}
+
+.jkhive-modal-msgs-vp .jkhive-actionbutton-msgs .jkhive-system-modal-btn[data-action="ok"]:hover .jkhive-hex,
+.jkhive-modal-msgs-e .jkhive-actionbutton-msgs .jkhive-system-modal-btn[data-action="ok"]:hover .jkhive-hex {
+  /* Verde metálico brilloso */
+  background: linear-gradient(135deg, #00ff88, #00cc6a, #00ff88) !important;
+  border-color: #00ff88 !important;
+  box-shadow: 
+    0 0 20px rgba(0, 255, 136, 0.8),
+    0 0 40px rgba(0, 255, 136, 0.6),
+    inset 0 0 20px rgba(255, 255, 255, 0.3) !important;
+  filter: brightness(1.2) drop-shadow(0 0 15px rgba(0, 255, 136, 0.9)) !important;
+}
+
+.jkhive-msgs-alerts .jkhive-actionbutton-msgs .jkhive-system-modal-btn[data-action="ok"]:hover .jkhive-hex {
+  /* Verde oscuro metálico brillante */
+  background: linear-gradient(135deg, #00ff88, #00cc6a, #00ff88) !important;
+  border-color: #00ff88 !important;
+  box-shadow: 
+    0 0 20px rgba(0, 255, 136, 0.8),
+    0 0 40px rgba(0, 255, 136, 0.6),
+    inset 0 0 20px rgba(255, 255, 255, 0.3) !important;
+  filter: brightness(1.2) drop-shadow(0 0 15px rgba(0, 255, 136, 0.9)) !important;
+  transform: scale(0.9) !important;
+}
+
+/* ========================================
+   RESPONSIVE - TABLETS
+   ======================================== */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .jkhive-modal-content {
+    max-width: 600px;
+    padding: 2.5rem 2rem;
+  }
+  
+  .jkhive-modal-icon {
+    font-size: 3.5rem;
+  }
+  
+  .jkhive-modal-title {
+    font-size: 1.8rem;
+  }
+  
+  .jkhive-tables-modal .jkhive-modal-content {
+    max-width: 380px;
+    padding: 1.25rem;
+  }
+}
+
+/* ========================================
+   RESPONSIVE - VERY SMALL MOBILE
+   ======================================== */
+@media (max-width: 480px) {
+  .jkhive-modal-content {
+    max-width: 95%;
+    padding: 2rem 1.25rem;
+    margin: 0.5rem;
+    max-height: 95vh;
+  }
+  
+  .jkhive-modal-icon {
+    font-size: 2.5rem;
+  }
+  
+  .jkhive-modal-title {
+    font-size: 1.3rem;
+  }
+  
+  .jkhive-modal-body {
+    font-size: 0.9rem;
+  }
+  
+  .jkhive-tables-modal .jkhive-modal-content {
+    max-width: 95%;
+    padding: 1rem;
+  }
+  
+  .jkhive-modal-login {
+    width: 95% !important;
+    max-width: 95% !important;
+    min-width: 95% !important;
+    padding: 1.5rem 1rem !important;
+  }
+}
+
+.jkhive-modal-msgs-vp .jkhive-actionbutton-msgs .jkhive-system-modal-btn[data-action="cancel"] .jkhive-hex,
+.jkhive-modal-msgs-e .jkhive-actionbutton-msgs .jkhive-system-modal-btn[data-action="cancel"] .jkhive-hex {
+  background: var(--jk-accent-honey) !important;
+  border-color: var(--jk-accent-honey) !important;
+}
+
+.jkhive-modal-msgs-vp .jkhive-actionbutton-msgs .jkhive-system-modal-btn[data-action="cancel"]:hover .jkhive-hex,
+.jkhive-modal-msgs-e .jkhive-actionbutton-msgs .jkhive-system-modal-btn[data-action="cancel"]:hover .jkhive-hex {
+  /* Rojo metálico brilloso */
+  background: linear-gradient(135deg, #ff3366, #cc0033, #ff3366) !important;
+  border-color: #ff3366 !important;
+  box-shadow: 
+    0 0 20px rgba(255, 51, 102, 0.8),
+    0 0 40px rgba(255, 51, 102, 0.6),
+    inset 0 0 20px rgba(255, 255, 255, 0.3) !important;
+  filter: brightness(1.2) drop-shadow(0 0 15px rgba(255, 51, 102, 0.9)) !important;
+}
+
+/* ESTILOS ESPECÍFICOS PARA ACTION BUTTONS DE MENSAJERÍA - COLORES */
+.jkhive-modal-msgs-vp .jkhive-actionbutton-msgs .jkhive-system-modal-btn[data-action="ok"] .jkhive-hex,
+.jkhive-modal-msgs-e .jkhive-actionbutton-msgs .jkhive-system-modal-btn[data-action="ok"] .jkhive-hex {
+  background: var(--jk-secondary-green) !important;
+  border-color: var(--jk-secondary-green) !important;
+}
+
+.jkhive-modal-msgs-vp .jkhive-actionbutton-msgs .jkhive-system-modal-btn[data-action="ok"]:hover .jkhive-hex,
+.jkhive-modal-msgs-e .jkhive-actionbutton-msgs .jkhive-system-modal-btn[data-action="ok"]:hover .jkhive-hex {
+  /* Verde metálico brilloso */
+  background: linear-gradient(135deg, #00ff88, #00cc6a, #00ff88) !important;
+  border-color: #00ff88 !important;
+  box-shadow: 
+    0 0 20px rgba(0, 255, 136, 0.8),
+    0 0 40px rgba(0, 255, 136, 0.6),
+    inset 0 0 20px rgba(255, 255, 255, 0.3) !important;
+  filter: brightness(1.2) drop-shadow(0 0 15px rgba(0, 255, 136, 0.9)) !important;
+}
+
+.jkhive-modal-msgs-vp .jkhive-actionbutton-msgs .jkhive-system-modal-btn[data-action="cancel"] .jkhive-hex,
+.jkhive-modal-msgs-e .jkhive-actionbutton-msgs .jkhive-system-modal-btn[data-action="cancel"] .jkhive-hex {
+  background: var(--jk-accent-honey) !important;
+  border-color: var(--jk-accent-honey) !important;
+}
+
+.jkhive-modal-msgs-vp .jkhive-actionbutton-msgs .jkhive-system-modal-btn[data-action="cancel"]:hover .jkhive-hex,
+.jkhive-modal-msgs-e .jkhive-actionbutton-msgs .jkhive-system-modal-btn[data-action="cancel"]:hover .jkhive-hex {
+  /* Rojo metálico brilloso */
+  background: linear-gradient(135deg, #ff3366, #cc0033, #ff3366) !important;
+  border-color: #ff3366 !important;
+  box-shadow: 
+    0 0 20px rgba(255, 51, 102, 0.8),
+    0 0 40px rgba(255, 51, 102, 0.6),
+    inset 0 0 20px rgba(255, 255, 255, 0.3) !important;
+  filter: brightness(1.2) drop-shadow(0 0 15px rgba(255, 51, 102, 0.9)) !important;
+}
+
+/* SOBRESCRIBIR ESTILOS GENERALES - M�XIMA ESPECIFICIDAD */
+body #jkhive-system-modal-container .jkhive-modal-msgs-vp .jkhive-modal-actions,
+body #jkhive-system-modal-container .jkhive-modal-msgs-e .jkhive-modal-actions {
+  display: block !important;
+  gap: 0 !important;
+  row-gap: 0 !important;
+  column-gap: 0 !important;
+  justify-content: unset !important;
+  flex-wrap: unset !important;
+  flex-direction: unset !important;
+  align-items: unset !important;
+  font-size: 0 !important;
+  letter-spacing: 0 !important;
+  word-spacing: 0 !important;
+}
+
+body #jkhive-system-modal-container .jkhive-modal-msgs-vp .jkhive-actionbutton-msgs:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body #jkhive-system-modal-container .jkhive-modal-msgs-e .jkhive-actionbutton-msgs:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green) {
+  transform: scale(0.9) !important;
+  background: inherit !important;
+  box-shadow: inherit !important;
+}
+
+body #jkhive-system-modal-container .jkhive-modal-msgs-vp .jkhive-actionbutton-msgs:hover .jkhive-system-modal-btn[data-action="ok"] .jkhive-hex,
+body #jkhive-system-modal-container .jkhive-modal-msgs-e .jkhive-actionbutton-msgs:hover .jkhive-system-modal-btn[data-action="ok"] .jkhive-hex {
+  background: linear-gradient(135deg, #00ff88, #00cc6a, #00ff88) !important;
+  border-color: #00ff88 !important;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.8), 0 0 40px rgba(0, 255, 136, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.3) !important;
+  filter: brightness(1.2) drop-shadow(0 0 15px rgba(0, 255, 136, 0.9)) !important;
+  transform: scale(0.9) !important;
+}
+
+body #jkhive-system-modal-container .jkhive-modal-msgs-vp .jkhive-actionbutton-msgs:hover .jkhive-system-modal-btn[data-action="cancel"] .jkhive-hex,
+body #jkhive-system-modal-container .jkhive-modal-msgs-e .jkhive-actionbutton-msgs:hover .jkhive-system-modal-btn[data-action="cancel"] .jkhive-hex {
+  background: linear-gradient(135deg, #ff3366, #cc0033, #ff3366) !important;
+  border-color: #ff3366 !important;
+  box-shadow: 0 0 20px rgba(255, 51, 102, 0.8), 0 0 40px rgba(255, 51, 102, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.3) !important;
+  filter: brightness(1.2) drop-shadow(0 0 15px rgba(255, 51, 102, 0.9)) !important;
+  transform: scale(0.9) !important;
+}
+
+
+/* SOBRESCRIBIR ESTILOS GENERALES - M�XIMA ESPECIFICIDAD */
+body #jkhive-system-modal-container .jkhive-modal-msgs-vp .jkhive-modal-actions,
+body #jkhive-system-modal-container .jkhive-modal-msgs-e .jkhive-modal-actions {
+  display: block !important;
+  gap: 0 !important;
+  row-gap: 0 !important;
+  column-gap: 0 !important;
+  justify-content: unset !important;
+  flex-wrap: unset !important;
+  flex-direction: unset !important;
+  align-items: unset !important;
+  font-size: 0 !important;
+  letter-spacing: 0 !important;
+  word-spacing: 0 !important;
+}
+
+body #jkhive-system-modal-container .jkhive-modal-msgs-vp .jkhive-actionbutton-msgs:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body #jkhive-system-modal-container .jkhive-modal-msgs-e .jkhive-actionbutton-msgs:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green) {
+  transform: scale(0.9) !important;
+  background: inherit !important;
+  box-shadow: inherit !important;
+}
+
+body #jkhive-system-modal-container .jkhive-modal-msgs-vp .jkhive-actionbutton-msgs:hover .jkhive-system-modal-btn[data-action="ok"] .jkhive-hex,
+body #jkhive-system-modal-container .jkhive-modal-msgs-e .jkhive-actionbutton-msgs:hover .jkhive-system-modal-btn[data-action="ok"] .jkhive-hex {
+  background: linear-gradient(135deg, #00ff88, #00cc6a, #00ff88) !important;
+  border-color: #00ff88 !important;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.8), 0 0 40px rgba(0, 255, 136, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.3) !important;
+  filter: brightness(1.2) drop-shadow(0 0 15px rgba(0, 255, 136, 0.9)) !important;
+  transform: scale(0.9) !important;
+}
+
+body #jkhive-system-modal-container .jkhive-modal-msgs-vp .jkhive-actionbutton-msgs:hover .jkhive-system-modal-btn[data-action="cancel"] .jkhive-hex,
+body #jkhive-system-modal-container .jkhive-modal-msgs-e .jkhive-actionbutton-msgs:hover .jkhive-system-modal-btn[data-action="cancel"] .jkhive-hex {
+  background: linear-gradient(135deg, #ff3366, #cc0033, #ff3366) !important;
+  border-color: #ff3366 !important;
+  box-shadow: 0 0 20px rgba(255, 51, 102, 0.8), 0 0 40px rgba(255, 51, 102, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.3) !important;
+  filter: brightness(1.2) drop-shadow(0 0 15px rgba(255, 51, 102, 0.9)) !important;
+  transform: scale(0.9) !important;
+}
+
+/* ============================================
+   MODAL DE ALERTAS - HOVER VERDE OSCURO
+   Máxima especificidad para sobrescribir todos los estilos
+   ============================================ */
+body #jkhive-system-modal-container .jkhive-msgs-alerts .jkhive-actionbutton-msgs .jkhive-system-modal-btn[data-action="ok"] .jkhive-hex,
+body #jkhive-system-modal-container .jkhive-msgs-alerts .jkhive-actionbutton-msgs .jkhive-system-modal-btn[data-action="ok"] .jkhive-hex-honey {
+  background: var(--jk-accent-honey) !important;
+  border-color: var(--jk-accent-honey) !important;
+}
+
+/* Sobrescribir el estilo general .jkhive-hex:hover para el modal de alertas */
+body #jkhive-system-modal-container .jkhive-msgs-alerts .jkhive-actionbutton-msgs:hover .jkhive-system-modal-btn[data-action="ok"] .jkhive-hex,
+body #jkhive-system-modal-container .jkhive-msgs-alerts .jkhive-actionbutton-msgs:hover .jkhive-system-modal-btn[data-action="ok"] .jkhive-hex-honey,
+body #jkhive-system-modal-container .jkhive-msgs-alerts .jkhive-actionbutton-msgs .jkhive-system-modal-btn[data-action="ok"]:hover .jkhive-hex,
+body #jkhive-system-modal-container .jkhive-msgs-alerts .jkhive-actionbutton-msgs .jkhive-system-modal-btn[data-action="ok"]:hover .jkhive-hex-honey,
+body #jkhive-system-modal-container .jkhive-msgs-alerts .jkhive-actionbutton-msgs a:hover .jkhive-system-modal-btn[data-action="ok"] .jkhive-hex,
+body #jkhive-system-modal-container .jkhive-msgs-alerts .jkhive-actionbutton-msgs a:hover .jkhive-system-modal-btn[data-action="ok"] .jkhive-hex-honey,
+body #jkhive-system-modal-container .jkhive-msgs-alerts .jkhive-actionbutton-msgs a .jkhive-system-modal-btn[data-action="ok"]:hover .jkhive-hex,
+body #jkhive-system-modal-container .jkhive-msgs-alerts .jkhive-actionbutton-msgs a .jkhive-system-modal-btn[data-action="ok"]:hover .jkhive-hex-honey {
+  background: linear-gradient(135deg, #00ff88, #00cc6a, #00ff88) !important;
+  border-color: #00ff88 !important;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.8), 0 0 40px rgba(0, 255, 136, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.3) !important;
+  filter: brightness(1.2) drop-shadow(0 0 15px rgba(0, 255, 136, 0.9)) !important;
+  transform: scale(0.9) !important;
+}
+
+/* ============================================
+   MODAL DE ALERTAS - ESTILOS EXACTOS COMO LOS QUE FUNCIONAN
+   Replicando el patrón exacto de jkhive-modal-msgs-vp y jkhive-modal-msgs-e
+   ============================================ */
+.jkhive-msgs-alerts .jkhive-actionbutton-msgs .jkhive-system-modal-btn[data-action="ok"] .jkhive-hex,
+.jkhive-msgs-alerts .jkhive-actionbutton-msgs .jkhive-system-modal-btn[data-action="ok"] .jkhive-hex-honey {
+  background: var(--jk-accent-honey) !important;
+  border-color: var(--jk-accent-honey) !important;
+}
+
+.jkhive-msgs-alerts .jkhive-actionbutton-msgs .jkhive-system-modal-btn[data-action="ok"]:hover .jkhive-hex {
+  /* Verde oscuro metálico brillante */
+  background: linear-gradient(135deg, #00ff88, #00cc6a, #00ff88) !important;
+  border-color: #00ff88 !important;
+  box-shadow: 
+    0 0 20px rgba(0, 255, 136, 0.8),
+    0 0 40px rgba(0, 255, 136, 0.6),
+    inset 0 0 20px rgba(255, 255, 255, 0.3) !important;
+  filter: brightness(1.2) drop-shadow(0 0 15px rgba(0, 255, 136, 0.9)) !important;
+  transform: scale(0.9) !important;
+}
+
+/* ========================================
+   RESPONSIVE - TABLETS
+   ======================================== */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .jkhive-modal-content {
+    max-width: 600px;
+    padding: 2.5rem 2rem;
+  }
+  
+  .jkhive-modal-icon {
+    font-size: 3.5rem;
+  }
+  
+  .jkhive-modal-title {
+    font-size: 1.8rem;
+  }
+  
+  .jkhive-tables-modal .jkhive-modal-content {
+    max-width: 380px;
+    padding: 1.25rem;
+  }
+}
+
+/* ========================================
+   RESPONSIVE - VERY SMALL MOBILE
+   ======================================== */
+@media (max-width: 480px) {
+  .jkhive-modal-content {
+    max-width: 95%;
+    padding: 2rem 1.25rem;
+    margin: 0.5rem;
+    max-height: 95vh;
+  }
+  
+  .jkhive-modal-icon {
+    font-size: 2.5rem;
+  }
+  
+  .jkhive-modal-title {
+    font-size: 1.3rem;
+  }
+  
+  .jkhive-modal-body {
+    font-size: 0.9rem;
+  }
+  
+  .jkhive-tables-modal .jkhive-modal-content {
+    max-width: 95%;
+    padding: 1rem;
+  }
+  
+  .jkhive-modal-login {
+    width: 95% !important;
+    max-width: 95% !important;
+    min-width: 95% !important;
+    padding: 1.5rem 1rem !important;
+  }
+}

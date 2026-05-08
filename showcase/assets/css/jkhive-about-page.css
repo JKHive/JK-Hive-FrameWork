@@ -1,0 +1,806 @@
+/**
+ * JK Hive — página pública About (grilla, credenciales, galería experiencia).
+ * No compacta tipografía global: solo layout de secciones y tarjetas.
+ */
+
+.page-about .jkhive-about-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+  color: var(--jk-metal-light);
+}
+
+.jkhive-about-intro {
+  margin-bottom: 2.5rem;
+}
+
+.jkhive-about-profile-showcase .jkhive-hex-gallery {
+  padding-top: 0.5rem;
+  padding-bottom: 0.25rem;
+}
+
+.jkhive-about-lead.jkhive-about-body {
+  line-height: 1.75;
+  font-size: 1.05rem;
+  margin: 1.5rem auto 0;
+  max-width: 52rem;
+}
+
+.jkhive-about-lead.jkhive-about-body p {
+  margin: 0 0 0.85rem;
+}
+
+/*
+ * Enlace dentro de .jkhive-bttn-item (mismo reset que modals.css para jkhive-modal-footer-hex-link).
+ * Botón: jkhive-bttn-item — hex ítem galería; ver jkhive-elements.css + product-gallery.css (.jkhive-product-gallery-hex-footer .jkhive-bttn-item).
+ */
+#linkedin-profile .jkhive-hex-gallery-actions .jkhive-bttn-item > a.jkhive-modal-footer-hex-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  box-sizing: border-box;
+}
+
+/* LinkedIn: .jkhive-btn-anim-linkedin en jkhive-elements.css; evita heartbeat genérico de .jkhive-bttn-item en este uso. */
+#linkedin-profile .jkhive-bttn-item.jkhive-btn-anim-linkedin:hover .jkhive-hex-icon,
+#linkedin-profile .jkhive-hex-gallery-item:hover .jkhive-bttn-item.jkhive-btn-anim-linkedin:hover .jkhive-hex-icon {
+  animation: jkhive-anmtn-linkedin 0.5s ease-in-out forwards !important;
+}
+
+.jkhive-about-section {
+  margin-bottom: 3rem;
+}
+
+.jkhive-about-section .jkhive-section-title {
+  margin-bottom: 1.25rem;
+}
+
+/* Habilidades: piel canónica miel (.jkhive-hex-skin-ventajas | .jkhive-hex-skin-canonical-honey) — HEX-ITEM-CANONICAL-SKINS.md */
+#about-skills #about-skills-gallery {
+  margin-top: 1.25rem;
+}
+
+.jkhive-why-me-hex:is(.jkhive-hex-skin-ventajas, .jkhive-hex-skin-canonical-honey) ul.jkhive-about-skills-ul.jkhive-why-me-description {
+  text-align: left;
+  /* Lista dentro del body ya tiene padding %; sangría extra proporcional al hex */
+  padding-left: max(0.4rem, 3.5%);
+  list-style: disc;
+  width: 100%;
+  box-sizing: border-box;
+  /* Escala con tamaño del hex; piso legible en móvil (evita ~8px) */
+  font-size: clamp(
+    0.75rem,
+    calc(0.875rem * (var(--jkhive-gallery-hex-flat, 350px) / 350px)),
+    0.95rem
+  );
+  line-height: 1.35;
+}
+
+.jkhive-why-me-hex:is(.jkhive-hex-skin-ventajas, .jkhive-hex-skin-canonical-honey) ul.jkhive-about-skills-ul.jkhive-why-me-description li {
+  margin: 0.1em 0;
+}
+
+@media (max-width: 768px) {
+  .jkhive-why-me-hex:is(.jkhive-hex-skin-ventajas, .jkhive-hex-skin-canonical-honey) ul.jkhive-about-skills-ul.jkhive-why-me-description {
+    line-height: 1.38;
+    padding-left: max(0.35rem, 4%);
+  }
+}
+
+/*
+ * Educación & certificaciones — layout vitrina (2 columnas arriba + rejilla certificaciones abajo).
+ * Arriba: Educación | Idiomas. Abajo: certificaciones en 4 columnas (nueva fila cada 4 ítems).
+ */
+.jkhive-about-creds-layout {
+  margin-top: 0.25rem;
+}
+
+.jkhive-about-creds-row-top {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem 2.25rem;
+  margin-bottom: 2rem;
+  align-items: start;
+}
+
+.jkhive-about-creds-row-top > .jkhive-about-cred-column:only-child {
+  grid-column: 1 / -1;
+  max-width: 40rem;
+}
+
+.jkhive-about-cred-column {
+  min-width: 0;
+}
+
+.jkhive-about-creds-cert-block {
+  margin-top: 0;
+}
+
+.jkhive-about-creds-layout > .jkhive-about-creds-cert-block:not(:first-child) {
+  padding-top: 0.25rem;
+  border-top: 1px solid rgba(51, 65, 85, 0.45);
+  margin-top: 0.25rem;
+}
+
+.jkhive-about-cred-block-title {
+  margin: 0 0 0.65rem;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--jk-accent-honey);
+}
+
+.jkhive-about-cred-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Listas apiladas (educación / idiomas): una línea por ítem */
+.jkhive-about-cred-list--stack .jkhive-about-cred-stack-item {
+  padding: 0.65rem 0;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.6);
+  font-size: 0.95rem;
+}
+
+.jkhive-about-cred-list--stack .jkhive-about-cred-stack-item:last-child {
+  border-bottom: none;
+}
+
+.jkhive-about-cred-stack-link {
+  display: inline;
+  font-weight: 600;
+  color: var(--jk-primary-blue-light);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.jkhive-about-cred-stack-link:hover,
+.jkhive-about-cred-stack-link:focus-visible {
+  color: var(--jk-accent-honey);
+  outline: none;
+}
+
+.jkhive-about-cred-stack-title {
+  display: inline;
+  font-weight: 600;
+  color: var(--jk-metal-light);
+}
+
+.jkhive-about-cred-stack-meta {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  color: var(--jk-metal-medium, rgba(255, 255, 255, 0.55));
+  line-height: 1.35;
+}
+
+/* Certificaciones: 4 por fila (nueva fila solo al sumar de 4 en 4) */
+.jkhive-about-cred-cert-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem 1.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.jkhive-about-cred-cert-cell {
+  min-width: 0;
+}
+
+.jkhive-about-cred-cert-cell-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.35rem;
+  padding: 0.65rem 0.5rem;
+  min-height: 100%;
+  box-sizing: border-box;
+  border: 1px solid rgba(51, 65, 85, 0.65);
+  border-radius: 6px;
+  background: rgba(15, 23, 42, 0.35);
+}
+
+.jkhive-about-cred-cert-link {
+  font-weight: 600;
+  font-size: 0.88rem;
+  line-height: 1.35;
+  color: var(--jk-primary-blue-light);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.jkhive-about-cred-cert-link:hover,
+.jkhive-about-cred-cert-link:focus-visible {
+  color: var(--jk-accent-honey);
+  outline: none;
+}
+
+.jkhive-about-cred-cert-title {
+  font-weight: 600;
+  font-size: 0.88rem;
+  line-height: 1.35;
+  color: var(--jk-metal-light);
+}
+
+.jkhive-about-cred-cert-meta {
+  font-size: 0.75rem;
+  line-height: 1.3;
+  color: var(--jk-metal-medium, rgba(255, 255, 255, 0.55));
+}
+
+@media (max-width: 992px) {
+  .jkhive-about-cred-cert-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .jkhive-about-creds-row-top {
+    grid-template-columns: 1fr;
+    gap: 1.35rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .jkhive-about-creds-row-top > .jkhive-about-cred-column:only-child {
+    max-width: none;
+  }
+
+  /*
+   * Educación & certificaciones (About): −15% tipografía en móvil + compactación vertical.
+   * El h2 de sección (#about-cred-heading) queda fuera de .jkhive-about-creds-layout → no se reduce.
+   */
+  .page-about .jkhive-about-creds-layout {
+    margin-top: 0;
+  }
+
+  .page-about .jkhive-about-creds-layout .jkhive-about-creds-row-top {
+    gap: 0.65rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .page-about .jkhive-about-creds-layout .jkhive-about-cred-block-title {
+    font-size: calc(0.95rem * 0.85);
+    margin-bottom: 0.4rem;
+  }
+
+  .page-about .jkhive-about-creds-layout .jkhive-about-cred-list--stack .jkhive-about-cred-stack-item {
+    padding: 0.4rem 0;
+    font-size: calc(0.95rem * 0.85);
+    line-height: 1.3;
+  }
+
+  .page-about .jkhive-about-creds-layout .jkhive-about-cred-stack-meta {
+    font-size: calc(0.85rem * 0.85);
+    margin-top: 0.12rem;
+    line-height: 1.28;
+  }
+
+  .page-about .jkhive-about-creds-layout .jkhive-about-cred-cert-grid {
+    row-gap: 0.5rem;
+    column-gap: calc(1.25rem * 0.85);
+  }
+
+  .page-about .jkhive-about-creds-layout .jkhive-about-cred-cert-cell-inner {
+    gap: 0.2rem;
+    padding: 0.4rem calc(0.5rem * 0.85);
+    border-radius: calc(6px * 0.85);
+  }
+
+  .page-about .jkhive-about-creds-layout .jkhive-about-cred-cert-link,
+  .page-about .jkhive-about-creds-layout .jkhive-about-cred-cert-title {
+    font-size: calc(0.88rem * 0.85);
+    line-height: 1.28;
+  }
+
+  .page-about .jkhive-about-creds-layout .jkhive-about-cred-cert-meta {
+    font-size: calc(0.75rem * 0.85);
+    line-height: 1.22;
+  }
+
+  .page-about .jkhive-about-creds-layout > .jkhive-about-creds-cert-block:not(:first-child) {
+    padding-top: 0.15rem;
+    margin-top: 0.12rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .jkhive-about-cred-cert-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Experiencia: galería medium canónica + ítems blue (.jkhive-services-item / jkhive-services-hex).
+   Estilos en jk-hive.css + jkhive-services-gallery.css; modal: .jkhive-about-exp-trigger en jkhive-about-public.js */
+.jkhive-about-exp-gallery {
+  margin-top: 1.25rem;
+}
+
+.jkhive-about-fallback {
+  line-height: 1.7;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/*
+ * Hex perfil About: abre modal al clic. display-only pone cursor: default !important en
+ * .jkhive-hex-gallery-hex y en icon/title/subtitle — hay que repetir pointer en hijos.
+ * No aplicar a #about-skills ni vitrinas display-only sin acción (p. ej. why-me en home).
+ */
+#linkedin-profile .jkhive-about-profile-hex-trigger,
+#linkedin-profile .jkhive-about-profile-hex-trigger .jkhive-hex-gallery-icon,
+#linkedin-profile .jkhive-about-profile-hex-trigger .jkhive-hex-gallery-title,
+#linkedin-profile .jkhive-about-profile-hex-trigger .jkhive-hex-gallery-subtitle {
+  cursor: pointer !important;
+}
+
+/*
+ * Header modal perfil: zona superior del hex reservada en modals.css (::before 10%); bloque al borde inferior.
+ * Orden: foto pequeña → nombre → rol (BD).
+ */
+.jkhive-about-profile-modal .jkhive-about-profile-modal-header {
+  display: flex !important;
+  flex-direction: column !important;
+  flex-shrink: 0 !important;
+  align-items: stretch !important;
+  min-height: 9.5rem !important;
+  padding: 0 2.75rem 0 0 !important;
+  box-sizing: border-box !important;
+}
+
+.jkhive-about-profile-modal .jkhive-about-profile-modal-header-stack {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  gap: 0.4rem !important;
+  width: 100% !important;
+  padding-bottom: 0 !important;
+}
+
+.jkhive-about-profile-modal .jkhive-about-profile-modal-header-photo {
+  width: 64px !important;
+  height: 64px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  object-position: center 30% !important;
+  border: 1px solid rgba(148, 163, 184, 0.55) !important;
+  box-sizing: border-box !important;
+  display: block !important;
+  flex-shrink: 0 !important;
+}
+
+.jkhive-about-profile-modal .jkhive-about-profile-modal-header-name {
+  margin: 0 !important;
+  max-width: 100% !important;
+  white-space: nowrap !important;
+  font-size: 1.05rem !important;
+  line-height: 1.25 !important;
+}
+
+.jkhive-about-profile-modal .jkhive-about-profile-modal-header-role {
+  margin: 0 !important;
+  font-size: 0.88rem !important;
+  line-height: 1.3 !important;
+  color: var(--jk-metal-light) !important;
+  font-weight: 500 !important;
+}
+
+@media (max-width: 380px) {
+  .jkhive-about-profile-modal .jkhive-about-profile-modal-header-name {
+    white-space: normal !important;
+  }
+}
+
+.jkhive-about-profile-modal .jkhive-modal-body-content.jkhive-about-profile-modal-body {
+  line-height: 1.7;
+}
+
+.jkhive-about-profile-modal .jkhive-about-profile-modal-body p {
+  margin: 0 0 0.85rem;
+}
+
+/* LinkedIn en pie modal: animación jkhive-elements (.jkhive-btn-anim-linkedin), por encima de hovers genéricos .jkhive-bttn-med */
+.jkhive-about-profile-modal .jkhive-btn-anim-linkedin:hover .jkhive-hex-icon {
+  animation: jkhive-anmtn-linkedin 0.5s ease-in-out forwards !important;
+}
+
+/*
+ * Modal perfil — móvil: grilla hex 25/50/25 (.jkhive-modal-form-admin).
+ * - min-height:9.5rem del header rompe el 25 % y desborda foto/nombre/rol.
+ * - margin-top:auto del primer hijo del header (modals.css) pega el stack al borde inferior.
+ * - jk-hive @768 añade padding al .jkhive-modal-body y encoge tipos: el cuerpo queda bajo y con menos área útil.
+ */
+@media (max-width: 768px) {
+  .jkhive-about-profile-modal .jkhive-about-profile-modal-inner > .jkhive-modal-header.jkhive-about-profile-modal-header {
+    min-height: 0 !important;
+    /* Simétrico: el cierre es absoluto; sin padding izquierdo el stack queda descentrado respecto al hex */
+    padding: 0 1.85rem !important;
+    align-items: center !important;
+    overflow: hidden !important;
+  }
+
+  .jkhive-about-profile-modal .jkhive-about-profile-modal-inner > .jkhive-modal-header > .jkhive-about-profile-modal-header-stack {
+    margin-top: 0 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding-bottom: 0.3rem !important;
+    gap: 0.26rem !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+    width: 100% !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  .jkhive-about-profile-modal .jkhive-about-profile-modal-header-photo {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .jkhive-about-profile-modal .jkhive-about-profile-modal-header-name {
+    font-size: 0.9rem !important;
+    line-height: 1.18 !important;
+    white-space: normal !important;
+  }
+
+  .jkhive-about-profile-modal .jkhive-about-profile-modal-header-role {
+    font-size: 0.74rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .jkhive-about-profile-modal .jkhive-about-profile-modal-inner.jkhive-modal-form-admin > .jkhive-modal-body {
+    min-height: 0 !important;
+    padding: 0.15rem 0.35rem !important;
+  }
+
+  .jkhive-about-profile-modal .jkhive-about-profile-modal-inner.jkhive-modal-form-admin > .jkhive-modal-body > .jkhive-modal-body-content.jkhive-about-profile-modal-body {
+    padding: 0.05rem 0.22rem 0.1rem !important;
+    line-height: 1.48 !important;
+  }
+
+  .jkhive-about-profile-modal .jkhive-about-profile-modal-body p {
+    margin: 0 0 0.4rem !important;
+  }
+
+  /* Pie: .jkhive-modal-form-admin pone justify-content:center en el footer y el honeycomb queda arriba del 25 %.
+     Mismo patrón que el hex base: flex-start + margin-top:auto en el primer hijo (modals.css) baja fila 1 y 2 juntas. */
+  .jkhive-about-profile-modal .jkhive-about-profile-modal-inner.jkhive-modal-form-admin > .jkhive-modal-footer.jkhive-modal-admin-footer {
+    justify-content: flex-start !important;
+    align-items: center !important;
+    padding: 0 0.35rem 0.12rem !important;
+  }
+
+  .jkhive-about-profile-modal .jkhive-modal-admin-footer-honeycomb {
+    gap: 2px !important;
+  }
+
+  .jkhive-about-profile-modal .jkhive-modal-admin-footer-honeycomb .jkhive-modal-admin-footer-row1 {
+    gap: 2px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .jkhive-about-profile-modal .jkhive-about-profile-modal-inner > .jkhive-modal-header.jkhive-about-profile-modal-header {
+    padding: 0 1.5rem !important;
+  }
+
+  .jkhive-about-profile-modal .jkhive-about-profile-modal-header-photo {
+    width: 46px !important;
+    height: 46px !important;
+  }
+
+  .jkhive-about-profile-modal .jkhive-about-profile-modal-header-name {
+    font-size: 0.84rem !important;
+  }
+
+  .jkhive-about-profile-modal .jkhive-about-profile-modal-header-role {
+    font-size: 0.7rem !important;
+  }
+
+  .jkhive-about-profile-modal .jkhive-about-profile-modal-inner.jkhive-modal-form-admin > .jkhive-modal-body {
+    padding: 0.1rem 0.28rem !important;
+  }
+
+  .jkhive-about-profile-modal .jkhive-about-profile-modal-inner.jkhive-modal-form-admin > .jkhive-modal-body > .jkhive-modal-body-content.jkhive-about-profile-modal-body {
+    line-height: 1.42 !important;
+  }
+}
+
+.jkhive-about-inline-link {
+  color: var(--jk-primary-blue-light);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.jkhive-about-inline-link:hover,
+.jkhive-about-inline-link:focus-visible {
+  color: var(--jk-accent-honey);
+  outline: none;
+}
+
+/* =============================================================================
+   About — móvil / tablet (.page-about solamente).
+   Referencia calibración panal + tipos móvil: housesitting-docs/GALERIA_VISTA_RAPIDA_CRM.txt
+   (breakpoints 768 / 480 / 360); why-me medium móvil: jkhive.work/CHANGELOG_WHY_ME_GALLERY.md
+   Panal global jk-hive: columnas desktop + ítems redimensionados en @media → huecos; aquí
+   perfil; habilidades = panal 1 col + zigzag (jkhive-hex-gallery-mobile-honey-1col.css, solo #about-skills-gallery);
+   experiencia = panal 2-1-2-1 propio (#about-experience-gallery, más abajo): jk-hive medium móvil 3-2 no alinea
+   bien esta lista; el bloque About anula solo ese #id con grid auto + solape vertical.
+   ============================================================================= */
+@media (max-width: 768px) {
+  .page-about .jkhive-about-page {
+    overflow-x: clip;
+  }
+
+  /* Perfil: una columna al ancho útil, ítem centrado y alto proporcional al ancho */
+  .page-about #linkedin-profile .jkhive-hex-gallery.jkhive-hex-gallery-big.jkhive-hex-gallery-centered {
+    --about-profile-hex-flat: min(272px, 88vw);
+    /* Piel lista / tokens que leen --jkhive-gallery-hex-flat (móvil global = 200px rompe proporción) */
+    --jkhive-gallery-hex-flat: var(--about-profile-hex-flat);
+    grid-template-columns: var(--about-profile-hex-flat) !important;
+    justify-items: stretch;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .page-about #linkedin-profile .jkhive-hex-gallery-big .jkhive-hex-gallery-item {
+    width: 100% !important;
+    max-width: var(--about-profile-hex-flat);
+    height: calc(var(--about-profile-hex-flat) * 1.1547) !important;
+    margin: 0 auto !important;
+    justify-self: center;
+    transform: none !important;
+  }
+
+  .page-about #linkedin-profile .jkhive-hex-gallery-hex {
+    padding: clamp(1rem, 4.5vw, 1.75rem) clamp(0.65rem, 3vw, 1.1rem);
+    box-sizing: border-box;
+  }
+
+  /* Foto: más grande que icono FA del doc CRM, proporcional al hex */
+  .page-about #linkedin-profile .jkhive-profile-photo img {
+    width: clamp(3.75rem, 22vw, 4.75rem) !important;
+    height: auto !important;
+    max-width: 100%;
+  }
+
+  /* Tipografía alineada a tabla CRM @768 (título 0.9rem / subtítulo 0.53rem); piso legible en subtítulo */
+  .page-about #linkedin-profile .jkhive-hex-gallery-title {
+    font-size: 0.9rem;
+    line-height: 1.22;
+    margin-bottom: 0.3rem;
+  }
+
+  .page-about #linkedin-profile .jkhive-hex-gallery-subtitle {
+    font-size: max(0.72rem, 0.53rem);
+    line-height: 1.35;
+    margin-bottom: 0.35rem;
+  }
+
+  .page-about #linkedin-profile .jkhive-hex-gallery-actions {
+    margin-top: 0.3rem;
+    transform: scale(0.9);
+    transform-origin: center bottom;
+  }
+
+  /* Habilidades: tokens para panal 1 col + zigzag (solo #about-skills-gallery + .jkhive-hex-gallery-mobile-honey-1col). */
+  .page-about #about-skills-gallery.jkhive-hex-gallery-mobile-honey-1col {
+    --jk-h1c-flat-max: 288px;
+    --jk-h1c-flat-scale: 0.85;
+  }
+
+  .page-about #about-skills-gallery .jkhive-why-me-hex:is(.jkhive-hex-skin-ventajas, .jkhive-hex-skin-canonical-honey) ul.jkhive-about-skills-ul.jkhive-why-me-description {
+    font-size: clamp(
+      0.75rem,
+      calc(0.875rem * (var(--jk-h1c-typo-ref, 350px) / 350px)),
+      0.95rem
+    );
+  }
+
+  .page-about #about-skills-gallery .jkhive-why-me-hex:is(.jkhive-hex-skin-ventajas, .jkhive-hex-skin-canonical-honey) .jkhive-why-me-title {
+    font-size: clamp(
+      0.65rem,
+      calc(0.6075rem * (var(--jk-h1c-typo-ref, 260px) / 260px)),
+      1rem
+    );
+  }
+
+  .page-about #about-skills-gallery .jkhive-why-me-hex:is(.jkhive-hex-skin-ventajas, .jkhive-hex-skin-canonical-honey) .jkhive-why-me-description {
+    font-size: clamp(
+      0.65rem,
+      calc(0.98rem * (var(--jk-h1c-typo-ref, 260px) / 260px)),
+      1.05rem
+    );
+  }
+
+  /*
+   * Experiencia About — panal honeycomb móvil 2-1-2-1 (orden fijo por filas).
+   * repeat(2, auto) + justify-content:center: los dos hex quedan juntos (no 1fr 1fr separados).
+   * Cada 3n+3 ocupa las dos columnas centrado; margin-top negativo encaja filas como panal.
+   */
+  .page-about #about-experience-gallery.jkhive-hex-gallery-medium {
+    --about-exp-sidebar: 101px;
+    --about-exp-pad-x: 2rem;
+    --about-exp-gap-x: 2px;
+    --about-exp-content-w: calc(100vw - var(--about-exp-sidebar) - var(--about-exp-pad-x));
+    --about-exp-hex-flat-max: 158px;
+    --about-exp-pair-slot: calc((var(--about-exp-content-w) - var(--about-exp-gap-x)) / 2);
+    --about-exp-hex-flat: min(
+      var(--about-exp-hex-flat-max),
+      calc(var(--about-exp-pair-slot) * 0.98)
+    );
+    --jkhive-gallery-hex-flat: var(--about-exp-hex-flat);
+    --about-exp-hex-h: calc(var(--about-exp-hex-flat) * 1.1547);
+    --about-exp-v-nest: calc(var(--about-exp-hex-h) * 0.28);
+    /* Menos solape entre filas: separación vertical extra (esquinas hex) en pantallas pequeñas */
+    --about-exp-row-sep: 6px;
+
+    display: grid !important;
+    grid-template-columns: repeat(2, auto) !important;
+    justify-content: center !important;
+    justify-items: center;
+    align-items: start;
+    column-gap: var(--about-exp-gap-x) !important;
+    row-gap: 0 !important;
+    padding-top: 0.65rem !important;
+    padding-bottom: 1.5rem !important;
+    padding-left: max(0.5rem, 0.75rem) !important;
+    padding-right: max(0.5rem, 0.75rem) !important;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .page-about #about-experience-gallery .jkhive-services-item {
+    width: var(--about-exp-hex-flat) !important;
+    height: var(--about-exp-hex-h) !important;
+    max-width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    grid-column: auto !important;
+    grid-row: auto !important;
+    transform: none !important;
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+  }
+
+  .page-about #about-experience-gallery .jkhive-services-item:nth-child(3n + 3) {
+    grid-column: 1 / -1 !important;
+    justify-self: center !important;
+  }
+
+  .page-about #about-experience-gallery .jkhive-services-item:nth-child(n + 3) {
+    margin-top: calc(-1 * var(--about-exp-v-nest) + var(--about-exp-row-sep)) !important;
+  }
+
+  .page-about #about-experience-gallery .jkhive-services-item:hover {
+    z-index: 10;
+  }
+
+  .page-about #about-experience-gallery .jkhive-portfolio-services-hexlink {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    box-sizing: border-box;
+  }
+
+  .page-about #about-experience-gallery .jkhive-services-hex {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: clamp(0.35rem, 2.5vw, 0.55rem) clamp(0.3rem, 2vw, 0.5rem);
+  }
+
+  .page-about #about-experience-gallery .jkhive-services-hex:has(.jkhive-hex-item) .jkhive-services-icon {
+    font-size: clamp(
+      0.8rem,
+      calc(1rem * (var(--jkhive-gallery-hex-flat, 158px) / 158px)),
+      1.05rem
+    );
+  }
+
+  .page-about #about-experience-gallery .jkhive-services-hex:has(.jkhive-hex-item) .jkhive-services-title {
+    font-size: clamp(
+      0.62rem,
+      calc(0.78rem * (var(--jkhive-gallery-hex-flat, 158px) / 158px)),
+      0.82rem
+    );
+  }
+
+  .page-about #about-experience-gallery .jkhive-services-hex:has(.jkhive-hex-item) .jkhive-services-subtitle {
+    font-size: clamp(
+      0.52rem,
+      calc(0.66rem * (var(--jkhive-gallery-hex-flat, 158px) / 158px)),
+      0.72rem
+    );
+  }
+}
+
+@media (max-width: 480px) {
+  .page-about .jkhive-about-page {
+    padding: 1.25rem 0.75rem 3rem;
+  }
+
+  .page-about #linkedin-profile .jkhive-hex-gallery.jkhive-hex-gallery-big.jkhive-hex-gallery-centered {
+    --about-profile-hex-flat: min(248px, 92vw);
+  }
+
+  .page-about #linkedin-profile .jkhive-profile-photo img {
+    width: clamp(3.25rem, 20vw, 4.25rem) !important;
+  }
+
+  .page-about #linkedin-profile .jkhive-hex-gallery-title {
+    font-size: 0.7rem;
+    line-height: 1.25;
+  }
+
+  .page-about #linkedin-profile .jkhive-hex-gallery-subtitle {
+    font-size: max(0.68rem, 0.41rem);
+    line-height: 1.38;
+  }
+
+  .page-about #linkedin-profile .jkhive-hex-gallery-actions {
+    transform: scale(0.86);
+  }
+
+  .page-about #about-skills-gallery.jkhive-hex-gallery-mobile-honey-1col {
+    --jk-h1c-pad-x: 1.75rem;
+    --jk-h1c-flat-max: 268px;
+  }
+
+  .page-about #about-experience-gallery.jkhive-hex-gallery-medium {
+    --about-exp-pad-x: 1.75rem;
+    --about-exp-hex-flat-max: 152px;
+    --about-exp-row-sep: 7px;
+  }
+}
+
+/* ≤360px: GALERIA_VISTA_RAPIDA_CRM (hex 80px en CRM; aquí ancho útil del contenido) */
+@media (max-width: 360px) {
+  .page-about #linkedin-profile .jkhive-hex-gallery.jkhive-hex-gallery-big.jkhive-hex-gallery-centered {
+    --about-profile-hex-flat: min(228px, 94vw);
+  }
+
+  .page-about #linkedin-profile .jkhive-hex-gallery-title {
+    font-size: max(0.72rem, 0.56rem);
+    line-height: 1.28;
+  }
+
+  .page-about #linkedin-profile .jkhive-hex-gallery-subtitle {
+    font-size: max(0.65rem, 0.32rem);
+    line-height: 1.4;
+  }
+
+  .page-about #linkedin-profile .jkhive-profile-photo img {
+    width: clamp(2.85rem, 26vw, 3.65rem) !important;
+  }
+
+  .page-about #about-skills-gallery.jkhive-hex-gallery-mobile-honey-1col {
+    --jk-h1c-pad-x: 1.5rem;
+    --jk-h1c-flat-max: 248px;
+  }
+
+  .page-about #about-experience-gallery.jkhive-hex-gallery-medium {
+    --about-exp-pad-x: 1.5rem;
+    --about-exp-hex-flat-max: 148px;
+    --about-exp-row-sep: 7px;
+  }
+}

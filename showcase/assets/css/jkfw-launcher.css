@@ -1,0 +1,643 @@
+/**
+ * Pantalla inicial showcase: mismo lenguaje visual que overlay de modales JK Hive (miel + panal doble).
+ */
+.jkfw-launcher {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.jkfw-launcher__bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: rgba(244, 196, 48, 0.78);
+  backdrop-filter: blur(10px);
+}
+
+.jkfw-launcher__bg::before,
+.jkfw-launcher__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../img/honeycomb-pattern.svg');
+  background-repeat: repeat;
+  pointer-events: none;
+  filter: brightness(0) contrast(40);
+  opacity: 1;
+}
+
+.jkfw-launcher__bg::before {
+  background-size: 32px 55px;
+  background-position: 0 0;
+}
+
+.jkfw-launcher__bg::after {
+  background-size: 32px 55px;
+  background-position: 16px 28px;
+}
+
+.jkfw-launcher__inner {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 2.5rem;
+  box-sizing: border-box;
+}
+
+.jkfw-launcher__title {
+  text-align: center;
+  font-size: clamp(1.35rem, 4vw, 2rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--jk-tech-darker);
+  text-shadow: 0 0 24px rgba(212, 160, 23, 0.9), 0 2px 0 rgba(15, 23, 42, 0.25);
+  margin: 0 0 0.35rem;
+}
+
+.jkfw-launcher__subtitle {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--jk-tech-darker);
+  opacity: 0.88;
+  max-width: 36rem;
+  margin: 0 auto 1.5rem;
+  line-height: 1.45;
+}
+
+.jkfw-launcher__themes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-bottom: 2rem;
+}
+
+.jkfw-launcher__themes a {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--jk-tech-darker);
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(15, 23, 42, 0.2);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.jkfw-launcher__themes a:hover,
+.jkfw-launcher__themes a:focus-visible {
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: var(--jk-shadow-honey);
+  outline: none;
+}
+
+.jkfw-launcher__themes a.is-active {
+  border-color: var(--jk-accent-honey-dark);
+  box-shadow: var(--jk-glow-neon);
+}
+
+.jkfw-launcher-section {
+  margin-bottom: clamp(2.75rem, 6vw, 4.25rem);
+}
+
+/* Título de bloque de galería (patrón jkhive-section-title sobre fondo miel del launcher) */
+.jkfw-launcher .jkfw-launcher-section-heading.jkhive-section-title {
+  color: var(--jk-tech-darker);
+  /*
+   * Línea ::after tiene ~10px bajo la caja; el vértice superior del hex sobresale del grid —
+   * sumamos margin-bottom real además del padding superior del panal.
+   */
+  margin-bottom: clamp(1.1rem, 3vw, 1.95rem);
+  text-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
+}
+
+.jkfw-launcher .jkfw-launcher-section-heading.jkhive-section-title::after {
+  background: var(--jk-tech-darker);
+  opacity: 0.88;
+  height: 3px;
+  bottom: -10px;
+}
+
+/*
+ * Panal launcher: mismo stagger que jk-hive (--jkhive-hive-stagger).
+ * Anula gap 55px de .jkhive-hex-gallery-medium:is(:has(.jkhive-itemgallery-med)…): panal → separación horizontal mínima.
+ */
+.jkfw-launcher .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium:is(:has(.jkhive-itemgallery-med), :has(.jkhive-why-me-item)) {
+  --jkhive-gallery-edge-breath: clamp(0.72rem, 2.45vw, 1.25rem);
+  --jkhive-hive-gap-x: 0px;
+  gap: 0;
+  margin-bottom: 0;
+}
+
+/* Dos ítems med: centrar fila */
+.jkfw-launcher .jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:has(> .jkfw-launcher-hexlink:nth-child(2):last-child) {
+  grid-template-columns: repeat(2, 260px);
+  justify-content: center;
+}
+
+.jkfw-launcher-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.25rem;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.jkfw-launcher-grid .jkfw-launcher-hexlink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.jkfw-launcher-hexlink {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-decoration: none;
+}
+
+.jkfw-launcher-hexlink .jkhive-hex-gallery-subtitle {
+  max-width: 10rem;
+  line-height: 1.25;
+}
+
+/* Head = ícono; body = texto (+ rejilla temas en landing básica); footer = CTA pequeño JK Hive donde aplica. */
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med .jkhive-hex-item-head-main {
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med .jkhive-hex-item-body {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med .jkhive-hex-item-body-scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.18rem;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  /* Máx. ~5% respecto al borde del cuerpo hex (porcentajes relativos al ancho del contenedor; mismo criterio habitual en CSS). */
+  padding: 5%;
+}
+
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med .jkhive-hex-item-body-scroll .jkfw-theme-hexh-wrap.jkfw-btn-scope {
+  margin-top: 0;
+}
+
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med .jkfw-launcher-hex-body-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.18rem;
+  flex: 0 1 auto;
+}
+
+/* CTA JK Hive pequeño (mismo patrón que enviar: jkhive-admoptions-bttn + tier de tamaño) en el footer del ítem. */
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med .jkfw-launcher-hex-foot-cta .jkhive-hex-item-foot-main {
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 0;
+}
+
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-jkhive-cta-sm-slot {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  flex: 0 0 auto;
+  pointer-events: auto;
+}
+
+/* admoptions fija 52px choca con jkhive-bttn-sm 40px: forzar tamaño CTA pequeño + anillo interior tipo opciones admin. */
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-jkhive-cta-sm.jkhive-admoptions-bttn.jkhive-bttn-sm {
+  width: 40px !important;
+  height: calc(40px * 1.1547) !important;
+}
+
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-jkhive-cta-sm.jkhive-admoptions-bttn.jkhive-bttn-sm .jkhive-hex {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-jkhive-cta-sm.jkhive-admoptions-bttn.jkhive-bttn-sm .jkhive-hex-icon {
+  font-size: 0.85rem !important;
+}
+
+/* Hover / transición del hex: alineado al gesto de jkhive-bttn-sm (misma familia que el «cromado» del enviar, sin icono de avión). */
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-jkhive-cta-sm.jkhive-admoptions-bttn.jkhive-bttn-sm:hover .jkhive-hex {
+  transform: scale(1.08) !important;
+}
+
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-jkhive-cta-sm.jkhive-admoptions-bttn.jkhive-bttn-sm:hover .jkhive-hex-icon {
+  transition: color 0.3s ease !important;
+}
+
+/*
+ * Cursor: .jkhive-hex global (jk-hive.css) lleva cursor:pointer — aplica también al hex EXTERIOR
+ * del ítem (no vive dentro de .jkhive-hex-item), así que la mano aparecía en todo el ítem.
+ * Flecha en el panal launcher; puntero explícito solo en enlaces CTAs (.jkhive-bttn-inner, tema hex-h, etc.).
+ */
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med {
+  cursor: default !important;
+}
+
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med > .jkhive-hex {
+  cursor: default !important;
+}
+
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-jkhive-cta-sm.jkhive-admoptions-bttn a.jkhive-bttn-inner {
+  cursor: pointer !important;
+}
+
+/*
+ * Hover del hex exterior también activa cuando el puntero está sobre hijos (footer/body): el «filter»
+ * global de .jkhive-hex y la scale 1.05 de skins itemgallery recortaban y deformaban btn-hex-h y CTAs.
+ * Documentación equipo: aislar controles en .jkfw-btn-scope (+ jkfw-button-tokens.css) y aquí frenar ese wash.
+ */
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med > .jkhive-hex:hover,
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med:focus-within > .jkhive-hex {
+  filter: none !important;
+}
+
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med:hover > .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item),
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med:focus-within > .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) {
+  transform: scale(1.022) !important;
+}
+
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-btn-scope.jkfw-jkhive-cta-sm-slot {
+  position: relative;
+  z-index: 6;
+  contain: layout style paint;
+}
+
+/*
+ * Hex del CTA dentro de .jkhive-itemgallery-med: la piel grande/hover ya no debe heredarse desde
+ * jk-hive.css (usa .itemgallery-{small|med|big} > .jkhive-hex, sólo hijo directo del ítem).
+ * Se mantiene refuerzo de layout para .jkfw-btn-scope .jkhive-hex dentro del launcher.
+ */
+html body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med .jkfw-btn-scope .jkhive-hex {
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  max-width: none !important;
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%) !important;
+  filter: none !important;
+}
+
+/* Navegación solo por CTA en footer; hover del panal se mantiene; sin mano en head/body. */
+.jkfw-launcher-hex-with-cta.jkhive-itemgallery-med .jkhive-hex-item-head,
+.jkfw-launcher-hex-with-cta.jkhive-itemgallery-med .jkhive-hex-item-head *,
+.jkfw-launcher-hex-with-cta.jkhive-itemgallery-med .jkhive-hex-item-body,
+.jkfw-launcher-hex-with-cta.jkhive-itemgallery-med .jkhive-hex-item-body * {
+  pointer-events: none;
+}
+
+.jkfw-launcher-hex-with-cta.jkhive-itemgallery-med .jkfw-jkhive-cta-sm-slot,
+.jkfw-launcher-hex-with-cta.jkhive-itemgallery-med .jkfw-jkhive-cta-sm-slot * {
+  pointer-events: auto;
+}
+
+.jkfw-launcher-hex-with-cta.jkhive-itemgallery-med .jkhive-hex-item,
+.jkfw-launcher-hex-with-cta.jkhive-itemgallery-med
+  .jkhive-hex-item
+  *:not(.jkfw-jkhive-cta-sm-slot):not(.jkfw-jkhive-cta-sm-slot *) {
+  cursor: default !important;
+}
+
+.jkfw-launcher-hex-foot-empty .jkhive-hex-item-foot-main {
+  min-height: 0;
+}
+
+/* Landing básica (panal launcher): rejilla tema encaja en el cuerpo del hex 260; btn-hex-h ocupa cada celda. */
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkfw-launcher-landing-card .jkfw-theme-hexh-wrap.jkfw-btn-scope {
+  isolation: isolate;
+  contain: layout style;
+  margin-top: 0.26rem;
+  margin-left: 0;
+  margin-right: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  justify-items: stretch;
+  justify-content: stretch;
+  align-items: start;
+  column-gap: 0.26rem;
+  row-gap: 0.26rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  pointer-events: auto;
+}
+
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-theme-hexh-wrap.jkfw-btn-scope .jkhive-btn-hex-h.jkhive-btn-hex-h--fixed {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  --jkhive-btn-hex-h-w: 100%;
+  box-sizing: border-box;
+}
+
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-theme-hexh-wrap.jkfw-btn-scope .jkhive-btn-hex-h__label {
+  font-size: clamp(0.435rem, 1.82vw, 0.539rem);
+  max-width: 6.85em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-theme-hexh-wrap.jkfw-btn-scope .jkhive-btn-hex-h__spin {
+  gap: 0.16rem;
+  max-width: 100%;
+}
+
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-theme-hexh-wrap.jkfw-btn-scope .jkhive-btn-hex-h__icon {
+  font-size: clamp(0.525rem, 2.1vw, 0.64rem);
+  flex-shrink: 0;
+}
+
+/* Botones hex horizontales: la animación debe ir en el TEXTO (aspas top-down), no en todo el botón. */
+.jkfw-theme-hexh-wrap .jkhive-btn-hex-h .jkhive-btn-hex-h__spin,
+.jkfw-admin-theme-hexh-row .jkhive-btn-hex-h .jkhive-btn-hex-h__spin {
+  animation: none !important;
+}
+
+@keyframes jkfw-aspas-top-down {
+  0% { transform: rotateX(0deg); }
+  100% { transform: rotateX(360deg); }
+}
+
+.jkfw-theme-hexh-wrap .jkhive-btn-hex-h .jkhive-btn-hex-h__label,
+.jkfw-admin-theme-hexh-row .jkhive-btn-hex-h .jkhive-btn-hex-h__label {
+  display: inline-block;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+}
+
+.jkfw-theme-hexh-wrap .jkhive-btn-hex-h:hover .jkhive-btn-hex-h__label,
+.jkfw-theme-hexh-wrap .jkhive-btn-hex-h:focus-visible .jkhive-btn-hex-h__label,
+.jkfw-admin-theme-hexh-row .jkhive-btn-hex-h:hover .jkhive-btn-hex-h__label,
+.jkfw-admin-theme-hexh-row .jkhive-btn-hex-h:focus-visible .jkhive-btn-hex-h__label {
+  animation: jkfw-aspas-top-down 0.6s ease-in-out forwards;
+}
+
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkfw-launcher-landing-card.jkhive-itemgallery-med .jkhive-hex-item-body-scroll {
+  overflow-x: hidden;
+  padding-top: min(5%, 0.78rem);
+  padding-right: min(3.85%, 0.62rem);
+  padding-bottom: min(4.5%, 0.72rem);
+  padding-left: min(3.85%, 0.62rem);
+}
+
+/* Landing básica: el panal no navega; solo los jkhive-btn-hex-h internos. */
+.jkfw-launcher-landing-card.jkhive-itemgallery-med .jkhive-hex-content {
+  pointer-events: none;
+}
+
+.jkfw-launcher-landing-card.jkhive-itemgallery-med .jkhive-hex-item-body-scroll .jkfw-theme-hexh-wrap.jkfw-btn-scope,
+.jkfw-launcher-landing-card.jkhive-itemgallery-med .jkhive-hex-item-body-scroll .jkfw-theme-hexh-wrap.jkfw-btn-scope .jkhive-btn-hex-h {
+  pointer-events: auto;
+}
+
+@media (min-width: 769px) {
+  /* Tercera sección: con 4 ítems debe centrarse la fila completa. */
+  main.jkfw-launcher-hive-main
+    > section[aria-labelledby="jkfw-sec-web"].jkhive-section-dashboard
+    .jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:has(> .jkhive-itemgallery-med:nth-child(4):last-child) {
+    grid-template-columns: repeat(4, 260px) !important;
+    justify-content: center !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .jkfw-launcher .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium:has(> .jkfw-launcher-hexlink:nth-child(2):last-child) {
+    grid-template-columns: repeat(2, minmax(124px, 130px));
+    gap: 0 !important;
+  }
+}
+
+/*
+ * IMPORTANTE: .jkhive-hex-gallery-medium .jkhive-hex-gallery-{icon,title,subtitle} fuerza tamaños pensados para
+ * servicios 210px; chocan con jkhive-itemgallery-med (+ solapamiento). Aplica a launcher Y bloques `.jkfw-launcher-hex-gallery` en contenido.
+ */
+.jkfw-launcher .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkhive-hex-gallery-icon,
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkhive-hex-gallery-icon {
+  width: auto !important;
+  height: auto !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.jkfw-launcher .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkhive-itemgallery-med .jkhive-hex-gallery-icon,
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkhive-itemgallery-med .jkhive-hex-gallery-icon {
+  font-size: 2.292rem !important;
+}
+
+.jkfw-launcher .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkhive-hex-gallery-title,
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkhive-hex-gallery-title {
+  font-size: 0.74rem !important;
+  line-height: 1.12 !important;
+  margin-bottom: 0.25rem !important;
+}
+
+.jkfw-launcher .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkhive-hex-gallery-subtitle,
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkhive-hex-gallery-subtitle {
+  font-size: 0.58rem !important;
+  line-height: 1.2 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Landing pro: panal dentro del contenido — no pisar padding; opcional aliento */
+.jkhive-showcase-body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium {
+  --jkhive-gallery-edge-breath: clamp(0.65rem, 2.35vw, 1.18rem);
+  margin-bottom: 1rem;
+}
+
+.jkfw-admin-theme-hexh-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.52rem;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0.65rem 0 1.15rem;
+}
+
+.jkfw-launcher-hexcap {
+  max-width: 11rem;
+  text-align: center;
+  margin: 0.5rem auto 0;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: var(--jk-tech-darker);
+  opacity: 0.92;
+}
+
+.jkfw-launcher-hexcap strong {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--jk-tech-darker);
+  margin-bottom: 0.15rem;
+}
+
+@media (max-width: 560px) {
+  .jkfw-launcher__inner {
+    padding: 1.25rem 0.85rem 2rem;
+  }
+}
+
+/* Landing pública sin sidebar / sin navbar superior: ocupa todo el viewport */
+.jkhive-main-content.jkfw-main-fullbleed {
+  margin-left: 0 !important;
+  margin-top: 0 !important;
+  min-height: auto;
+}
+
+.jkhive-main-content.jkfw-main-fullbleed .jkhive-content-wrap,
+.jkhive-main-content.jkfw-main-fullbleed .jkhive-page-container {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  max-width: 100%;
+}
+
+.jkfw-demo-nav-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--jk-metal-light);
+  margin-right: 0.5rem;
+}
+
+.jkfw-demo-nav-chip button {
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 0.2rem 0.45rem;
+  border-radius: 6px;
+  border: 1px solid rgba(14, 165, 233, 0.35);
+}
+
+.jkfw-demo-nav-chip button:hover {
+  border-color: var(--jk-accent-honey);
+  color: var(--jk-accent-honey-light);
+}
+
+@media (max-width: 768px) {
+  .jkhive-main-content.jkfw-main-fullbleed {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+/* --- Landing pública simple (sin chrome de app) --- */
+.jkfw-landing-simple-hero {
+  padding: 4rem 1.25rem 3rem;
+  text-align: center;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(14, 165, 233, 0.12) 0%, transparent 65%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.35) 0%, transparent 100%);
+}
+
+.jkfw-landing-simple-hero__inner {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.jkfw-landing-simple-hero__title {
+  font-size: clamp(1.45rem, 4vw, 2rem);
+  margin: 1rem 0 0.75rem;
+  color: var(--jk-metal-light);
+  line-height: 1.2;
+}
+
+.jkfw-landing-simple-lead {
+  margin: 0;
+  color: var(--jk-primary-blue-light);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.jkfw-landing-simple-lorem {
+  margin: 1rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--jk-metal);
+}
+
+.jkfw-landing-simple-band {
+  padding: 2rem 1rem 3.5rem;
+}
+
+.jkfw-landing-simple-band__grid {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.jkfw-landing-nav {
+  margin: 0.75rem 0 1.1rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.jkfw-landing-nav a {
+  text-decoration: none;
+  font-size: 0.75rem;
+  color: var(--jk-metal-light);
+  border: 1px solid rgba(14, 165, 233, 0.35);
+  border-radius: 999px;
+  padding: 0.3rem 0.65rem;
+}
+
+.jkfw-landing-nav a:hover {
+  border-color: var(--jk-accent-honey);
+  color: var(--jk-accent-honey-light);
+}
+
+.jkfw-landing-simple-card {
+  padding: 1.15rem 1.2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(14, 165, 233, 0.2);
+  background: rgba(15, 23, 42, 0.45);
+}
+
+.jkfw-landing-simple-card__t {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  color: var(--jk-accent-honey-light);
+}
+
+.jkfw-landing-simple-card__p {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: var(--jk-metal-light);
+}

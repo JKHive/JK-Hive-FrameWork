@@ -1,0 +1,84 @@
+/**
+ * JK Hive — Animación tipo carrusel / modal hex (nombre canónico: jk-hive-3danimation-1).
+ * Equivalente conceptual al pipeline .jkhive-transition-* / modales anidados (profundidad + escala + recolocación).
+ * Usar estos hooks en cualquier elemento que lleve contenido dentro del overlay hex.
+ */
+
+:root {
+  --jk-hive-3danimation-1-duration: 0.42s;
+  --jk-hive-3danimation-1-ease: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* Paneles dentro de modal hex/contenidos que puedan navegar como “slides” */
+.jk-hive-3danimation-1-pane.jk-hive-3danimation-1-stage {
+  will-change: transform, opacity, filter;
+  transform-origin: 50% 55%;
+}
+
+/* Salida vista lectura → abre responder (usuario: “hacia arriba”) */
+@keyframes jk-hive-3danimation-1-exit-up {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+    filter: brightness(1);
+  }
+  to {
+    transform: translate3d(0, -42%, 0) scale(0.88);
+    opacity: 0;
+    filter: brightness(0.55);
+  }
+}
+
+/* Entrada del modal responder desde abajo */
+@keyframes jk-hive-3danimation-1-enter-from-below {
+  from {
+    transform: translate3d(0, 48%, 0) scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Salida responder al cerrar/enviar (“hacia abajo”) */
+@keyframes jk-hive-3danimation-1-exit-down {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+    filter: brightness(1);
+  }
+  to {
+    transform: translate3d(0, 46%, 0) scale(0.88);
+    opacity: 0;
+    filter: brightness(0.55);
+  }
+}
+
+/* Vista lectura recuperada */
+@keyframes jk-hive-3danimation-1-enter-from-above {
+  from {
+    transform: translate3d(0, -34%, 0) scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+  }
+}
+
+.jk-hive-3danimation-1-exit-up {
+  animation: jk-hive-3danimation-1-exit-up var(--jk-hive-3danimation-1-duration) var(--jk-hive-3danimation-1-ease) forwards;
+}
+
+.jk-hive-3danimation-1-enter-from-below {
+  animation: jk-hive-3danimation-1-enter-from-below var(--jk-hive-3danimation-1-duration) var(--jk-hive-3danimation-1-ease) forwards;
+}
+
+.jk-hive-3danimation-1-exit-down {
+  animation: jk-hive-3danimation-1-exit-down var(--jk-hive-3danimation-1-duration) var(--jk-hive-3danimation-1-ease) forwards;
+}
+
+.jk-hive-3danimation-1-enter-from-above {
+  animation: jk-hive-3danimation-1-enter-from-above var(--jk-hive-3danimation-1-duration) var(--jk-hive-3danimation-1-ease) forwards;
+}

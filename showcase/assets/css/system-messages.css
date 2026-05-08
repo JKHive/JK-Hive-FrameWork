@@ -1,0 +1,1622 @@
+/**
+ * =============================================================================
+ * JKHIVE - SISTEMA DE ALERTAS / TOAST (heredable en todos los sistemas)
+ * =============================================================================
+ *
+ * *** HEXÁGONO TIPO A (barra): dos variantes ***
+ * 1) Clásica: clip-path 6%/94% (toast sin clase hex-caps, ej. carrito vacío desde navbar).
+ * 2) Puntas predibujadas: .jkhive-toast-bar-hex-caps = rectángulo central (ancho del texto) + dos puntas
+ *    laterales con diagonales a 20° que se juntan en la mitad; ángulo fijo, no depende del ancho.
+ * NO sobrescribir en otras hojas.
+ * NO AGREGAR MÁS PADDING NI MARGIN dentro de .jkhive-toast-bar-inner ni .jkhive-toast-inner: el espacio
+ * está calculado; más espacio vacío desconfigura la forma y el ángulo del hex. Si se agrega, se rompe.
+ * PADDING LATERAL: 12px por lado del contenido. Ancho del toast = contenido + 24px.
+ *
+ * El ángulo no depende del ancho del toast: siempre 6%/94%. Si se cambia ancho del toast, no tocar clip-path.
+ *
+ * LÓGICA: más porcentaje (ej. 10%) = puntas MÁS largas/puntudas; menos % = menos puntudo; 6% es el valor correcto con padding 12px por lado (sin espacio de sobra que altere el ángulo). Valor listo: 6%/94%.
+ *
+ * Estilo hexagonal jkhive: los toasts usan HEXÁGONO ORIENTADO HORIZONTALMENTE
+ * (puntas izquierda y derecha), a diferencia de botones/íconos que usan hexágono
+ * vertical (puntas arriba/abajo).
+ *
+ * CLIP-PATH HEXAGONAL HORIZONTAL — ÚNICA FUENTE DE VERDAD PARA TOASTS/BADGES.
+ * CONFIGURADO: 6%/94%. Replicar exactamente; no cambiar.
+ *   --jkhive-hex-horizontal: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%);
+ *
+ * -----------------------------------------------------------------------------
+ * DOS TIPOS DE TOAST
+ * -----------------------------------------------------------------------------
+ *
+ * TIPO A - Toast barra (esquina superior derecha)
+ *   - Clase: .jkhive-toast-bar
+ *   - Posición: fijo, derecha, justo bajo el navbar.
+ *   - Animación: se despliega desde la derecha hacia la izquierda; al cerrar
+ *     desaparece hacia la derecha.
+ *   - Uso: avisos globales (ej. "Carrito vacío!", sesión expirada).
+ *
+ * TIPO A PERSISTENTE - Toast barra con cierre manual y panel de detalle (JK Hive)
+ *   - Clases contenedor: .jkhive-toast-bar .jkhive-toast-error .jkhive-toast-persistent
+ *   - Barra: .jkhive-toast-bar-inner (icono + mensaje + botones)
+ *   - Botón cerrar (solo persistentes): .jkhive-toast-bar-btn-close
+ *   - Botón información (abre panel): .jkhive-toast-bar-btn-info
+ *   - Panel detalle: .jkhive-toast-bar-detail-panel
+ *   - Estado abierto: .jkhive-toast-bar-detail-panel-open
+ *   - Contenido panel: .jkhive-toast-bar-detail-panel-inner
+ *   - Uso: errores que requieren cierre manual y detalle (ej. error al cargar catálogo).
+ *
+ * TIPO B - Toast inline (sobre el elemento que dispara)
+ *   - Clase: .jkhive-toast-inline
+ *   - Posición: encima del elemento donde se hizo clic (o que dispara la alerta).
+ *   - Animación: "TV antigua" — línea horizontal en el centro que se expande
+ *     hacia arriba y abajo para mostrar el mensaje; al cerrar se contrae a la
+ *     línea y desaparece.
+ *   - Uso: validaciones en formularios, feedback junto a botones/inputs.
+ *
+ * -----------------------------------------------------------------------------
+ * VARIANTES POR TIPO DE MENSAJE (colores)
+ * -----------------------------------------------------------------------------
+ *
+ *   .jkhive-toast-info     → Azul. Información general.
+ *   .jkhive-toast-success  → Verde. Éxito, confirmación.
+ *   .jkhive-toast-error    → Rojo. Error (incl. error de uso del usuario:
+ *                            ej. carrito vacío, campo obligatorio, acción no
+ *                            permitida). Aunque se cierre solo, es un error.
+ *   .jkhive-toast-warning  → Amarillo/miel. Advertencia (no bloqueante).
+ *
+ * -----------------------------------------------------------------------------
+ * NORMA: ALINEACIÓN BORDE DERECHO TOAST CON ÍCONO DE USUARIO (desktop y mobile)
+ * -----------------------------------------------------------------------------
+ * El borde derecho del toast tipo A debe quedar siempre alineado (paralelo hacia
+ * abajo) con el borde derecho del ícono de usuario del menú superior (navbar).
+ * Por tanto el margin-right del toast = padding-right del .jkhive-navbar en cada
+ * viewport. Desktop: --jkhive-toast-bar-right = var(--jk-spacing-xl, 2rem).
+ * Mobile (≤768px): margin-right = var(--jk-spacing-md, 1rem), mismo que el
+ * padding del navbar en mobile. No cambiar; si se cambia el padding del navbar,
+ * actualizar aquí para mantener la alineación.
+ *
+ * -----------------------------------------------------------------------------
+ * RESUMEN CONFIGURACIÓN FINAL (no tocar; ver ALERTS-README y 05-alertas-toasts)
+ * -----------------------------------------------------------------------------
+ * Hex 6%/94%. Padding lateral 12px. margin-right = navbar padding (--jkhive-toast-bar-right).
+ * Persistente: wrapper .jkhive-toast-bar-persistent-wrap > bar + panel. Panel 88%, absolute.
+ * Animación panel: clip-path inset(0 0 100% 0) -> inset(0 0 0 0). Sin scrollbar. X rojo.
+ * Panel inner padding 2.25rem 2.75rem 0.4rem 0.75rem. NO position:relative en .jkhive-toast-bar.
+ *
+ * NORMA DE DISEÑO: Los mensajes toast deben ser tech, elegantes y compactos
+ * verticalmente. Evitar padding/gap excesivo; priorizar línea baja y lectura clara.
+ *
+ * Heredar este archivo en cualquier proyecto que use el estilo jkhive para
+ * mantener el mismo sistema de alertas.
+ *
+ * =============================================================================
+ */
+
+:root {
+  /* Hex horizontal TOASTS: 6%/94%. VALOR FIJO. Más % = más puntudo; menos % = menos puntudo. */
+  --jkhive-hex-horizontal: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%);
+  /* Toast tipo B (TV): borde 2px → línea = 3× borde (6px), borde de apertura = 2× borde (4px) */
+  --jkhive-toast-border: 2px;
+  --jkhive-toast-tv-line-height: 5px;
+  --jkhive-toast-tv-content-inset: 8px; /* margen interior para que el contenido no sobresalga de las líneas */
+  --jkhive-toast-tv-edge-height: 4px;   /* 2 × borde, se afina al abrir/cerrar */
+  --jkhive-toast-navbar-height: 70px;
+  --jkhive-toast-gap: 4px;
+  --jkhive-toast-top: calc(var(--jkhive-toast-navbar-height) + var(--jkhive-toast-gap));
+  /* Mismo margen derecho que el navbar (padding derecho del .jkhive-navbar) para alinear borde derecho del toast con el ícono de usuario */
+  --jkhive-toast-bar-right: var(--jk-spacing-xl, 2rem);
+  /* Grosor único: líneas de las puntas (hex-caps) y borde superior/inferior del centro — mismo valor */
+  --jkhive-toast-bar-stroke: 2px;
+  /* Altura del contenido del centro (sin bordes). Fija para que puntas calcen: altura total = esto + 4px. Ancho punta = (alturaTotal/2)/tan(60°). Más alto = puntas más anchas (diagonales más largas). */
+  --jkhive-toast-bar-center-min-inner: 34px;
+  /* Rojo puro neón (error / alertas) — #ff0000 */
+  --jkhive-error-red: #ff0000;
+  --jkhive-error-red-glow-soft: 0 0 24px 8px rgba(255, 0, 0, 0.95), 0 0 56px 20px rgba(255, 0, 0, 0.7), 0 0 96px 28px rgba(255, 0, 0, 0.4);
+  --jkhive-error-red-text-glow: 0 0 14px rgba(255, 0, 0, 1), 0 0 38px rgba(255, 0, 0, 0.85), 0 0 60px rgba(255, 0, 0, 0.5);
+  /* Cyan puro neón (info / mensajes neutros) — #00ffff */
+  --jkhive-info-blue: #00ffff;
+  --jkhive-info-blue-glow-soft: 0 0 24px 8px rgba(0, 255, 255, 0.95), 0 0 56px 20px rgba(0, 255, 255, 0.7), 0 0 96px 28px rgba(0, 255, 255, 0.4);
+  --jkhive-info-blue-text-glow: 0 0 14px rgba(0, 255, 255, 1), 0 0 38px rgba(0, 255, 255, 0.85), 0 0 60px rgba(0, 255, 255, 0.5);
+  /* Verde puro neón (éxito / confirmación) — #00ff00 */
+  --jkhive-success-green: #00ff00;
+  --jkhive-success-green-glow-soft: 0 0 24px 8px rgba(0, 255, 0, 0.95), 0 0 56px 20px rgba(0, 255, 0, 0.7), 0 0 96px 28px rgba(0, 255, 0, 0.4);
+  --jkhive-success-green-text-glow: 0 0 14px rgba(0, 255, 0, 1), 0 0 38px rgba(0, 255, 0, 0.85), 0 0 60px rgba(0, 255, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+  :root {
+    --jkhive-toast-navbar-height: 60px;
+    --jkhive-toast-gap: 4px;
+    --jkhive-toast-bar-center-min-inner: 30px;
+  }
+}
+
+/* =============================================================================
+   TIPO A - TOAST BARRA (derecha, bajo navbar, despliega hacia la izquierda)
+   El borde derecho del toast debe quedar alineado (paralelo hacia abajo) con el
+   borde derecho del ícono de usuario del navbar → mismo margin-right que el
+   padding derecho del .jkhive-navbar (--jkhive-toast-bar-right = var(--jk-spacing-xl)).
+   ============================================================================= */
+
+.jkhive-toast-bar {
+  position: fixed;
+  top: var(--jkhive-toast-top);
+  right: 0;
+  z-index: 9999;
+  width: max-content;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  margin-right: var(--jkhive-toast-bar-right);
+  pointer-events: auto;
+  transform-origin: right center;
+  animation: jkhive-anmtn-toast-slide-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Al cerrar: se contrae y sale hacia el borde derecho */
+.jkhive-toast-bar.jkhive-toast-closing {
+  animation: jkhive-anmtn-toast-slide-out 0.35s cubic-bezier(0.55, 0, 0.9, 0.38) forwards;
+}
+
+/* Toast tipo A dentro de modal (si se usa showToastBar con appendTo): esquina superior derecha, 20% más pequeño */
+.jkhive-toast-bar.jkhive-toast-bar-in-modal {
+  position: absolute !important;
+  top: 0.5rem !important;
+  right: 0.5rem !important;
+  left: auto !important;
+  margin: 0 !important;
+  transform: scale(0.8) !important;
+  transform-origin: top right !important;
+  z-index: 100 !important;
+  animation: jkhive-anmtn-toast-slide-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.jkhive-toast-bar.jkhive-toast-bar-in-modal.jkhive-toast-closing {
+  animation: jkhive-anmtn-toast-slide-out 0.35s cubic-bezier(0.55, 0, 0.9, 0.38) forwards;
+}
+
+/* Toast tipo B (oldTV) dentro de modal — debajo del título, animación TV igual que showToastInline */
+.jkhive-toast-inline.jkhive-toast-inline-modal {
+  position: absolute !important;
+  top: 0.5rem !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  right: auto !important;
+  width: max-content !important;
+  max-width: min(90%, 280px) !important;
+  z-index: 100 !important;
+}
+
+@media (max-width: 768px) {
+  .jkhive-toast-inline.jkhive-toast-inline-modal {
+    max-width: min(88%, 200px) !important;
+    top: 0.35rem !important;
+  }
+  .jkhive-toast-inline.jkhive-toast-inline-modal .jkhive-toast-inner {
+    padding: 0.25rem 8px !important;
+    font-size: 0.65rem !important;
+    gap: 0.2rem !important;
+  }
+  .jkhive-toast-inline.jkhive-toast-inline-modal .jkhive-toast-inner i {
+    font-size: 0.65rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .jkhive-toast-bar {
+    max-width: min(calc(100vw - 20px), 324px);
+    right: 0;
+    margin-right: var(--jk-spacing-md, 1rem);
+    margin-left: auto;
+    min-width: 0;
+  }
+}
+
+@keyframes jkhive-anmtn-toast-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes jkhive-anmtn-toast-slide-out {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+/* Barra interior: hexágono horizontal; compacto verticalmente (tech, elegante). Desktop: -10% tamaño. */
+.jkhive-toast-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.315rem;
+  padding: 0.18rem 11px;
+  min-height: 25px;
+  clip-path: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%) !important; /* FIJO 6%/94%. No cambiar. */
+  border: none;
+  border-radius: 0;
+  box-shadow: -4px 4px 20px rgba(0, 0, 0, 0.35);
+  color: var(--jk-metal-light);
+  font-size: 0.81rem;
+  line-height: 1.17;
+  position: relative;
+  text-align: center;
+  background: none;
+}
+
+/* Variante con puntas predibujadas: rectángulo central + dos puntas como contorno. Ángulo = hexágono regular: vértice 120°, cada diagonal 60° con la horizontal. */
+.jkhive-toast-bar-inner.jkhive-toast-bar-hex-caps {
+  clip-path: none !important;
+  padding: 0;
+  gap: 0;
+  box-shadow: none;
+}
+/* Ocultar pseudo-elementos de relleno del inner cuando usamos puntas predibujadas (especificidad alta para anular .jkhive-toast-* .jkhive-toast-bar-inner::before/::after). */
+html body .jkhive-toast-bar .jkhive-toast-bar-inner.jkhive-toast-bar-hex-caps::before,
+html body .jkhive-toast-bar .jkhive-toast-bar-inner.jkhive-toast-bar-hex-caps::after {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+  box-shadow: none !important;
+}
+/* Inner sin relleno cuando tiene puntas predibujadas. */
+html body .jkhive-toast-bar .jkhive-toast-bar-inner.jkhive-toast-bar-hex-caps {
+  background: transparent !important;
+}
+/* Puntas: ancho = (alturaCentro/2)/tan(60°) (+3px extra) para alargar aún más las diagonales desde el centro hacia afuera. alturaCentro = min-inner + 2×stroke. */
+.jkhive-toast-bar-point {
+  flex: 0 0 auto;
+  align-self: stretch;
+  position: relative;
+  width: calc((var(--jkhive-toast-bar-center-min-inner) + 2 * var(--jkhive-toast-bar-stroke)) / 2 / tan(60deg) + 3px);
+  min-width: calc((var(--jkhive-toast-bar-center-min-inner) + 2 * var(--jkhive-toast-bar-stroke)) / 2 / tan(60deg) + 3px);
+  background: transparent;
+  overflow: visible;
+}
+/* Acercar puntas al centro (desktop): márgenes negativos; desplazo vertical 0.5px arriba. */
+.jkhive-toast-bar-point-left {
+  margin-right: -7px;
+  transform: translateY(-0.5px);
+}
+.jkhive-toast-bar-point-right {
+  margin-left: -7px;
+  transform: translateY(-0.5px);
+}
+/* Línea diagonal superior: mismo grosor que borde del centro (--jkhive-toast-bar-stroke). */
+.jkhive-toast-bar-point::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: var(--jkhive-toast-bar-stroke);
+  background: var(--jk-metal-medium);
+  transform-origin: left center;
+  transform: rotate(-60deg);
+  box-sizing: border-box;
+}
+/* Línea diagonal inferior: mismo grosor. */
+.jkhive-toast-bar-point::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: var(--jkhive-toast-bar-stroke);
+  background: var(--jk-metal-medium);
+  transform-origin: left center;
+  transform: rotate(60deg);
+  box-sizing: border-box;
+}
+/* Punta derecha: contorno con origen en el lado derecho. */
+.jkhive-toast-bar-point-right::before {
+  left: auto;
+  right: 0;
+  transform-origin: right center;
+  transform: rotate(60deg);
+}
+.jkhive-toast-bar-point-right::after {
+  left: auto;
+  right: 0;
+  transform-origin: right center;
+  transform: rotate(-60deg);
+}
+/* Centro: altura fija para que las puntas calcen. Líneas superior e inferior dibujadas con pseudo-elementos, desplazadas 3px hacia el centro. */
+.jkhive-toast-bar-center {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.315rem;
+  padding: 0.2rem 6px;
+  height: calc(var(--jkhive-toast-bar-center-min-inner) + 2 * var(--jkhive-toast-bar-stroke));
+  min-height: 0;
+  max-height: calc(var(--jkhive-toast-bar-center-min-inner) + 2 * var(--jkhive-toast-bar-stroke));
+  position: relative;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  border: none;
+  font-size: 0.81rem;
+  line-height: 1.2;
+  text-align: center;
+  overflow: hidden;
+}
+/* Línea horizontal superior (desktop): 6px hacia abajo desde el borde del centro. */
+.jkhive-toast-bar-center::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 6px;
+  height: var(--jkhive-toast-bar-stroke);
+  background: var(--jk-metal-medium);
+}
+/* Línea horizontal inferior (desktop): 6px hacia arriba desde el borde del centro. */
+.jkhive-toast-bar-center::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6px;
+  height: var(--jkhive-toast-bar-stroke);
+  background: var(--jk-metal-medium);
+}
+.jkhive-toast-bar-hex-caps .jkhive-toast-bar-center i {
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+/* Colores por tipo: líneas de las puntas, líneas superior/inferior del centro (::before/::after) y texto/ícono. */
+.jkhive-toast-bar.jkhive-toast-info .jkhive-toast-bar-center { color: var(--jkhive-info-blue); }
+.jkhive-toast-bar.jkhive-toast-info .jkhive-toast-bar-center::before,
+.jkhive-toast-bar.jkhive-toast-info .jkhive-toast-bar-center::after { background: var(--jkhive-info-blue); }
+.jkhive-toast-bar.jkhive-toast-info .jkhive-toast-bar-center span,
+.jkhive-toast-bar.jkhive-toast-info .jkhive-toast-bar-center i { color: var(--jkhive-info-blue); }
+.jkhive-toast-bar.jkhive-toast-info .jkhive-toast-bar-point::before,
+.jkhive-toast-bar.jkhive-toast-info .jkhive-toast-bar-point::after { background: var(--jkhive-info-blue); }
+.jkhive-toast-bar.jkhive-toast-success .jkhive-toast-bar-center { color: var(--jkhive-success-green); }
+.jkhive-toast-bar.jkhive-toast-success .jkhive-toast-bar-center::before,
+.jkhive-toast-bar.jkhive-toast-success .jkhive-toast-bar-center::after { background: var(--jkhive-success-green); }
+.jkhive-toast-bar.jkhive-toast-success .jkhive-toast-bar-center span,
+.jkhive-toast-bar.jkhive-toast-success .jkhive-toast-bar-center i { color: var(--jkhive-success-green); }
+.jkhive-toast-bar.jkhive-toast-success .jkhive-toast-bar-point::before,
+.jkhive-toast-bar.jkhive-toast-success .jkhive-toast-bar-point::after { background: var(--jkhive-success-green); }
+.jkhive-toast-bar.jkhive-toast-error .jkhive-toast-bar-center { color: var(--jkhive-error-red); }
+.jkhive-toast-bar.jkhive-toast-error .jkhive-toast-bar-center::before,
+.jkhive-toast-bar.jkhive-toast-error .jkhive-toast-bar-center::after { background: var(--jkhive-error-red); }
+.jkhive-toast-bar.jkhive-toast-error .jkhive-toast-bar-center span,
+.jkhive-toast-bar.jkhive-toast-error .jkhive-toast-bar-center i { color: var(--jkhive-error-red); }
+.jkhive-toast-bar.jkhive-toast-error .jkhive-toast-bar-point::before,
+.jkhive-toast-bar.jkhive-toast-error .jkhive-toast-bar-point::after { background: var(--jkhive-error-red); }
+.jkhive-toast-bar.jkhive-toast-error .jkhive-toast-bar-inner.jkhive-toast-bar-hex-caps {
+  box-shadow: none;
+}
+.jkhive-toast-bar.jkhive-toast-warning .jkhive-toast-bar-center { color: var(--jk-accent-honey-light); }
+.jkhive-toast-bar.jkhive-toast-warning .jkhive-toast-bar-center::before,
+.jkhive-toast-bar.jkhive-toast-warning .jkhive-toast-bar-center::after { background: var(--jk-accent-honey-light); }
+.jkhive-toast-bar.jkhive-toast-warning .jkhive-toast-bar-center span,
+.jkhive-toast-bar.jkhive-toast-warning .jkhive-toast-bar-center i { color: var(--jk-accent-honey-light); }
+.jkhive-toast-bar.jkhive-toast-warning .jkhive-toast-bar-point::before,
+.jkhive-toast-bar.jkhive-toast-warning .jkhive-toast-bar-point::after { background: var(--jk-accent-honey-light); }
+
+/* Hex-caps: centro = líneas con ::before/::after (3px inset), sin bordes, sin shadow ni glow. */
+html body .jkhive-toast-bar .jkhive-toast-bar-inner.jkhive-toast-bar-hex-caps .jkhive-toast-bar-center {
+  background: transparent !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  border: none !important;
+}
+html body .jkhive-toast-bar.jkhive-toast-info .jkhive-toast-bar-inner.jkhive-toast-bar-hex-caps .jkhive-toast-bar-center,
+html body .jkhive-toast-bar.jkhive-toast-info .jkhive-toast-bar-inner.jkhive-toast-bar-hex-caps .jkhive-toast-bar-center span,
+html body .jkhive-toast-bar.jkhive-toast-info .jkhive-toast-bar-inner.jkhive-toast-bar-hex-caps .jkhive-toast-bar-center i {
+  border-top-color: var(--jkhive-info-blue) !important;
+  border-bottom-color: var(--jkhive-info-blue) !important;
+  color: var(--jkhive-info-blue) !important;
+  text-shadow: none !important;
+}
+html body .jkhive-toast-bar.jkhive-toast-success .jkhive-toast-bar-inner.jkhive-toast-bar-hex-caps .jkhive-toast-bar-center,
+html body .jkhive-toast-bar.jkhive-toast-success .jkhive-toast-bar-inner.jkhive-toast-bar-hex-caps .jkhive-toast-bar-center span,
+html body .jkhive-toast-bar.jkhive-toast-success .jkhive-toast-bar-inner.jkhive-toast-bar-hex-caps .jkhive-toast-bar-center i {
+  border-top-color: var(--jkhive-success-green) !important;
+  border-bottom-color: var(--jkhive-success-green) !important;
+  color: var(--jkhive-success-green) !important;
+  text-shadow: none !important;
+}
+html body .jkhive-toast-bar.jkhive-toast-error .jkhive-toast-bar-inner.jkhive-toast-bar-hex-caps .jkhive-toast-bar-center,
+html body .jkhive-toast-bar.jkhive-toast-error .jkhive-toast-bar-inner.jkhive-toast-bar-hex-caps .jkhive-toast-bar-center span,
+html body .jkhive-toast-bar.jkhive-toast-error .jkhive-toast-bar-inner.jkhive-toast-bar-hex-caps .jkhive-toast-bar-center i {
+  border-top-color: var(--jkhive-error-red) !important;
+  border-bottom-color: var(--jkhive-error-red) !important;
+  color: var(--jkhive-error-red) !important;
+  text-shadow: none !important;
+}
+html body .jkhive-toast-bar.jkhive-toast-warning .jkhive-toast-bar-inner.jkhive-toast-bar-hex-caps .jkhive-toast-bar-center,
+html body .jkhive-toast-bar.jkhive-toast-warning .jkhive-toast-bar-inner.jkhive-toast-bar-hex-caps .jkhive-toast-bar-center span,
+html body .jkhive-toast-bar.jkhive-toast-warning .jkhive-toast-bar-inner.jkhive-toast-bar-hex-caps .jkhive-toast-bar-center i {
+  border-top-color: var(--jk-accent-honey-light) !important;
+  border-bottom-color: var(--jk-accent-honey-light) !important;
+  color: var(--jk-accent-honey-light) !important;
+  text-shadow: none !important;
+}
+
+@media (max-width: 768px) {
+  .jkhive-toast-bar-inner {
+    padding: 0.18rem 12px;
+    min-height: 24px;
+    font-size: 0.71rem;
+    gap: 0.3rem;
+  }
+  .jkhive-toast-bar-center {
+    padding: 0.18rem 6px;
+    font-size: 0.71rem;
+    line-height: 1.18;
+    gap: 0.3rem;
+  }
+  .jkhive-toast-bar-hex-caps .jkhive-toast-bar-center i {
+    font-size: 0.77rem;
+  }
+  /* En mobile, las líneas se acercan 2px al borde respecto a desktop (5px en vez de 6px). */
+  .jkhive-toast-bar-center::before {
+    top: 5px;
+  }
+  .jkhive-toast-bar-center::after {
+    bottom: 5px;
+  }
+  /* En mobile, puntas medio pixel hacia afuera y medio pixel hacia arriba. */
+  .jkhive-toast-bar-point-left {
+    margin-right: -6.5px;
+    transform: translateY(-0.5px);
+  }
+  .jkhive-toast-bar-point-right {
+    margin-left: -6.5px;
+    transform: translateY(-0.5px);
+  }
+  /* Ancho punta en mobile viene de --jkhive-toast-bar-center-min-inner: 30px en :root */
+}
+
+.jkhive-toast-bar-inner i {
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .jkhive-toast-bar-inner i {
+    font-size: 0.77rem;
+  }
+}
+
+/* Variante info (azul): solo cuando NO es hex-caps (puntas predibujadas). Con hex-caps el estilo va en .jkhive-toast-bar-center. */
+.jkhive-toast-bar.jkhive-toast-info .jkhive-toast-bar-inner:not(.jkhive-toast-bar-hex-caps) {
+  background: none !important;
+  box-shadow: -4px 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.jkhive-toast-bar.jkhive-toast-info .jkhive-toast-bar-inner:not(.jkhive-toast-bar-hex-caps)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%) !important;
+  background: var(--jkhive-info-blue);
+  z-index: -2;
+  box-shadow: var(--jkhive-info-blue-glow-soft);
+}
+
+.jkhive-toast-bar.jkhive-toast-info .jkhive-toast-bar-inner:not(.jkhive-toast-bar-hex-caps)::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  clip-path: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%) !important;
+  background: var(--jk-tech-darker);
+  z-index: -1;
+}
+
+.jkhive-toast-bar.jkhive-toast-info .jkhive-toast-bar-inner:not(.jkhive-toast-bar-hex-caps),
+.jkhive-toast-bar.jkhive-toast-info .jkhive-toast-bar-inner:not(.jkhive-toast-bar-hex-caps) span,
+.jkhive-toast-bar.jkhive-toast-info .jkhive-toast-bar-inner:not(.jkhive-toast-bar-hex-caps) i {
+  color: var(--jkhive-info-blue) !important;
+  text-shadow: var(--jkhive-info-blue-text-glow);
+}
+
+/* Variante éxito (verde): solo cuando NO es hex-caps. Con hex-caps: centro sin relleno, solo borde arriba/abajo y texto verde. */
+.jkhive-toast-bar.jkhive-toast-success .jkhive-toast-bar-inner:not(.jkhive-toast-bar-hex-caps) {
+  background: none !important;
+  box-shadow: -4px 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.jkhive-toast-bar.jkhive-toast-success .jkhive-toast-bar-inner:not(.jkhive-toast-bar-hex-caps)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%) !important;
+  background: var(--jkhive-success-green);
+  z-index: -2;
+  box-shadow: var(--jkhive-success-green-glow-soft);
+}
+
+.jkhive-toast-bar.jkhive-toast-success .jkhive-toast-bar-inner:not(.jkhive-toast-bar-hex-caps)::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  clip-path: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%) !important;
+  background: var(--jk-tech-darker);
+  z-index: -1;
+}
+
+.jkhive-toast-bar.jkhive-toast-success .jkhive-toast-bar-inner:not(.jkhive-toast-bar-hex-caps),
+.jkhive-toast-bar.jkhive-toast-success .jkhive-toast-bar-inner:not(.jkhive-toast-bar-hex-caps) span,
+.jkhive-toast-bar.jkhive-toast-success .jkhive-toast-bar-inner:not(.jkhive-toast-bar-hex-caps) i {
+  color: var(--jkhive-success-green) !important;
+  text-shadow: var(--jkhive-success-green-text-glow);
+}
+
+/* Variante error: solo cuando NO es hex-caps. */
+.jkhive-toast-bar.jkhive-toast-error .jkhive-toast-bar-inner:not(.jkhive-toast-bar-hex-caps) {
+  background: none !important;
+  box-shadow: -4px 4px 20px rgba(0, 0, 0, 0.3), 0 0 32px 10px rgba(185, 28, 28, 0.5), 0 0 64px 20px rgba(185, 28, 28, 0.25);
+}
+
+.jkhive-toast-bar.jkhive-toast-error .jkhive-toast-bar-inner:not(.jkhive-toast-bar-hex-caps)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%) !important;
+  background: var(--jkhive-error-red);
+  z-index: -2;
+  box-shadow: var(--jkhive-error-red-glow-soft);
+}
+
+.jkhive-toast-bar.jkhive-toast-error .jkhive-toast-bar-inner:not(.jkhive-toast-bar-hex-caps)::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  clip-path: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%) !important;
+  background: var(--jk-tech-darker);
+  z-index: -1;
+}
+
+.jkhive-toast-bar.jkhive-toast-error .jkhive-toast-bar-inner:not(.jkhive-toast-bar-hex-caps),
+.jkhive-toast-bar.jkhive-toast-error .jkhive-toast-bar-inner:not(.jkhive-toast-bar-hex-caps) span,
+.jkhive-toast-bar.jkhive-toast-error .jkhive-toast-bar-inner:not(.jkhive-toast-bar-hex-caps) i {
+  color: var(--jkhive-error-red) !important;
+  text-shadow: var(--jkhive-error-red-text-glow);
+}
+
+/* Variante warning: solo cuando NO es hex-caps. */
+.jkhive-toast-bar.jkhive-toast-warning .jkhive-toast-bar-inner:not(.jkhive-toast-bar-hex-caps) {
+  background: linear-gradient(135deg, rgba(234, 179, 8, 0.22) 0%, rgba(202, 138, 4, 0.26) 100%);
+  box-shadow: -4px 4px 20px rgba(0, 0, 0, 0.35), 0 0 16px rgba(234, 179, 8, 0.2);
+}
+
+.jkhive-toast-bar.jkhive-toast-warning .jkhive-toast-bar-inner:not(.jkhive-toast-bar-hex-caps) i {
+  color: var(--jk-accent-honey-light);
+}
+
+/* -----------------------------------------------------------------------------
+   TIPO A PERSISTENTE (JK Hive): barra + botón cerrar (X) + botón info → panel
+   Convención: .jkhive-toast-bar-* para todos los elementos del toast tipo A.
+   ----------------------------------------------------------------------------- */
+
+.jkhive-toast-bar.jkhive-toast-persistent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: max-content;
+  max-width: min(360px, calc(100vw - 24px));
+}
+
+/* Wrapper: ancho = solo la barra; position relative para que el pergamino (absolute) sea 88% de ESTE ancho = lados planos del hex (6%–94%). */
+.jkhive-toast-bar.jkhive-toast-persistent .jkhive-toast-bar-persistent-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: max-content;
+}
+
+/* Barra alineada a la derecha del wrapper (borde derecho = ícono de usuario, norma). */
+.jkhive-toast-bar.jkhive-toast-persistent .jkhive-toast-bar-persistent-wrap .jkhive-toast-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.35rem;
+  padding: 0.2rem 12px;
+  width: max-content;
+  box-sizing: border-box;
+}
+
+.jkhive-toast-bar.jkhive-toast-persistent .jkhive-toast-bar-inner > span {
+  flex: 0 1 auto;
+  min-width: 0;
+  text-align: left;
+  word-break: break-word;
+}
+
+/* Botones solo en toasts persistentes (JK Hive) */
+.jkhive-toast-bar-btn-close,
+.jkhive-toast-bar-btn-info {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  min-height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.25);
+  color: inherit;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.jkhive-toast-bar-btn-close:hover,
+.jkhive-toast-bar-btn-info:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.jkhive-toast-bar-btn-close:focus {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Ícono info: sin borde ni outline en ningún momento; focus con anillo suave */
+.jkhive-toast-bar-btn-info {
+  font-size: 1rem;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.jkhive-toast-bar-btn-info:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
+}
+
+.jkhive-toast-bar-btn-close {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+/* Panel pergamino: animación solo con clip-path (revelar de arriba a abajo = desenrollar; ocultar = enrollar). max-height sin transición al abrir para que se note el rollo; al cerrar sí se anima. Sin barra de desplazamiento visible. */
+.jkhive-toast-bar-detail-panel {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 88%;
+  margin-top: 4px;
+  max-height: 0;
+  overflow: hidden;
+  clip-path: inset(0 0 100% 0);
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: rgba(10, 10, 15, 0.75);
+  color: var(--jk-metal-light);
+  text-align: left;
+  transition: clip-path 0.5s cubic-bezier(0.22, 0.61, 0.36, 1), max-height 0.35s ease-out 0.5s, border-color 0.2s ease;
+}
+
+.jkhive-toast-bar.jkhive-toast-error .jkhive-toast-bar-detail-panel.jkhive-toast-bar-detail-panel-open {
+  border-color: var(--jkhive-error-red);
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.25);
+}
+
+/* Abierto: rollo desenrollado; clip-path revela de arriba a abajo. max-height sin delay para que el panel ya tenga altura al revelar. */
+.jkhive-toast-bar-detail-panel.jkhive-toast-bar-detail-panel-open {
+  max-height: 280px;
+  transition: clip-path 0.5s cubic-bezier(0.22, 0.61, 0.36, 1), max-height 0s, border-color 0.2s ease;
+  clip-path: inset(0 0 0 0);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.jkhive-toast-bar-detail-panel.jkhive-toast-bar-detail-panel-open .jkhive-toast-bar-detail-panel-inner {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.jkhive-toast-bar-detail-panel.jkhive-toast-bar-detail-panel-open .jkhive-toast-bar-detail-panel-inner::-webkit-scrollbar {
+  display: none;
+}
+
+.jkhive-toast-bar-detail-panel-close {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.5rem;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--jkhive-error-red);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.9;
+  transition: opacity 0.2s;
+}
+
+.jkhive-toast-bar-detail-panel-close:hover {
+  opacity: 1;
+}
+
+/* Padding derecho suficiente para que el texto no quede detrás del botón cerrar (24px botón + 0.5rem margen + holgura). Padding superior para no solaparse con el botón. */
+.jkhive-toast-bar-detail-panel-inner {
+  padding: 2.25rem 2.75rem 0.4rem 0.75rem;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  word-break: break-word;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.15), 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.jkhive-toast-bar-detail-panel-footer {
+  padding: 0.35rem 0.5rem 0.4rem 0.75rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* Botón ticket "Enviar ticket a soporte". Sigue la regla global: ícono y hex son uno, mismo color (04-botones-y-ctas). Normal: rojo. Hover: cyan. */
+body .jkhive-toast-bar-detail-panel-ticket.jkhive-bttn-sm {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+  display: inline-block !important;
+  width: 29px !important;
+  height: calc(29px * 1.1547) !important;
+}
+
+body .jkhive-toast-bar-detail-panel-ticket.jkhive-bttn-sm .jkhive-hex {
+  background: var(--jkhive-error-red) !important;
+  box-shadow: 0 0 14px rgba(255, 0, 0, 0.4) !important;
+  border: none !important;
+}
+
+body .jkhive-toast-bar-detail-panel-ticket.jkhive-bttn-sm .jkhive-hex-icon {
+  font-size: 0.69rem !important;
+  color: var(--jkhive-error-red) !important;
+  text-shadow: 0 0 6px rgba(255, 0, 0, 0.35) !important;
+}
+
+body .jkhive-toast-bar-detail-panel-ticket.jkhive-bttn-sm:hover .jkhive-hex {
+  background: var(--jk-primary-blue-light, #38bdf8) !important;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.5) !important;
+  transform: scale(1.08) !important;
+  border: none !important;
+  outline: none !important;
+}
+
+body .jkhive-toast-bar-detail-panel-ticket.jkhive-bttn-sm:hover .jkhive-hex-icon {
+  color: var(--jk-primary-blue-light, #38bdf8) !important;
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.6) !important;
+  animation: jkhive-anmtn-shake 0.42s ease-in-out !important;
+  transform-origin: center center;
+}
+
+body .jkhive-toast-bar-detail-panel-ticket.jkhive-bttn-sm:disabled {
+  opacity: 0.7;
+  cursor: not-allowed !important;
+}
+
+body .jkhive-toast-bar-detail-panel-ticket.jkhive-bttn-sm:disabled:hover .jkhive-hex,
+body .jkhive-toast-bar-detail-panel-ticket.jkhive-bttn-sm:disabled:hover .jkhive-hex-icon {
+  animation: none !important;
+}
+
+/* Tooltip del botón "Enviar ticket" — estilo JK Hive (mismo que jk-hive.css .jkhive-tooltip-following).
+   Autosuficiente: base + responsive mobile en este bloque. */
+.jkhive-tooltip-following {
+  position: fixed !important;
+  background: linear-gradient(135deg, var(--jk-tech-dark, #1e293b) 0%, var(--jk-tech-darker, #0f172a) 100%) !important;
+  color: var(--jk-metal-light, #e2e8f0) !important;
+  padding: 0.2rem 0.65rem !important;
+  border-radius: 6px !important;
+  border: 1px solid var(--jk-primary-blue, #0ea5e9) !important;
+  font-size: 0.7rem !important;
+  font-weight: 500 !important;
+  line-height: 1.25 !important;
+  white-space: nowrap !important;
+  pointer-events: none !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 0 16px rgba(14, 165, 233, 0.35) !important;
+  z-index: 9999999 !important;
+  letter-spacing: 0.03em !important;
+  text-transform: uppercase !important;
+  transition: opacity 0.15s ease !important;
+  backdrop-filter: blur(6px) !important;
+}
+@media (max-width: 768px) {
+  .jkhive-tooltip-following {
+    font-size: 0.58rem !important;
+    padding: 0.14rem 0.45rem !important;
+    line-height: 1.2 !important;
+    letter-spacing: 0.02em !important;
+    border-radius: 4px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .jkhive-toast-bar.jkhive-toast-persistent {
+    max-width: min(calc(100vw - 24px), 360px);
+  }
+
+  .jkhive-toast-bar.jkhive-toast-persistent .jkhive-toast-bar-inner {
+    padding: 0.18rem 12px;
+  }
+
+  .jkhive-toast-bar-btn-close,
+  .jkhive-toast-bar-btn-info {
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    min-height: 26px;
+  }
+
+  .jkhive-toast-bar-detail-panel.jkhive-toast-bar-detail-panel-open {
+    max-height: 220px;
+  }
+
+  .jkhive-toast-bar-detail-panel-inner {
+    padding: 2rem 2.5rem 0.4rem 0.65rem;
+    font-size: 0.75rem;
+  }
+
+  .jkhive-toast-bar-detail-panel-close {
+    top: 0.25rem;
+    right: 0.4rem;
+    width: 22px;
+    height: 22px;
+    font-size: 1.1rem;
+  }
+}
+
+/* =============================================================================
+   TIPO B - TOAST INLINE (sobre el elemento, animación tipo TV)
+   ============================================================================= */
+
+/* Desktop: -10% tamaño; compacto verticalmente (tech, elegante). */
+.jkhive-toast-inline {
+  position: fixed;
+  z-index: 10000;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: min(90vw, 324px);
+  transform-origin: center center;
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+/* Mismo hex 6%/94%; padding reducido para mensajes compactos. */
+.jkhive-toast-inner {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.315rem;
+  padding: 0.45rem 11px;
+  clip-path: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%) !important;
+  border: none;
+  border-radius: 0;
+  color: var(--jk-metal-light);
+  font-size: 0.81rem;
+  line-height: 1.22;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Línea = 4× borde (8px). Inset top/bottom = 50% - 4px para que la franja visible sea 8px. */
+.jkhive-toast-tv-wrap {
+  position: relative;
+  overflow: hidden;
+  clip-path: inset(calc(50% - var(--jkhive-toast-tv-line-height) / 2) 33% calc(50% - var(--jkhive-toast-tv-line-height) / 2) 33%);
+  animation: jkhive-anmtn-toast-tv-open 1s cubic-bezier(0.35, 0, 0.2, 1) forwards;
+}
+
+/* Mismo clip que el wrap. Recorte adicional del contenido para que nunca sobresalga de las líneas. */
+.jkhive-toast-tv-content {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  clip-path: inset(calc(50% - var(--jkhive-toast-tv-line-height) / 2) 33% calc(50% - var(--jkhive-toast-tv-line-height) / 2) 33%);
+  animation: jkhive-anmtn-toast-tv-open 1s cubic-bezier(0.35, 0, 0.2, 1) forwards;
+  opacity: var(--tv-content-visible, 1);
+}
+
+/* Recorte duro del contenido: animación solo de variables para que el clip-path interpole bien. */
+.jkhive-toast-tv-content-clip {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  clip-path: inset(var(--tv-content-top, 0) 0 var(--tv-content-bottom, 0) 0);
+  animation: jkhive-anmtn-toast-tv-open-content-clip 1s cubic-bezier(0.35, 0, 0.2, 1) forwards;
+}
+
+.jkhive-toast-inline.jkhive-toast-closing .jkhive-toast-tv-wrap,
+.jkhive-toast-inline.jkhive-toast-closing .jkhive-toast-tv-content {
+  animation: jkhive-anmtn-toast-tv-close 1s cubic-bezier(0.35, 0, 0.2, 1) forwards;
+}
+
+.jkhive-toast-inline.jkhive-toast-closing .jkhive-toast-tv-content-clip {
+  animation: jkhive-anmtn-toast-tv-close-content-clip 1s cubic-bezier(0.35, 0, 0.2, 1) forwards;
+}
+
+/* Franja de color 5px; con hueco 1px cuando se separa en dos (--tv-line-gap-half = 0.5px) */
+.jkhive-toast-tv-line {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: var(--tv-line-opacity, 1);
+  background: linear-gradient(to bottom,
+    transparent 0,
+    transparent calc(50% - var(--jkhive-toast-tv-line-height) / 2),
+    var(--tv-line-color, #fff) calc(50% - var(--jkhive-toast-tv-line-height) / 2),
+    var(--tv-line-color, #fff) calc(50% - var(--tv-line-gap-half, 0px)),
+    transparent calc(50% - var(--tv-line-gap-half, 0px)),
+    transparent calc(50% + var(--tv-line-gap-half, 0px)),
+    var(--tv-line-color, #fff) calc(50% + var(--tv-line-gap-half, 0px)),
+    var(--tv-line-color, #fff) calc(50% + var(--jkhive-toast-tv-line-height) / 2),
+    transparent calc(50% + var(--jkhive-toast-tv-line-height) / 2),
+    transparent 100%);
+}
+
+.jkhive-toast-inline.jkhive-toast-error .jkhive-toast-tv-line { --tv-line-color: var(--jkhive-error-red); }
+.jkhive-toast-inline.jkhive-toast-info .jkhive-toast-tv-line { --tv-line-color: var(--jkhive-info-blue); }
+.jkhive-toast-inline.jkhive-toast-success .jkhive-toast-tv-line { --tv-line-color: var(--jkhive-success-green); }
+.jkhive-toast-inline.jkhive-toast-warning .jkhive-toast-tv-line { --tv-line-color: var(--jk-accent-honey-light); }
+
+/* Keyframes solo para variables del content-clip (mismos % que la animación principal). */
+@keyframes jkhive-anmtn-toast-tv-open-content-clip {
+  0%, 12% { --tv-content-top: 50%; --tv-content-bottom: 50%; }
+  38%     { --tv-content-top: calc(50% - 0.5px); --tv-content-bottom: calc(50% - 0.5px); }
+  67%     { --tv-content-top: calc(25% + var(--jkhive-toast-tv-content-inset)); --tv-content-bottom: calc(25% + var(--jkhive-toast-tv-content-inset)); }
+  85%     { --tv-content-top: 0; --tv-content-bottom: 0; }
+  100%    { --tv-content-top: 0; --tv-content-bottom: 0; }
+}
+
+@keyframes jkhive-anmtn-toast-tv-close-content-clip {
+  0%   { --tv-content-top: 0; --tv-content-bottom: 0; }
+  18%  { --tv-content-top: calc(25% + var(--jkhive-toast-tv-content-inset)); --tv-content-bottom: calc(25% + var(--jkhive-toast-tv-content-inset)); }
+  36%  { --tv-content-top: 50%; --tv-content-bottom: 50%; }
+  62%  { --tv-content-top: 50%; --tv-content-bottom: 50%; }
+  88%  { --tv-content-top: 50%; --tv-content-bottom: 50%; }
+  100% { --tv-content-top: 50%; --tv-content-bottom: 50%; }
+}
+
+/* Abrir: espejo del cierre. Línea única → se abre en dos (26%) → ventana se abre → pantalla llena. */
+@keyframes jkhive-anmtn-toast-tv-open {
+  0%, 12% {
+    clip-path: inset(calc(50% - var(--jkhive-toast-tv-line-height) / 2) 33% calc(50% - var(--jkhive-toast-tv-line-height) / 2) 33%);
+    --tv-line-opacity: 1;
+    --tv-line-gap-half: 0px;
+    --tv-content-visible: 0;
+    --tv-content-top: 50%;
+    --tv-content-bottom: 50%;
+  }
+  38% {
+    clip-path: inset(calc(50% - var(--jkhive-toast-tv-line-height) / 2) 0 calc(50% - var(--jkhive-toast-tv-line-height) / 2) 0);
+    --tv-line-opacity: 1;
+    --tv-line-gap-half: 0.5px;
+    --tv-content-visible: 1;
+    --tv-content-top: calc(50% - 0.5px);
+    --tv-content-bottom: calc(50% - 0.5px);
+  }
+  67% {
+    clip-path: inset(25% 0 25% 0);
+    --tv-line-opacity: 1;
+    --tv-line-gap-half: 0.5px;
+    --tv-content-visible: 1;
+    --tv-content-top: calc(25% + var(--jkhive-toast-tv-content-inset));
+    --tv-content-bottom: calc(25% + var(--jkhive-toast-tv-content-inset));
+  }
+  85% {
+    clip-path: inset(0 0 0 0);
+    --tv-line-opacity: 0;
+    --tv-line-gap-half: 0.5px;
+    --tv-content-visible: 1;
+    --tv-content-top: 0;
+    --tv-content-bottom: 0;
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    --tv-line-opacity: 0;
+    --tv-content-visible: 1;
+    --tv-content-top: 0;
+    --tv-content-bottom: 0;
+  }
+}
+
+/* Cerrar: espejo del abrir. Pantalla llena → ventana → dos líneas se funden en una (26%) → línea única → fade. */
+@keyframes jkhive-anmtn-toast-tv-close {
+  0% {
+    clip-path: inset(0 0 0 0);
+    --tv-line-opacity: 0;
+    --tv-line-gap-half: 0.5px;
+    --tv-content-visible: 1;
+    --tv-content-top: 0;
+    --tv-content-bottom: 0;
+  }
+  18% {
+    clip-path: inset(25% 0 25% 0);
+    --tv-line-opacity: 1;
+    --tv-line-gap-half: 0.5px;
+    --tv-content-visible: 1;
+    --tv-content-top: calc(25% + var(--jkhive-toast-tv-content-inset));
+    --tv-content-bottom: calc(25% + var(--jkhive-toast-tv-content-inset));
+  }
+  36% {
+    clip-path: inset(calc(50% - var(--jkhive-toast-tv-line-height) / 2) 0 calc(50% - var(--jkhive-toast-tv-line-height) / 2) 0);
+    --tv-line-opacity: 1;
+    --tv-line-gap-half: 0.5px;
+    --tv-content-visible: 0;
+    --tv-content-top: 50%;
+    --tv-content-bottom: 50%;
+  }
+  62% {
+    clip-path: inset(calc(50% - var(--jkhive-toast-tv-line-height) / 2) 33% calc(50% - var(--jkhive-toast-tv-line-height) / 2) 33%);
+    --tv-line-opacity: 1;
+    --tv-line-gap-half: 0px;
+    --tv-content-visible: 0;
+    --tv-content-top: 50%;
+    --tv-content-bottom: 50%;
+  }
+  88% {
+    clip-path: inset(calc(50% - var(--jkhive-toast-tv-line-height) / 2) 33% calc(50% - var(--jkhive-toast-tv-line-height) / 2) 33%);
+    --tv-line-opacity: 1;
+    --tv-line-gap-half: 0px;
+    --tv-content-visible: 0;
+    opacity: 1;
+  }
+  100% {
+    clip-path: inset(calc(50% - var(--jkhive-toast-tv-line-height) / 2) 33% calc(50% - var(--jkhive-toast-tv-line-height) / 2) 33%);
+    --tv-line-opacity: 1;
+    --tv-line-gap-half: 0px;
+    --tv-content-visible: 0;
+    opacity: 0;
+  }
+}
+
+/* Variantes de color para tipo B
+   Regla: todas las variantes deben verse como la "verde buena":
+   borde neón (capa ::before) + interior oscuro (capa ::after) + texto/ícono del mismo color. */
+.jkhive-toast-inline.jkhive-toast-info .jkhive-toast-inner {
+  background: none !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.jkhive-toast-inline.jkhive-toast-info .jkhive-toast-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%) !important;
+  background: var(--jkhive-info-blue);
+  z-index: -2;
+  box-shadow: var(--jkhive-info-blue-glow-soft);
+}
+
+.jkhive-toast-inline.jkhive-toast-info .jkhive-toast-inner::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  clip-path: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%) !important;
+  background: var(--jk-tech-darker);
+  z-index: -1;
+}
+
+.jkhive-toast-inline.jkhive-toast-info .jkhive-toast-inner,
+.jkhive-toast-inline.jkhive-toast-info .jkhive-toast-inner span,
+.jkhive-toast-inline.jkhive-toast-info .jkhive-toast-inner i {
+  color: var(--jkhive-info-blue) !important;
+  text-shadow: var(--jkhive-info-blue-text-glow);
+}
+
+.jkhive-toast-inline.jkhive-toast-success .jkhive-toast-inner {
+  background: none !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.jkhive-toast-inline.jkhive-toast-success .jkhive-toast-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%) !important;
+  background: var(--jkhive-success-green);
+  z-index: -2;
+  box-shadow: var(--jkhive-success-green-glow-soft);
+}
+
+.jkhive-toast-inline.jkhive-toast-success .jkhive-toast-inner::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  clip-path: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%) !important;
+  background: var(--jk-tech-darker);
+  z-index: -1;
+}
+
+.jkhive-toast-inline.jkhive-toast-success .jkhive-toast-inner,
+.jkhive-toast-inline.jkhive-toast-success .jkhive-toast-inner span,
+.jkhive-toast-inline.jkhive-toast-success .jkhive-toast-inner i {
+  color: var(--jkhive-success-green) !important;
+  text-shadow: var(--jkhive-success-green-text-glow);
+}
+
+/* Tipo B error: mismo estilo que tipo A — borde rojo neón + interior oscuro transparente (sin relleno de color) */
+.jkhive-toast-inline.jkhive-toast-error .jkhive-toast-inner {
+  background: none !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.jkhive-toast-inline.jkhive-toast-error .jkhive-toast-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%) !important;
+  background: var(--jkhive-error-red);
+  z-index: -2;
+  box-shadow: var(--jkhive-error-red-glow-soft);
+}
+
+.jkhive-toast-inline.jkhive-toast-error .jkhive-toast-inner::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  clip-path: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%) !important;
+  background: var(--jk-tech-darker);
+  z-index: -1;
+}
+
+.jkhive-toast-inline.jkhive-toast-error .jkhive-toast-inner,
+.jkhive-toast-inline.jkhive-toast-error .jkhive-toast-inner span,
+.jkhive-toast-inline.jkhive-toast-error .jkhive-toast-inner i {
+  color: var(--jkhive-error-red) !important;
+  text-shadow: var(--jkhive-error-red-text-glow);
+}
+
+.jkhive-toast-inline.jkhive-toast-warning .jkhive-toast-inner {
+  background: none !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.jkhive-toast-inline.jkhive-toast-warning .jkhive-toast-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%) !important;
+  background: var(--jk-accent-honey-light);
+  z-index: -2;
+  box-shadow: var(--jk-glow-neon);
+}
+
+.jkhive-toast-inline.jkhive-toast-warning .jkhive-toast-inner::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  clip-path: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%) !important;
+  background: var(--jk-tech-darker);
+  z-index: -1;
+}
+
+.jkhive-toast-inline.jkhive-toast-warning .jkhive-toast-inner,
+.jkhive-toast-inline.jkhive-toast-warning .jkhive-toast-inner span,
+.jkhive-toast-inline.jkhive-toast-warning .jkhive-toast-inner i {
+  color: var(--jk-accent-honey-light) !important;
+  text-shadow: var(--jk-glow-neon);
+}
+
+@media (max-width: 768px) {
+  .jkhive-toast-inline {
+    max-width: min(72vw, 220px) !important;
+  }
+  .jkhive-toast-inline .jkhive-toast-inner {
+    padding: 0.3rem 10px !important;
+    font-size: 0.7rem !important;
+    gap: 0.25rem !important;
+  }
+}
+
+/* =============================================================================
+   TOAST CONFIRMACIÓN ELIMINAR — .jkhive-toast-delete-confirm-*
+   Misma estructura que los botones hex; estilo alineado al resto de toasts:
+   borde fino (2px visual vía scale 0.99), tipografía y colores como panel detalle / toast bar.
+   Hexágono equilátero (clip-path = .jkhive-hex). Glow discreto como .jkhive-toast-bar-detail-panel.
+   Hover ticket y X: animación heartbeat (igual que jkhive-elements).
+   ============================================================================= */
+@keyframes jkhive-anmtn-heartbeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.35); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.35); }
+  60% { transform: scale(1); }
+  75% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+.jkhive-toast-delete-confirm-wrap {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 2147483647 !important;
+  pointer-events: auto !important;
+}
+.jkhive-toast-delete-confirm {
+  position: fixed !important;
+  transform: translate(-50%, -50%) scale(0) !important;
+  opacity: 0 !important;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease !important;
+  color: var(--jk-metal-light, #e2e8f0) !important;
+}
+.jkhive-toast-delete-confirm.jkhive-toast-delete-confirm-open {
+  transform: translate(-50%, -50%) scale(1) !important;
+  opacity: 1 !important;
+}
+.jkhive-toast-delete-confirm.jkhive-toast-delete-confirm-closing {
+  transform: translate(-50%, -50%) scale(0) !important;
+  opacity: 0 !important;
+}
+/* Mobile: desplazar 10px a la izquierda solo cuando el toast NO está en un modal (tabla de página pegada al borde). En modal el botón está centrado, no aplicar corrección. */
+@media (max-width: 768px) {
+  .jkhive-toast-delete-confirm-wrap:not(.jkhive-toast-delete-confirm-in-modal) .jkhive-toast-delete-confirm {
+    transform: translate(calc(-50% - 10px), -50%) scale(0) !important;
+  }
+  .jkhive-toast-delete-confirm-wrap:not(.jkhive-toast-delete-confirm-in-modal) .jkhive-toast-delete-confirm.jkhive-toast-delete-confirm-open {
+    transform: translate(calc(-50% - 10px), -50%) scale(1) !important;
+  }
+  .jkhive-toast-delete-confirm-wrap:not(.jkhive-toast-delete-confirm-in-modal) .jkhive-toast-delete-confirm.jkhive-toast-delete-confirm-closing {
+    transform: translate(calc(-50% - 10px), -50%) scale(0) !important;
+  }
+}
+/* Hexágono igual que .jkhive-hex; borde más grueso = ::after scale(0.94). Tamaño 40% del original. */
+.jkhive-toast-delete-confirm-hex {
+  position: relative !important;
+  width: 80px !important;
+  height: 92px !important; /* misma proporción equilátera */
+  box-sizing: border-box !important;
+  background: var(--jkhive-error-red) !important;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 12px rgba(255, 0, 0, 0.25) !important;
+  border: none !important;
+  overflow: visible !important;
+}
+.jkhive-toast-delete-confirm-hex::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) scale(0.94) !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: var(--jk-tech-dark, #0a0e27) !important;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%) !important;
+  z-index: 1 !important;
+}
+.jkhive-toast-delete-confirm-content {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 88% !important;
+  max-width: 100% !important;
+  z-index: 2 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.2rem 0 !important;
+  box-sizing: border-box !important;
+}
+/* Texto +10% respecto al tamaño base del toast */
+.jkhive-toast-delete-confirm-msg {
+  margin: 0 0 0.25rem 0 !important;
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+  text-align: center !important;
+  color: var(--jkhive-error-red) !important;
+  text-shadow: 0 0 6px rgba(255, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.4) !important;
+}
+.jkhive-toast-delete-confirm-actions {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.25rem !important;
+}
+/* Solo ticket y X en rojo neón, sin borde ni relleno; más gruesos con font-weight y stroke */
+.jkhive-toast-delete-confirm-ok.jkhive-toast-delete-ticket {
+  padding: 0.12rem 0.3rem !important;
+  min-width: 20px !important;
+  min-height: 18px !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--jkhive-error-red) !important;
+  font-size: 0.7rem !important;
+  font-weight: 800 !important;
+  -webkit-text-stroke: 0.04em currentColor !important;
+  text-stroke: 0.04em currentColor !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+  text-shadow: 0 0 6px rgba(255, 0, 0, 0.5), 0 0 10px rgba(255, 0, 0, 0.3) !important;
+  transition: transform 0.2s, opacity 0.2s !important;
+}
+.jkhive-toast-delete-confirm-ok.jkhive-toast-delete-ticket:hover {
+  animation: jkhive-anmtn-heartbeat 1.1s ease-in-out !important;
+}
+.jkhive-toast-delete-confirm-cancel.jkhive-toast-delete-close {
+  width: 18px !important;
+  height: 18px !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--jkhive-error-red) !important;
+  font-size: 0.92rem !important; /* más grande que el ticket (0.7rem) para verse igual por el stroke del ticket */
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  text-shadow: 0 0 6px rgba(255, 0, 0, 0.5), 0 0 10px rgba(255, 0, 0, 0.3) !important;
+  transition: transform 0.2s, opacity 0.2s !important;
+}
+.jkhive-toast-delete-confirm-cancel.jkhive-toast-delete-close:hover {
+  animation: jkhive-anmtn-heartbeat 1.1s ease-in-out !important;
+}
+@media (max-width: 768px) {
+  .jkhive-toast-delete-confirm-hex {
+    width: 67px !important;
+    height: 78px !important; /* 168*0.4, 194*0.4 */
+  }
+  .jkhive-toast-delete-confirm-content {
+    width: 80% !important;
+  }
+  .jkhive-toast-delete-confirm-msg {
+    font-size: 0.77rem !important; /* +10% sobre 0.7 */
+  }
+  .jkhive-toast-delete-confirm-ok.jkhive-toast-delete-ticket {
+    min-width: 22px !important;
+    min-height: 20px !important;
+    width: 22px !important;
+    height: 20px !important;
+    font-size: 0.75rem !important;
+  }
+  .jkhive-toast-delete-confirm-cancel.jkhive-toast-delete-close {
+    min-width: 22px !important;
+    min-height: 20px !important;
+    width: 22px !important;
+    height: 20px !important;
+    font-size: 0.92rem !important;
+  }
+}
+
+/* =============================================================================
+   TOAST DECISIÓN GENÉRICO — .jkhive-toast-action-confirm-*
+   Base oficial reusable para decisiones con ticket / X sobre un botón.
+   Variantes actuales: delete (rojo), success (verde, tamaño wide).
+============================================================================= */
+.jkhive-toast-action-confirm-wrap {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 2147483647 !important;
+  pointer-events: auto !important;
+}
+.jkhive-toast-action-confirm {
+  position: fixed !important;
+  transform: translate(-50%, -50%) scale(0) !important;
+  opacity: 0 !important;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease !important;
+  color: var(--jk-metal-light, #e2e8f0) !important;
+  outline: none !important;
+}
+.jkhive-toast-action-confirm.jkhive-toast-action-confirm-open {
+  transform: translate(-50%, -50%) scale(1) !important;
+  opacity: 1 !important;
+}
+.jkhive-toast-action-confirm.jkhive-toast-action-confirm-closing {
+  transform: translate(-50%, -50%) scale(0) !important;
+  opacity: 0 !important;
+}
+@media (max-width: 768px) {
+  .jkhive-toast-action-confirm-wrap:not(.jkhive-toast-action-confirm-in-modal) .jkhive-toast-action-confirm {
+    transform: translate(calc(-50% - 10px), -50%) scale(0) !important;
+  }
+  .jkhive-toast-action-confirm-wrap:not(.jkhive-toast-action-confirm-in-modal) .jkhive-toast-action-confirm.jkhive-toast-action-confirm-open {
+    transform: translate(calc(-50% - 10px), -50%) scale(1) !important;
+  }
+  .jkhive-toast-action-confirm-wrap:not(.jkhive-toast-action-confirm-in-modal) .jkhive-toast-action-confirm.jkhive-toast-action-confirm-closing {
+    transform: translate(calc(-50% - 10px), -50%) scale(0) !important;
+  }
+}
+.jkhive-toast-action-confirm-hex {
+  position: relative !important;
+  width: 80px !important;
+  height: 92px !important;
+  box-sizing: border-box !important;
+  background: var(--jkhive-error-red) !important;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 12px rgba(255, 0, 0, 0.25) !important;
+  border: none !important;
+  overflow: visible !important;
+}
+.jkhive-toast-action-confirm-hex::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) scale(0.94) !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: var(--jk-tech-dark, #0a0e27) !important;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%) !important;
+  z-index: 1 !important;
+}
+.jkhive-toast-action-confirm-content {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 88% !important;
+  max-width: 100% !important;
+  z-index: 2 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.25rem 0 !important;
+  box-sizing: border-box !important;
+}
+.jkhive-toast-action-confirm-msg {
+  margin: 0 0 0.25rem 0 !important;
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+  text-align: center !important;
+  color: var(--jkhive-error-red) !important;
+  text-shadow: 0 0 6px rgba(255, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.4) !important;
+}
+.jkhive-toast-action-confirm-actions {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.25rem !important;
+}
+.jkhive-toast-action-confirm-ok.jkhive-toast-action-ticket {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.12rem 0.3rem !important;
+  min-width: 20px !important;
+  min-height: 18px !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--jkhive-error-red) !important;
+  font-size: 0.7rem !important;
+  font-weight: 800 !important;
+  -webkit-text-stroke: 0.04em currentColor !important;
+  text-stroke: 0.04em currentColor !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+  text-shadow: 0 0 6px rgba(255, 0, 0, 0.5), 0 0 10px rgba(255, 0, 0, 0.3) !important;
+  transition: transform 0.2s, opacity 0.2s !important;
+}
+.jkhive-toast-action-confirm-ok.jkhive-toast-action-ticket:hover,
+.jkhive-toast-action-confirm-cancel.jkhive-toast-action-close:hover {
+  animation: jkhive-anmtn-heartbeat 1.1s ease-in-out !important;
+}
+.jkhive-toast-action-confirm-cancel.jkhive-toast-action-close {
+  width: 18px !important;
+  height: 18px !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--jkhive-error-red) !important;
+  font-size: 0.92rem !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  text-shadow: 0 0 6px rgba(255, 0, 0, 0.5), 0 0 10px rgba(255, 0, 0, 0.3) !important;
+  transition: transform 0.2s, opacity 0.2s !important;
+}
+.jkhive-toast-action-confirm-success .jkhive-toast-action-confirm-hex {
+  background: var(--jkhive-success-green, #00d084) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 12px rgba(0, 208, 132, 0.28) !important;
+}
+.jkhive-toast-action-confirm-success .jkhive-toast-action-confirm-msg,
+.jkhive-toast-action-confirm-success .jkhive-toast-action-confirm-ok.jkhive-toast-action-ticket,
+.jkhive-toast-action-confirm-success .jkhive-toast-action-confirm-cancel.jkhive-toast-action-close {
+  color: var(--jkhive-success-green, #00d084) !important;
+  text-shadow: 0 0 6px rgba(0, 208, 132, 0.35), 0 0 10px rgba(0, 208, 132, 0.18) !important;
+}
+.jkhive-toast-action-confirm-wide .jkhive-toast-action-confirm-hex {
+  width: 146px !important;
+  height: 168px !important;
+}
+.jkhive-toast-action-confirm-wide .jkhive-toast-action-confirm-content {
+  width: 82% !important;
+}
+.jkhive-toast-action-confirm-wide .jkhive-toast-action-confirm-msg {
+  margin-bottom: 0.42rem !important;
+  font-size: 0.88rem !important;
+  line-height: 1.22 !important;
+}
+.jkhive-toast-action-confirm-wide .jkhive-toast-action-confirm-actions {
+  gap: 0.38rem !important;
+}
+.jkhive-toast-action-confirm-wide .jkhive-toast-action-confirm-ok.jkhive-toast-action-ticket {
+  min-width: 24px !important;
+  min-height: 22px !important;
+  font-size: 0.8rem !important;
+}
+.jkhive-toast-action-confirm-wide .jkhive-toast-action-confirm-cancel.jkhive-toast-action-close {
+  width: 22px !important;
+  height: 22px !important;
+  font-size: 1rem !important;
+}
+@media (max-width: 768px) {
+  .jkhive-toast-action-confirm-hex {
+    width: 67px !important;
+    height: 78px !important;
+  }
+  .jkhive-toast-action-confirm-content {
+    width: 80% !important;
+  }
+  .jkhive-toast-action-confirm-msg {
+    font-size: 0.77rem !important;
+  }
+  .jkhive-toast-action-confirm-ok.jkhive-toast-action-ticket {
+    min-width: 22px !important;
+    min-height: 20px !important;
+    width: 22px !important;
+    height: 20px !important;
+    font-size: 0.75rem !important;
+  }
+  .jkhive-toast-action-confirm-cancel.jkhive-toast-action-close {
+    min-width: 22px !important;
+    min-height: 20px !important;
+    width: 22px !important;
+    height: 20px !important;
+    font-size: 0.92rem !important;
+  }
+  .jkhive-toast-action-confirm-wide .jkhive-toast-action-confirm-hex {
+    width: 122px !important;
+    height: 140px !important;
+  }
+  .jkhive-toast-action-confirm-wide .jkhive-toast-action-confirm-msg {
+    font-size: 0.81rem !important;
+  }
+}
+
+/* ========== ÁNGULO TOAST FIJO 6%/94% — MÁXIMA ESPECIFICIDAD (anula cualquier otra hoja) ========== */
+/* Excepción: inner con puntas predibujadas (hex-caps) no usa clip-path. */
+html body .jkhive-toast-bar .jkhive-toast-bar-inner:not(.jkhive-toast-bar-hex-caps),
+html body .jkhive-toast-bar .jkhive-toast-bar-inner::before,
+html body .jkhive-toast-bar .jkhive-toast-bar-inner::after,
+html body .jkhive-toast-bar.jkhive-toast-error .jkhive-toast-bar-inner:not(.jkhive-toast-bar-hex-caps),
+html body .jkhive-toast-bar.jkhive-toast-error .jkhive-toast-bar-inner::before,
+html body .jkhive-toast-bar.jkhive-toast-error .jkhive-toast-bar-inner::after,
+html body .jkhive-toast-bar.jkhive-toast-info .jkhive-toast-bar-inner::before,
+html body .jkhive-toast-bar.jkhive-toast-info .jkhive-toast-bar-inner::after,
+html body .jkhive-toast-bar.jkhive-toast-success .jkhive-toast-bar-inner::before,
+html body .jkhive-toast-bar.jkhive-toast-success .jkhive-toast-bar-inner::after,
+html body .jkhive-toast-inline .jkhive-toast-inner,
+html body .jkhive-toast-inline .jkhive-toast-inner::before,
+html body .jkhive-toast-inline .jkhive-toast-inner::after,
+html body .jkhive-toast-inline.jkhive-toast-error .jkhive-toast-inner::before,
+html body .jkhive-toast-inline.jkhive-toast-error .jkhive-toast-inner::after {
+  clip-path: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%) !important;
+}

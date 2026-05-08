@@ -6,6 +6,7 @@ Monorepo que **consolida en código real** el sistema visual JK Hive (JK Lubs, a
 
 | Documento | Contenido |
 |-----------|-----------|
+| [docs/JK_HIVE_FRAMEWORK_CONTRACT.md](docs/JK_HIVE_FRAMEWORK_CONTRACT.md) | Contrato único: tokens, galerías hex, temas, anti-patrones |
 | [docs/PLAN_CONSOLIDACION_JK_HIVE.md](docs/PLAN_CONSOLIDACION_JK_HIVE.md) | Plan maestro y estado del build |
 | [docs/CONSOLIDACION_EJECUTADA_RESUMEN.md](docs/CONSOLIDACION_EJECUTADA_RESUMEN.md) | Resumen ejecutable de lo entregado |
 | [docs/INVENTARIO_FUENTES_JK_HIVE.md](docs/INVENTARIO_FUENTES_JK_HIVE.md) | Fase 1 — índice multi-fuente |
@@ -17,6 +18,12 @@ Monorepo que **consolida en código real** el sistema visual JK Hive (JK Lubs, a
 | [docs/MANIFEST_ASSETS_SNAPSHOT.md](docs/MANIFEST_ASSETS_SNAPSHOT.md) | Origen de `showcase/assets` |
 
 Regla Copilot/Cursor (**XAMPP trabajo ↔ repo aprobación**): [`.cursor/rules/jkhfw-xampp-workflow.mdc`](.cursor/rules/jkhfw-xampp-workflow.mdc).
+
+### Temas de color (paleta secundaria)
+
+- **Por URL:** `?theme=canonical|aurora|cobalt|ember` (se guarda en sesión).
+- **Por página (landing, sin tocar sesión de otras rutas):** antes de `include layout-head.php`, opcional: `$jk_color_scheme = 'cobalt';`
+- **HTML:** atributo `data-jkfw-theme` en `<html>`; **CSS:** `body.jkfw-theme-*` en `showcase/assets/css/jkfw-themes.css`.
 
 ## Showcase PHP (JK Hive Framework)
 

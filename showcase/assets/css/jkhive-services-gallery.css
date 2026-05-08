@@ -1,0 +1,2058 @@
+/**
+ * JK Hive - Services & Specialized Gallery Styles (Aislado)
+ * 
+ * Estilos para las galerías:
+ * - "Servicios de Outsourcing IT" (#services-gallery-container)
+ * - "Asesorías Especializadas" (#specialized-gallery-container)
+ * - "Modelos de Contratación Flexibles" (#contract-models-gallery-container)
+ * - "Desarrollo Web & Servicios Cloud" (#services-gallery-container en webs.html)
+ * - "Mis Productos Web" (#products-gallery-container en webs.html)
+ * - "Sistemas de Gestión Empresarial & Integraciones ERP" (#management-systems-gallery-container en webs.html)
+ * - Portafolio público (portfolio.php): mismas reglas que la galería editorial vía
+ *   .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex (sin id fijo por sección).
+ *
+ * Sistema de panal de abejas (honeycomb pattern) idéntico al sistema original
+ * Elementos clickeables con modal y botón de contacto
+ */
+
+/* ========================================
+   CONTENEDOR DE LA GALERÍA
+   El contenedor usa jkhive-hex-gallery-medium, solo necesitamos ajustar para services-items
+   Los contenedores #services-gallery-container, #specialized-gallery-container y #contract-models-gallery-container
+   heredan todos los estilos de .jkhive-hex-gallery-medium
+   ======================================== */
+
+/*
+ * Aire vertical superior/inferior: jk-hive.css — padding-y = --jkhive-gallery-vertical-tip-pad
+ * (¼ altura bounding del hex + --jkhive-gallery-edge-breath). No fijar padding en px aquí.
+ */
+
+/* Separación horizontal para services-items dentro de jkhive-hex-gallery-medium */
+/* NO usar gap, los márgenes de los items se encargan de la separación (igual que el original) */
+/* Aplica a servicios, asesorías, métodos de contratación, productos y sistemas de gestión */
+/* Aplicar solo a galerías con IDs específicos para evitar conflictos */
+.jkhive-hex-gallery-medium#services-gallery-container:has(.jkhive-services-item),
+.jkhive-hex-gallery-medium#specialized-gallery-container:has(.jkhive-services-item),
+.jkhive-hex-gallery-medium#contract-models-gallery-container:has(.jkhive-services-item),
+.jkhive-hex-gallery-medium#products-gallery-container:has(.jkhive-services-item),
+.jkhive-hex-gallery-medium#management-systems-gallery-container:has(.jkhive-services-item),
+.jkhive-hex-gallery-medium#bi-projects-gallery-container:has(.jkhive-services-item),
+.jkhive-hex-gallery-medium#web-projects-gallery-container:has(.jkhive-services-item),
+.jkhive-hex-gallery-medium#software-projects-gallery-container:has(.jkhive-services-item),
+.jkhive-hex-gallery-medium#infrastructure-projects-gallery-container:has(.jkhive-services-item),
+.jkhive-hex-gallery-medium#saas-projects-gallery-container:has(.jkhive-services-item),
+.jkhive-hex-gallery-medium#ai-tools-gallery-container:has(.jkhive-services-item),
+.jkhive-hex-gallery-medium#editorial-projects-gallery-container:has(.jkhive-services-item), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex:has(.jkhive-services-item) {
+    grid-gap: 0; /* Sin gap, los márgenes de los items crean la separación (igual que el original) */
+    gap: 0; /* Compatibilidad moderna */
+}
+
+/* ========================================
+   ITEM INDIVIDUAL
+   Mismo sistema que jkhive-hex-gallery-item (210px con margin negativo)
+   ======================================== */
+.jkhive-services-item {
+    width: 210px;
+    height: 243px;
+    margin: 0 15px -60px 15px; /* Separación horizontal de 15px a cada lado (30px total entre hexágonos) */
+    position: relative;
+    transition: transform 0.3s ease, z-index 0s;
+    z-index: 1;
+}
+
+/* NO aplicar estilos a jkhive-hex-gallery-item aquí - dejar que use los estilos originales */
+
+.jkhive-services-item:hover {
+    z-index: 10;
+}
+
+/* Ajustar margin-bottom para los primeros 4 elementos SOLO cuando hay exactamente 4 elementos - Solo para galerías con IDs específicos */
+.jkhive-hex-gallery-medium#services-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(1),
+.jkhive-hex-gallery-medium#services-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(2),
+.jkhive-hex-gallery-medium#services-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(3),
+.jkhive-hex-gallery-medium#services-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(4),
+.jkhive-hex-gallery-medium#specialized-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(1),
+.jkhive-hex-gallery-medium#specialized-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(2),
+.jkhive-hex-gallery-medium#specialized-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(3),
+.jkhive-hex-gallery-medium#specialized-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(4),
+.jkhive-hex-gallery-medium#contract-models-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(1),
+.jkhive-hex-gallery-medium#contract-models-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(2),
+.jkhive-hex-gallery-medium#contract-models-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(3),
+.jkhive-hex-gallery-medium#contract-models-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(4),
+.jkhive-hex-gallery-medium#products-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(1),
+.jkhive-hex-gallery-medium#products-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(2),
+.jkhive-hex-gallery-medium#products-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(3),
+.jkhive-hex-gallery-medium#products-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(4),
+.jkhive-hex-gallery-medium#management-systems-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(1),
+.jkhive-hex-gallery-medium#management-systems-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(2),
+.jkhive-hex-gallery-medium#management-systems-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(3),
+.jkhive-hex-gallery-medium#management-systems-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(4),
+.jkhive-hex-gallery-medium#bi-projects-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(1),
+.jkhive-hex-gallery-medium#bi-projects-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(2),
+.jkhive-hex-gallery-medium#bi-projects-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(3),
+.jkhive-hex-gallery-medium#bi-projects-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(4) {
+    margin-bottom: 0 !important;
+    margin-right: 15px !important;
+    margin-left: 15px !important;
+}
+
+/* Reglas específicas para los primeros 4 elementos (primera fila) SOLO cuando hay exactamente 4 elementos - Solo para galerías con IDs específicos */
+.jkhive-hex-gallery-medium#services-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(1),
+.jkhive-hex-gallery-medium#specialized-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(1),
+.jkhive-hex-gallery-medium#contract-models-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(1),
+.jkhive-hex-gallery-medium#products-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(1),
+.jkhive-hex-gallery-medium#management-systems-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(1),
+.jkhive-hex-gallery-medium#bi-projects-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(1) { 
+    grid-column: 1 !important; 
+    grid-row: 1 !important; 
+    transform: none !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.jkhive-hex-gallery-medium#services-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(2),
+.jkhive-hex-gallery-medium#specialized-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(2),
+.jkhive-hex-gallery-medium#contract-models-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(2),
+.jkhive-hex-gallery-medium#products-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(2),
+.jkhive-hex-gallery-medium#management-systems-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(2),
+.jkhive-hex-gallery-medium#bi-projects-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(2) { 
+    grid-column: 2 !important; 
+    grid-row: 1 !important; 
+    transform: none !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.jkhive-hex-gallery-medium#services-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(3),
+.jkhive-hex-gallery-medium#specialized-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(3),
+.jkhive-hex-gallery-medium#contract-models-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(3),
+.jkhive-hex-gallery-medium#products-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(3),
+.jkhive-hex-gallery-medium#management-systems-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(3),
+.jkhive-hex-gallery-medium#bi-projects-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(3) { 
+    grid-column: 3 !important; 
+    grid-row: 1 !important; 
+    transform: none !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.jkhive-hex-gallery-medium#services-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(4),
+.jkhive-hex-gallery-medium#specialized-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(4),
+.jkhive-hex-gallery-medium#contract-models-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(4),
+.jkhive-hex-gallery-medium#products-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(4),
+.jkhive-hex-gallery-medium#management-systems-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(4),
+.jkhive-hex-gallery-medium#bi-projects-gallery-container:has(.jkhive-services-item:nth-child(4):last-child) .jkhive-services-item:nth-child(4) { 
+    grid-column: 4 !important; 
+    grid-row: 1 !important; 
+    transform: none !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    margin-right: 15px !important;
+    margin-left: 15px !important;
+}
+
+/* ========================================
+   PATRÓN DE PANAL DE ABEJAS (HONEYCOMB)
+   Mismo sistema que jkhive-hex-gallery-item original
+   ======================================== */
+
+/* Primera fila (items 1-5): posicionamiento explícito en columnas 1-5 */
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(1) { grid-column: 1; }
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(2) { grid-column: 2; }
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(3) { grid-column: 3; }
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(4) { grid-column: 4; }
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(5) { grid-column: 5; }
+
+/* Patrón completo: Filas pares tienen 4 items (6-9, 15-18, 24-27, etc.) */
+/* Fila 2 (items 6-9), Fila 4 (items 15-18), Fila 6 (items 24-27), etc. */
+/* EXCLUIR los primeros 4 elementos de estas reglas */
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(n+6):nth-child(9n+6),
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(n+6):nth-child(9n+7),
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(n+6):nth-child(9n+8),
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(n+6):nth-child(9n+9) {
+    transform: translateX(106px);
+    margin-top: -1px;
+}
+
+/* Posicionamiento específico de columnas para filas pares - EXCLUIR primeros 4 elementos */
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(n+6):nth-child(9n+6) { grid-column: 1; }
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(n+6):nth-child(9n+7) { grid-column: 2; }
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(n+6):nth-child(9n+8) { grid-column: 3; }
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(n+6):nth-child(9n+9) { grid-column: 4; }
+
+/* Fila 3 (items 10-14): resetear para que ocupen columnas 1-5 normalmente */
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(9n+10),
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(9n+11),
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(9n+12),
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(9n+13),
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(9n+14) {
+    transform: none;
+    margin-top: 0;
+}
+
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(9n+10) { grid-column: 1; }
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(9n+11) { grid-column: 2; }
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(9n+12) { grid-column: 3; }
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(9n+13) { grid-column: 4; }
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(9n+14) { grid-column: 5; }
+
+/* Hover aumenta el tamaño - Filas impares (1, 3, 5...) */
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(9n+1):hover,
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(9n+2):hover,
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(9n+3):hover,
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(9n+4):hover,
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(9n+5):hover,
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(9n+10):hover,
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(9n+11):hover,
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(9n+12):hover,
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(9n+13):hover,
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(9n+14):hover {
+    transform: scale(1.05);
+}
+
+/* Hover para filas pares (2, 4, 6...) - mantener translateX - EXCLUIR primeros 4 elementos */
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(n+6):nth-child(9n+6):hover,
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(n+6):nth-child(9n+7):hover,
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(n+6):nth-child(9n+8):hover,
+.jkhive-hex-gallery-medium .jkhive-services-item:nth-child(n+6):nth-child(9n+9):hover {
+    transform: translateX(106px) scale(1.05);
+}
+
+/* ========================================
+   HEXÁGONO PRINCIPAL
+   Mismo estilo exacto que jkhive-hex-gallery-hex original
+   ======================================== */
+.jkhive-services-hex {
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background: var(--jkhive-canonical-blue-hex-bg);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--jkhive-canonical-blue-hex-shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: visible !important;
+}
+
+/* Glow effect pseudo - mismo que original */
+.jkhive-services-hex::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--jkhive-canonical-blue-hex-glow-radial);
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Hover - mismo que jkhive-hex-gallery-hex original */
+.jkhive-services-item:hover .jkhive-services-hex {
+    box-shadow: var(--jkhive-canonical-blue-hex-shadow-hover);
+}
+
+/* ========================================
+   CONTENIDO DEL HEXÁGONO
+   ======================================== */
+.jkhive-services-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Asegurar que los estilos de desktop no sean sobrescritos */
+.jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-content,
+.jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-content,
+.jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-content,
+.jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-content,
+.jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-content,
+.jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-content,
+.jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-content,
+.jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-content,
+.jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-content,
+.jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-content,
+.jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-content,
+.jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-content,
+.jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-content {
+    justify-content: center !important;
+    padding-top: 0 !important;
+}
+
+/* Icono: −30 % base y −15 % adicional → 2.125rem × 0.7 × 0.85 */
+.jkhive-services-icon {
+    font-size: 1.264375rem;
+    color: var(--jk-accent-cyan); /* Mismo que jkhive-hex-gallery-icon original */
+    margin-bottom: 0.75rem;
+    filter: drop-shadow(0 0 15px rgba(6, 182, 212, 0.8));
+    position: relative;
+    z-index: 2;
+    transition: color 0.3s ease, filter 0.3s ease;
+}
+
+/* Título (−15 % respecto a 1.1rem) */
+.jkhive-services-title {
+    font-size: 0.935rem; /* 1.1rem × 0.85 */
+    font-weight: 700;
+    color: var(--jk-accent-honey); /* Mismo que jkhive-hex-gallery-title original */
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 10px rgba(212, 160, 23, 0.5);
+    position: relative;
+    z-index: 2;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* Subtítulo */
+.jkhive-services-subtitle {
+    font-size: 0.8rem;
+    color: var(--jk-metal-light);
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+    opacity: 0.9;
+    position: relative;
+    z-index: 2;
+    transition: opacity 0.3s ease;
+}
+
+.jkhive-services-item:hover .jkhive-services-subtitle {
+    opacity: 1;
+}
+
+/* Layout canónico 25/50/25 (jkhive-hex-item-layout.css) dentro del hex blue — portfolio CMS + about experiencia */
+.jkhive-services-hex:has(.jkhive-hex-item) {
+    padding: 0;
+}
+.jkhive-services-hex:has(.jkhive-hex-item) .jkhive-hex-item {
+    position: relative;
+    z-index: 2;
+}
+.jkhive-services-hex:has(.jkhive-hex-item) .jkhive-hex-item-head-main {
+    justify-content: flex-end;
+    gap: 0;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-bottom: 0;
+}
+.jkhive-services-hex:has(.jkhive-hex-item) .jkhive-services-icon {
+    margin-bottom: 0;
+    flex-shrink: 0;
+}
+/* Título + subtítulo en la banda body (50 %): más espacio para títulos largos, bloque compacto y centrado en vertical */
+.jkhive-services-hex:has(.jkhive-hex-item) .jkhive-hex-item-body .jkhive-hex-item-body-scroll {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    text-align: center;
+    padding-left: 6%;
+    padding-right: 6%;
+    box-sizing: border-box;
+}
+.jkhive-services-hex:has(.jkhive-hex-item) .jkhive-services-title {
+    margin: 0;
+    line-height: 1.12;
+    flex-shrink: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+.jkhive-services-hex:has(.jkhive-hex-item) .jkhive-services-subtitle {
+    margin: 0;
+    line-height: 1.22;
+    max-width: 100%;
+}
+
+/* Botón de acciones (contacto) */
+.jkhive-services-actions {
+    position: relative; /* Mismo que jkhive-hex-gallery-medium .jkhive-hex-gallery-actions */
+    bottom: auto;
+    left: auto;
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    z-index: 3;
+}
+
+/* Asegurar que los estilos de desktop del botón no sean sobrescritos */
+.jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-actions,
+.jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-actions,
+.jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-actions,
+.jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-actions,
+.jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-actions,
+.jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-actions,
+.jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-actions,
+.jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-actions,
+.jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-actions,
+.jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-actions,
+.jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-actions,
+.jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-actions,
+.jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-actions {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0 !important;
+}
+
+/* ========================================
+   RESPONSIVE - Mismo sistema que jkhive-hex-gallery-medium
+   ======================================== */
+
+/* Mobile - Sistema reorganizado: filas impares 3 elementos, filas pares 2 elementos */
+/* Patrón: Fila 1 (3 items), Fila 2 (2 items desplazados), Fila 3 (3 items), Fila 4 (2 items desplazados)... */
+@media (max-width: 768px) {
+    /* Reducir separación entre "¿Por qué elegir JK OutSrcIT?" y "Servicios de JK OutSrcIT" */
+    #calidad-servicio {
+        margin-bottom: 2rem !important; /* Reducido de 5rem a 2rem en mobile */
+        padding-bottom: 2rem !important; /* Reducido de 4rem a 2rem en mobile */
+    }
+    
+    /* El grid se ajusta a 3 columnas en mobile - Aplica a todos los contenedores */
+    .jkhive-hex-gallery-medium#services-gallery-container,
+    .jkhive-hex-gallery-medium#specialized-gallery-container,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container,
+    .jkhive-hex-gallery-medium#products-gallery-container,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container,
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex {
+        grid-template-columns: repeat(3, 130px) !important;
+        /* inferior: reserva geométrica + hueco hacia siguiente bloque (sin pisar tip-pad con px fijos) */
+        padding-bottom: calc(var(--jkhive-gallery-vertical-tip-pad) + clamp(1.25rem, 4vw, 3rem)) !important;
+        gap: 0 !important; /* Sin gap en mobile, los márgenes de los items se encargan */
+    }
+    
+    /* Reducir separación entre subtítulo y primera fila de elementos (20px menos) */
+    /* Aplicar a servicios, asesorías y modelos de contratación */
+    #servicios-outsourcing p,
+    #asesorias p,
+    #modelos-contratacion p {
+        margin-bottom: 2rem !important; /* Reducido de 3rem (48px) a 2rem (32px) = 16px menos, más padding-top de galería */
+    }
+    
+    /* padding-top/Y: heredan --jkhive-gallery-vertical-tip-pad con flat móvil (jk-hive.css) */
+    
+    .jkhive-hex-gallery-medium#specialized-gallery-container {
+        padding-bottom: calc(var(--jkhive-gallery-vertical-tip-pad) + clamp(0.85rem, 2.5vw, 1.75rem)) !important;
+    }
+    
+    /* Reducir margin-bottom de las secciones para acercar más las secciones */
+    #servicios-outsourcing.section-container {
+        margin-bottom: 1rem !important; /* Reducido de mb-5 (3rem) a 1rem */
+    }
+    
+    #asesorias.section-container {
+        margin-bottom: 1rem !important; /* Reducido de mb-5 (3rem) a 1rem */
+    }
+    
+    #modelos-contratacion.section-container {
+        margin-bottom: 1rem !important; /* Reducido de mb-5 (3rem) a 1rem */
+    }
+    
+    /* ANULAR TODAS las reglas de desktop en mobile - ya se hace en la regla general de items */
+    
+    /* Items cambian a tamaño mobile - Máxima especificidad con IDs */
+    /* Aplicar a todos los contenedores de webs y outsrcit */
+    body .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item,
+    body .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item,
+    body .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item,
+    body .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item,
+    body .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item,
+    body .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item,
+    body .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item,
+    body .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item,
+    body .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item,
+    body .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item,
+    body .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item,
+    body .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item,
+    body .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item {
+        width: 130px !important;
+        height: 150px !important;
+        margin: -38px 1px !important;
+        grid-column: auto !important;
+        grid-row: auto !important;
+        max-width: 130px !important;
+        max-height: 150px !important;
+        min-width: 130px !important;
+        min-height: 150px !important;
+    }
+    
+    /* Cálculos de desplazamiento:
+     * - Altura del hexágono: 150px
+     * - Desplazamiento vertical: 25% de altura = 150px * 0.25 = 37.5px hacia abajo
+     * - Ancho del hexágono: 130px
+     * - Desplazamiento horizontal: 50% de ancho = 130px * 0.5 = 65px hacia la derecha
+     */
+    
+    /* PATRÓN GENERAL: Cada grupo de 5 items forma 2 filas (3+2)
+     * - Filas impares (1, 3, 5, 7...): items 5n+1, 5n+2, 5n+3 (3 elementos, alineados a la izquierda)
+     * - Filas pares (2, 4, 6, 8...): items 5n+4, 5n+5 (2 elementos, desplazados 50% a la derecha)
+     * 
+     * Desplazamiento vertical acumulativo:
+     * - Fila 1 (n=0): 0px
+     * - Fila 2 (n=0): 37.5px (25% de altura)
+     * - Fila 3 (n=1): 75px (50% de altura = 2 * 37.5px)
+     * - Fila 4 (n=1): 112.5px (75% de altura = 3 * 37.5px)
+     * - Fila 5 (n=2): 150px (100% de altura = 4 * 37.5px)
+     * - etc.
+     * 
+     * Fórmula para filas impares: translateY((n * 2) * 37.5px) donde n es el número de grupo (0, 1, 2, 3...)
+     * Fórmula para filas pares: translateY((n * 2 + 1) * 37.5px) donde n es el número de grupo (0, 1, 2, 3...)
+     */
+    
+    /* FILAS IMPARES (1, 3, 5, 7...): 3 elementos, alineados a la izquierda, desplazamiento vertical acumulativo */
+    /* Patrón: items 5n+1, 5n+2, 5n+3 */
+    /* Fila 1 (n=0): items 1, 2, 3 - translateY(0) */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(1),
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(2),
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(3),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(1),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(2),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(3),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(1),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(2),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(3),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(1),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(2),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(3),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(1),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(2),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(3),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(1),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(2),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(3),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(1),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(2),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(3),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(1),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(2),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(3),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(1),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(2),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(3),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(1),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(2),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(3),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(1),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(2),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(3),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(1), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(1),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(2), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(2),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(3), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(3) {
+        margin-top: 0 !important;
+        transform: none !important;
+    }
+    
+    /* Fila 3 (n=1): items 6, 7, 8 - más abajo que la fila 2, alineados a la izquierda */
+    /* La fila 2 tiene translateY(37.5px), la fila 3 necesita estar más abajo */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(6),
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(7),
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(8),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(6),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(7),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(8),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(6),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(7),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(8),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(6),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(7),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(8),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(6),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(7),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(8),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(6), .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(6), .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(6), .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(6), .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(6), .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(6), .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(6), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(6),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(7), .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(7), .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(7), .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(7), .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(7), .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(7), .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(7), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(7),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(8),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(8),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(8),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(8),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(8),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(8),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(8), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(8) {
+        grid-column: auto !important; /* Permitir que el grid los coloque automáticamente */
+        margin-top: -38px !important; /* Superposición base */
+        transform: translateY(75px) !important; /* Desplazamiento vertical: 37.5px (fila 2) + 37.5px adicional = 75px total, sin desplazamiento horizontal */
+    }
+    
+    /* Forzar que los items 6, 7, 8 estén en las columnas 1, 2, 3 respectivamente (alineados a la izquierda) */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(6),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(6),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(6),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(6),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(6),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(6),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(6),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(6),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(6),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(6),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(6),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(6), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(6) {
+        grid-column: 1 !important;
+    }
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(7),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(7),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(7),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(7),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(7),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(7),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(7),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(7),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(7),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(7),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(7),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(7), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(7) {
+        grid-column: 2 !important;
+    }
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(8),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(8),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(8),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(8),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(8),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(8),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(8),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(8),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(8),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(8),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(8),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(8), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(8) {
+        grid-column: 3 !important;
+    }
+    
+    /* Fila 5 (n=2): items 11, 12, 13 - translateY(150px) = 4 * 37.5px */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(11),
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(12),
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(13),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(11),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(12),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(13),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(11),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(12),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(13),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(11),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(12),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(13),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(11),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(12),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(13),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(11), .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(11), .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(11), .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(11), .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(11), .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(11), .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(11), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(11),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(12), .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(12), .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(12), .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(12), .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(12), .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(12), .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(12), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(12),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(13),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(13),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(13),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(13),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(13),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(13),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(13), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(13) {
+        grid-column: auto !important;
+        margin-top: -38px !important;
+        transform: translateY(150px) !important; /* 4 * 37.5px */
+    }
+    
+    /* Forzar que los items 11, 12, 13 estén en las columnas 1, 2, 3 respectivamente (alineados a la izquierda) */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(11),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(11),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(11),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(11),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(11),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(11),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(11),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(11),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(11),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(11),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(11),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(11), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(11) {
+        grid-column: 1 !important;
+    }
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(12),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(12),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(12),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(12),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(12),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(12),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(12),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(12),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(12),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(12),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(12),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(12), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(12) {
+        grid-column: 2 !important;
+    }
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(13),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(13),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(13),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(13),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(13),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(13),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(13),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(13),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(13),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(13),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(13),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(13), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(13) {
+        grid-column: 3 !important;
+    }
+    
+    /* Fila 7 (n=3): items 16, 17, 18 - translateY(225px) = 6 * 37.5px */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(16),
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(17),
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(18),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(16),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(17),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(18),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(16),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(17),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(18),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(16),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(17),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(18),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(16),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(17),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(18),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(16), .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(16), .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(16), .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(16), .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(16), .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(16), .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(16), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(16),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(17), .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(17), .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(17), .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(17), .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(17), .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(17), .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(17), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(17),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(18),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(18),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(18),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(18),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(18),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(18),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(18), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(18) {
+        grid-column: auto !important;
+        margin-top: -38px !important;
+        transform: translateY(225px) !important; /* 6 * 37.5px */
+    }
+    
+    /* Forzar que los items 16, 17, 18 estén en las columnas 1, 2, 3 respectivamente (alineados a la izquierda) */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(16),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(16),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(16),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(16),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(16),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(16),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(16),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(16),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(16),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(16),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(16),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(16), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(16) {
+        grid-column: 1 !important;
+    }
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(17),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(17),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(17),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(17),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(17),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(17),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(17),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(17),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(17),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(17),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(17),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(17), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(17) {
+        grid-column: 2 !important;
+    }
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(18),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(18),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(18),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(18),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(18),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(18),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(18),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(18),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(18),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(18),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(18),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(18), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(18) {
+        grid-column: 3 !important;
+    }
+    
+    /* FILAS PARES (2, 4, 6, 8...): 2 elementos, desplazados 50% a la derecha, desplazamiento vertical acumulativo */
+    /* Patrón: items 5n+4, 5n+5 */
+    /* Fila 2 (n=0): items 4, 5 - translateY(37.5px) + translateX(65px) */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(4),
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(5),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(4),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(5),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(4),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(5),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(4), .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(4), .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(4), .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(4), .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(4), .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(4), .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(4), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(4),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(5), .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(5), .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(5), .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(5), .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(5), .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(5), .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(5), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(5),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(4),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(5),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(4),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(5) {
+        margin-top: -38px !important;
+        transform: translate(65px, 37.5px) !important; /* translateX(65px) + translateY(37.5px) */
+        grid-column: auto !important;
+    }
+    
+    /* Forzar que los items 4, 5 estén en las columnas 1, 2 respectivamente (desplazados a la derecha) */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(4),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(4),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(4),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(4),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(4),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(4),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(4),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(4),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(4),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(4),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(4),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(4), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(4) {
+        grid-column: 1 !important;
+    }
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(5),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(5),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(5),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(5),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(5),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(5),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(5),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(5),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(5),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(5),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(5),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(5), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(5) {
+        grid-column: 2 !important;
+    }
+    
+    /* Fila 4 (n=1): items 9, 10 - translateY(112.5px) + translateX(65px) = 3 * 37.5px */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(9),
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(10),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(9),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(10),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(9),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(10),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(9),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(10),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(9),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(10),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(9), .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(9), .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(9), .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(9), .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(9), .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(9), .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(9), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(9),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(10),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(10),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(10),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(10),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(10),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(10),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(10), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(10) {
+        margin-top: -38px !important;
+        transform: translate(65px, 112.5px) !important; /* translateX(65px) + translateY(112.5px) = 3 * 37.5px */
+        grid-column: auto !important;
+    }
+    
+    /* Forzar que los items 9, 10 estén en las columnas 1, 2 respectivamente (desplazados a la derecha) */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(9),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(9),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(9),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(9),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(9),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(9),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(9),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(9),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(9),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(9),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(9),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(9), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(9) {
+        grid-column: 1 !important;
+    }
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(10),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(10),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(10),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(10),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(10),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(10),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(10),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(10),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(10),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(10),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(10),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(10), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(10) {
+        grid-column: 2 !important;
+    }
+    
+    /* Fila 6 (n=2): items 14, 15 - translateY(187.5px) + translateX(65px) = 5 * 37.5px */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(14),
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(15),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(14),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(15),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(14),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(15),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(14),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(15),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(14),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(15),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(14), .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(14), .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(14), .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(14), .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(14), .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(14), .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(14), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(14),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(15),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(15),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(15),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(15),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(15),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(15),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(15), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(15) {
+        margin-top: -38px !important;
+        transform: translate(65px, 187.5px) !important; /* translateX(65px) + translateY(187.5px) = 5 * 37.5px */
+        grid-column: auto !important;
+    }
+    
+    /* Forzar que los items 14, 15 estén en las columnas 1, 2 respectivamente (desplazados a la derecha) */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(14),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(14),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(14),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(14),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(14),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(14),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(14),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(14),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(14),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(14),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(14),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(14), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(14) {
+        grid-column: 1 !important;
+    }
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(15),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(15),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(15),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(15),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(15),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(15),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(15),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(15),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(15),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(15),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(15),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(15), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(15) {
+        grid-column: 2 !important;
+    }
+    
+    /* Fila 8 (n=3): items 19, 20 - translateY(262.5px) + translateX(65px) = 7 * 37.5px */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(19),
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(20),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(19),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(20),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(19),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(20),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(19),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(20),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(19),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(20),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(19), .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(19), .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(19), .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(19), .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(19), .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(19), .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(19), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(19),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(20),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(20),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(20),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(20),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(20),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(20),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(20), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(20) {
+        margin-top: -38px !important;
+        transform: translate(65px, 262.5px) !important; /* translateX(65px) + translateY(262.5px) = 7 * 37.5px */
+    }
+    
+    /* Hover para filas impares */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(1):hover,
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(2):hover,
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(3):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(1):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(2):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(3):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(1):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(2):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(3):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(1):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(2):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(3):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(1):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(2):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(3):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(1):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(1):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(1):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(1):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(1):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(1):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(1):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(1):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(2):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(2):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(2):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(2):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(2):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(2):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(2):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(2):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(3):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(3):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(3):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(3):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(3):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(3):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(3):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(3):hover {
+        transform: scale(1.05) !important;
+    }
+    
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(6):hover,
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(7):hover,
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(8):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(6):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(7):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(8):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(6):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(7):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(8):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(6):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(7):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(8):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(6):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(7):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(8):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(6):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(6):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(6):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(6):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(6):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(6):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(6):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(6):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(7):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(7):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(7):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(7):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(7):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(7):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(7):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(7):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(8):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(8):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(8):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(8):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(8):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(8):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(8):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(8):hover {
+        transform: translateY(75px) scale(1.05) !important;
+    }
+    
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(11):hover,
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(12):hover,
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(13):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(11):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(12):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(13):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(11):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(12):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(13):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(11):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(12):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(13):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(11):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(12):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(13):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(11):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(11):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(11):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(11):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(11):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(11):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(11):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(11):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(12):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(12):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(12):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(12):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(12):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(12):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(12):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(12):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(13):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(13):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(13):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(13):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(13):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(13):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(13):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(13):hover {
+        transform: translateY(150px) scale(1.05) !important;
+    }
+    
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(16):hover,
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(17):hover,
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(18):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(16):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(17):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(18):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(16):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(17):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(18):hover {
+        transform: translateY(225px) scale(1.05) !important;
+    }
+    
+    /* Hover para filas pares */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(4):hover,
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(5):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(4):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(5):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(4):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(5):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(4):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(5):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(4):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(5):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(4):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(4):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(4):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(4):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(4):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(4):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(4):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(4):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(5):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(5):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(5):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(5):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(5):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(5):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(5):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(5):hover {
+        transform: translate(65px, 37.5px) scale(1.05) !important;
+    }
+    
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(9):hover,
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(10):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(9):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(10):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(9):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(10):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(9):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(10):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(9):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(10):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(9):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(9):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(9):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(9):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(9):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(9):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(9):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(9):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(10):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(10):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(10):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(10):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(10):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(10):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(10):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(10):hover {
+        transform: translate(65px, 112.5px) scale(1.05) !important;
+    }
+    
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(14):hover,
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(15):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(14):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(15):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(14):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(15):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(14):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(15):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(14):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(15):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(14):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(14):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(14):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(14):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(14):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(14):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(14):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(14):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(15):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(15):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(15):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(15):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(15):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(15):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(15):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(15):hover {
+        transform: translate(65px, 187.5px) scale(1.05) !important;
+    }
+    
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(19):hover,
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(20):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(19):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(20):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(19):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(20):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(19):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(20):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(19):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(20):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(19):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(19):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(19):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(19):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(19):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(19):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(19):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(19):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(20):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(20):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(20):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(20):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(20):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(20):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(20):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(20):hover {
+        transform: translate(65px, 262.5px) scale(1.05) !important;
+    }
+    
+    /* Continuación del patrón para más elementos (hasta 40 items = 20 filas) */
+    /* Fila 9 (n=4): items 21, 22, 23 - translateY(300px) = 8 * 37.5px */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(21),
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(22),
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(23),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(21),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(22),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(23),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(21),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(22),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(23),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(21),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(22),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(23),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(21),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(22),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(23),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(21), .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(21), .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(21), .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(21), .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(21), .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(21), .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(21), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(21),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(22), .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(22), .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(22), .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(22), .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(22), .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(22), .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(22), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(22),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(23),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(23),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(23),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(23),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(23),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(23),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(23), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(23) {
+        grid-column: auto !important;
+        margin-top: -38px !important;
+        transform: translateY(300px) !important; /* 8 * 37.5px */
+    }
+    
+    /* Forzar que los items 21, 22, 23 estén en las columnas 1, 2, 3 respectivamente (alineados a la izquierda) */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(21),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(21),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(21),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(21),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(21),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(21),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(21),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(21),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(21),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(21),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(21),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(21), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(21) {
+        grid-column: 1 !important;
+    }
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(22),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(22),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(22),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(22),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(22),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(22),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(22),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(22),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(22),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(22),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(22),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(22), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(22) {
+        grid-column: 2 !important;
+    }
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(23),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(23),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(23),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(23),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(23),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(23),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(23),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(23),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(23),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(23),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(23),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(23), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(23) {
+        grid-column: 3 !important;
+    }
+    
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(21):hover,
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(22):hover,
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(23):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(21):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(22):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(23):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(21):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(22):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(23):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(21):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(22):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(23):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(21):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(22):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(23):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(21):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(21):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(21):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(21):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(21):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(21):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(21):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(21):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(22):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(22):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(22):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(22):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(22):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(22):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(22):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(22):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(23):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(23):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(23):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(23):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(23):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(23):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(23):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(23):hover {
+        transform: translateY(300px) scale(1.05) !important;
+    }
+    
+    /* Fila 10 (n=4): items 24, 25 - translateY(337.5px) + translateX(65px) = 9 * 37.5px */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(24),
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(25),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(24),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(25),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(24),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(25),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(24),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(25),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(24),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(25),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(24), .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(24), .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(24), .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(24), .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(24), .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(24), .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(24), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(24),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(25),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(25),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(25),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(25),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(25),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(25),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(25), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(25) {
+        margin-top: -38px !important;
+        transform: translate(65px, 337.5px) !important; /* translateX(65px) + translateY(337.5px) = 9 * 37.5px */
+    }
+    
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(24):hover,
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(25):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(24):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(25):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(24):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(25):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(24):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(25):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(24):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(25):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(24):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(24):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(24):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(24):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(24):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(24):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(24):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(24):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(25):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(25):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(25):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(25):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(25):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(25):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(25):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(25):hover {
+        transform: translate(65px, 337.5px) scale(1.05) !important;
+    }
+    
+    /* Continuación del patrón para más elementos */
+    /* Fila 11 (n=5): items 26, 27, 28 - translateY(375px) = 10 * 37.5px */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(26),
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(27),
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(28),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(26),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(27),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(28),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(26),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(27),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(28),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(26),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(27),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(28),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(26),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(27),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(28),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(26), .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(26), .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(26), .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(26), .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(26), .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(26), .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(26), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(26),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(27), .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(27), .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(27), .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(27), .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(27), .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(27), .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(27), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(27),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(28),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(28),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(28),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(28),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(28),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(28),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(28), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(28) {
+        grid-column: auto !important;
+        margin-top: -38px !important;
+        transform: translateY(375px) !important; /* 10 * 37.5px */
+    }
+    
+    /* Forzar que los items 26, 27, 28 estén en las columnas 1, 2, 3 respectivamente (alineados a la izquierda) */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(26),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(26),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(26),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(26),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(26),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(26),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(26),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(26),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(26),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(26),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(26),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(26), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(26) {
+        grid-column: 1 !important;
+    }
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(27),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(27),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(27),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(27),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(27),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(27),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(27),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(27),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(27),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(27),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(27),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(27), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(27) {
+        grid-column: 2 !important;
+    }
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(28),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(28),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(28),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(28),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(28),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(28),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(28),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(28),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(28),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(28),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(28),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(28), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(28) {
+        grid-column: 3 !important;
+    }
+    
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(26):hover,
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(27):hover,
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(28):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(26):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(27):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(28):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(26):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(27):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(28):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(26):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(27):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(28):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(26):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(27):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(28):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(26):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(26):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(26):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(26):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(26):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(26):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(26):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(26):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(27):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(27):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(27):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(27):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(27):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(27):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(27):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(27):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(28):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(28):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(28):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(28):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(28):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(28):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(28):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(28):hover {
+        transform: translateY(375px) scale(1.05) !important;
+    }
+    
+    /* Fila 12 (n=5): items 29, 30 - translateY(412.5px) + translateX(65px) = 11 * 37.5px */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(29),
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(30),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(29),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(30),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(29),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(30),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(29),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(30),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(29),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(30),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(29), .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(29), .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(29), .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(29), .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(29), .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(29), .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(29), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(29),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(30),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(30),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(30),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(30),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(30),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(30),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(30), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(30) {
+        margin-top: -38px !important;
+        transform: translate(65px, 412.5px) !important; /* translateX(65px) + translateY(412.5px) = 11 * 37.5px */
+    }
+    
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(29):hover,
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(30):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(29):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(30):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(29):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(30):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(29):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(30):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(29):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(30):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(29):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(29):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(29):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(29):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(29):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(29):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(29):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(29):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(30):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(30):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(30):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(30):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(30):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(30):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(30):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(30):hover {
+        transform: translate(65px, 412.5px) scale(1.05) !important;
+    }
+    
+    /* Fila 13 (n=6): items 31, 32, 33 - translateY(450px) = 12 * 37.5px */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(31),
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(32),
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(33),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(31),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(32),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(33),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(31),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(32),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(33),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(31),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(32),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(33),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(31),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(32),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(33),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(31), .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(31), .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(31), .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(31), .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(31), .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(31), .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(31), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(31),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(32), .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(32), .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(32), .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(32), .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(32), .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(32), .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(32), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(32),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(33),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(33),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(33),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(33),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(33),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(33),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(33), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(33) {
+        grid-column: auto !important;
+        margin-top: -38px !important;
+        transform: translateY(450px) !important; /* 12 * 37.5px */
+    }
+    
+    /* Forzar que los items 31, 32, 33 estén en las columnas 1, 2, 3 respectivamente (alineados a la izquierda) */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(31),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(31),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(31),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(31),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(31),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(31),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(31),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(31),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(31),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(31),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(31),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(31), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(31) {
+        grid-column: 1 !important;
+    }
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(32),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(32),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(32),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(32),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(32),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(32),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(32),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(32),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(32),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(32),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(32),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(32), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(32) {
+        grid-column: 2 !important;
+    }
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(33),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(33),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(33),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(33),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(33),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(33),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(33),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(33),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(33),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(33),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(33),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(33), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(33) {
+        grid-column: 3 !important;
+    }
+    
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(31):hover,
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(32):hover,
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(33):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(31):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(32):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(33):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(31):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(32):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(33):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(31):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(32):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(33):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(31):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(32):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(33):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(31):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(31):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(31):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(31):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(31):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(31):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(31):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(31):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(32):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(32):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(32):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(32):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(32):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(32):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(32):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(32):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(33):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(33):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(33):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(33):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(33):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(33):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(33):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(33):hover {
+        transform: translateY(450px) scale(1.05) !important;
+    }
+    
+    /* Fila 14 (n=6): items 34, 35 - translateY(487.5px) + translateX(65px) = 13 * 37.5px */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(34),
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(35),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(34),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(35),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(34),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(35),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(34),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(35),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(34),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(35),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(34), .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(34), .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(34), .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(34), .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(34), .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(34), .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(34), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(34),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(35),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(35),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(35),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(35),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(35),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(35),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(35), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(35) {
+        margin-top: -38px !important;
+        transform: translate(65px, 487.5px) !important; /* translateX(65px) + translateY(487.5px) = 13 * 37.5px */
+    }
+    
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(34):hover,
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(35):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(34):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(35):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(34):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(35):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(34):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(35):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(34):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(35):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(34):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(34):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(34):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(34):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(34):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(34):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(34):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(34):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(35):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(35):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(35):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(35):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(35):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(35):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(35):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(35):hover {
+        transform: translate(65px, 487.5px) scale(1.05) !important;
+    }
+    
+    /* Fila 15 (n=7): items 36, 37, 38 - translateY(525px) = 14 * 37.5px */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(36),
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(37),
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(38),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(36),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(37),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(38),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(36),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(37),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(38),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(36),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(37),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(38),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(36),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(37),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(38),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(36), .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(36), .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(36), .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(36), .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(36), .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(36), .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(36), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(36),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(37), .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(37), .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(37), .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(37), .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(37), .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(37), .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(37), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(37),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(38),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(38),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(38),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(38),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(38),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(38),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(38), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(38) {
+        grid-column: auto !important;
+        margin-top: -38px !important;
+        transform: translateY(525px) !important; /* 14 * 37.5px */
+    }
+    
+    /* Forzar que los items 36, 37, 38 estén en las columnas 1, 2, 3 respectivamente (alineados a la izquierda) */
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(36),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(36),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(36),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(36),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(36),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(36),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(36),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(36),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(36),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(36),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(36),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(36), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(36) {
+        grid-column: 1 !important;
+    }
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(37),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(37),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(37),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(37),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(37),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(37),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(37),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(37),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(37),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(37),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(37),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(37), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(37) {
+        grid-column: 2 !important;
+    }
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(38),
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(38),
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(38),
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(38),
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(38),
+    .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(38),
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(38),
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(38),
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(38),
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(38),
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(38),
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(38), .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(38) {
+        grid-column: 3 !important;
+    }
+    
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(36):hover,
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(37):hover,
+    .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-item:nth-child(38):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(36):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(37):hover,
+    .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-item:nth-child(38):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(36):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(37):hover,
+    .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-item:nth-child(38):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(36):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(37):hover,
+    .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-item:nth-child(38):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(36):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(37):hover,
+    .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-item:nth-child(38):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(36):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(36):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(36):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(36):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(36):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(36):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(36):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(36):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(37):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(37):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(37):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(37):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(37):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(37):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(37):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(37):hover,
+        .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-item:nth-child(38):hover,
+    .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-item:nth-child(38):hover,
+    .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-item:nth-child(38):hover,
+    .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-item:nth-child(38):hover,
+    .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-item:nth-child(38):hover,
+    .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-item:nth-child(38):hover,
+    .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-item:nth-child(38):hover, .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-item:nth-child(38):hover {
+        transform: translateY(525px) scale(1.05) !important;
+    }
+    
+    /* Nota: Este patrón cubre hasta 38 elementos (19 filas). Si necesitas más, agrega reglas siguiendo el mismo patrón */
+    
+    /* Hexágono ajustado a tamaño mobile - Máxima especificidad */
+    body .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-hex,
+    body .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-hex,
+    body .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-hex,
+    body .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-hex,
+    body .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-hex,
+    body .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-hex,
+    body .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-hex,
+    body .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-hex,
+    body .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-hex,
+    body .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-hex,
+    body .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-hex,
+    body .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-hex,
+    body .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-hex {
+        padding: 1rem !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+    
+    /* Ajustar contenido interno - Máxima especificidad */
+    body .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-content,
+    body .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-content,
+    body .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-content,
+    body .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-content,
+    body .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-content,
+    body .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-content,
+    body .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-content,
+    body .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-content,
+    body .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-content,
+    body .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-content,
+    body .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-content,
+    body .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-content,
+    body .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-content {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important; /* Cambiar a flex-start para que el contenido esté arriba */
+        width: 100% !important;
+        height: 100% !important;
+        padding-top: 0.4rem !important; /* Padding para bajar un poco el contenido desde arriba */
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        padding-bottom: 0 !important;
+    }
+    
+    /* Ajustar tamaños de contenido proporcionalmente (130/210 = 0.619) */
+    body .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-icon,
+    body .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-icon,
+    body .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-icon,
+    body .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-icon,
+    body .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-icon,
+    body .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-icon,
+    body .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-icon,
+    body .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-icon,
+    body .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-icon,
+    body .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-icon,
+    body .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-icon,
+    body .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-icon,
+    body .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-icon {
+        font-size: 1.22rem !important; /* 1.31rem * 0.93 = 1.2183rem (reducido 7% adicional) */
+        margin-bottom: 0.5rem !important;
+        transform: none !important; /* Eliminado translateY para no empujar hacia abajo */
+    }
+    
+    body .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-title,
+    body .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-title,
+    body .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-title,
+    body .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-title,
+    body .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-title,
+    body .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-title,
+    body .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-title,
+    body .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-title,
+    body .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-title,
+    body .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-title,
+    body .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-title,
+    body .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-title,
+    body .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-title {
+        font-size: 0.68rem !important; /* 1.1rem * 0.619 = 0.68rem */
+        line-height: 1.1 !important;
+        margin-bottom: 0.25rem !important;
+        transform: none !important; /* Eliminado translateY para no empujar hacia abajo */
+    }
+    
+    body .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-subtitle,
+    body .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-subtitle,
+    body .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-subtitle,
+    body .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-subtitle,
+    body .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-subtitle,
+    body .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-subtitle,
+    body .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-subtitle,
+    body .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-subtitle,
+    body .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-subtitle,
+    body .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-subtitle,
+    body .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-subtitle,
+    body .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-subtitle,
+    body .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-subtitle {
+        font-size: 0.5rem !important; /* 0.8rem * 0.619 = 0.495rem - ajustado a 0.5rem */
+        line-height: 1.3 !important;
+        margin-bottom: 0.1rem !important; /* Reducido de 0.5rem (desktop) a 0.1rem para quitar el gap excesivo */
+        transform: none !important; /* Eliminado translateY para no empujar hacia abajo */
+    }
+    
+    /* Reducir tamaño del botón de contacto en mobile */
+    body .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-actions .jkhive-table-actbttn,
+    body .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-actions .jkhive-table-actbttn,
+    body .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-actions .jkhive-table-actbttn,
+    body .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-actions .jkhive-table-actbttn,
+    body .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-actions .jkhive-table-actbttn,
+    body .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-actions .jkhive-table-actbttn,
+    body .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-actions .jkhive-table-actbttn,
+    body .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-actions .jkhive-table-actbttn,
+    body .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-actions .jkhive-table-actbttn,
+    body .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-actions .jkhive-table-actbttn,
+    body .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-actions .jkhive-table-actbttn,
+    body .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-actions .jkhive-table-actbttn,
+    body .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-actions .jkhive-table-actbttn {
+        width: 24px !important; /* Reducido de 32.58px proporcionalmente (32.58 * 0.619 = 20.16px, ajustado a 24px) */
+        height: calc(24px * 1.1547) !important;
+    }
+    
+    body .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-actions .jkhive-table-actbttn .jkhive-hex-icon,
+    body .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-actions .jkhive-table-actbttn .jkhive-hex-icon,
+    body .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-actions .jkhive-table-actbttn .jkhive-hex-icon,
+    body .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-actions .jkhive-table-actbttn .jkhive-hex-icon,
+    body .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-actions .jkhive-table-actbttn .jkhive-hex-icon,
+    body .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-actions .jkhive-table-actbttn .jkhive-hex-icon,
+    body .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-actions .jkhive-table-actbttn .jkhive-hex-icon,
+    body .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-actions .jkhive-table-actbttn .jkhive-hex-icon,
+    body .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-actions .jkhive-table-actbttn .jkhive-hex-icon,
+    body .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-actions .jkhive-table-actbttn .jkhive-hex-icon,
+    body .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-actions .jkhive-table-actbttn .jkhive-hex-icon,
+    body .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-actions .jkhive-table-actbttn .jkhive-hex-icon,
+    body .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-actions .jkhive-table-actbttn .jkhive-hex-icon {
+        font-size: 0.7rem !important; /* Reducido de 0.9rem proporcionalmente */
+    }
+    
+    body .jkhive-hex-gallery-medium#services-gallery-container .jkhive-services-actions,
+    body .jkhive-hex-gallery-medium#specialized-gallery-container .jkhive-services-actions,
+    body .jkhive-hex-gallery-medium#contract-models-gallery-container .jkhive-services-actions,
+    body .jkhive-hex-gallery-medium#products-gallery-container .jkhive-services-actions,
+    body .jkhive-hex-gallery-medium#management-systems-gallery-container .jkhive-services-actions,
+    body .jkhive-hex-gallery-medium#bi-projects-gallery-container .jkhive-services-actions,
+    body .jkhive-hex-gallery-medium#web-projects-gallery-container .jkhive-services-actions,
+    body .jkhive-hex-gallery-medium#software-projects-gallery-container .jkhive-services-actions,
+    body .jkhive-hex-gallery-medium#infrastructure-projects-gallery-container .jkhive-services-actions,
+    body .jkhive-hex-gallery-medium#saas-projects-gallery-container .jkhive-services-actions,
+    body .jkhive-hex-gallery-medium#ai-tools-gallery-container .jkhive-services-actions,
+    body .jkhive-hex-gallery-medium#editorial-projects-gallery-container .jkhive-services-actions,
+    body .jkhive-hex-gallery-medium.jkhive-portfolio-services-hex .jkhive-services-actions {
+        bottom: auto !important;
+        margin-top: 0.1rem !important; /* Mínimo gap después del subtítulo */
+        margin-bottom: 0.3rem !important; /* Pequeño margen inferior para que no quede pegado al borde */
+        transform: none !important;
+    }
+}
+
+/* ========================================
+   APLICAR ESTILOS DE SERVICES A GALERÍAS DE PORTFOLIO
+   Mapear estilos de jkhive-services-* a jkhive-hex-gallery-* para portfolio.html
+   ======================================== */
+
+/* Aplicar mismo estilo visual a hexágonos de portfolio */
+#software-projects .jkhive-hex-gallery-medium .jkhive-hex-gallery-hex,
+#infrastructure-projects .jkhive-hex-gallery-medium .jkhive-hex-gallery-hex,
+#saas-projects .jkhive-hex-gallery-medium .jkhive-hex-gallery-hex {
+    background: linear-gradient(135deg, 
+        rgba(15, 23, 42, 0.95) 0%, 
+        rgba(30, 41, 59, 0.95) 100%);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(14, 165, 233, 0.3), 
+                inset 0 0 40px rgba(14, 165, 233, 0.15);
+}
+
+/* Glow effect para portfolio */
+#software-projects .jkhive-hex-gallery-medium .jkhive-hex-gallery-hex::before,
+#infrastructure-projects .jkhive-hex-gallery-medium .jkhive-hex-gallery-hex::before,
+#saas-projects .jkhive-hex-gallery-medium .jkhive-hex-gallery-hex::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.3) 0%, transparent 70%);
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Hover effect para portfolio */
+#software-projects .jkhive-hex-gallery-medium .jkhive-hex-gallery-item:hover .jkhive-hex-gallery-hex,
+#infrastructure-projects .jkhive-hex-gallery-medium .jkhive-hex-gallery-item:hover .jkhive-hex-gallery-hex,
+#saas-projects .jkhive-hex-gallery-medium .jkhive-hex-gallery-item:hover .jkhive-hex-gallery-hex {
+    box-shadow: 0 12px 40px rgba(14, 165, 233, 0.5), 
+                0 0 60px rgba(244, 196, 48, 0.3),
+                inset 0 0 60px rgba(14, 165, 233, 0.25);
+}
+
+/* Iconos con mismo estilo */
+#software-projects .jkhive-hex-gallery-medium .jkhive-hex-gallery-icon,
+#infrastructure-projects .jkhive-hex-gallery-medium .jkhive-hex-gallery-icon,
+#saas-projects .jkhive-hex-gallery-medium .jkhive-hex-gallery-icon {
+    filter: drop-shadow(0 0 15px rgba(6, 182, 212, 0.8));
+}
+
+/* Títulos y subtítulos con mismo estilo */
+#software-projects .jkhive-hex-gallery-medium .jkhive-hex-gallery-title,
+#infrastructure-projects .jkhive-hex-gallery-medium .jkhive-hex-gallery-title,
+#saas-projects .jkhive-hex-gallery-medium .jkhive-hex-gallery-title {
+    color: var(--jk-primary-blue);
+    text-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
+}
+
+#software-projects .jkhive-hex-gallery-medium .jkhive-hex-gallery-subtitle,
+#infrastructure-projects .jkhive-hex-gallery-medium .jkhive-hex-gallery-subtitle,
+#saas-projects .jkhive-hex-gallery-medium .jkhive-hex-gallery-subtitle {
+    color: var(--jk-metal-light);
+}
+
+/* =============================================================================
+   Portafolio CMS (PHP): misma geometría que portfolio.html / #bi-projects-gallery-container
+   ============================================================================= */
+.jkhive-hex-gallery-medium.jkhive-portfolio-services-hex {
+    gap: 0;
+}
+
+a.jkhive-portfolio-services-hexlink {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Piel canónica «blue»: misma apariencia que portfolio.html (jkhive.work). Opcional en markup: .jkhive-hex-skin-canonical-blue en .jkhive-services-hex. Tokens: --jkhive-canonical-blue-* en jk-hive.css */
+
+.jkhive-portfolio-services-hex .jkhive-services-icon img {
+    max-width: 2.6775rem; /* logo: mismo factor extra −15 % que el icono FA */
+    max-height: 2.6775rem;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+

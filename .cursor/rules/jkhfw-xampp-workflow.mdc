@@ -1,29 +1,39 @@
 ---
-description: Flujo de trabajo JK Hive Framework — copia XAMPP (JKHFW) vs repositorio y GitHub
+description: Mesa XAMPP (JKHFW) = trabajo vivo; repo = solo lo aprobado y verificado
 alwaysApply: true
 ---
 
-# Regla operativa: XAMPP (trabajo) ↔ repo (aprobado)
+# JK Hive — mesa de trabajo vs repositorio
 
-## Directorios
+## Qué es cada cosa
 
-- **Trabajo (solo aquí se iteran cambios con el usuario):** `c:\xampp\htdocs\JKHFW`
-- **Versión del proyecto (no tocar el showcase “final” sin aprobación):** `showcase/` en el repo `JK-Hive-FrameWork`
+- **`c:\xampp\htdocs\JKHFW`** es la **mesa de trabajo**: aquí el asistente y el usuario iteran todo lo que se prueba en el navegador (`http://localhost/JKHFW/`). Todo cambio que importe para “que funcione” nace **aquí primero**.
 
-El usuario revisa en el navegador vía XAMPP (p. ej. `http://localhost/JKHFW/`).
+- **`JK-Hive-FrameWork` (repo, p. ej. `showcase/`, `docs/`)** es el **resultado archivado** de ese trabajo: entra **únicamente** lo que el usuario da por **correcto, funcional y aceptado**. No es el taller diario; es la copia de respaldo / historial de lo ya validado.
 
-## Mientras no haya aprobación explícita
+## Regla de oro
 
-1. Implementar **solo** en `c:\xampp\htdocs\JKHFW` lo que pida (agregar / quitar / modificar).
-2. Mantener alineados **PHP** (`*.php`), `includes/`, `assets/` y scripts que correspondan a esa carpeta.
-3. **No** aplicar esos mismos cambios al `showcase/` del repo ni a `docs/` “de release” ni hacer **commit/push** a GitHub basados en cambios aún no aprobados.
+El repo **solo cambia cuando** lo de la mesa está bien. No se “ensaya” en el repo primero ni se rellena el repo esperando sincronizar después sin aprobación explícita.
 
-## Cuando el usuario confirme que algo “ha quedado bien”
+---
 
-1. **Replicar** los cambios aprobados desde `JKHFW` hacia `showcase/` (y el resto del repo que aplique).
-2. **Actualizar documentación** (`docs/`, `README.md`, etc.) para reflejar el estado aprobado.
-3. Hacer **commit** con mensaje claro (convencional, descriptivo) y **push** a GitHub como entrega versionada.
+## Instrucción de trabajo (cada petición)
 
-## Sincronización inicial o “cargar showcase completo” en JKHFW
+Para **cada** cosa que pida el usuario, el asistente debe:
 
-Cuando se pida dejar el showcase completo en XAMPP: copiar el contenido vigente del `showcase/` del repo hacia `c:\xampp\htdocs\JKHFW` (estructura lista para servir: `index.php`, demás `*.php`, `includes/`, `assets/`, `.htaccess` si aplica), sobrescribiendo la copia de trabajo salvo indicación contraria del usuario.
+1. **Entender** la petición y acotar el alcance (qué archivos, qué comportamiento esperado).
+2. **Plan breve** mental o en lista: dependencias, CSS/PHP/JS tocados.
+3. **Revisar obstáculos**: overrides, `!important`, otras reglas que pisen lo mismo, orden de carga de CSS, selectores que ya resolvieron otro bug.
+4. **Comprobar interferencias**: que el cambio **no rompa** lo que ya está aceptado en secciones vecinas, breakpoints o páginas que comparten el mismo partial.
+5. **Implementar solo en la mesa** — editar **`c:\xampp\htdocs\JKHFW`** (y rutas que cuelguen de esa carpeta). No tocar el repo en este paso.
+6. **Verificar** en contexto: coherencia mobile/desktop, variables canónicas JK Hive, sin hacks duplicados.
+7. **Cuando el usuario confirme** que quedó OK (o dé por cerrado el punto), **entonces** replicar lo aprobado al repo (`showcase/` y lo que corresponda en `docs/` si aplica) para respaldo.
+
+## Prohibido
+
+- Hacer el flujo al revés (repo primero, XAMPP después) salvo orden explícito del usuario.
+- Subir al repo trabajo a medio probar o “para luego corregir”.
+
+## Documentación en el repo
+
+Los `README` / `docs/` que describen el estado **oficial** del framework se actualizan **junto con** el traspaso a repo de lo aprobado, no antes.

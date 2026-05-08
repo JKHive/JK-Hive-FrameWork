@@ -1,0 +1,172 @@
+/**
+ * Piel JK Hive — «Ventajas / Compromiso».
+ * Genérica: sin #ids. Piel canónica «miel / amarillo»: .jkhive-hex-skin-canonical-honey
+ * (alias de .jkhive-hex-skin-ventajas). Ver HEX-ITEM-CANONICAL-SKINS.md.
+ * Tamaño: var(--jkhive-gallery-hex-flat) (galería en jk-hive.css).
+ * Layout 25/50/25 y puntas 10%: jkhive-hex-item-layout.css (.jkhive-hex-item-head-tip / .jkhive-hex-item-foot-tip).
+ */
+
+.jkhive-hex-gallery-item:has(> .jkhive-why-me-hex:is(.jkhive-hex-skin-ventajas, .jkhive-hex-skin-canonical-honey)) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jkhive-why-me-hex:is(.jkhive-hex-skin-ventajas, .jkhive-hex-skin-canonical-honey) {
+  /* Body: laterales 2.5 %, superior 1.5 % — % respecto al ancho del hex; sin padding inferior (tope con la banda foot) */
+  --jkhive-hex-item-body-padding-x: 2.5%;
+  --jkhive-hex-item-body-padding-top: 1.5%;
+  --jkhive-hex-item-head-padding-x: 2.5%;
+  /* Separación icono ↔ título en head: ~5px a flat 260px, escala con la galería (móvil/tablet/desktop) */
+  --jkhive-hex-head-icon-text-gap: max(1px, calc(5px * (var(--jkhive-gallery-hex-flat, 260px) / 260px)));
+  width: var(--jkhive-gallery-hex-flat, 260px);
+  height: calc(var(--jkhive-gallery-hex-flat, 260px) * 1.1547);
+  background: var(--jk-primary-blue-light) !important;
+  margin: 0 auto;
+  border: none !important;
+  box-shadow: none !important;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  transform-origin: center center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 0;
+  overflow: hidden;
+}
+
+.jkhive-why-me-hex:is(.jkhive-hex-skin-ventajas, .jkhive-hex-skin-canonical-honey)::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(var(--jkhive-gallery-hex-flat, 260px) - 4px);
+  height: calc((var(--jkhive-gallery-hex-flat, 260px) - 4px) * 1.1547);
+  background: var(--jk-accent-honey-light) !important;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  z-index: 1;
+  pointer-events: none;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.jkhive-why-me-hex:is(.jkhive-hex-skin-ventajas, .jkhive-hex-skin-canonical-honey)::before {
+  display: none !important;
+}
+
+.jkhive-hex-gallery-item:hover .jkhive-why-me-hex:is(.jkhive-hex-skin-ventajas, .jkhive-hex-skin-canonical-honey) {
+  background: var(--jk-accent-honey-light) !important;
+  box-shadow: var(--jk-shadow-lg), 0 0 30px rgba(244, 196, 48, 0.8);
+  position: relative;
+  z-index: 5;
+}
+
+.jkhive-hex-gallery-item:hover .jkhive-why-me-hex:is(.jkhive-hex-skin-ventajas, .jkhive-hex-skin-canonical-honey)::after {
+  background: var(--jk-tech-dark) !important;
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.jkhive-why-me-hex:is(.jkhive-hex-skin-ventajas, .jkhive-hex-skin-canonical-honey) .jkhive-why-me-header,
+.jkhive-why-me-hex:is(.jkhive-hex-skin-ventajas, .jkhive-hex-skin-canonical-honey) .jkhive-why-me-footer {
+  position: relative;
+  z-index: 2;
+}
+
+/* Head main: sin padding inferior — el último renglón (título) al borde inferior del head */
+.jkhive-why-me-hex:is(.jkhive-hex-skin-ventajas, .jkhive-hex-skin-canonical-honey) .jkhive-hex-item-head-main {
+  padding-left: var(--jkhive-hex-item-head-padding-x);
+  padding-right: var(--jkhive-hex-item-head-padding-x);
+  padding-bottom: 0;
+  z-index: 2;
+  position: relative;
+  gap: var(--jkhive-hex-head-icon-text-gap);
+}
+
+.jkhive-why-me-hex:is(.jkhive-hex-skin-ventajas, .jkhive-hex-skin-canonical-honey) .jkhive-why-me-header-icon {
+  /* Escala original reducida × 1.15 × 1.15 (otro +15 %) */
+  font-size: clamp(
+    0.726375rem,
+    calc(1.22794125rem * (var(--jkhive-gallery-hex-flat, 260px) / 260px)),
+    1.45475rem
+  );
+  line-height: 1;
+  color: var(--jk-accent-honey-light);
+  filter: drop-shadow(0 0 10px rgba(244, 196, 48, 0.8));
+  transition: color 0.3s ease, filter 0.3s ease;
+  position: relative;
+  z-index: 3;
+}
+
+.jkhive-hex-gallery-item:hover .jkhive-why-me-hex:is(.jkhive-hex-skin-ventajas, .jkhive-hex-skin-canonical-honey) .jkhive-why-me-header-icon {
+  color: var(--jk-accent-honey);
+  filter: drop-shadow(0 0 15px rgba(244, 196, 48, 1));
+}
+
+.jkhive-why-me-hex:is(.jkhive-hex-skin-ventajas, .jkhive-hex-skin-canonical-honey) .jkhive-why-me-body {
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  padding: var(--jkhive-hex-item-body-padding-top) var(--jkhive-hex-item-body-padding-x) 0;
+  box-sizing: border-box;
+}
+
+.jkhive-why-me-hex:is(.jkhive-hex-skin-ventajas, .jkhive-hex-skin-canonical-honey) .jkhive-hex-item-body-scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+.jkhive-why-me-hex:is(.jkhive-hex-skin-ventajas, .jkhive-hex-skin-canonical-honey) .jkhive-why-me-title {
+  font-size: clamp(
+    0.65rem,
+    calc(0.6075rem * (var(--jkhive-gallery-hex-flat, 260px) / 260px)),
+    1rem
+  );
+  font-weight: 700;
+  color: var(--jk-primary-blue-dark) !important;
+  text-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+  margin: 0;
+  line-height: 1.15;
+  text-align: center;
+  position: relative;
+  z-index: 3;
+  flex-shrink: 0;
+}
+
+.jkhive-hex-gallery-item:hover .jkhive-why-me-hex:is(.jkhive-hex-skin-ventajas, .jkhive-hex-skin-canonical-honey) .jkhive-why-me-title {
+  color: var(--jk-primary-blue-light) !important;
+  text-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+}
+
+.jkhive-why-me-hex:is(.jkhive-hex-skin-ventajas, .jkhive-hex-skin-canonical-honey) .jkhive-why-me-description {
+  font-size: clamp(
+    0.65rem,
+    calc(0.98rem * (var(--jkhive-gallery-hex-flat, 260px) / 260px)),
+    1.05rem
+  );
+  font-weight: 700;
+  color: var(--jk-metal-light) !important;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+  margin: 0;
+  line-height: 1.4;
+  text-align: center;
+  position: relative;
+  z-index: 3;
+}
+
+.jkhive-hex-gallery-item:hover .jkhive-why-me-hex:is(.jkhive-hex-skin-ventajas, .jkhive-hex-skin-canonical-honey) .jkhive-why-me-description {
+  opacity: 1;
+}
+
+/* Foot: sin padding superior — contenido al borde superior del foot (la punta va en .jkhive-hex-item-foot-tip) */
+.jkhive-why-me-hex:is(.jkhive-hex-skin-ventajas, .jkhive-hex-skin-canonical-honey) .jkhive-hex-item-foot-main {
+  position: relative;
+  z-index: 2;
+  padding: 0;
+  margin: 0;
+}

@@ -1,0 +1,1093 @@
+/**
+ * Housesitting - Sidebar
+ * 
+ * Estilos individualizados e independientes para el menú lateral del CRM
+ * No afecta otros componentes del sistema
+ */
+
+/* ========================================
+   CONTENEDOR UNIFICADO (logo + menú lateral)
+   Un solo fondo + un solo inset para ambas secciones
+   ======================================== */
+/* Línea que separa el menú lateral del body (igual que navbar/footer: borde azul tech). */
+#jkhive-sidebar-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 140px;
+  height: 100vh;
+  z-index: 999;
+  box-sizing: border-box;
+  background: var(--jk-tech-darker);
+  border-right: 2px solid rgba(14, 165, 233, 0.3);
+  box-shadow: none;
+}
+
+#jkhive-sidebar-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--honeycomb-url);
+  background-size: var(--honeycomb-size-sidebar);
+  background-repeat: repeat;
+  background-position: 0 0;
+  pointer-events: none;
+}
+
+/* ========================================
+   SIDEBAR NAVIGATION - CYBERNETIC
+   ======================================== */
+
+/* Menú lateral: sin fondo propio, se ve el del contenedor */
+#jkhive-sidebar.jkhive-sidebar,
+.jkhive-sidebar {
+  position: fixed;
+  left: 0;
+  top: 140px;
+  width: 140px;
+  box-sizing: border-box;
+  height: calc(100vh - 140px);
+  background: transparent;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: calc(30px + (85px * 1.1547 - 24px)) 0 var(--jk-spacing-lg) 0;
+  box-shadow: none;
+  overflow-y: auto;
+  overflow-x: hidden !important;
+  border-right: none;
+}
+
+#jkhive-sidebar.jkhive-sidebar::before,
+.jkhive-sidebar::before,
+#jkhive-sidebar.jkhive-sidebar::after,
+.jkhive-sidebar::after {
+  display: none;
+}
+
+/* Hide scrollbar but keep functionality */
+#jkhive-sidebar.jkhive-sidebar::-webkit-scrollbar,
+.jkhive-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+#jkhive-sidebar.jkhive-sidebar::-webkit-scrollbar-track,
+.jkhive-sidebar::-webkit-scrollbar-track {
+  background: transparent; /* Changed to avoid visual gaps */
+}
+
+#jkhive-sidebar.jkhive-sidebar::-webkit-scrollbar-thumb,
+.jkhive-sidebar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--jk-accent-honey-light), var(--jk-accent-honey-dark));
+  border-radius: 3px;
+  box-shadow: inset 0 0 6px rgba(212, 160, 23, 0.5);
+}
+
+#jkhive-sidebar.jkhive-sidebar::-webkit-scrollbar-thumb:hover,
+.jkhive-sidebar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--jk-accent-honey-light), var(--jk-accent-honey));
+  box-shadow: 0 0 10px rgba(212, 160, 23, 0.8);
+}
+
+/* Logo Section: sin fondo propio, se ve el del contenedor.
+   CRÍTICO: centrado del logo en la grilla superior izquierda; no sobrescribir align/justify. */
+#jkhive-logo-square.jkhive-logo-square,
+.jkhive-logo-square {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 140px;
+  height: 140px;
+  box-sizing: border-box;
+  background: transparent;
+  z-index: 1600;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-right: none;
+  box-shadow: none;
+}
+
+.jkhive-logo-square::before {
+  display: none;
+}
+
+/* Wrapper del logo dentro de la grilla: tamaño fijo para que el centrado flex del padre funcione.
+   JK Lubs usa .jkhive-sidebar-logo-flip; otros templates .jkhive-anmtn-sidebar-logo-flip. */
+.jkhive-logo-square .jkhive-sidebar-logo-flip,
+.jkhive-anmtn-sidebar-logo-flip {
+  perspective: 400px;
+  width: 90px;
+  height: calc(90px * 1.1547);
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.jkhive-logo-square .jkhive-sidebar-logo-flip-inner,
+.jkhive-anmtn-sidebar-logo-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: jkhive-anmtn-sidebar-logo-flip 8s ease-in-out infinite;
+}
+
+@keyframes jkhive-anmtn-sidebar-logo-flip {
+  0%, 45% { transform: rotateY(0deg); }
+  50%, 95% { transform: rotateY(180deg); }
+  100% { transform: rotateY(360deg); }
+}
+
+.jkhive-sidebar-logo-face {
+  position: absolute;
+  inset: 0;
+  text-decoration: none;
+  color: inherit;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.jkhive-sidebar-logo-face-front {
+  transform: rotateY(0deg);
+}
+
+.jkhive-sidebar-logo-face-back {
+  transform: rotateY(180deg);
+}
+
+.jkhive-sidebar-logo-face .jkhive-hex {
+  width: 100%;
+  height: 100%;
+}
+
+.jkhive-logo-square a,
+#jkhive-sidebar .jkhive-sidebar-logo a,
+.jkhive-sidebar .jkhive-sidebar-logo a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.jkhive-logo-square a:hover,
+.jkhive-logo-square a:focus,
+.jkhive-logo-square a:active,
+#jkhive-sidebar .jkhive-sidebar-logo a:hover,
+#jkhive-sidebar .jkhive-sidebar-logo a:focus,
+#jkhive-sidebar .jkhive-sidebar-logo a:active,
+.jkhive-sidebar .jkhive-sidebar-logo a:hover,
+.jkhive-sidebar .jkhive-sidebar-logo a:focus,
+.jkhive-sidebar .jkhive-sidebar-logo a:active {
+  text-decoration: none;
+  color: inherit;
+}
+
+.jkhive-logo-square .jkhive-hex,
+#jkhive-sidebar .jkhive-sidebar-logo .jkhive-hex,
+.jkhive-sidebar .jkhive-sidebar-logo .jkhive-hex {
+  width: 90px;
+  height: calc(90px * 1.1547);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(135deg, var(--jk-accent-honey-dark) 0%, var(--jk-accent-honey) 50%, var(--jk-accent-honey-light) 70%, var(--jk-accent-honey) 100%);
+  box-shadow: var(--jk-shadow-honey), 0 0 30px rgba(212, 160, 23, 0.6), inset 0 0 40px rgba(244, 196, 48, 0.3);
+  margin: 0;
+  border: 3px solid var(--jk-accent-honey-light);
+  animation: jkhive-anmtn-sidebar-logoglow 3s ease-in-out infinite;
+}
+
+@keyframes jkhive-anmtn-sidebar-logoglow {
+  0%, 100% {
+    box-shadow: var(--jk-shadow-honey), 0 0 30px rgba(212, 160, 23, 0.7), inset 0 0 40px rgba(244, 196, 48, 0.3);
+    border-color: var(--jk-accent-honey-light);
+  }
+  50% {
+    box-shadow: var(--jk-shadow-honey), 0 0 50px rgba(244, 196, 48, 1), inset 0 0 60px rgba(244, 196, 48, 0.5);
+    border-color: var(--jk-accent-honey-light);
+  }
+}
+
+.jkhive-logo-square .jkhive-hex-content,
+#jkhive-sidebar .jkhive-sidebar-logo .jkhive-hex-content,
+.jkhive-sidebar .jkhive-sidebar-logo .jkhive-hex-content {
+  color: var(--jk-tech-darker);
+  font-size: calc(1.75rem * 0.85); /* Reducido un 15% (1.4875rem) */
+  font-weight: 900;
+  text-shadow: 0 0 15px rgba(244, 196, 48, 1), 0 0 30px rgba(212, 160, 23, 0.8), 0 2px 4px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Image Logo specific styles */
+.jkhive-logo-square .jkhive-hex-content-img,
+#jkhive-sidebar .jkhive-sidebar-logo .jkhive-hex-content-img,
+.jkhive-sidebar .jkhive-sidebar-logo .jkhive-hex-content-img {
+  padding: 0; /* Para que la imagen pueda ocupar más espacio */
+}
+
+.jkhive-logo-square .jkhive-logo-img,
+#jkhive-sidebar .jkhive-logo-img,
+.jkhive-sidebar .jkhive-logo-img {
+  width: 58%; /* Reducido de 68% a 58% (otro 15% menos aprox) */
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5)); /* Para darle contraste sobre el fondo */
+  transition: transform 0.3s ease;
+}
+
+.jkhive-logo-square:hover .jkhive-logo-img,
+#jkhive-sidebar .jkhive-sidebar-logo:hover .jkhive-logo-img,
+.jkhive-sidebar .jkhive-sidebar-logo:hover .jkhive-logo-img {
+  transform: scale(1.05);
+}
+
+/* Navigation Items - Honeycomb Pattern */
+#jkhive-sidebar .jkhive-nav-items,
+.jkhive-sidebar .jkhive-nav-items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  padding: 0 10px;
+}
+
+#jkhive-sidebar .jkhive-nav-item,
+.jkhive-sidebar .jkhive-nav-item {
+  position: relative;
+  margin: -12px 0;
+  z-index: 1;
+}
+
+/* Asegurar que todos los enlaces del menú NO tengan subrayados ni estilos de hipervínculo */
+#jkhive-sidebar .jkhive-nav-item a,
+#jkhive-sidebar .jkhive-nav-item a:link,
+#jkhive-sidebar .jkhive-nav-item a:visited,
+#jkhive-sidebar .jkhive-nav-item a:hover,
+#jkhive-sidebar .jkhive-nav-item a:focus,
+#jkhive-sidebar .jkhive-nav-item a:active,
+#jkhive-sidebar .jkhive-nav-item-submenu a,
+#jkhive-sidebar .jkhive-nav-item-submenu a:link,
+#jkhive-sidebar .jkhive-nav-item-submenu a:visited,
+#jkhive-sidebar .jkhive-nav-item-submenu a:hover,
+#jkhive-sidebar .jkhive-nav-item-submenu a:focus,
+#jkhive-sidebar .jkhive-nav-item-submenu a:active,
+#jkhive-sidebar .jkhive-submenu-toggle,
+#jkhive-sidebar .jkhive-submenu-toggle:link,
+#jkhive-sidebar .jkhive-submenu-toggle:visited,
+#jkhive-sidebar .jkhive-submenu-toggle:hover,
+#jkhive-sidebar .jkhive-submenu-toggle:focus,
+#jkhive-sidebar .jkhive-submenu-toggle:active,
+.jkhive-sidebar .jkhive-nav-item a,
+.jkhive-sidebar .jkhive-nav-item a:link,
+.jkhive-sidebar .jkhive-nav-item a:visited,
+.jkhive-sidebar .jkhive-nav-item a:hover,
+.jkhive-sidebar .jkhive-nav-item a:focus,
+.jkhive-sidebar .jkhive-nav-item a:active,
+.jkhive-sidebar .jkhive-nav-item-submenu a,
+.jkhive-sidebar .jkhive-nav-item-submenu a:link,
+.jkhive-sidebar .jkhive-nav-item-submenu a:visited,
+.jkhive-sidebar .jkhive-nav-item-submenu a:hover,
+.jkhive-sidebar .jkhive-nav-item-submenu a:focus,
+.jkhive-sidebar .jkhive-nav-item-submenu a:active {
+  text-decoration: none !important;
+  text-decoration-line: none !important;
+  text-decoration-style: none !important;
+  text-decoration-color: transparent !important;
+  text-underline-offset: 0 !important;
+  text-underline-position: auto !important;
+  border: none !important;
+  outline: none !important;
+  color: inherit !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  -webkit-text-decoration-line: none !important;
+  -webkit-text-decoration-style: none !important;
+}
+
+/* Z-index for hover and active states */
+#jkhive-sidebar .jkhive-nav-item:hover,
+#jkhive-sidebar .jkhive-nav-item.active,
+.jkhive-sidebar .jkhive-nav-item:hover,
+.jkhive-sidebar .jkhive-nav-item.active {
+  z-index: 10;
+}
+
+/* Honeycomb Pattern: Alternating horizontal offset for zig-zag effect */
+#jkhive-sidebar .jkhive-nav-item:nth-child(even),
+.jkhive-sidebar .jkhive-nav-item:nth-child(even) {
+  transform: translateX(21px);
+}
+
+#jkhive-sidebar .jkhive-nav-item:nth-child(odd),
+.jkhive-sidebar .jkhive-nav-item:nth-child(odd) {
+  transform: translateX(-22px);
+}
+
+#jkhive-sidebar .jkhive-nav-item .jkhive-hex,
+.jkhive-sidebar .jkhive-nav-item .jkhive-hex {
+  width: 85px;
+  height: calc(85px * 1.1547);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(135deg, var(--jk-tech-medium) 0%, var(--jk-tech-dark) 100%);
+  margin: 0;
+  border: 1px solid rgba(14, 165, 233, 0.3);
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.4), 
+    0 2px 4px -1px rgba(0, 0, 0, 0.3), 
+    inset 0 0 20px rgba(14, 165, 233, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#jkhive-sidebar .jkhive-nav-item .jkhive-hex:hover,
+.jkhive-sidebar .jkhive-nav-item .jkhive-hex:hover {
+  background: linear-gradient(135deg, var(--jk-primary-blue-dark) 0%, var(--jk-primary-blue) 100%);
+  border-color: var(--jk-primary-blue-light);
+  transform: scale(1.05);
+  box-shadow: var(--jk-shadow-lg), var(--jk-glow-blue);
+  position: relative;
+  z-index: 5;
+}
+
+#jkhive-sidebar .jkhive-nav-item.active .jkhive-hex,
+.jkhive-sidebar .jkhive-nav-item.active .jkhive-hex {
+  background: linear-gradient(135deg, var(--jk-secondary-green-dark) 0%, var(--jk-secondary-green) 100%);
+  border-color: var(--jk-secondary-green-light);
+  box-shadow: var(--jk-shadow-lg), var(--jk-glow-cyan);
+  animation: jkhive-anmtn-sidebar-activenav-pulse 2s ease-in-out infinite;
+  position: relative;
+  z-index: 5;
+}
+
+/* Cuando el submenú está ABIERTO (jkhive-submenu-expanded): el toggle padre muestra "expanded" (ámbar).
+   filter: drop-shadow evita manchas/fragmentos en clip-path (box-shadow genera manchas amarillas). */
+#jkhive-sidebar .jkhive-nav-item-submenu.jkhive-submenu-expanded .jkhive-submenu-toggle .jkhive-hex,
+.jkhive-sidebar .jkhive-nav-item-submenu.jkhive-submenu-expanded .jkhive-submenu-toggle .jkhive-hex {
+  background: linear-gradient(135deg, var(--jk-tech-medium) 0%, var(--jk-tech-dark) 100%) !important;
+  border: none !important;
+  box-shadow: inset 0 0 20px rgba(14, 165, 233, 0.1) !important;
+  filter: drop-shadow(0 0 1px rgba(244, 196, 48, 0.9)) drop-shadow(0 0 15px rgba(244, 196, 48, 0.5)) drop-shadow(0 0 25px rgba(212, 160, 23, 0.3)) !important;
+  animation: none !important;
+}
+
+/* Toggle con submenú abierto: iluminación al pasar el cursor (misma que ítems del menú) */
+#jkhive-sidebar .jkhive-nav-item-submenu.jkhive-submenu-expanded .jkhive-submenu-toggle:hover .jkhive-hex,
+.jkhive-sidebar .jkhive-nav-item-submenu.jkhive-submenu-expanded .jkhive-submenu-toggle:hover .jkhive-hex {
+  background: linear-gradient(135deg, var(--jk-primary-blue-dark) 0%, var(--jk-primary-blue) 100%) !important;
+  filter: drop-shadow(0 0 1px rgba(14, 165, 233, 0.9)) drop-shadow(0 0 15px rgba(14, 165, 233, 0.5)) drop-shadow(0 0 25px rgba(14, 165, 233, 0.3)) !important;
+}
+
+@keyframes jkhive-anmtn-sidebar-activenav-pulse {
+  0%, 100% {
+    box-shadow: var(--jk-shadow-lg), 0 0 20px rgba(20, 184, 166, 0.5);
+  }
+  50% {
+    box-shadow: var(--jk-shadow-lg), 0 0 30px rgba(20, 184, 166, 0.8);
+  }
+}
+
+#jkhive-sidebar .jkhive-nav-item .jkhive-hex-icon,
+.jkhive-sidebar .jkhive-nav-item .jkhive-hex-icon {
+  font-size: calc(1.275rem * 1.15); /* Aumentado 15% en desktop (aprox 1.46rem) */
+  margin-bottom: 0.25rem;
+}
+
+#jkhive-sidebar .jkhive-nav-item .jkhive-hex-text,
+.jkhive-sidebar .jkhive-nav-item .jkhive-hex-text {
+  font-size: 0.5525rem;
+  line-height: 1;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--jk-metal-light);
+}
+
+/* Estilos para hex-content dentro de los items de navegación del sidebar */
+#jkhive-sidebar .jkhive-nav-item .jkhive-hex-content,
+.jkhive-sidebar .jkhive-nav-item .jkhive-hex-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: var(--jk-metal-light);
+  padding: var(--jk-spacing-md);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
+}
+
+/* Estilos para hex-icon dentro de los items de navegación del sidebar */
+#jkhive-sidebar .jkhive-nav-item .jkhive-hex-icon,
+.jkhive-sidebar .jkhive-nav-item .jkhive-hex-icon {
+  color: var(--jk-metal-light);
+  text-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
+}
+
+/* Estilos para hex-content-editorial dentro del sidebar */
+#jkhive-sidebar .jkhive-hex-content-editorial,
+.jkhive-sidebar .jkhive-hex-content-editorial {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+}
+
+/* Estilos para logo-main dentro de hex-content-editorial del sidebar */
+#jkhive-sidebar .jkhive-hex-content-editorial .jkhive-logo-main,
+.jkhive-sidebar .jkhive-hex-content-editorial .jkhive-logo-main {
+  font-size: calc(1.75rem * 0.85) !important; /* Reducido 15% */
+  font-weight: 900 !important;
+  color: var(--jk-metal-light) !important;
+  letter-spacing: 0 !important;
+  line-height: 1 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Estilos para logo-divider dentro de hex-content-editorial del sidebar (ancho = texto superior) */
+#jkhive-sidebar .jkhive-hex-content-editorial .jkhive-logo-editorial-head .jkhive-logo-divider,
+.jkhive-sidebar .jkhive-hex-content-editorial .jkhive-logo-editorial-head .jkhive-logo-divider {
+  width: 100% !important;
+  height: 2px !important;
+  background: linear-gradient(90deg, transparent 0%, #0ea5e9 20%, #06b6d4 50%, #0ea5e9 80%, transparent 100%) !important;
+  margin: 0.2rem 0 0 0 !important;
+  box-shadow: 0 0 10px rgba(14, 165, 233, 1), 0 0 20px rgba(6, 182, 212, 0.6);
+}
+
+/* Estilos para logo-sub dentro de hex-content-editorial del sidebar */
+#jkhive-sidebar .jkhive-hex-content-editorial .jkhive-logo-sub,
+.jkhive-sidebar .jkhive-hex-content-editorial .jkhive-logo-sub {
+  font-size: calc(0.5rem * 0.85) !important; /* Reducido 15% */
+  font-weight: 700 !important;
+  color: var(--jk-accent-honey-light, #f4c430) !important;
+  letter-spacing: 0.15em !important;
+  line-height: 1 !important;
+  margin-top: 0.05rem !important;
+  text-shadow: 0 0 10px rgba(244, 196, 48, 0.8), 0 0 20px rgba(212, 160, 23, 0.6) !important;
+}
+
+/* Asegurar que el color amarillo se aplique en todos los contextos del sidebar */
+#jkhive-sidebar .jkhive-nav-item .jkhive-logo-sub,
+#jkhive-sidebar .jkhive-hex-content-editorial .jkhive-logo-sub,
+.jkhive-sidebar .jkhive-nav-item .jkhive-logo-sub,
+.jkhive-sidebar .jkhive-hex-content-editorial .jkhive-logo-sub {
+  color: var(--jk-accent-honey-light, #f4c430) !important;
+}
+
+/* ========================================
+   ESTANDARIZACIÓN EXACTA LOGO JK HIVE
+   ======================================== */
+#jkhive-sidebar .jkhive-logo-main-jkhive,
+.jkhive-sidebar .jkhive-logo-main-jkhive,
+.jkhive-logo-square .jkhive-logo-main-jkhive {
+  color: var(--jk-tech-darker) !important; /* Azul muy oscuro/casi negro (hereda del hex-content original) */
+  text-shadow: 0 0 15px rgba(244, 196, 48, 1), 0 0 30px rgba(212, 160, 23, 0.8), 0 2px 4px rgba(0, 0, 0, 0.3) !important; /* Resplandor amarillo intenso */
+  font-size: 1.75rem !important; /* Restaurado al 100% */
+  font-weight: 900 !important;
+  letter-spacing: 0 !important;
+  line-height: 1 !important;
+  margin-bottom: 0 !important;
+}
+
+#jkhive-sidebar .jkhive-logo-editorial-head .jkhive-logo-divider-jkhive,
+.jkhive-sidebar .jkhive-logo-editorial-head .jkhive-logo-divider-jkhive,
+.jkhive-logo-square .jkhive-logo-editorial-head .jkhive-logo-divider-jkhive {
+  background: linear-gradient(90deg, transparent 0%, #0ea5e9 20%, #06b6d4 50%, #0ea5e9 80%, transparent 100%) !important;
+  box-shadow: 0 0 10px rgba(14, 165, 233, 1), 0 0 20px rgba(6, 182, 212, 0.6) !important;
+  width: 100% !important;
+  height: 2px !important;
+  margin: 0.2rem 0 0 0 !important;
+}
+
+#jkhive-sidebar .jkhive-logo-sub-jkhive,
+.jkhive-sidebar .jkhive-logo-sub-jkhive,
+.jkhive-logo-square .jkhive-logo-sub-jkhive {
+  color: var(--jk-accent-honey-light, #f4c430) !important; /* Miel claro / Amarillo */
+  text-shadow: 0 0 10px rgba(244, 196, 48, 0.8), 0 0 20px rgba(212, 160, 23, 0.6) !important;
+  font-size: 0.5rem !important; /* Restaurado al 100% */
+  font-weight: 700 !important;
+  letter-spacing: 0.15em !important;
+  line-height: 1 !important;
+  margin-top: 0.05rem !important;
+}
+
+/* ========================================
+   SUBMENÚ HORIZONTAL - CRM-DATA y WEB (Hexágonos)
+   ======================================== */
+
+/* Contenedor del item padre del submenú */
+#jkhive-sidebar .jkhive-nav-item-submenu,
+.jkhive-sidebar .jkhive-nav-item-submenu {
+  position: relative;
+  overflow: visible !important;
+}
+
+/* Toggle flip (moneda sobre eje Y): cara A = configuración, cara B = ícono del ítem activo (rellenado por sidebar-menu.js) */
+#jkhive-sidebar .jkhive-submenu-toggle.jkhive-submenu-toggle-flip,
+.jkhive-sidebar .jkhive-submenu-toggle.jkhive-submenu-toggle-flip {
+  display: block;
+  perspective: 520px;
+  width: 85px;
+  height: calc(85px * 1.1547);
+}
+
+.jkhive-submenu-toggle-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+/* Solo animar cuando hay una entrada del submenú marcada como actual (clase jkhive-submenu-current-*) */
+#jkhive-sidebar .jkhive-nav-item-submenu[class*="jkhive-submenu-current-"] .jkhive-submenu-toggle-flip-inner,
+.jkhive-sidebar .jkhive-nav-item-submenu[class*="jkhive-submenu-current-"] .jkhive-submenu-toggle-flip-inner {
+  animation: jkhive-anmtn-toggle-flip 6s ease-in-out infinite;
+}
+
+@keyframes jkhive-anmtn-toggle-flip {
+  0%, 42% { transform: rotateY(0deg); }
+  50%, 92% { transform: rotateY(180deg); }
+  100% { transform: rotateY(360deg); }
+}
+
+.jkhive-submenu-toggle-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.jkhive-submenu-toggle-face-front {
+  transform: rotateY(0deg);
+}
+
+.jkhive-submenu-toggle-face-back {
+  transform: rotateY(180deg);
+}
+
+.jkhive-submenu-toggle-face .jkhive-hex {
+  width: 100%;
+  height: 100%;
+}
+
+/* Slot trasero: una sola copia del .jkhive-hex-icon del .jkhive-submenu-item.active (cualquier data-page) */
+.jkhive-submenu-toggle-back-slot {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.jkhive-submenu-toggle-back-slot .jkhive-hex-icon {
+  margin: 0 !important;
+  font-size: calc(1.275rem * 1.15) !important;
+  color: var(--jk-metal-light) !important;
+  text-shadow: 0 0 10px rgba(14, 165, 233, 0.5) !important;
+}
+
+/* Submenú Horizontal - Puede estar en el sidebar o en el body */
+#jkhive-sidebar .jkhive-submenu-horizontal,
+.jkhive-sidebar .jkhive-submenu-horizontal,
+body > .jkhive-submenu-horizontal {
+  position: fixed !important; /* Fixed para posicionar respecto al viewport - JavaScript lo posicionará */
+  display: none !important; /* Oculto por defecto - JavaScript lo mostrará */
+  flex-direction: row; /* Horizontal layout */
+  flex-wrap: wrap; /* En mobile/con muchos ítems: segunda fila (patrón serpiente) */
+  align-items: center;
+  align-content: center;
+  gap: 3px; /* Espacio entre hexágonos - evita superposición de bordes/sombras */
+  background: transparent;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: none !important; /* Sin transición para mostrar inmediatamente */
+  z-index: 999999 !important; /* Muy alto para estar por encima de todo, incluso modales */
+  backdrop-filter: none;
+  max-width: none;
+  overflow: visible !important; /* CRÍTICO: visible evita que hexágonos (scale+drop-shadow) se corten en esquinas */
+  white-space: nowrap;
+  /* Transform, left y top se aplicarán con JavaScript */
+}
+
+/* Wrapper fila 2+ (patrón serpiente). justify-content y padding-left se aplican por JS para alinear
+   el último ítem de fila 2 debajo del último de fila 1 */
+.jkhive-submenu-row-wrap,
+body > .jkhive-submenu-horizontal .jkhive-submenu-row-wrap {
+  flex-basis: 100% !important;
+  width: 100% !important;
+  min-width: 100% !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 3px !important;
+  margin-top: 3px !important;
+  flex-shrink: 0 !important;
+  overflow: visible !important;
+}
+
+/* Cuando el submenú está activo - puede estar en sidebar o body.
+   Padding vertical 15px 0 (desktop) lo aplica el JS para evitar recorte en hover (doc RESTORE). */
+#jkhive-sidebar .jkhive-submenu-horizontal.active,
+.jkhive-sidebar .jkhive-submenu-horizontal.active,
+body > .jkhive-submenu-horizontal.active {
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: all !important;
+  transition: none !important; /* Sin transición cuando está activo */
+  z-index: 999999 !important; /* Asegurar z-index muy alto */
+}
+
+/* Las reglas de posición se manejan con JavaScript usando position: fixed */
+
+/* CRÍTICO: cuando el submenú está en body, los items NO están en el sidebar.
+   Todas las reglas deben incluir body > .jkhive-submenu-horizontal para aplicar. */
+
+/* Eliminar subrayado de enlaces del submenú (incl. cuando está en body - fuera del sidebar) */
+#jkhive-sidebar .jkhive-submenu-item,
+.jkhive-sidebar .jkhive-submenu-item,
+body > .jkhive-submenu-horizontal .jkhive-submenu-item,
+body > .jkhive-submenu-horizontal .jkhive-submenu-item:link,
+body > .jkhive-submenu-horizontal .jkhive-submenu-item:visited,
+body > .jkhive-submenu-horizontal .jkhive-submenu-item:hover,
+body > .jkhive-submenu-horizontal .jkhive-submenu-item:focus,
+body > .jkhive-submenu-horizontal .jkhive-submenu-item:active {
+  text-decoration: none !important;
+  text-decoration-line: none !important;
+  -webkit-text-decoration-line: none !important;
+  text-decoration-style: none !important;
+  text-decoration-color: transparent !important;
+  text-underline-offset: 0 !important;
+}
+
+body > .jkhive-submenu-horizontal .jkhive-submenu-item *,
+body > .jkhive-submenu-horizontal .jkhive-submenu-item .jkhive-hex-icon {
+  text-decoration: none !important;
+  text-decoration-line: none !important;
+  -webkit-text-decoration-line: none !important;
+}
+
+/* Items del submenú horizontal - hexágonos iguales al menú (mismo que CRM) */
+#jkhive-sidebar .jkhive-submenu-item,
+.jkhive-sidebar .jkhive-submenu-item,
+body > .jkhive-submenu-horizontal .jkhive-submenu-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 85px;
+  height: calc(85px * 1.1547);
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  clip-path: none !important;
+  overflow: visible !important; /* CRÍTICO: evita que scale(1.05) y drop-shadow corten las puntas del hex */
+  color: var(--jk-metal-light);
+  text-decoration: none !important;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 0.5525rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Cuando el submenú está activo: solo filter (box-shadow inset genera rayas con clip-path) */
+#jkhive-sidebar .jkhive-nav-item-submenu.active .jkhive-submenu-item .jkhive-hex,
+.jkhive-sidebar .jkhive-nav-item-submenu.active .jkhive-submenu-item .jkhive-hex,
+body > .jkhive-submenu-horizontal.active .jkhive-submenu-item .jkhive-hex {
+  border: none !important;
+  box-shadow: none !important;
+  filter: drop-shadow(0 0 1px rgba(20, 184, 166, 0.9)) drop-shadow(0 0 12px rgba(20, 184, 166, 0.4)) !important;
+}
+
+#jkhive-sidebar .jkhive-submenu-item:hover,
+.jkhive-sidebar .jkhive-submenu-item:hover,
+body > .jkhive-submenu-horizontal .jkhive-submenu-item:hover {
+  z-index: 5;
+}
+
+/* Hover: scale + iluminación (fondo azul y glow como ítems del menú; solo filter para no rayas en clip-path) */
+#jkhive-sidebar .jkhive-submenu-item:hover .jkhive-hex,
+.jkhive-sidebar .jkhive-submenu-item:hover .jkhive-hex,
+body > .jkhive-submenu-horizontal .jkhive-submenu-item:hover .jkhive-hex {
+  transform: scale(1.03);
+  background: linear-gradient(135deg, var(--jk-primary-blue-dark) 0%, var(--jk-primary-blue) 100%) !important;
+  border: none !important;
+  box-shadow: none !important;
+  filter: drop-shadow(0 0 1px rgba(14, 165, 233, 0.95)) drop-shadow(0 0 15px rgba(14, 165, 233, 0.5)) drop-shadow(0 0 25px rgba(14, 165, 233, 0.3)) !important;
+}
+
+#jkhive-sidebar .jkhive-submenu-item.active,
+.jkhive-sidebar .jkhive-submenu-item.active,
+body > .jkhive-submenu-horizontal .jkhive-submenu-item.active {
+  z-index: 5;
+}
+
+#jkhive-sidebar .jkhive-submenu-item.active .jkhive-hex,
+.jkhive-sidebar .jkhive-submenu-item.active .jkhive-hex,
+body > .jkhive-submenu-horizontal .jkhive-submenu-item.active .jkhive-hex {
+  background: linear-gradient(135deg, var(--jk-secondary-green-dark) 0%, var(--jk-secondary-green) 100%) !important;
+  border: none !important;
+  box-shadow: none !important;
+  filter: drop-shadow(0 0 1px rgba(20, 184, 166, 1)) drop-shadow(0 0 18px rgba(20, 184, 166, 0.6)) !important;
+  animation: jkhive-anmtn-sidebar-submenu-pulse 2s ease-in-out infinite;
+}
+
+@keyframes jkhive-anmtn-sidebar-submenu-pulse {
+  0%, 100% { filter: drop-shadow(0 0 1px rgba(20, 184, 166, 1)) drop-shadow(0 0 15px rgba(20, 184, 166, 0.5)) !important; }
+  50% { filter: drop-shadow(0 0 1px rgba(20, 184, 166, 1)) drop-shadow(0 0 22px rgba(20, 184, 166, 0.75)) !important; }
+}
+
+/* Base: hexágonos del submenú - solo filter: drop-shadow (sin box-shadow: inset evita rayas con clip-path) */
+#jkhive-sidebar .jkhive-submenu-item .jkhive-hex,
+.jkhive-sidebar .jkhive-submenu-item .jkhive-hex,
+body > .jkhive-submenu-horizontal .jkhive-submenu-item .jkhive-hex {
+  width: 85px;
+  height: calc(85px * 1.1547);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(135deg, var(--jk-tech-medium) 0%, var(--jk-tech-dark) 100%);
+  border: none;
+  box-shadow: none;
+  filter: drop-shadow(0 0 1px rgba(14, 165, 233, 0.5));
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 0;
+}
+
+#jkhive-sidebar .jkhive-submenu-item .jkhive-hex-icon,
+.jkhive-sidebar .jkhive-submenu-item .jkhive-hex-icon,
+body > .jkhive-submenu-horizontal .jkhive-submenu-item .jkhive-hex-icon {
+  font-size: 1.275rem;
+  margin-bottom: 0.25rem;
+  color: var(--jk-metal-light);
+  text-decoration: none !important;
+}
+
+#jkhive-sidebar .jkhive-submenu-item .jkhive-hex-text,
+.jkhive-sidebar .jkhive-submenu-item .jkhive-hex-text,
+body > .jkhive-submenu-horizontal .jkhive-submenu-item .jkhive-hex-text {
+  font-size: 0.5525rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  color: var(--jk-metal-light);
+}
+
+/* Estilos para hex-content dentro de los items del submenú */
+#jkhive-sidebar .jkhive-submenu-item .jkhive-hex-content,
+.jkhive-sidebar .jkhive-submenu-item .jkhive-hex-content,
+body > .jkhive-submenu-horizontal .jkhive-submenu-item .jkhive-hex-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: var(--jk-metal-light);
+  padding: var(--jk-spacing-md);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
+}
+
+/* Estilos para hex-content-editorial dentro de los items del submenú */
+#jkhive-sidebar .jkhive-submenu-item .jkhive-hex-content-editorial,
+.jkhive-sidebar .jkhive-submenu-item .jkhive-hex-content-editorial,
+body > .jkhive-submenu-horizontal .jkhive-submenu-item .jkhive-hex-content-editorial {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+}
+
+/* Animación de apertura escalonada para los items del submenú */
+#jkhive-sidebar .jkhive-submenu-horizontal.active .jkhive-submenu-item,
+.jkhive-sidebar .jkhive-submenu-horizontal.active .jkhive-submenu-item,
+body > .jkhive-submenu-horizontal.active .jkhive-submenu-item {
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+#jkhive-sidebar .jkhive-submenu-horizontal.active .jkhive-submenu-item:nth-child(1),
+.jkhive-sidebar .jkhive-submenu-horizontal.active .jkhive-submenu-item:nth-child(1) { 
+  transition-delay: 0s; 
+}
+
+#jkhive-sidebar .jkhive-submenu-horizontal.active .jkhive-submenu-item:nth-child(2),
+.jkhive-sidebar .jkhive-submenu-horizontal.active .jkhive-submenu-item:nth-child(2) { 
+  transition-delay: 0.05s; 
+}
+
+#jkhive-sidebar .jkhive-submenu-horizontal.active .jkhive-submenu-item:nth-child(3),
+.jkhive-sidebar .jkhive-submenu-horizontal.active .jkhive-submenu-item:nth-child(3) { 
+  transition-delay: 0.1s; 
+}
+
+#jkhive-sidebar .jkhive-submenu-horizontal.active .jkhive-submenu-item:nth-child(4),
+.jkhive-sidebar .jkhive-submenu-horizontal.active .jkhive-submenu-item:nth-child(4) { 
+  transition-delay: 0.15s; 
+}
+
+#jkhive-sidebar .jkhive-submenu-horizontal.active .jkhive-submenu-item:nth-child(5),
+.jkhive-sidebar .jkhive-submenu-horizontal.active .jkhive-submenu-item:nth-child(5) { 
+  transition-delay: 0.2s; 
+}
+
+#jkhive-sidebar .jkhive-submenu-horizontal.active .jkhive-submenu-item:nth-child(6),
+.jkhive-sidebar .jkhive-submenu-horizontal.active .jkhive-submenu-item:nth-child(6) { 
+  transition-delay: 0.25s; 
+}
+
+#jkhive-sidebar .jkhive-submenu-horizontal.active .jkhive-submenu-item:nth-child(7),
+.jkhive-sidebar .jkhive-submenu-horizontal.active .jkhive-submenu-item:nth-child(7) { 
+  transition-delay: 0.3s; 
+}
+
+#jkhive-sidebar .jkhive-submenu-horizontal.active .jkhive-submenu-item:nth-child(8),
+.jkhive-sidebar .jkhive-submenu-horizontal.active .jkhive-submenu-item:nth-child(8),
+body > .jkhive-submenu-horizontal.active .jkhive-submenu-item:nth-child(8) { 
+  transition-delay: 0.35s; 
+}
+
+/* ========================================
+   RESPONSIVE DESIGN - MOBILE
+   ======================================== */
+@media (max-width: 768px) {
+  #jkhive-sidebar-container {
+    width: 101px;
+  }
+
+  /* Sidebar principal */
+  #jkhive-sidebar.jkhive-sidebar,
+  .jkhive-sidebar {
+    width: 101px;
+    top: 101px;
+    height: calc(100vh - 101px);
+    padding: calc(21px + (60px * 1.1547 - 24px)) 0 var(--jk-spacing-md) 0;
+  }
+  
+  /* Logo Section en mobile (cuadrado 101x101); mantener centrado en la grilla */
+  #jkhive-logo-square.jkhive-logo-square,
+  .jkhive-logo-square {
+    width: 101px;
+    height: 101px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  /* Logo del sidebar - tamaño reducido y contenido escalado en mobile */
+  .jkhive-logo-square .jkhive-sidebar-logo-flip,
+  .jkhive-anmtn-sidebar-logo-flip {
+    width: 60px;
+    height: calc(60px * 1.1547);
+  }
+  
+  .jkhive-logo-square .jkhive-hex,
+  #jkhive-sidebar .jkhive-sidebar-logo .jkhive-hex,
+  .jkhive-sidebar .jkhive-sidebar-logo .jkhive-hex {
+    width: 60px;
+    height: calc(60px * 1.1547);
+  }
+  
+  .jkhive-logo-square .jkhive-hex-content,
+  #jkhive-sidebar .jkhive-sidebar-logo .jkhive-hex-content,
+  .jkhive-sidebar .jkhive-sidebar-logo .jkhive-hex-content {
+    font-size: 1.15rem;
+  }
+  
+  /* Reducir logo-main y logo-sub en mobile (hex 90→60 = 67%) */
+  .jkhive-logo-square .jkhive-logo-main,
+  #jkhive-sidebar .jkhive-sidebar-logo .jkhive-logo-main,
+  .jkhive-sidebar .jkhive-sidebar-logo .jkhive-logo-main,
+  .jkhive-logo-square .jkhive-logo-main-jkhive,
+  #jkhive-sidebar .jkhive-logo-main-jkhive,
+  .jkhive-sidebar .jkhive-logo-main-jkhive {
+    font-size: 1.15rem !important;
+  }
+  
+  .jkhive-logo-square .jkhive-logo-sub,
+  #jkhive-sidebar .jkhive-sidebar-logo .jkhive-logo-sub,
+  .jkhive-sidebar .jkhive-sidebar-logo .jkhive-logo-sub,
+  .jkhive-logo-square .jkhive-logo-sub-jkhive,
+  #jkhive-sidebar .jkhive-logo-sub-jkhive,
+  .jkhive-sidebar .jkhive-logo-sub-jkhive {
+    font-size: 0.35rem !important;
+    letter-spacing: 0.1em;
+  }
+  
+  /* Divider azulado visible en mobile (ancho = texto superior; .jkhive-sidebar-logo-face = caras flip JK Lubs) */
+  .jkhive-logo-square .jkhive-logo-editorial-head .jkhive-logo-divider,
+  #jkhive-sidebar .jkhive-sidebar-logo .jkhive-logo-editorial-head .jkhive-logo-divider,
+  .jkhive-sidebar .jkhive-sidebar-logo .jkhive-logo-editorial-head .jkhive-logo-divider,
+  .jkhive-logo-square .jkhive-sidebar-logo-face .jkhive-logo-editorial-head .jkhive-logo-divider,
+  .jkhive-logo-square .jkhive-logo-editorial-head .jkhive-logo-divider-jkhive,
+  #jkhive-sidebar .jkhive-logo-editorial-head .jkhive-logo-divider-jkhive,
+  .jkhive-sidebar .jkhive-logo-editorial-head .jkhive-logo-divider-jkhive {
+    width: 100% !important;
+    height: 1.5px !important;
+    min-height: 1.5px !important;
+    background: linear-gradient(90deg, transparent 0%, #0ea5e9 20%, #06b6d4 50%, #0ea5e9 80%, transparent 100%) !important;
+    box-shadow: 0 0 6px rgba(14, 165, 233, 0.9), 0 0 12px rgba(6, 182, 212, 0.5) !important;
+    margin: 0.15rem 0 0 0 !important;
+  }
+  
+  /* Items de navegación */
+  #jkhive-sidebar .jkhive-nav-item .jkhive-hex,
+  .jkhive-sidebar .jkhive-nav-item .jkhive-hex {
+    width: 60px;
+    height: calc(60px * 1.1547);
+  }
+
+  /* Toggle flip: mismo tamaño que otros items en mobile */
+  #jkhive-sidebar .jkhive-submenu-toggle.jkhive-submenu-toggle-flip,
+  .jkhive-sidebar .jkhive-submenu-toggle.jkhive-submenu-toggle-flip {
+    width: 60px;
+    height: calc(60px * 1.1547);
+  }
+
+  .jkhive-submenu-toggle-back-slot .jkhive-hex-icon {
+    font-size: calc(1.46rem * 0.85) !important;
+  }
+  
+  #jkhive-sidebar .jkhive-nav-item .jkhive-hex-icon,
+  .jkhive-sidebar .jkhive-nav-item .jkhive-hex-icon {
+    font-size: calc(1.46rem * 0.85) !important; /* Ajustado proporcionalmente al nuevo tamaño desktop */
+  }
+  
+  #jkhive-sidebar .jkhive-nav-item .jkhive-hex-text,
+  .jkhive-sidebar .jkhive-nav-item .jkhive-hex-text {
+    font-size: 0.5rem;
+  }
+  
+  /* Reducir elementos interiores de los hexágonos del menú lateral en un 15% en pantalla chica */
+  /* SOLO para CRM - las reglas de la página web están en style.css y jk-hive.css de la página web */
+  /* Usar selector que solo se aplique cuando NO hay .hero-section (que solo existe en la página web) */
+  body:not(:has(.hero-section)) #jkhive-sidebar .jkhive-nav-item .jkhive-hex-content,
+  html body:not(:has(.hero-section)) #jkhive-sidebar .jkhive-nav-item .jkhive-hex-content,
+  body:not(:has(.hero-section)) .jkhive-sidebar .jkhive-nav-item .jkhive-hex-content,
+  html body:not(:has(.hero-section)) .jkhive-sidebar .jkhive-nav-item .jkhive-hex-content {
+    padding: calc(var(--jk-spacing-md) * 0.85) !important; /* Reducido 15% */
+  }
+  
+  body:not(:has(.hero-section)) #jkhive-sidebar .jkhive-nav-item .jkhive-hex-icon,
+  html body:not(:has(.hero-section)) #jkhive-sidebar .jkhive-nav-item .jkhive-hex-icon,
+  body:not(:has(.hero-section)) .jkhive-sidebar .jkhive-nav-item .jkhive-hex-icon,
+  html body:not(:has(.hero-section)) .jkhive-sidebar .jkhive-nav-item .jkhive-hex-icon {
+    font-size: calc(1.46rem * 0.85) !important; /* Reducido 15% en mobile desde el nuevo tamaño base de desktop */
+    margin-bottom: calc(0.25rem * 0.85) !important; /* Reducido 15% */
+  }
+  
+  body:not(:has(.hero-section)) #jkhive-sidebar .jkhive-nav-item .jkhive-hex-text,
+  html body:not(:has(.hero-section)) #jkhive-sidebar .jkhive-nav-item .jkhive-hex-text,
+  body:not(:has(.hero-section)) .jkhive-sidebar .jkhive-nav-item .jkhive-hex-text,
+  html body:not(:has(.hero-section)) .jkhive-sidebar .jkhive-nav-item .jkhive-hex-text {
+    font-size: calc(0.5rem * 0.85) !important; /* Reducido 15% desde 0.5rem (resultado: ~0.425rem) */
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+  }
+  
+  /* Reducir .jkhive-logo-main y .jkhive-logo-sub en pantalla chica */
+  body:not(:has(.hero-section)) #jkhive-sidebar .jkhive-nav-item .jkhive-logo-main,
+  html body:not(:has(.hero-section)) #jkhive-sidebar .jkhive-nav-item a .jkhive-logo-main,
+  html body:not(:has(.hero-section)) #jkhive-sidebar .jkhive-nav-item .jkhive-hex-content-editorial .jkhive-logo-main,
+  body:not(:has(.hero-section)) .jkhive-sidebar .jkhive-nav-item .jkhive-logo-main,
+  html body:not(:has(.hero-section)) .jkhive-sidebar .jkhive-nav-item a .jkhive-logo-main,
+  html body:not(:has(.hero-section)) .jkhive-sidebar .jkhive-nav-item .jkhive-hex-content-editorial .jkhive-logo-main {
+    font-size: calc(1.75rem * 0.85) !important; /* Reducido 15% desde 1.75rem (valor base, resultado: ~1.4875rem) */
+  }
+  
+  body:not(:has(.hero-section)) #jkhive-sidebar .jkhive-nav-item .jkhive-logo-sub,
+  html body:not(:has(.hero-section)) #jkhive-sidebar .jkhive-nav-item a .jkhive-logo-sub,
+  html body:not(:has(.hero-section)) #jkhive-sidebar .jkhive-nav-item .jkhive-hex-content-editorial .jkhive-logo-sub,
+  body:not(:has(.hero-section)) .jkhive-sidebar .jkhive-nav-item .jkhive-logo-sub,
+  html body:not(:has(.hero-section)) .jkhive-sidebar .jkhive-nav-item a .jkhive-logo-sub,
+  html body:not(:has(.hero-section)) .jkhive-sidebar .jkhive-nav-item .jkhive-hex-content-editorial .jkhive-logo-sub {
+    font-size: calc(0.5rem * 0.85) !important; /* Reducido 15% desde 0.5rem (valor base, resultado: ~0.425rem) */
+  }
+  
+  body:not(:has(.hero-section)) #jkhive-sidebar .jkhive-nav-item .jkhive-logo-editorial-head .jkhive-logo-divider,
+  html body:not(:has(.hero-section)) #jkhive-sidebar .jkhive-nav-item .jkhive-logo-editorial-head .jkhive-logo-divider,
+  body:not(:has(.hero-section)) .jkhive-sidebar .jkhive-nav-item .jkhive-logo-editorial-head .jkhive-logo-divider,
+  html body:not(:has(.hero-section)) .jkhive-sidebar .jkhive-nav-item .jkhive-logo-editorial-head .jkhive-logo-divider {
+    width: 100% !important;
+    height: calc(2px * 0.85) !important; /* Reducido 15% */
+  }
+  
+  /* Ajustar honeycomb offset para mobile */
+  #jkhive-sidebar .jkhive-nav-item,
+  .jkhive-sidebar .jkhive-nav-item {
+    margin: -8px 0;
+  }
+  
+  #jkhive-sidebar .jkhive-nav-item:nth-child(even),
+  .jkhive-sidebar .jkhive-nav-item:nth-child(even) {
+    transform: translateX(14px);
+  }
+  
+  #jkhive-sidebar .jkhive-nav-item:nth-child(odd),
+  .jkhive-sidebar .jkhive-nav-item:nth-child(odd) {
+    transform: translateX(-15px);
+  }
+  
+  /* Ajustar posición del submenú horizontal en mobile */
+  #jkhive-sidebar .jkhive-nav-item-submenu:nth-child(even).active .jkhive-submenu-horizontal,
+  .jkhive-sidebar .jkhive-nav-item-submenu:nth-child(even).active .jkhive-submenu-horizontal {
+    left: 76px; /* Ajustado para mobile */
+  }
+  
+  #jkhive-sidebar .jkhive-nav-item-submenu:nth-child(odd).active .jkhive-submenu-horizontal,
+  .jkhive-sidebar .jkhive-nav-item-submenu:nth-child(odd).active .jkhive-submenu-horizontal {
+    left: 45px; /* Ajustado para mobile */
+  }
+  
+  /* Reducir tamaño de items del submenú en mobile - IGUAL que CRM (60px) */
+  #jkhive-sidebar .jkhive-submenu-item,
+  .jkhive-sidebar .jkhive-submenu-item,
+  body > .jkhive-submenu-horizontal .jkhive-submenu-item {
+    width: 60px;
+    height: calc(60px * 1.1547);
+    overflow: visible !important;
+  }
+  
+  #jkhive-sidebar .jkhive-submenu-item .jkhive-hex,
+  .jkhive-sidebar .jkhive-submenu-item .jkhive-hex,
+  body > .jkhive-submenu-horizontal .jkhive-submenu-item .jkhive-hex {
+    width: 60px;
+    height: calc(60px * 1.1547);
+  }
+
+  #jkhive-sidebar .jkhive-submenu-item .jkhive-hex-icon,
+  .jkhive-sidebar .jkhive-submenu-item .jkhive-hex-icon,
+  body > .jkhive-submenu-horizontal .jkhive-submenu-item .jkhive-hex-icon {
+    font-size: 1.2rem !important;
+  }
+
+  #jkhive-sidebar .jkhive-submenu-item .jkhive-hex-text,
+  .jkhive-sidebar .jkhive-submenu-item .jkhive-hex-text,
+  body > .jkhive-submenu-horizontal .jkhive-submenu-item .jkhive-hex-text {
+    font-size: 0.5rem !important;
+  }
+
+  #jkhive-sidebar .jkhive-submenu-item .jkhive-hex-content,
+  .jkhive-sidebar .jkhive-submenu-item .jkhive-hex-content,
+  body > .jkhive-submenu-horizontal .jkhive-submenu-item .jkhive-hex-content {
+    padding: calc(var(--jk-spacing-md) * 0.85) !important;
+  }
+}
+

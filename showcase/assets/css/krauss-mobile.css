@@ -1,0 +1,661 @@
+/**
+ * JK Lubs - Ajustes mobile para páginas públicas
+ * Breakpoint principal: 768px (coincide con navbar/sidebar). Refuerzo en 576px.
+ */
+
+@media (max-width: 768px) {
+  /* Index / Home: contenido principal */
+  .jkhive-content-wrap {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+  .jkhive-content-wrap .jkhive-container {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+  .jkhive-content-wrap #destacados {
+    margin-top: 2rem !important;
+    margin-bottom: 3rem !important;
+  }
+  .jkhive-content-wrap #destacados .jkhive-section-title {
+    font-size: 1.5rem !important;
+    margin-bottom: 2rem !important;
+  }
+  .jkhive-content-wrap #destacados [style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+    min-width: 0 !important;
+  }
+  .jkhive-content-wrap #destacados h3 {
+    font-size: 1.15rem !important;
+  }
+  .jkhive-content-wrap #destacados p {
+    font-size: 0.95rem !important;
+  }
+  .jkhive-content-wrap #nosotros {
+    padding: 2.5rem 0 !important;
+    margin-bottom: 3rem !important;
+  }
+  .jkhive-content-wrap #nosotros .jkhive-container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  .jkhive-content-wrap #nosotros [style*="display: flex"] {
+    flex-direction: column !important;
+    gap: 2rem !important;
+  }
+  .jkhive-content-wrap #nosotros [style*="min-width: 300px"] {
+    min-width: 0 !important;
+  }
+  .jkhive-content-wrap #cta {
+    padding: 2rem 1rem !important;
+    margin-bottom: 2rem !important;
+  }
+  .jkhive-content-wrap #cta .jkhive-section-title {
+    font-size: 1.4rem !important;
+  }
+  .jkhive-content-wrap #cta p {
+    font-size: 1rem !important;
+    margin-bottom: 2rem !important;
+  }
+  .cta-buttons-hex {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 1rem !important;
+  }
+
+  /* Footer público (solo páginas con public-footer; no aplicar al CRM) */
+  main + footer:not(.jkhive-crm-footer),
+  .jkhive-main-content + footer:not(.jkhive-crm-footer),
+  body > footer:not(.jkhive-crm-footer) {
+    padding: 1.5rem 1rem !important;
+  }
+  body > footer:not(.jkhive-crm-footer) p,
+  main + footer:not(.jkhive-crm-footer) p {
+    font-size: 0.9rem !important;
+  }
+  body > footer:not(.jkhive-crm-footer) .small,
+  main + footer:not(.jkhive-crm-footer) .small {
+    font-size: 0.8rem !important;
+  }
+
+  /* Contenedores de página */
+  .contact-container {
+    padding-top: 1.25rem !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  .faq-container,
+  .privacy-container,
+  .terms-container {
+    padding: 1.25rem 0.5rem !important;
+  }
+
+  /* Contacto */
+  .contact-container [style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+  .contact-card {
+    padding: 1.5rem !important;
+  }
+  .contact-card h2 {
+    font-size: 1.2rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .form-control {
+    padding: 0.6rem 0.75rem !important;
+    font-size: 0.95rem !important;
+  }
+  .form-label {
+    font-size: 0.9rem !important;
+  }
+
+  /* FAQ */
+  .faq-section {
+    padding: 1.25rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  .faq-category {
+    font-size: 1.1rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .faq-item {
+    margin-bottom: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+  .faq-question {
+    font-size: 1.05rem !important;
+  }
+  .faq-answer {
+    font-size: 0.95rem !important;
+  }
+
+  /* Privacidad / Términos */
+  .terms-section,
+  .privacy-section {
+    padding: 1.25rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  .terms-container .terms-h2,
+  .privacy-section h2 {
+    font-size: 1.3rem !important;
+    margin-top: 0 !important;
+    margin-bottom: 0.75rem !important;
+  }
+  .terms-container .terms-h3,
+  .privacy-section h3 {
+    font-size: 1.1rem !important;
+    margin-top: 1rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  .terms-container p,
+  .terms-container li,
+  .privacy-section p,
+  .privacy-section li {
+    font-size: 0.95rem !important;
+  }
+
+  /* About */
+  .jkhive-page-container.about-container {
+    padding: 1.25rem 0.75rem !important;
+  }
+  .about-section {
+    padding: 1.5rem !important;
+    margin-bottom: 2rem !important;
+  }
+  .about-section h2 {
+    font-size: 1.35rem !important;
+  }
+  .about-section p {
+    font-size: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .about-container [style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  /* Cómo funciona */
+  .steps-section {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    margin-bottom: 2rem !important;
+  }
+  .steps-section .jkhive-section-title {
+    font-size: 1.4rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  .step-card {
+    padding: 1.25rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+  .step-card h3 {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  .step-card p {
+    font-size: 0.95rem !important;
+  }
+  .step-cta .jkhive-bttn-med {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  /* Contenedor genérico página (como-funciona, etc.) */
+  .jkhive-page-container[style*="padding: 2rem"] {
+    padding: 1.25rem 0.75rem !important;
+  }
+
+  /* Productos - página catálogo */
+  .page-content {
+    padding-top: 1rem !important;
+    min-height: auto !important;
+  }
+  .page-content .jkhive-container {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  .jkhive-header-section h1 {
+    font-size: 1.75rem !important;
+    margin-bottom: 0.35rem !important;
+  }
+  .jkhive-header-section p {
+    font-size: 0.95rem !important;
+  }
+  .filters-container {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 1rem !important;
+    padding: 1rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  .filter-group {
+    min-width: 0 !important;
+  }
+  .filter-group select {
+    font-size: 0.9rem !important;
+    padding: 0.6rem 0.75rem !important;
+  }
+  .filter-actions {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+
+  /* Títulos de sección genéricos */
+  .section-title {
+    font-size: 1.6rem !important;
+  }
+  .jkhive-section-title {
+    font-size: 1.5rem !important;
+  }
+
+  /* Checkout */
+  .checkout-page-content {
+    padding-top: 1rem !important;
+  }
+  .checkout-container {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  .checkout-section {
+    padding: 1.25rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+  .checkout-section h2 {
+    font-size: 1.25rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .form-row {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+  .form-group input,
+  .form-group select {
+    font-size: 0.95rem !important;
+    padding: 0.6rem 0.75rem !important;
+  }
+  .order-summary {
+    position: static !important;
+    padding: 1.25rem !important;
+  }
+  .summary-total {
+    font-size: 1.1rem !important;
+  }
+  .payment-method {
+    padding: 0.75rem !important;
+    font-size: 0.95rem !important;
+  }
+
+  /* Checkout success */
+  body.checkout-success-page {
+    padding-top: 1.5rem !important;
+  }
+  .success-content-box {
+    margin: 2rem 0.75rem !important;
+    padding: 1.5rem !important;
+  }
+  .success-content-box h1 {
+    font-size: 1.5rem !important;
+  }
+  .success-content-box p {
+    font-size: 1rem !important;
+  }
+  .success-content-box .jkhive-bttn-big .jkhive-hex {
+    min-width: 44px !important;
+    min-height: 44px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .checkout-success-page .success-content-box {
+    margin: 1.5rem 0.5rem !important;
+    padding: 1.25rem !important;
+  }
+  .checkout-success-page .success-content-box h1 {
+    font-size: 1.25rem !important;
+  }
+  .checkout-success-page .success-content-box p {
+    font-size: 0.95rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .jkhive-content-wrap {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  .jkhive-content-wrap #destacados {
+    margin-top: 1.5rem !important;
+    margin-bottom: 2.5rem !important;
+  }
+  .jkhive-content-wrap #destacados .jkhive-section-title {
+    font-size: 1.35rem !important;
+  }
+  .jkhive-content-wrap #nosotros {
+    padding: 1.5rem 0 !important;
+  }
+  .jkhive-content-wrap #cta .jkhive-section-title {
+    font-size: 1.25rem !important;
+  }
+  main + footer:not(.jkhive-crm-footer),
+  body > footer:not(.jkhive-crm-footer) {
+    padding: 1.25rem 0.75rem !important;
+  }
+
+  .contact-container,
+  .faq-container,
+  .privacy-container,
+  .terms-container {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  .contact-card {
+    padding: 1.25rem !important;
+  }
+  .contact-card h2 {
+    font-size: 1.1rem !important;
+  }
+  .faq-section {
+    padding: 1rem !important;
+  }
+  .faq-question {
+    font-size: 1rem !important;
+  }
+  .about-section {
+    padding: 1.25rem !important;
+  }
+  .step-card {
+    padding: 1rem !important;
+  }
+  .jkhive-header-section h1 {
+    font-size: 1.5rem !important;
+  }
+  .filters-container {
+    padding: 0.75rem !important;
+  }
+}
+
+/* ========================================
+   Login JK Hive (crm-layout.jkhive-page-login)
+   ======================================== */
+@media (max-width: 768px) {
+  body.jkhive-page-login {
+    --jkhive-login-viewport-pad-top: clamp(18px, 4vh + env(safe-area-inset-top, 0px), 48px);
+    --jkhive-login-viewport-pad-bottom: clamp(10px, 3vh + env(safe-area-inset-bottom, 0px), 28px);
+  }
+  body.jkhive-page-login .jkhive-login-main.jkhive-main-content {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+  body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex {
+    width: min(
+      100%,
+      633.6px,
+      calc((100dvh - var(--jkhive-login-viewport-pad-top) - var(--jkhive-login-viewport-pad-bottom) - 0.5rem) / 1.1547)
+    ) !important;
+    max-width: none !important;
+  }
+  body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex form.jkhive-login-hex-form > .jkhive-modal-body > .jkhive-modal-body-content {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex .jkhive-login-modal-header-icon {
+    font-size: 1.75rem !important;
+  }
+  body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex form.jkhive-login-hex-form > .jkhive-modal-header .jkhive-modal-title {
+    font-size: 1.1rem !important;
+  }
+  body.jkhive-page-login .jkhive-login-panel .jkhive-form-input {
+    padding: 0.65rem 0.75rem !important;
+    font-size: 16px !important; /* Evita zoom en iOS */
+    min-height: 44px !important;
+  }
+  body.jkhive-page-login .jkhive-login-panel .jkhive-form-label {
+    font-size: 0.9rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  body.jkhive-page-login {
+    --jkhive-login-viewport-pad-top: clamp(16px, 4.5vh + env(safe-area-inset-top, 0px), 44px);
+  }
+  body.jkhive-page-login .jkhive-login-main.jkhive-main-content {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex form.jkhive-login-hex-form > .jkhive-modal-header .jkhive-modal-title {
+    font-size: 1rem !important;
+  }
+}
+
+/* ========================================
+   DASHBOARD (crm-layout, jkhive-section-dashboard)
+   ======================================== */
+@media (max-width: 768px) {
+  .crm-layout .jkhive-section-dashboard {
+    padding: 1rem 0.75rem !important;
+  }
+  .crm-layout .jkhive-dashboard-header .jkhive-section-title {
+    font-size: 1.35rem !important;
+  }
+  .crm-layout .jkhive-dashboard-header .jkhive-section-subtitle {
+    font-size: 0.9rem !important;
+  }
+  .crm-layout .jkhive-hex-gallery-medium {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+    margin-top: 1.5rem !important;
+  }
+  /* Solo ítems del grid del dashboard; no el hex de estado de carga-masiva (.carga-masiva-status-wrap) */
+  .crm-layout .jkhive-hex-gallery-medium .jkhive-itemgallery-med {
+    min-height: 44px !important;
+  }
+  .crm-layout .crm-container {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .crm-layout .jkhive-section-dashboard {
+    padding: 0.75rem 0.5rem !important;
+  }
+  .crm-layout .jkhive-hex-gallery-medium {
+    gap: 0.75rem !important;
+  }
+}
+
+/* Pedidos (lista de pedidos del usuario) */
+@media (max-width: 768px) {
+  .pedidos-section {
+    padding: 1rem 0.75rem !important;
+  }
+  .pedidos-section h2 {
+    font-size: 1.35rem !important;
+  }
+  .pedidos-table-wrapper {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  .pedidos-table {
+    font-size: 0.85rem !important;
+  }
+  .pedidos-table th,
+  .pedidos-table td {
+    padding: 0.5rem 0.75rem !important;
+  }
+}
+
+/* ========================================
+   ADMIN (tablas y formularios)
+   ======================================== */
+@media (max-width: 768px) {
+  .admin-page .jkhive-container,
+  body.admin-layout main,
+  .admin-layout .admin-container {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+  .admin-layout .admin-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1rem !important;
+  }
+  .admin-layout .admin-header h1 {
+    font-size: 1.35rem !important;
+  }
+  .admin-layout #searchInput,
+  .admin-page #searchInput {
+    width: 100% !important;
+    max-width: 100%;
+    min-height: 44px;
+  }
+  .admin-layout #productsCount {
+    font-size: 0.8rem !important;
+  }
+  /* Botones de administración: gap compacto, alineados a la derecha */
+  .admin-layout .admin-header .admin-header-buttons,
+  .admin-layout .admin-header > div:last-child {
+    gap: 0.15rem !important;
+    margin-left: auto !important;
+  }
+  .admin-layout .admin-header .jkhive-admoptions-bttn .jkhive-hex,
+  .admin-layout .admin-header .jkhive-btn-hex .jkhive-hex,
+  .admin-layout .admin-header-buttons .jkhive-bttn-med .jkhive-hex {
+    min-width: 36px !important;
+    min-height: 36px !important;
+  }
+  .admin-layout .admin-header .jkhive-admoptions-bttn .jkhive-hex-icon,
+  .admin-layout .admin-header .jkhive-btn-hex .jkhive-hex-content,
+  .admin-layout .admin-header-buttons .jkhive-bttn-med .jkhive-hex-icon {
+    font-size: 0.85rem !important;
+  }
+  /* Inventario: sin fondo blanco en botones header (jkhive-bttn-med) */
+  .admin-layout .admin-header-buttons .jkhive-bttn-med,
+  .admin-layout .admin-header-buttons button.jkhive-bttn-med {
+    background: transparent !important;
+    border: none !important;
+  }
+  .admin-page table,
+  .admin-layout table {
+    font-size: 0.85rem !important;
+  }
+  /* Tabla admin mobile: Imagen, Nombre, Tipo envase, Estado (toggle ON/OFF), Acciones. Ocultamos Familia, Precio, Stock y Marca. */
+  .admin-layout .jkhive-table .jkhive-th-familia,
+  .admin-layout .jkhive-table .jkhive-th-precio,
+  .admin-layout .jkhive-table .jkhive-th-stock,
+  .admin-layout .jkhive-table .jkhive-th-marca,
+  .admin-layout .jkhive-table .jkhive-td-familia,
+  .admin-layout .jkhive-table .jkhive-td-precio,
+  .admin-layout .jkhive-table .jkhive-td-stock,
+  .admin-layout .jkhive-table .jkhive-td-marca {
+    display: none !important;
+  }
+  .admin-page table.jkhive-table,
+  .admin-layout table.jkhive-table {
+    font-size: 0.65rem !important;
+    min-width: 300px !important;
+  }
+  .admin-page .jkhive-table th,
+  .admin-page .jkhive-table td,
+  .admin-layout .jkhive-table th,
+  .admin-layout .jkhive-table td {
+    padding: 0.25rem 0.28rem !important;
+  }
+  .admin-layout .jkhive-table .product-img-wrap,
+  .admin-layout .jkhive-table .product-img-thumb,
+  .admin-layout .jkhive-table .product-img-placeholder {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+  }
+  /* Toggle ON/OFF y botones acción: 10% más pequeños en mobile (23px), proporción hex 1.1547 */
+  .admin-layout .jkhive-td-estado .jkhive-bttn-table-toggle,
+  .admin-layout .jkhive-td-estado .jkhive-bttn-table,
+  .admin-layout .jkhive-td-actions .jkhive-bttn-table {
+    width: 23px !important;
+    min-width: 23px !important;
+    height: calc(23px * 1.1547) !important;
+    min-height: calc(23px * 1.1547) !important;
+    flex-shrink: 0 !important;
+  }
+  .admin-layout .jkhive-td-actions .jkhive-bttn-table:last-of-type {
+    margin-left: 0 !important;
+  }
+  .admin-layout .jkhive-inline-save-ticket {
+    font-size: 0.7rem !important;
+    padding: 0.15rem 0.35rem !important;
+  }
+  .admin-page .table-responsive,
+  .admin-layout .table-responsive {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  .admin-layout #paginationContainer,
+  .admin-layout .admin-pagination {
+    flex-wrap: wrap !important;
+    gap: 0.35rem !important;
+    margin-top: 0.5rem !important;
+  }
+  .admin-layout .admin-pagination .page-btn {
+    min-width: 32px !important;
+    min-height: 32px !important;
+    font-size: 0.75rem !important;
+    padding: 0.25rem 0.4rem !important;
+  }
+  .admin-layout .admin-pagination .page-info {
+    font-size: 0.75rem !important;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.25rem;
+  }
+  .admin-page .btn,
+  .admin-layout .btn {
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.9rem !important;
+    min-height: 44px !important;
+  }
+  .admin-layout .jkhive-table .jkhive-inline-input {
+    font-size: 0.65rem !important;
+    padding: 0.2rem 0.35rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .admin-page .jkhive-container,
+  body.admin-layout main,
+  .admin-layout .admin-container {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  .admin-layout .admin-header .admin-header-buttons,
+  .admin-layout .admin-header > div:last-child {
+    gap: 0.12rem !important;
+  }
+  .admin-layout .admin-header h1 {
+    font-size: 1.15rem !important;
+  }
+  .admin-layout .admin-pagination .page-btn {
+    min-width: 28px !important;
+    min-height: 28px !important;
+    font-size: 0.7rem !important;
+  }
+}
+
+/* FOOTER CRM — visible en admin */
+body.admin-layout .jkhive-crm-footer {
+  position: relative !important;
+  z-index: 5 !important;
+  padding: 1rem 0.75rem !important;
+}
+@media (max-width: 768px) {
+  body.admin-layout .jkhive-crm-footer {
+    padding: 0.75rem 0.5rem !important;
+    font-size: 0.85rem !important;
+  }
+}

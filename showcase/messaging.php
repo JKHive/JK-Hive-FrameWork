@@ -57,7 +57,7 @@ $h = static fn (string $s): string => htmlspecialchars($s, ENT_QUOTES | ENT_SUBS
             <div class="messaging-list-header">
               <div class="messaging-header-left" style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
                 <label class="messaging-select-all-wrap" style="display:inline-flex;align-items:center;gap:0.35rem;color:var(--jk-metal-light);font-size:0.9rem;">
-                  <input type="checkbox" id="selectAllMessages" title="<?= $h('Seleccionar todos') ?>" onchange="if (window.messagingSystem) messagingSystem.toggleSelectAll(this.checked);" />
+                  <input type="checkbox" id="selectAllMessages" data-tooltip="<?= $h('Seleccionar todos') ?>" aria-label="<?= $h('Seleccionar todos') ?>" onchange="if (window.messagingSystem) messagingSystem.toggleSelectAll(this.checked);" />
                   <span><?= $h('Todos') ?></span>
                 </label>
                 <h4 id="folderTitle" style="margin:0;"><?= $h('Bandeja de entrada') ?></h4>

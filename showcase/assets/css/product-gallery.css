@@ -1,0 +1,942 @@
+/*
+ * Galería productos — product-gallery.css
+ *
+ * SEPARACIÓN OBLIGATORIA (ver docs/GALERIA-PRODUCTOS.md):
+ * - LAYOUT / FUNCIONAMIENTO: grid, columnas, nth-child, translateX, tamaños de ítem, overflow.
+ *   No tocar al cambiar el estilo visual de los hexágonos.
+ * - ESTILO VISUAL DE ÍTEMS: fondo del hex, sombras, colores, tipografía, iconos, badge.
+ *   Solo esto se modifica al cambiar el look de los ítems.
+ */
+
+/* ========================================
+   PARTE 1 — LAYOUT / FUNCIONAMIENTO
+   (Grid, patrones 9n/5n, tamaños por breakpoint. No modificar al cambiar estilo visual.)
+   ======================================== */
+
+.jkhive-product-gallery {
+  max-width: 1600px;
+  /* Misma geometría que jk-hive HEXAGONAL GALLERY: ¼ altura hex + breath; extra hacia paginación */
+  --jkhive-hive-apex: 1.1547;
+  --jkhive-gallery-hex-flat: 210px;
+  --jkhive-gallery-edge-breath: clamp(0.6rem, 2.15vw, 1.12rem);
+  --jkhive-gallery-tip-fraction: 0.25;
+  --jkhive-gallery-hex-bounding-height: calc(var(--jkhive-gallery-hex-flat) * var(--jkhive-hive-apex));
+  --jkhive-gallery-vertical-tip-pad: calc(var(--jkhive-gallery-hex-bounding-height) * var(--jkhive-gallery-tip-fraction) + var(--jkhive-gallery-edge-breath));
+  --jkhive-product-gallery-pagination-gap: clamp(2rem, 5vw, 4rem);
+  padding-top: var(--jkhive-gallery-vertical-tip-pad);
+  padding-bottom: calc(var(--jkhive-gallery-vertical-tip-pad) + var(--jkhive-product-gallery-pagination-gap));
+  display: grid;
+  grid-template-columns: repeat(5, 210px);
+  grid-gap: 0;
+  justify-content: center;
+  align-items: start;
+  margin: 0 auto;
+}
+
+.jkhive-product-gallery .jkhive-product-gallery-item {
+  position: relative;
+  width: 210px;
+  height: 243px;
+  margin: 0 22px -60px 22px; /* Separación horizontal de 22px a cada lado (44px total entre hexágonos, +5px) */
+  position: relative;
+  transition: transform 0.3s ease, z-index 0s;
+}
+
+/* Patrón completo: Filas pares tienen 4 items (6-9, 15-18, 24-27, etc.) */
+/* Fila 2 (items 6-9), Fila 4 (items 15-18), Fila 6 (items 24-27), etc. */
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+6),
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+7),
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+8),
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+9) {
+  transform: translateX(106px);
+  margin-top: -1px;
+}
+
+/* Posicionamiento específico de columnas para filas pares */
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+6) { grid-column: 1; }
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+7) { grid-column: 2; }
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+8) { grid-column: 3; }
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+9) { grid-column: 4; }
+
+/* Fila 3 (items 10-14): resetear para que ocupen columnas 1-5 normalmente */
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+10),
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+11),
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+12),
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+13),
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+14) {
+  transform: none;
+  margin-top: 0;
+}
+
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+10) { grid-column: 1; }
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+11) { grid-column: 2; }
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+12) { grid-column: 3; }
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+13) { grid-column: 4; }
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+14) { grid-column: 5; }
+
+.jkhive-product-gallery .jkhive-product-gallery-item:hover {
+  z-index: 10;
+}
+/* Badge stock: fuera del hex, arriba-derecha, visible solo en hover (estilo jkhive-badge en jkhive-elements.css) */
+.jkhive-product-gallery .jkhive-product-gallery-item .jkhive-badge {
+  top: 14px;   /* -6 + 20px hacia abajo */
+  right: 16px; /* -4 + 20px hacia la izquierda */
+  opacity: 0;
+  visibility: hidden;
+}
+.jkhive-product-gallery .jkhive-product-gallery-item:hover .jkhive-badge {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ========================================
+   PARTE 2 — ESTILO VISUAL DE ÍTEMS (hexágonos)
+   (Fondo, sombras, colores, tipografía, iconos. Modificar solo aquí al cambiar el look.)
+   Ver docs/GALERIA-PRODUCTOS.md sección 5.2.
+   ======================================== */
+
+/* Hexágono individual — forma, estructura flex y apariencia */
+.jkhive-product-gallery .jkhive-product-gallery-hex {
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(135deg, 
+    rgba(15, 23, 42, 0.95) 0%, 
+    rgba(30, 41, 59, 0.95) 100%);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(14, 165, 233, 0.3), 
+              inset 0 0 40px rgba(14, 165, 233, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 0;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+/* Secciones del hexágono */
+.jkhive-product-gallery-hex-header {
+  height: 30%;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 0.5rem;
+  /* Área superior del 20% inutilizable (punta de pirámide) */
+  padding-top: calc(30% * 0.2);
+}
+
+.jkhive-product-gallery-hex-body {
+  height: 40%;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+}
+
+.jkhive-product-gallery-hex-footer {
+  height: 30%;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 0.5rem;
+  /* Área inferior del 20% inutilizable (punta de pirámide invertida) */
+  padding-bottom: calc(30% * 0.2);
+}
+
+/* Glow effect pseudo */
+.jkhive-product-gallery .jkhive-product-gallery-hex::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.3) 0%, transparent 70%);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Hover para hexágono */
+.jkhive-product-gallery .jkhive-product-gallery-item:hover .jkhive-product-gallery-hex {
+  box-shadow: 0 12px 40px rgba(14, 165, 233, 0.5), 
+              0 0 60px rgba(244, 196, 48, 0.3),
+              inset 0 0 60px rgba(14, 165, 233, 0.25);
+}
+
+/* Icono del producto en header */
+.jkhive-product-gallery-hex-header .jkhive-product-gallery-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 15px rgba(244, 196, 48, 0.8));
+  position: relative;
+  z-index: 2;
+}
+
+.jkhive-product-gallery-hex-header .jkhive-product-gallery-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Icono de abrir producto en footer */
+.jkhive-product-gallery-hex-footer .jkhive-product-gallery-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 10px rgba(212, 160, 23, 0.8));
+  position: relative;
+  z-index: 2;
+  color: var(--jk-accent-honey);
+}
+
+.jkhive-product-gallery-hex-footer .jkhive-product-gallery-icon i {
+  font-size: 1.2rem;
+}
+
+/* Título en body */
+.jkhive-product-gallery-hex-body .jkhive-product-gallery-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--jk-accent-honey);
+  margin: 0 0 0.25rem 0;
+  text-shadow: 0 0 10px rgba(212, 160, 23, 0.5);
+  position: relative;
+  z-index: 2;
+  line-height: 1.2;
+}
+
+/* Subtítulo en body */
+.jkhive-product-gallery-hex-body .jkhive-product-gallery-subtitle {
+  font-size: 0.7rem;
+  color: var(--jk-metal-light);
+  margin: 0 0 0.25rem 0;
+  line-height: 1.3;
+  opacity: 0.9;
+  position: relative;
+  z-index: 2;
+}
+
+/* Información de precio en body */
+.jkhive-product-gallery-hex-body .jkhive-product-gallery-price {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: var(--jk-primary-blue-light);
+  margin: 0;
+  opacity: 0.9;
+  position: relative;
+  z-index: 2;
+}
+
+/* Acciones - Ya no se usan en el nuevo diseño */
+.jkhive-product-gallery .jkhive-product-gallery-actions {
+  display: none;
+}
+
+/* Asegurar que el contenido esté por encima de los pseudo-elementos */
+.jkhive-product-gallery .jkhive-product-gallery-hex > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* ----- LAYOUT: hover transform (scale/translateX) — no tocar al cambiar estilo visual ----- */
+/* Hover aumenta el tamaño - Filas impares (1, 3, 5...) */
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+1):hover,
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+2):hover,
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+3):hover,
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+4):hover,
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+5):hover,
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+10):hover,
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+11):hover,
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+12):hover,
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+13):hover,
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+14):hover {
+  transform: scale(1.05);
+}
+
+/* Hover para filas pares (2, 4, 6...) - mantener translateX */
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+6):hover,
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+7):hover,
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+8):hover,
+.jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+9):hover {
+  transform: translateX(106px) scale(1.05);
+}
+
+/* Hover para icono */
+.jkhive-product-gallery .jkhive-product-gallery-item:hover .jkhive-product-gallery-icon img {
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.9)) brightness(1.2);
+}
+
+/* Botón añadir al carrito: jkhive-bttn-item (10% más pequeño que botón filtrar). Ver jkhive-elements.css. */
+.jkhive-product-gallery-hex-footer .jkhive-bttn-item {
+  --jkhive-bttn-item-size: 36px; /* desktop: 90% de 40px (filtro) */
+}
+/* Legacy: si el footer usa solo icono sin hex (no recomendado) */
+.jkhive-product-gallery-hex-footer .jkhive-product-gallery-icon {
+  cursor: pointer;
+  transition: transform 0.25s ease, filter 0.25s ease;
+  color: var(--jk-metal-light);
+}
+.jkhive-product-gallery-hex-footer .jkhive-product-gallery-icon:hover {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 8px rgba(14, 165, 233, 0.6));
+}
+.jkhive-product-gallery-hex-footer .jkhive-product-gallery-icon:active {
+  transform: scale(1.05);
+}
+
+/* ========================================
+   BADGE HEXAGONAL HORIZONTAL
+   Estilo independiente e inmune
+   ======================================== */
+
+/* Badge hexagonal horizontal - Estilo independiente */
+.jkhive-hex-badge-horizontal {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.5rem;
+  width: auto;
+  min-width: 43px; /* 50px * 0.85 = 42.5px ≈ 43px */
+  height: 15px; /* 18px * 0.85 = 15.3px ≈ 15px */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Hexágono horizontal del badge - Método como admin-buttons.css */
+.jkhive-hex-badge-horizontal .jkhive-hex-badge-hex {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(0% 50%, 12% 0%, 88% 0%, 100% 50%, 88% 100%, 12% 100%);
+  background: var(--jk-primary-blue, #0ea5e9);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.4rem;
+  box-shadow: 0 0 6px rgba(14, 165, 233, 0.5);
+}
+
+/* Hexágono interno para crear el borde */
+.jkhive-hex-badge-horizontal .jkhive-hex-badge-hex::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.92, 0.88);
+  width: 100%;
+  height: 100%;
+  background: var(--jk-tech-dark);
+  clip-path: polygon(0% 50%, 12% 0%, 88% 0%, 100% 50%, 88% 100%, 12% 100%);
+  z-index: 1;
+}
+
+/* Texto del badge - Color azul tecnológico */
+.jkhive-hex-badge-horizontal .jkhive-hex-badge-text {
+  position: relative;
+  z-index: 2;
+  font-size: 0.55rem; /* Reducido proporcionalmente */
+  font-weight: 700;
+  color: var(--jk-primary-blue-light, #38bdf8);
+  line-height: 1;
+  white-space: nowrap;
+  padding: 0 0.2rem;
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
+}
+
+/* Badge Gratis - Cyan tecnológico */
+.jkhive-hex-badge-horizontal.jkhive-hex-badge-free .jkhive-hex-badge-hex {
+  background: var(--jk-accent-cyan, #06b6d4);
+  box-shadow: 0 0 6px rgba(6, 182, 212, 0.5);
+}
+
+.jkhive-hex-badge-horizontal.jkhive-hex-badge-free .jkhive-hex-badge-text {
+  color: var(--jk-accent-cyan-light, #22d3ee);
+  text-shadow: 0 0 8px rgba(34, 211, 238, 0.6);
+}
+
+/* Badge Adquirido - Azul tecnológico */
+.jkhive-hex-badge-horizontal.jkhive-hex-badge-purchased .jkhive-hex-badge-hex {
+  background: var(--jk-primary-blue, #0ea5e9);
+  box-shadow: 0 0 6px rgba(14, 165, 233, 0.5);
+}
+
+.jkhive-hex-badge-horizontal.jkhive-hex-badge-purchased .jkhive-hex-badge-text {
+  color: var(--jk-primary-blue-light, #38bdf8);
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
+}
+
+/* Empty state */
+.jkhive-product-gallery .empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--jk-metal-light);
+}
+
+.jkhive-product-gallery .empty-state-icon {
+  font-size: 4rem;
+  color: var(--jk-metal);
+  margin-bottom: 1rem;
+}
+
+.jkhive-product-gallery .empty-state h3 {
+  color: var(--jk-accent-honey);
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ========================================
+   PARTE 1 (continuación) — LAYOUT RESPONSIVE
+   Breakpoints, grid columns, nth-child/5n, translateX, tamaños ítem, overflow.
+   Los tamaños de contenido (font-size, padding) por breakpoint van aquí también.
+   ======================================== */
+
+@media (max-width: 992px) {
+  .jkhive-product-gallery {
+    --jkhive-gallery-hex-flat: 160px;
+    --jkhive-gallery-hex-bounding-height: calc(var(--jkhive-gallery-hex-flat) * var(--jkhive-hive-apex));
+    --jkhive-gallery-vertical-tip-pad: calc(var(--jkhive-gallery-hex-bounding-height) * var(--jkhive-gallery-tip-fraction) + var(--jkhive-gallery-edge-breath));
+    padding-top: var(--jkhive-gallery-vertical-tip-pad);
+    padding-bottom: calc(var(--jkhive-gallery-vertical-tip-pad) + var(--jkhive-product-gallery-pagination-gap));
+    grid-template-columns: repeat(3, 160px);
+  }
+  .jkhive-product-gallery .jkhive-product-gallery-item {
+    width: 160px;
+    height: 185px;
+    margin: 0 10px -45px 10px;
+  }
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+6),
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+7),
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+8),
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+9) {
+    transform: translateX(81px);
+  }
+  .jkhive-product-gallery-hex-body .jkhive-product-gallery-title { font-size: 0.85rem; }
+  .jkhive-product-gallery-hex-body .jkhive-product-gallery-subtitle { font-size: 0.65rem; }
+  .jkhive-product-gallery-hex-body .jkhive-product-gallery-price { font-size: 0.75rem; }
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+6):hover,
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+7):hover,
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+8):hover,
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+9):hover {
+    transform: translateX(81px) scale(1.05);
+  }
+  /* Badge stock: posición adaptada a ítem 160×185px */
+  .jkhive-product-gallery .jkhive-product-gallery-item .jkhive-badge {
+    top: 10px;
+    right: 12px;
+    padding: 0.18rem 0.4rem;
+    font-size: 0.6rem;
+    min-width: 1.35rem;
+  }
+}
+
+/* Mobile: patrón 3-2-3-2 (5 items por ciclo), no 9n. Tres columnas; filas de 2 centradas con translateX. */
+@media (max-width: 768px) {
+  .jkhive-product-gallery {
+    --jkhive-gallery-hex-flat: 130px;
+    --jkhive-gallery-hex-bounding-height: calc(var(--jkhive-gallery-hex-flat) * var(--jkhive-hive-apex));
+    --jkhive-gallery-vertical-tip-pad: calc(var(--jkhive-gallery-hex-bounding-height) * var(--jkhive-gallery-tip-fraction) + var(--jkhive-gallery-edge-breath));
+    padding-top: var(--jkhive-gallery-vertical-tip-pad);
+    padding-bottom: calc(var(--jkhive-gallery-vertical-tip-pad) + var(--jkhive-product-gallery-pagination-gap));
+    grid-template-columns: repeat(3, 130px);
+    gap: 0;
+    justify-content: center;
+    overflow-x: hidden;
+  }
+  .jkhive-product-gallery .jkhive-product-gallery-item {
+    width: 130px;
+    height: 150px;
+    margin: 0 6px -38px 6px;
+  }
+  /* Reset 9n: en mobile usamos ciclo 5 (3+2). */
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+6),
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+7),
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+8),
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+9),
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+10),
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+11),
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+12),
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+13),
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(9n+14) {
+    transform: none;
+    margin-top: 0;
+  }
+  /* 3-2-3-2: fila de 3 (5n+1, 5n+2, 5n+3) */
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(5n+1) { grid-column: 1; }
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(5n+2) { grid-column: 2; }
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(5n+3) { grid-column: 3; }
+  /* Fila de 2 centrada (5n+4, 5n+5) */
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(5n+4),
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(5n+5) {
+    transform: translateX(71px);
+    margin-top: -1px;
+  }
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(5n+4) { grid-column: 1; }
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(5n+5) { grid-column: 2; }
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(5n+4):hover,
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(5n+5):hover {
+    transform: translateX(71px) scale(1.05);
+  }
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(5n+1):hover,
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(5n+2):hover,
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(5n+3):hover {
+    transform: scale(1.05);
+  }
+  /* Badge stock: posición y tamaño adaptados a ítem 130×150px */
+  .jkhive-product-gallery .jkhive-product-gallery-item .jkhive-badge {
+    top: 8px;
+    right: 10px;
+    padding: 0.15rem 0.35rem;
+    font-size: 0.58rem;
+    min-width: 1.25rem;
+  }
+  /* Contenido del ítem reducido para 130x150px */
+  .jkhive-product-gallery-hex-header {
+    padding-bottom: 0.25rem;
+    padding-top: calc(30% * 0.15);
+  }
+  .jkhive-product-gallery-hex-header .jkhive-product-gallery-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .jkhive-product-gallery-hex-body {
+    padding: 0.25rem 0.35rem;
+  }
+  .jkhive-product-gallery-hex-body .jkhive-product-gallery-title {
+    font-size: 0.68rem;
+    line-height: 1.15;
+    margin-bottom: 0.15rem;
+  }
+  .jkhive-product-gallery-hex-body .jkhive-product-gallery-subtitle {
+    font-size: 0.52rem;
+    line-height: 1.2;
+    margin-bottom: 0.15rem;
+  }
+  .jkhive-product-gallery-hex-body .jkhive-product-gallery-price {
+    font-size: 0.62rem;
+  }
+  .jkhive-product-gallery-hex-footer {
+    padding-top: 0.25rem;
+    padding-bottom: calc(30% * 0.15);
+  }
+  .jkhive-product-gallery-hex-footer .jkhive-bttn-item {
+    --jkhive-bttn-item-size: 25px; /* mobile: 90% de 28px (filtro) */
+  }
+  .jkhive-product-gallery-hex-footer .jkhive-product-gallery-icon {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+  .jkhive-product-gallery-hex-footer .jkhive-product-gallery-icon i {
+    font-size: 0.85rem;
+  }
+  .jkhive-product-gallery .jkhive-hex-badge-horizontal {
+    min-width: 28px;
+    height: 10px;
+    top: 0.15rem;
+    right: 0.35rem;
+  }
+  .jkhive-product-gallery .jkhive-hex-badge-horizontal .jkhive-hex-badge-text {
+    font-size: 0.38rem;
+  }
+  .jkhive-product-gallery .empty-state { padding: 2rem 1rem; }
+  .jkhive-product-gallery .empty-state-icon { font-size: 2.5rem; }
+  .jkhive-product-gallery .empty-state h3 { font-size: 1.2rem; }
+}
+
+/* Small mobile: mismo patrón 3-2-3-2, columnas 110px; contenido aún más reducido */
+@media (max-width: 576px) {
+  .jkhive-product-gallery {
+    --jkhive-gallery-hex-flat: 110px;
+    --jkhive-gallery-hex-bounding-height: calc(var(--jkhive-gallery-hex-flat) * var(--jkhive-hive-apex));
+    --jkhive-gallery-vertical-tip-pad: calc(var(--jkhive-gallery-hex-bounding-height) * var(--jkhive-gallery-tip-fraction) + var(--jkhive-gallery-edge-breath));
+    padding-top: var(--jkhive-gallery-vertical-tip-pad);
+    padding-bottom: calc(var(--jkhive-gallery-vertical-tip-pad) + var(--jkhive-product-gallery-pagination-gap));
+    grid-template-columns: repeat(3, 110px);
+    overflow-x: hidden;
+  }
+  .jkhive-product-gallery .jkhive-product-gallery-item {
+    width: 110px;
+    height: 127px;
+    margin: 0 4px -32px 4px;
+  }
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(5n+4),
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(5n+5) {
+    transform: translateX(59px);
+  }
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(5n+4):hover,
+  .jkhive-product-gallery .jkhive-product-gallery-item:nth-child(5n+5):hover {
+    transform: translateX(59px) scale(1.05);
+  }
+  /* Badge stock: posición y tamaño adaptados a ítem 110×127px */
+  .jkhive-product-gallery .jkhive-product-gallery-item .jkhive-badge {
+    top: 5px;
+    right: 6px;
+    padding: 0.12rem 0.28rem;
+    font-size: 0.52rem;
+    min-width: 1.1rem;
+  }
+  /* Contenido del ítem reducido para 110x127px */
+  .jkhive-product-gallery-hex-header {
+    padding-bottom: 0.2rem;
+    padding-top: calc(30% * 0.12);
+  }
+  .jkhive-product-gallery-hex-header .jkhive-product-gallery-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+  .jkhive-product-gallery-hex-body {
+    padding: 0.2rem 0.28rem;
+  }
+  .jkhive-product-gallery-hex-body .jkhive-product-gallery-title {
+    font-size: 0.58rem;
+    line-height: 1.1;
+    margin-bottom: 0.1rem;
+  }
+  .jkhive-product-gallery-hex-body .jkhive-product-gallery-subtitle {
+    font-size: 0.45rem;
+    line-height: 1.15;
+    margin-bottom: 0.1rem;
+  }
+  .jkhive-product-gallery-hex-body .jkhive-product-gallery-price {
+    font-size: 0.52rem;
+  }
+  .jkhive-product-gallery-hex-footer {
+    padding-top: 0.2rem;
+    padding-bottom: calc(30% * 0.12);
+  }
+  .jkhive-product-gallery-hex-footer .jkhive-bttn-item {
+    --jkhive-bttn-item-size: 25px;
+  }
+  .jkhive-product-gallery-hex-footer .jkhive-product-gallery-icon {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+  .jkhive-product-gallery-hex-footer .jkhive-product-gallery-icon i {
+    font-size: 0.7rem;
+  }
+  .jkhive-product-gallery .jkhive-hex-badge-horizontal {
+    min-width: 22px;
+    height: 8px;
+    top: 0.1rem;
+    right: 0.25rem;
+  }
+  .jkhive-product-gallery .jkhive-hex-badge-horizontal .jkhive-hex-badge-text {
+    font-size: 0.32rem;
+  }
+}
+
+/* Paginación del catálogo: asegurar que siempre sea visible */
+.catalog-pagination {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 100%;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.catalog-pagination a {
+  color: var(--jk-metal-light) !important;
+  text-decoration: none !important;
+}
+.catalog-pagination a:hover {
+  opacity: 0.9;
+  text-decoration: underline !important;
+}
+#catalog-pagination-bottom.catalog-pagination {
+  margin: 0;
+}
+
+/* ========================================
+   CATALOG PAGE LAYOUT (productos.php)
+   Responsive: page-content, filters, header, footer
+   ======================================== */
+.catalog-page .page-content {
+  /* Sin fondo ni velo: el body pinta el fondo; así no hay franja distinta al transicionar hero → barra. */
+  padding-top: 0;
+  min-height: auto;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.catalog-page .jkhive-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.catalog-page .jkhive-header-section {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.catalog-page .jkhive-header-section h1 {
+  color: var(--jk-metal-light);
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+.catalog-page .jkhive-header-section h1 .text-accent {
+  color: var(--jk-accent-honey);
+}
+.catalog-page .jkhive-header-section p {
+  color: var(--jk-metal-medium);
+  font-size: 1.1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.catalog-page .filters-container {
+  /* Neutralizado: el estilo real vive en jkhive-gallery-catalog.css
+     (barra tech tipo hero-bar, sin blur/backdrop-filter). */
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  border: 0;
+  backdrop-filter: none;
+}
+.catalog-page .filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 200px;
+  flex: 1;
+}
+.catalog-page .filter-group label {
+  color: var(--jk-metal-light);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.catalog-page .filter-group select {
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid var(--jk-primary-blue);
+  color: var(--jk-metal-light);
+  padding: 0.75rem;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none;
+}
+.catalog-page .filter-group select:focus {
+  box-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
+}
+.catalog-page .filter-actions {
+  display: flex;
+  gap: 1rem;
+}
+/* Footer de la página de catálogo */
+.catalog-page .page-content + .jkhive-container ~ footer,
+.catalog-page main > footer {
+  text-align: center;
+  padding: 2rem;
+  background: var(--jk-tech-dark);
+  border-top: 1px solid var(--jk-primary-blue);
+}
+.catalog-page main > footer p {
+  color: var(--jk-metal-medium);
+  margin: 0;
+}
+.catalog-page main > footer p:first-child {
+  font-size: 1rem;
+}
+.catalog-page main > footer p + p {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+.catalog-page main > footer a {
+  color: var(--jk-accent-teal);
+  text-decoration: none;
+}
+
+/* --- Catalog responsive: tablet --- */
+@media (max-width: 992px) {
+  .catalog-page .page-content {
+    padding-top: 0;
+    min-height: auto;
+  }
+  .catalog-page .jkhive-header-section h1 {
+    font-size: 2rem;
+  }
+  .catalog-page .jkhive-header-section p {
+    font-size: 1rem;
+  }
+  .catalog-page .filters-container {
+    padding: 0;
+    gap: 0;
+  }
+  .catalog-page .filter-group {
+    min-width: 160px;
+  }
+  .catalog-page .filter-group select {
+    padding: 0.65rem;
+    font-size: 0.85rem;
+  }
+  .jkhive-product-gallery {
+    padding-bottom: 90px;
+  }
+  .catalog-pagination {
+    gap: 0.5rem;
+    padding: 0.75rem;
+    margin: 1rem 0;
+  }
+  .catalog-pagination span {
+    font-size: 0.9rem;
+  }
+  .catalog-pagination a {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    min-width: 2rem;
+  }
+}
+
+/* --- Catalog responsive: mobile --- */
+@media (max-width: 768px) {
+  .catalog-page .page-content {
+    padding-top: 0;
+    min-height: auto;
+  }
+  .catalog-page .jkhive-container {
+    padding: 0 0.75rem;
+  }
+  .catalog-page .jkhive-header-section {
+    margin-bottom: 1.5rem;
+  }
+  .catalog-page .jkhive-header-section h1 {
+    font-size: 1.65rem;
+  }
+  .catalog-page .jkhive-header-section p {
+    font-size: 0.95rem;
+    max-width: 100%;
+  }
+  .catalog-page .filters-container {
+    flex-direction: unset;
+    padding: 0;
+    gap: 0;
+    margin-bottom: 0;
+  }
+  .catalog-page .filter-group {
+    min-width: 100%;
+  }
+  .catalog-page .filter-group label {
+    font-size: 0.8rem;
+  }
+  /* Selectores compactos en mobile; detalle en jkhive-gallery-catalog.css (barra de filtros). */
+  .catalog-page .filter-group select {
+    padding: 0.28rem 0.38rem;
+    font-size: 0.75rem;
+    min-height: 30px;
+  }
+  .catalog-page .filter-actions {
+    gap: 0.35rem;
+  }
+  .jkhive-product-gallery {
+    padding-bottom: 70px;
+  }
+  .catalog-pagination {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 0.5rem 0.5rem;
+    margin: 1rem 0;
+  }
+  .catalog-pagination span {
+    font-size: 0.85rem;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.25rem;
+  }
+  /* Botones de número y Siguiente/Anterior compactos en mobile (textos sin cambiar). */
+  .catalog-pagination a {
+    padding: 0.2rem 0.35rem;
+    font-size: 0.75rem;
+    min-width: 1.5rem;
+    min-height: 1.5rem;
+    line-height: 1.2;
+    align-items: center;
+    justify-content: center;
+  }
+  .catalog-page main > footer {
+    padding: 1.5rem 1rem;
+  }
+  .catalog-page main > footer p:first-child {
+    font-size: 0.95rem;
+  }
+  .catalog-page main > footer p + p {
+    font-size: 0.85rem;
+  }
+}
+
+/* --- Catalog responsive: small mobile --- */
+@media (max-width: 576px) {
+  .catalog-page .page-content {
+    padding-top: 0;
+    min-height: auto;
+  }
+  .catalog-page .jkhive-container {
+    padding: 0 0.5rem;
+  }
+  .catalog-page .jkhive-header-section h1 {
+    font-size: 1.4rem;
+  }
+  .catalog-page .jkhive-header-section p {
+    font-size: 0.875rem;
+  }
+  .catalog-page .filters-container {
+    padding: 0;
+    margin-bottom: 0;
+  }
+  .jkhive-product-gallery {
+    padding-bottom: 60px;
+  }
+  .catalog-pagination span {
+    font-size: 0.8rem;
+  }
+  .catalog-pagination a {
+    padding: 0.2rem 0.32rem;
+    font-size: 0.72rem;
+    min-width: 1.4rem;
+    min-height: 1.5rem;
+  }
+  .catalog-page main > footer {
+    padding: 1.25rem 0.75rem;
+  }
+  .catalog-page main > footer p:first-child {
+    font-size: 0.9rem;
+  }
+  .catalog-page main > footer p + p {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .catalog-page .jkhive-header-section h1 {
+    font-size: 1.25rem;
+  }
+  .catalog-page .jkhive-header-section p {
+    font-size: 0.8rem;
+  }
+  .catalog-pagination a {
+    min-width: 1.4rem;
+    min-height: 1.4rem;
+    font-size: 0.7rem;
+  }
+}

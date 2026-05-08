@@ -1,0 +1,157 @@
+/**
+ * JK Hive — prototipos de gráficos para dashboards hexagonales.
+ */
+
+.jkhive-hexcharts-demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.jkhive-hexchart-card {
+  background: var(--jk-bg-secondary, #1a1f3a);
+  border-radius: 8px;
+  padding: 1rem 1rem 1.15rem;
+  border: 1px solid rgba(14, 165, 233, 0.2);
+}
+
+.jkhive-hexchart-card figcaption {
+  margin: 0 0 0.75rem;
+  font-size: 0.92rem;
+  color: var(--jk-metal-light, #e2e8f0);
+  font-weight: 600;
+}
+
+.jkhive-hexchart-note {
+  margin: 0.5rem 0 0;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: var(--jk-text-secondary, #94a3b8);
+}
+
+/* --- Pie enmascarado hex ( proporción por ángulo = pie clásico ) --- */
+.jkhive-hexchart-pie-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.jkhive-hexchart-pie {
+  width: 180px;
+  height: 180px;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  border-radius: 0;
+  box-shadow: inset 0 0 0 2px rgba(15, 23, 42, 0.55);
+}
+
+/* --- Radar estrella 6 --- */
+.jkhive-hexchart-star-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.jkhive-hexchart-star-svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.jkhive-hexchart-star-grid {
+  stroke: rgba(148, 163, 184, 0.35);
+  stroke-width: 1;
+  fill: none;
+}
+
+.jkhive-hexchart-star-shape {
+  fill: rgba(6, 182, 212, 0.28);
+  stroke: var(--jk-accent-cyan, #06b6d4);
+  stroke-width: 2;
+}
+
+.jkhive-hexchart-star-axis {
+  stroke: rgba(148, 163, 184, 0.5);
+  stroke-width: 1;
+}
+
+.jkhive-hexchart-star-label {
+  fill: var(--jk-metal-light, #e2e8f0);
+  font-size: 11px;
+  text-anchor: middle;
+}
+
+/* --- Barras: celdas hex apiladas --- */
+.jkhive-hexbars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  gap: 0.5rem;
+  min-height: 180px;
+  padding: 0.25rem 0;
+}
+
+.jkhive-hexbars--horizontal {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: auto;
+}
+
+.jkhive-hexbars-col {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 3px;
+}
+
+.jkhive-hexbars-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.jkhive-hexbars-row-cells {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 3px;
+  align-items: center;
+}
+
+.jkhive-hexbars-label {
+  font-size: 0.68rem;
+  color: var(--jk-text-secondary, #94a3b8);
+  margin-top: 0.35rem;
+  text-align: center;
+  max-width: 4rem;
+}
+
+.jkhive-hexbars--horizontal .jkhive-hexbars-label {
+  margin-top: 0;
+  min-width: 5rem;
+  max-width: 5rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.jkhive-hexcell {
+  width: 26px;
+  height: 22px;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: rgba(51, 65, 85, 0.45);
+  flex-shrink: 0;
+}
+
+.jkhive-hexcell.filled {
+  background: linear-gradient(
+    165deg,
+    var(--jk-accent-cyan, #22d3ee),
+    var(--jk-accent-blue, #0284c7)
+  );
+}
+
+.jkhive-hexcell.filled.alt {
+  background: linear-gradient(165deg, #a78bfa, #6366f1);
+}

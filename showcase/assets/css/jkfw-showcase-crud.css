@@ -1,0 +1,124 @@
+/**
+ * Subconjunto tabla admin para showcase (Fase 8 / doc 15-TABLAS-ADMIN-JKHIVE).
+ * Patrón visual alineado a .jkhive-table usado en jklubs admin productos.
+ */
+.jkfw-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 1.25rem;
+}
+
+table.jkhive-table.jkfw-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  color: var(--jk-metal-light);
+}
+
+table.jkhive-table.jkfw-table thead tr {
+  background: linear-gradient(135deg, var(--jk-tech-dark), var(--jk-tech-medium));
+  border-bottom: 2px solid var(--jk-primary-blue);
+}
+
+table.jkhive-table.jkfw-table th,
+table.jkhive-table.jkfw-table td {
+  padding: 0.65rem 0.75rem;
+  text-align: left;
+}
+
+table.jkhive-table.jkfw-table tbody tr {
+  border-bottom: 1px solid rgba(14, 165, 233, 0.2);
+}
+
+table.jkhive-table.jkfw-table tbody tr:hover {
+  background: rgba(14, 165, 233, 0.08);
+}
+
+table.jkhive-table.jkfw-table .jkfw-td-actions {
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+table.jkhive-table.jkfw-table .jkfw-actions-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.jkfw-messaging-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 36rem;
+  margin-top: 1rem;
+}
+
+.jkfw-msg-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.jkfw-msg-bubble {
+  padding: 0.65rem 0.9rem;
+  border-radius: 10px;
+  border: 1px solid rgba(14, 165, 233, 0.35);
+  background: rgba(15, 23, 42, 0.75);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.jkfw-msg-row.jkfw-msg-out .jkfw-msg-bubble {
+  margin-left: auto;
+  border-color: rgba(244, 196, 48, 0.45);
+}
+
+/* —— Admin toolbar (filtros hex) —— */
+.jkfw-admin-toolbar .jkfw-admin-label {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--jk-metal-medium, rgba(248, 250, 252, 0.65));
+  margin-bottom: 0.28rem;
+}
+
+.jkfw-modal-form-row-toggle {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  flex-wrap: wrap !important;
+}
+
+/* Mensajería demo: ocultar vista hilo hasta seleccionar ítem */
+.jkfw-messaging-demo-layout .jkfw-messaging-thread-view {
+  display: none !important;
+}
+
+.jkfw-messaging-demo-layout.showing-message .jkfw-messaging-thread-view {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Burbuja “saliente” simulada en hilo */
+.jkfw-msg-thread-area .messaging-view-message--out {
+  display: flex !important;
+  justify-content: flex-end !important;
+  margin-top: 1rem !important;
+}
+
+.jkfw-msg-thread-area .messaging-view-message--out .messaging-view-bubble {
+  max-width: min(100%, 28rem);
+  padding: 0.65rem 0.9rem;
+  border-radius: 10px;
+  border: 1px solid rgba(244, 196, 48, 0.45);
+  background: rgba(15, 23, 42, 0.92);
+  color: var(--jk-metal-light);
+  line-height: 1.45;
+  font-size: 0.9rem;
+}
+
+body.admin-layout table.jkhive-table.jkfw-table .jkhive-td-estado {
+  vertical-align: middle;
+  white-space: nowrap;
+}

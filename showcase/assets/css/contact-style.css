@@ -1,0 +1,27 @@
+/* ========================================
+   Contact - Botón submit mismo estilo que Housesitting
+   (jkhive-bttn-big: hex azul, hover miel)
+   ======================================== */
+.contact-page .contact-submit-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.contact-page .contact-submit-wrap .jkhive-bttn-big .jkhive-hex {
+  background: var(--jk-primary-blue) !important;
+}
+
+.contact-page .contact-submit-wrap .jkhive-bttn-big .jkhive-hex-icon {
+  color: var(--jk-primary-blue) !important;
+}
+
+.contact-page .contact-submit-wrap .jkhive-bttn-big:hover .jkhive-hex {
+  background: linear-gradient(135deg, var(--jk-accent-honey-dark) 0%, var(--jk-accent-honey) 50%, var(--jk-accent-honey-light) 100%) !important;
+}
+
+.contact-page .contact-submit-wrap .jkhive-bttn-big:hover .jkhive-hex-icon {
+  color: var(--jk-accent-honey) !important;
+}
+
+/* Mobile: tamaño del botón submit = regla global en jkhive-style.css (55.39px, 1.35rem). */

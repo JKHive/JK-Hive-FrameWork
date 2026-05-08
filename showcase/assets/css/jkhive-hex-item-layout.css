@@ -1,0 +1,159 @@
+/**
+ * JK Hive — layout canónico ítems hex (galerías, carruseles, sueltos).
+ * Padre: ancho/alto fijos + clip-path hex (p. ej. .jkhive-why-me-hex + piel).
+ * Tres bandas: head 25% | body 50% | foot 25%.
+ * Punta superior: 10% de la altura del head reservado (.jkhive-hex-item-head-tip).
+ * Punta inferior: 10% de la altura del foot reservado (.jkhive-hex-item-foot-tip).
+ * Alias legacy: .jkhive-why-me-header | .jkhive-why-me-body | .jkhive-why-me-footer
+ */
+
+.jkhive-hex-item {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.jkhive-hex-item-head,
+.jkhive-why-me-hex .jkhive-why-me-header {
+  flex: 0 0 25%;
+  height: 25%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.jkhive-hex-item-head-tip {
+  flex: 0 0 10%;
+  flex-shrink: 0;
+  width: 100%;
+  min-height: 0;
+  pointer-events: none;
+}
+
+.jkhive-hex-item-head-main {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding-bottom: 0;
+}
+
+.jkhive-hex-item-body,
+.jkhive-why-me-hex .jkhive-why-me-body {
+  flex: 0 0 50%;
+  height: 50%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.jkhive-hex-item-body-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+  /* Barras solo al hover del ítem (o foco dentro) — ver bloque siguiente */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.jkhive-hex-item-body-scroll::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* Hover/focus en el hex, celda de galería o ítem services (blue canónico): barras de scroll */
+.jkhive-hex-item:hover .jkhive-hex-item-body-scroll,
+.jkhive-hex-item:focus-within .jkhive-hex-item-body-scroll,
+.jkhive-hex-gallery-item:hover .jkhive-hex-item-body-scroll,
+.jkhive-hex-gallery-item:focus-within .jkhive-hex-item-body-scroll,
+.jkhive-services-item:hover .jkhive-hex-item-body-scroll,
+.jkhive-services-item:focus-within .jkhive-hex-item-body-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--jk-primary-blue, #0ea5e9) var(--jk-tech-dark, #1e293b);
+}
+
+.jkhive-hex-item:hover .jkhive-hex-item-body-scroll::-webkit-scrollbar,
+.jkhive-hex-item:focus-within .jkhive-hex-item-body-scroll::-webkit-scrollbar,
+.jkhive-hex-gallery-item:hover .jkhive-hex-item-body-scroll::-webkit-scrollbar,
+.jkhive-hex-gallery-item:focus-within .jkhive-hex-item-body-scroll::-webkit-scrollbar,
+.jkhive-services-item:hover .jkhive-hex-item-body-scroll::-webkit-scrollbar,
+.jkhive-services-item:focus-within .jkhive-hex-item-body-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.jkhive-hex-item:hover .jkhive-hex-item-body-scroll::-webkit-scrollbar-track,
+.jkhive-hex-item:focus-within .jkhive-hex-item-body-scroll::-webkit-scrollbar-track,
+.jkhive-hex-gallery-item:hover .jkhive-hex-item-body-scroll::-webkit-scrollbar-track,
+.jkhive-hex-gallery-item:focus-within .jkhive-hex-item-body-scroll::-webkit-scrollbar-track,
+.jkhive-services-item:hover .jkhive-hex-item-body-scroll::-webkit-scrollbar-track,
+.jkhive-services-item:focus-within .jkhive-hex-item-body-scroll::-webkit-scrollbar-track {
+  background: var(--jk-tech-dark, #1e293b);
+  border-radius: 3px;
+}
+
+.jkhive-hex-item:hover .jkhive-hex-item-body-scroll::-webkit-scrollbar-thumb,
+.jkhive-hex-item:focus-within .jkhive-hex-item-body-scroll::-webkit-scrollbar-thumb,
+.jkhive-hex-gallery-item:hover .jkhive-hex-item-body-scroll::-webkit-scrollbar-thumb,
+.jkhive-hex-gallery-item:focus-within .jkhive-hex-item-body-scroll::-webkit-scrollbar-thumb,
+.jkhive-services-item:hover .jkhive-hex-item-body-scroll::-webkit-scrollbar-thumb,
+.jkhive-services-item:focus-within .jkhive-hex-item-body-scroll::-webkit-scrollbar-thumb {
+  background: var(--jk-primary-blue, #0ea5e9);
+  border-radius: 3px;
+}
+
+.jkhive-hex-item-foot,
+.jkhive-why-me-hex .jkhive-why-me-footer {
+  flex: 0 0 25%;
+  height: 25%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.jkhive-hex-item-foot-main {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.jkhive-hex-item-foot-tip {
+  flex: 0 0 10%;
+  flex-shrink: 0;
+  width: 100%;
+  min-height: 0;
+  pointer-events: none;
+}

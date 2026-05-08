@@ -1,0 +1,83 @@
+/**
+ * JK Hive — móvil ≤768px
+ *
+ * SOLO cubre Habilidades About: #about-skills-gallery con .jkhive-hex-gallery-mobile-honey-1col
+ * (una columna + solape + zigzag). Tokens --jk-h1c-*.
+ *
+ * Galerías MEDIUM (.jkhive-hex-gallery-medium: services-item, hex-gallery-item, why-me-item):
+ * NO se sobreescriben aquí. Siguen el panal móvil oficial en jk-hive.css dentro de
+ * @media (max-width: 768px) — comentario «Gallery Medium - Mobile (3-2-3-2)» (~L1228):
+ *   grid-template-columns: repeat(3, 130px); gap 0; ítems width/height móvil; margin -38px 1px
+ *   para encaje vertical; filas 5n+4 / 5n+5 con translateX(--jkhive-hive-stagger).
+ * Referencia externa (no versionada en este repo): housesitting-docs/GALERIA_VISTA_RAPIDA_CRM.txt;
+ * alineación de assets con JK Lubs: comentario en site-layout-start.php («documentación 09»).
+ */
+
+@media (max-width: 768px) {
+  #about-skills-gallery.jkhive-hex-gallery-mobile-honey-1col {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center;
+    gap: 0;
+    grid-template-columns: none !important;
+    justify-content: flex-start;
+    --jk-h1c-sidebar: 101px;
+    --jk-h1c-pad-x: 2rem;
+    --jk-h1c-content-w: calc(100vw - var(--jk-h1c-sidebar) - var(--jk-h1c-pad-x));
+    --jk-h1c-gap-x: 2px;
+    --jk-h1c-flat-max: 168px;
+    --jk-h1c-flat-scale: 0.88;
+    --jk-h1c-flat-base: min(var(--jk-h1c-flat-max), calc(var(--jk-h1c-content-w) * 0.97));
+    --jk-h1c-typo-ref: var(--jk-h1c-flat-base);
+    --jk-h1c-flat: calc(var(--jk-h1c-flat-base) * var(--jk-h1c-flat-scale));
+    --jk-h1c-stagger: min(
+      calc((var(--jk-h1c-flat) + var(--jk-h1c-gap-x)) / 3 + 0.5px),
+      max(0.25rem, calc((var(--jk-h1c-content-w) - var(--jk-h1c-flat)) / 2 - 1px))
+    );
+    --jk-h1c-stagger-even: max(
+      0.125rem,
+      calc(var(--jk-h1c-stagger) - var(--jk-h1c-flat) / 6)
+    );
+    --jk-h1c-v-overlap: calc(var(--jk-h1c-flat) * 1.1547 * 0.22);
+    padding: 1rem max(0.5rem, var(--jk-h1c-stagger)) 1.5rem !important;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  #about-skills-gallery.jkhive-hex-gallery-mobile-honey-1col > .jkhive-hex-gallery-item {
+    --jkhive-gallery-hex-flat: var(--jk-h1c-flat);
+    width: var(--jk-h1c-flat) !important;
+    height: calc(var(--jk-h1c-flat) * 1.1547) !important;
+    max-width: 100%;
+    margin: 0 !important;
+    flex-shrink: 0;
+    grid-column: auto !important;
+    grid-row: auto !important;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease, z-index 0s;
+  }
+
+  #about-skills-gallery.jkhive-hex-gallery-mobile-honey-1col > .jkhive-hex-gallery-item:not(:first-child) {
+    margin-top: calc(-1 * var(--jk-h1c-v-overlap)) !important;
+  }
+
+  #about-skills-gallery.jkhive-hex-gallery-mobile-honey-1col > .jkhive-hex-gallery-item:nth-child(odd) {
+    transform: translateX(calc(-1 * var(--jk-h1c-stagger))) !important;
+  }
+
+  #about-skills-gallery.jkhive-hex-gallery-mobile-honey-1col > .jkhive-hex-gallery-item:nth-child(even) {
+    transform: translateX(var(--jk-h1c-stagger-even)) !important;
+  }
+
+  #about-skills-gallery.jkhive-hex-gallery-mobile-honey-1col > .jkhive-hex-gallery-item:nth-child(odd):hover {
+    transform: translateX(calc(-1 * var(--jk-h1c-stagger))) !important;
+    z-index: 10;
+  }
+
+  #about-skills-gallery.jkhive-hex-gallery-mobile-honey-1col > .jkhive-hex-gallery-item:nth-child(even):hover {
+    transform: translateX(var(--jk-h1c-stagger-even)) !important;
+    z-index: 10;
+  }
+}
+

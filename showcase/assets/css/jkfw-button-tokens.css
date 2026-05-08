@@ -1,0 +1,55 @@
+/**
+ * Capa demo Fase 5 — tokens de botón JK Hive sobre clases existentes.
+ * No sustituye jkhive-elements.css; aísla variante en .jkfw-btn-scope (isolation).
+ * Referencia: JK Lubs documentación 04-botones-y-ctas.md
+ */
+.jkfw-btn-scope {
+  isolation: isolate;
+}
+
+.jkfw-btn-scope .jkhive-admoptions-bttn.jkfw-variant-primary {
+  --jkfw-btn-face: var(--jk-primary-blue);
+  --jkfw-btn-face-hover: var(--jk-primary-blue-light);
+  --jkfw-btn-glow: var(--jk-glow-blue);
+}
+
+.jkfw-btn-scope .jkhive-admoptions-bttn.jkfw-variant-secondary {
+  --jkfw-btn-face: var(--jk-secondary-green);
+  --jkfw-btn-face-hover: var(--jk-secondary-green-light, #2dd4bf);
+  --jkfw-btn-glow: var(--jk-glow-cyan);
+}
+
+.jkfw-btn-scope .jkhive-admoptions-bttn.jkfw-variant-danger {
+  --jkfw-btn-face: var(--jk-accent-red-neon, #ef4444);
+  --jkfw-btn-face-hover: #f87171;
+  --jkfw-btn-glow: var(--jk-glow-red-neon);
+}
+
+/* Las animaciones hover reales siguen en jkhive-elements.css (jkhive-btn-anim-*, jkhive-anim-*). */
+
+.jkfw-btn-scope .jkfw-variant-primary .jkhive-hex {
+  box-shadow: 0 0 0 1.5px var(--jkfw-btn-face), var(--jkfw-btn-glow), inset 0 0 20px rgba(14, 165, 233, 0.15);
+}
+
+.jkfw-btn-scope .jkfw-variant-secondary .jkhive-hex {
+  box-shadow: 0 0 0 1.5px var(--jkfw-btn-face), var(--jkfw-btn-glow), inset 0 0 20px rgba(20, 184, 166, 0.15);
+}
+
+.jkfw-btn-scope .jkfw-variant-danger .jkhive-hex {
+  box-shadow: 0 0 0 1.5px var(--jkfw-btn-face), var(--jkfw-btn-glow), inset 0 0 20px rgba(239, 68, 68, 0.12);
+}
+
+.jkfw-modal-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid rgba(14, 165, 233, 0.45);
+  background: rgba(15, 23, 42, 0.85);
+  color: var(--jk-metal-light);
+  font-size: 0.9rem;
+}
+
+.jkfw-modal-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.35);
+}

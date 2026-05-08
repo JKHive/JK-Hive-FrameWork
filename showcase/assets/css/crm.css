@@ -1,0 +1,2639 @@
+/**
+ * Housesitting - Panel CRM
+ *
+ * Estilos específicos del CRM. Hereda la base visual de JK Hive
+ * (jk-hive.css, jkhive-sidebar.css, jkhive-navbar.css).
+ *
+ * Herencia: JK Hive CRM (crm.jkhive.work)
+ */
+
+/* ============================================================
+   LAYOUT CRM/ADMIN — body flex para que el footer quede abajo y visible
+   ============================================================ */
+body.crm-layout,
+body.admin-layout {
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 100vh !important;
+}
+body.crm-layout main.jkhive-main-content,
+body.admin-layout main.jkhive-main-content {
+  flex: 1 0 auto !important;
+}
+
+/* ============================================================
+   CRM: ESTILOS BASE (Restaurados a su versión limpia original)
+   ============================================================ */
+
+.crm-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.crm-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+}
+
+.crm-header h2 {
+    color: var(--jk-accent-honey);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 20px rgba(212, 160, 23, 0.5);
+}
+
+.crm-subtitle {
+    color: var(--jk-metal-light);
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+/* Dashboard Grid - 4 cuadrantes */
+.crm-dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+@media (max-width: 1200px) {
+    .crm-dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .crm-dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.crm-dashboard-card {
+    background: linear-gradient(135deg, var(--jk-tech-dark) 0%, var(--jk-tech-medium) 100%);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.3s ease;
+    min-height: 180px;
+    justify-content: center;
+}
+
+.crm-dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: none;
+    border: none;
+}
+
+.crm-dashboard-icon {
+    font-size: 3rem;
+    color: var(--jk-accent-honey);
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 15px rgba(212, 160, 23, 0.5));
+}
+
+.crm-dashboard-content h3 {
+    color: var(--jk-accent-honey);
+    font-size: 2.5rem;
+    margin: 0.5rem 0;
+    text-shadow: 0 0 10px rgba(212, 160, 23, 0.5);
+}
+
+.crm-dashboard-content p {
+    color: var(--jk-metal-light);
+    margin: 0.5rem 0;
+    opacity: 0.9;
+    font-size: 1rem;
+}
+
+.crm-dashboard-trend {
+    display: block;
+    color: var(--jk-secondary-green);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    opacity: 0.8;
+}
+
+.crm-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.crm-stat-card {
+    background: linear-gradient(135deg, var(--jk-tech-dark) 0%, var(--jk-tech-medium) 100%);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.crm-stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: none;
+    border: none;
+}
+
+.crm-stat-icon {
+    font-size: 3rem;
+    color: var(--jk-accent-cyan);
+    filter: drop-shadow(0 0 15px rgba(6, 182, 212, 0.5));
+}
+
+.crm-stat-content h3 {
+    color: var(--jk-accent-honey);
+    font-size: 2rem;
+    margin: 0;
+    text-shadow: 0 0 10px rgba(212, 160, 23, 0.5);
+}
+
+.crm-stat-content p {
+    color: var(--jk-metal-light);
+    margin: 0.5rem 0 0 0;
+    opacity: 0.8;
+}
+
+.crm-quick-actions {
+    margin-top: 3rem;
+}
+
+.crm-quick-actions h3 {
+    color: var(--jk-accent-honey);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 10px rgba(212, 160, 23, 0.5);
+}
+
+.crm-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.crm-action-card {
+    background: linear-gradient(135deg, var(--jk-tech-dark) 0%, var(--jk-tech-medium) 100%);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    text-align: center;
+    text-decoration: none;
+    color: var(--jk-metal-light);
+    transition: all 0.3s ease;
+    position: relative;
+    display: block;
+}
+
+.crm-action-card:hover {
+    transform: translateY(-5px);
+    box-shadow: none;
+    border: none;
+    text-decoration: none;
+    color: var(--jk-metal-light);
+}
+
+.crm-action-icon {
+    font-size: 3rem;
+    color: var(--jk-accent-cyan);
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 15px rgba(6, 182, 212, 0.5));
+}
+
+.crm-action-card h4 {
+    color: var(--jk-accent-honey);
+    font-size: 1.5rem;
+    margin: 0.5rem 0;
+    text-shadow: 0 0 10px rgba(212, 160, 23, 0.5);
+}
+
+.crm-action-card p {
+    color: var(--jk-metal-light);
+    opacity: 0.8;
+    margin: 0;
+}
+
+.crm-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--jk-accent-red, #dc3545);
+    color: white;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+    box-shadow: 0 0 10px rgba(220, 53, 69, 0.5);
+}
+
+/* Dashboard index: sección JK Hive (sin crm-container/crm-header que causaban bordes) */
+.jkhive-section-dashboard {
+    margin-bottom: 2rem;
+}
+.jkhive-dashboard-header {
+    max-width: 1600px;
+    margin: 0 auto 1rem auto;
+    text-align: left;
+}
+.jkhive-section-dashboard .jkhive-section-title.jkhive-section-title-dashboard {
+    color: var(--jk-accent-honey) !important;
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 0.25rem !important;
+    text-align: left !important;
+    width: auto !important;
+    display: block !important;
+    position: relative !important;
+    text-shadow: 0 0 20px rgba(212, 160, 23, 0.5) !important;
+}
+.jkhive-section-dashboard .jkhive-section-title.jkhive-section-title-dashboard::after {
+    content: '' !important;
+    display: block !important;
+    position: absolute !important;
+    bottom: -6px !important;
+    left: 0 !important;
+    transform: none !important;
+    width: 60% !important;
+    height: 2.5px !important;
+    background: var(--jk-accent-honey) !important;
+    border-radius: 2px !important;
+}
+.jkhive-greeting-link {
+    color: var(--jk-accent-honey) !important;
+    text-decoration: none !important;
+    transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+.jkhive-greeting-link:hover {
+    color: var(--jk-accent-honey-light) !important;
+    text-shadow: 0 0 12px rgba(244, 196, 48, 0.8) !important;
+}
+.jkhive-dashboard-header .jkhive-section-subtitle {
+    color: var(--jk-metal-light) !important;
+    font-size: 0.95rem !important;
+    opacity: 0.8;
+    margin-bottom: 0;
+}
+.jkhive-section-dashboard .jkhive-section-subtitle {
+    color: var(--jk-metal-light) !important;
+    font-size: 0.95rem !important;
+    opacity: 0.8;
+    margin-bottom: 2rem;
+}
+.jkhive-dashboard-header + .jkhive-hex-gallery {
+    margin-top: 1rem;
+}
+.jkhive-section-dashboard .jkhive-hex-gallery {
+    margin-top: 2rem;
+}
+
+/* ============================================================
+   GALERÍA VISTA RÁPIDA - SELLADA - NO MODIFICAR SIN REVISIÓN COMPLETA
+   ============================================================
+   Estructura: main > section.jkhive-section-dashboard > jkhive-hex-gallery.jkhive-hex-gallery-medium
+   Items: a.jkhive-itemgallery-med (enlaces con icono, título, subtítulo).
+
+   IMPORTANTE: Los valores están calibrados para N elementos actuales. Cambiar
+   gap, margin-top, translateX o breakpoints puede desalinear el honeycomb.
+   Si se añaden/quitan ítems, verificar nth-child (5n+4, 9n+6, 3n+3, etc.)
+
+   Breakpoints y layouts:
+   - 769px+: Desktop, 5 cols × 260px, 2 filas (5+4)
+   - 768px: Tablet, 3 cols × 130px, 2 filas (3+2)
+   - 480px: Mobile, 2 cols × 100px, 3 filas (2+1+2)
+   - 360px: Mobile estrecho, 2 cols × 80px, mismo patrón
+   ============================================================ */
+
+/* Base galería - Desktop por defecto
+   Aire vertical (¼ altura hex + breath): --jkhive-gallery-vertical-tip-pad en jk-hive.css — no forzar padding en px. */
+main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) {
+    grid-template-columns: repeat(5, 260px) !important;
+    gap: 0 5px !important;
+    justify-content: center !important;
+}
+
+/* Desktop (769px+): separación entre icono, título y subtítulo; gap 5px, offset fila2 */
+@media (min-width: 769px) {
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med .jkhive-hex-gallery-icon,
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med .jkhive-hex-gallery-title {
+        margin-bottom: 0.375rem;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) {
+        grid-template-columns: repeat(5, 260px) !important;
+        gap: 0 5px !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med {
+        width: 260px !important;
+        height: calc(260px * 1.1547) !important;
+        margin: 0 0 -75px 0 !important;
+    }
+    /* Fila 2: items 6,7,8,9 (9n+6 a 9n+9). translateX = mitad columna+gap = 132.5px */
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+6),
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+7),
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+8),
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+9) {
+        transform: translateX(132.5px);
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+6):hover,
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+7):hover,
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+8):hover,
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+9):hover {
+        transform: translateX(132.5px) scale(1.05);
+    }
+}
+
+/* Evitar líneas/bordes que segmentan el fondo */
+main:has(.jkhive-section-dashboard) .jkhive-hex-gallery {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Separador del menú lateral - ELIMINADO - Ya no se usa */
+.jkhive-nav-separator {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    overflow: hidden !important;
+}
+
+/* Responsive - Tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .crm-container {
+        padding: 1.5rem;
+        max-width: 1200px;
+    }
+    
+    .crm-header h2 {
+        font-size: 2.2rem;
+    }
+    
+    .crm-dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .crm-stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    
+    .crm-actions-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+    body.crm-layout main.jkhive-main-content {
+        padding: var(--jk-spacing-md);
+        overflow-x: hidden;
+        max-width: 100%;
+    }
+    .crm-container {
+        padding: 1rem;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+    
+    .crm-header h2 {
+        font-size: 2rem;
+    }
+    
+    .crm-subtitle {
+        font-size: 1rem;
+    }
+    
+    .crm-dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .crm-dashboard-card {
+        min-height: 160px;
+        padding: 1.25rem;
+    }
+    
+    .crm-dashboard-icon {
+        font-size: 2.5rem;
+    }
+    
+    .crm-dashboard-content h3 {
+        font-size: 2rem;
+    }
+    
+    .crm-stats-grid,
+    .crm-actions-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .crm-stat-card {
+        padding: 1.25rem;
+    }
+    
+    .crm-stat-icon {
+        font-size: 2.5rem;
+    }
+    
+    .crm-stat-content h3 {
+        font-size: 1.75rem;
+    }
+    
+    .crm-action-card {
+        padding: 1.5rem;
+    }
+    
+    .crm-action-icon {
+        font-size: 2.5rem;
+    }
+    
+    .crm-action-card h4 {
+        font-size: 1.3rem;
+    }
+    
+    .crm-quick-actions h3 {
+        font-size: 1.5rem;
+    }
+    
+    /* Dashboard header móvil */
+    .jkhive-section-dashboard .jkhive-section-title.jkhive-section-title-dashboard {
+        font-size: 1.25rem !important;
+    }
+    .jkhive-dashboard-header .jkhive-section-subtitle {
+        font-size: 0.85rem !important;
+    }
+    .jkhive-section-dashboard .jkhive-section-title.jkhive-section-title-dashboard::after {
+        height: 2px !important;
+        width: 50% !important;
+    }
+    /* Footer CRM móvil (768px): reducir padding y fuente */
+    body.crm-layout .jkhive-footer-crm,
+    .jkhive-footer-crm {
+        padding: 0.6rem 1rem !important;
+    }
+    body.crm-layout .jkhive-footer-crm .footer-corporate p,
+    .jkhive-footer-crm .footer-corporate p {
+        font-size: 0.8rem !important;
+        margin: 0.2rem 0 !important;
+    }
+    body.crm-layout .jkhive-footer-crm .footer-corporate .small,
+    .jkhive-footer-crm .footer-corporate .small {
+        font-size: 0.75rem !important;
+    }
+    
+    /* --- 768px: Layout 3+2 (filas de 3 y 2 ítems). NO mezclar con 480px (3 filas) --- */
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) {
+        grid-template-columns: repeat(3, 130px) !important;
+        gap: 0 3px !important;
+        row-gap: 0 !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med {
+        width: 130px !important;
+        height: 150px !important;
+        margin: -38px 3px 0 3px !important;
+        transform: none !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med .jkhive-hex {
+        width: 130px !important;
+        height: calc(130px * 1.1547) !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med .jkhive-hex::after {
+        width: calc(130px - 4px) !important;
+        height: calc((130px - 4px) * 1.1547) !important;
+    }
+    /* Contenido móvil 768px: ver jkhive-hex-cyan-item en jkhive-elements.css (padding, icono, título, subtítulo) */
+    /* Fila 2 (5n+4, 5n+5, 9n+6..9): margin-top -35px, translateX 66px (130/2). VALOR CALIBRADO */
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(5n+4),
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(5n+5),
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+6),
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+7),
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+8),
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+9) {
+        margin-top: -35px !important;
+        transform: translateX(66px) !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:hover {
+        transform: scale(1.05) !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(5n+4):hover,
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(5n+5):hover,
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+6):hover,
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+7):hover,
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+8):hover,
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+9):hover {
+        transform: translateX(66px) scale(1.05) !important;
+    }
+}
+
+/* Responsive - Very Small Mobile */
+@media (max-width: 480px) {
+    body.crm-layout main.jkhive-main-content {
+        padding: var(--jk-spacing-sm);
+    }
+    .crm-container {
+        padding: 0.75rem;
+        max-width: 100%;
+    }
+    
+    /* Footer CRM móvil pequeño (480px): mínimo tamaño */
+    body.crm-layout .jkhive-footer-crm,
+    .jkhive-footer-crm {
+        padding: 0.5rem 0.75rem !important;
+    }
+    body.crm-layout .jkhive-footer-crm .footer-corporate p,
+    .jkhive-footer-crm .footer-corporate p {
+        font-size: 0.7rem !important;
+        margin: 0.15rem 0 !important;
+    }
+    body.crm-layout .jkhive-footer-crm .footer-corporate .small,
+    .jkhive-footer-crm .footer-corporate .small {
+        font-size: 0.65rem !important;
+    }
+    
+    /* --- 480px: Layout 2+1+2 (3 filas). Selectores 3n+1,3n+2,3n+3,3n+4,3n+5. INDEPENDIENTE de 768px --- */
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) {
+        grid-template-columns: repeat(2, 100px) !important;
+        gap: 0 3px !important;
+        row-gap: 0 !important;
+        justify-content: center !important;
+        --jkhive-gallery-hex-flat: 100px;
+        --jkhive-hive-flat: 100px;
+        --jkhive-gallery-hex-bounding-height: calc(var(--jkhive-gallery-hex-flat) * var(--jkhive-hive-apex));
+        --jkhive-gallery-vertical-tip-pad: calc(var(--jkhive-gallery-hex-bounding-height) * var(--jkhive-gallery-tip-fraction) + var(--jkhive-gallery-edge-breath));
+        padding-top: var(--jkhive-gallery-vertical-tip-pad);
+        padding-bottom: var(--jkhive-gallery-vertical-tip-pad);
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med {
+        width: 100px !important;
+        height: 115px !important;
+        margin: -29px 1px 0 1px !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med .jkhive-hex {
+        width: 100px !important;
+        height: calc(100px * 1.1547) !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med .jkhive-hex::after {
+        width: calc(100px - 4px) !important;
+        height: calc((100px - 4px) * 1.1547) !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+1),
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+2) {
+        transform: none !important;
+    }
+    /* Fila 2 (3n+3): ítem centrado. margin-top -26.5px, translateX(1px). VALORES CALIBRADOS */
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+3) {
+        grid-column: 1 / -1 !important;
+        justify-self: center !important;
+        width: 100px !important;
+        height: 115px !important;
+        margin-top: -26.5px !important;
+        transform: translateX(1px) !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med {
+        width: 100px !important;
+        height: 115px !important;
+        margin: -29px 1px 0 1px !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(3n+1),
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(3n+2) {
+        transform: none !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(3n+3) {
+        grid-column: 1 / -1 !important;
+        justify-self: center !important;
+        width: 100px !important;
+        height: 115px !important;
+        margin-top: -26.5px !important;
+        transform: translateX(1px) !important;
+    }
+    /* Fila 3 (3n+4, 3n+5): margin-top -26px. VALOR CALIBRADO - no cambiar sin probar */
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+4),
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+5) {
+        margin-top: -26px !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:hover {
+        transform: scale(1.05) !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(3n+3):hover {
+        transform: translateX(1px) scale(1.05) !important;
+    }
+    /* Contenido 480px: ver jkhive-hex-cyan-item en jkhive-elements.css */
+    
+    .crm-header h2 {
+        font-size: 1.75rem;
+    }
+    
+    .crm-subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .crm-dashboard-card {
+        min-height: 140px;
+        padding: 1rem;
+    }
+    
+    .crm-dashboard-icon {
+        font-size: 2rem;
+    }
+    
+    .crm-dashboard-content h3 {
+        font-size: 1.75rem;
+    }
+    
+    .crm-dashboard-content p {
+        font-size: 0.9rem;
+    }
+    
+    .crm-stat-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .crm-stat-icon {
+        font-size: 2rem;
+    }
+    
+    .crm-stat-content h3 {
+        font-size: 1.5rem;
+    }
+    
+    .crm-action-card {
+        padding: 1.25rem;
+    }
+    
+    .crm-action-icon {
+        font-size: 2rem;
+    }
+    
+    .crm-action-card h4 {
+        font-size: 1.2rem;
+    }
+    
+    .crm-quick-actions h3 {
+        font-size: 1.3rem;
+    }
+}
+
+/* --- 360px: Mismo patrón 2+1+2 que 480px, hex 80px. Valores proporcionales --- */
+@media (max-width: 360px) {
+    /* Panal 80px: recalcular reserva vertical (¼ altura + breath) coherente con jk-hive */
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) {
+        grid-template-columns: repeat(2, 80px) !important;
+        gap: 0 1px !important;
+        --jkhive-gallery-hex-flat: 80px;
+        --jkhive-hive-flat: 80px;
+        --jkhive-gallery-hex-bounding-height: calc(var(--jkhive-gallery-hex-flat) * var(--jkhive-hive-apex));
+        --jkhive-gallery-vertical-tip-pad: calc(var(--jkhive-gallery-hex-bounding-height) * var(--jkhive-gallery-tip-fraction) + var(--jkhive-gallery-edge-breath));
+        padding-top: var(--jkhive-gallery-vertical-tip-pad);
+        padding-bottom: var(--jkhive-gallery-vertical-tip-pad);
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med {
+        width: 80px !important;
+        height: 92px !important;
+        margin: -23px 1px 0 1px !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med .jkhive-hex {
+        width: 80px !important;
+        height: calc(80px * 1.1547) !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med .jkhive-hex::after {
+        width: calc(80px - 4px) !important;
+        height: calc((80px - 4px) * 1.1547) !important;
+    }
+    /* Contenido 360px: ver jkhive-hex-cyan-item en jkhive-elements.css */
+    /* Fila 2 (3n+3): +2.5px abajo, +1px derecha */
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+3) {
+        width: 80px !important;
+        height: 92px !important;
+        margin-top: -20.5px !important;
+        transform: translateX(1px) !important;
+    }
+    /* Fila 3 (3n+4, 3n+5): +3px abajo (+4 -1 hacia arriba) */
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+4),
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+5) {
+        margin-top: -20px !important;
+    }
+}
+
+/* ============================================================
+   CRM FOOTER
+   ============================================================ */
+
+/* Footer CRM: grilla = mismo margin-left/width que main (jk-hive.css body.crm-layout .jkhive-crm-footer). */
+.jkhive-crm-footer {
+    display: block !important;
+    visibility: visible !important;
+    margin-top: auto;
+    flex-shrink: 0;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(180deg, var(--jk-tech-darker, #0f172a) 0%, var(--jk-tech-dark, #1e293b) 100%);
+    border-top: 1px solid var(--jk-tech-medium, rgba(51, 65, 85, 0.6));
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.jkhive-crm-footer-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.jkhive-crm-footer-copy,
+.jkhive-crm-footer-credit {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--jk-metal, #94a3b8);
+}
+
+.jkhive-crm-footer-credit {
+    margin-top: 0.35rem;
+}
+
+.jkhive-crm-footer-link {
+    color: var(--jk-primary-blue, #0ea5e9);
+    text-decoration: none;
+}
+
+.jkhive-crm-footer-link:hover {
+    text-decoration: underline;
+}
+
+/* CRM Footer - Responsive (misma grilla: margin-left 101px en mobile vía jk-hive.css) */
+@media (max-width: 768px) {
+    body.crm-layout .jkhive-crm-footer,
+    body.admin-layout .jkhive-crm-footer {
+        padding: 1.25rem 1rem !important;
+    }
+    .jkhive-crm-footer-inner {
+        padding: 0 0.5rem;
+    }
+    body.crm-layout .jkhive-crm-footer .jkhive-crm-footer-copy,
+    body.crm-layout .jkhive-crm-footer .jkhive-crm-footer-credit,
+    body.admin-layout .jkhive-crm-footer .jkhive-crm-footer-copy,
+    body.admin-layout .jkhive-crm-footer .jkhive-crm-footer-credit {
+        font-size: 0.8rem !important;
+        line-height: 1.4 !important;
+    }
+    .jkhive-crm-footer-copy {
+        word-wrap: break-word;
+        hyphens: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    body.crm-layout .jkhive-crm-footer,
+    body.admin-layout .jkhive-crm-footer {
+        padding: 1rem 0.75rem !important;
+    }
+    body.crm-layout .jkhive-crm-footer .jkhive-crm-footer-copy,
+    body.crm-layout .jkhive-crm-footer .jkhive-crm-footer-credit,
+    body.admin-layout .jkhive-crm-footer .jkhive-crm-footer-copy,
+    body.admin-layout .jkhive-crm-footer .jkhive-crm-footer-credit {
+        font-size: 0.75rem !important;
+    }
+}
+
+/* ============================================================
+   Login JK Hive — hexágono + grilla modal; sin footer público.
+   Fondo: capa base tech (como el CRM detrás del modal) + .jkhive-login-modal-backdrop
+   copia visual de .jkhive-modal-overlay (modals.css L492–526). pointer-events: none en el backdrop.
+   Body centrado en viewport (anula flex:1 del main CRM en esta página).
+   ============================================================ */
+/* Centrado real en viewport: jk-hive .jkhive-main-content aplica margin-left (sidebar) y margin-top (navbar) al login */
+body.crm-layout.jkhive-page-login {
+  justify-content: center !important;
+  align-items: stretch !important;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+}
+
+body.crm-layout.jkhive-page-login main.jkhive-main-content.jkhive-login-main {
+  flex: 1 0 auto !important;
+  align-self: center !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+body.jkhive-page-login {
+  --jkhive-login-viewport-pad-top: clamp(20px, 3.5vh + env(safe-area-inset-top, 0px), 56px);
+  --jkhive-login-viewport-pad-bottom: clamp(12px, 2.5vh + env(safe-area-inset-bottom, 0px), 36px);
+  --jkhive-login-hex-inner-pad-x: clamp(0.65rem, 2.5vw, 1.15rem);
+  --jkhive-login-hex-inner-pad-y: clamp(0.35rem, 1.8vh, 0.85rem);
+  background: var(--jk-tech-darker);
+  color: var(--jk-metal-light);
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+}
+
+/* Igual que .jkhive-modal-overlay + ::before/::after (modals.css) */
+.jkhive-login-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: rgba(244, 196, 48, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.jkhive-login-modal-backdrop::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../img/honeycomb-pattern.svg');
+  background-size: 32px 55px;
+  background-repeat: repeat;
+  background-position: 0 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 1;
+  filter: brightness(0) contrast(40);
+}
+
+.jkhive-login-modal-backdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../img/honeycomb-pattern.svg');
+  background-size: 32px 55px;
+  background-repeat: repeat;
+  background-position: 16px 28px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 1;
+  filter: brightness(0) contrast(40);
+}
+
+body.jkhive-page-login .jkhive-login-main.jkhive-main-content {
+  position: relative;
+  z-index: 1;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin-left: 0 !important;
+  margin-top: 0 !important;
+  margin-right: 0 !important;
+  margin-bottom: 0 !important;
+  padding: var(--jkhive-login-viewport-pad-top) var(--jk-spacing-xl) var(--jkhive-login-viewport-pad-bottom);
+  box-sizing: border-box;
+}
+
+/* Panel: hexágono regular; el formulario interior lleva la grilla modal (header / body / footer) */
+body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex {
+  width: min(
+    633.6px,
+    92vw,
+    calc((100dvh - var(--jkhive-login-viewport-pad-top) - var(--jkhive-login-viewport-pad-bottom) - 0.75rem) / 1.1547)
+  );
+  max-width: none;
+  margin: 0 auto;
+  padding: 0;
+  position: relative;
+  isolation: isolate;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  aspect-ratio: 1 / 1.1547;
+  height: auto;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  filter: drop-shadow(0 10px 26px rgba(15, 23, 42, 0.5)) drop-shadow(0 0 28px rgba(14, 165, 233, 0.12));
+}
+
+body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: var(--jk-primary-blue);
+  z-index: -2;
+  pointer-events: none;
+}
+
+body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(145deg, var(--jk-tech-dark) 0%, var(--jk-tech-darker) 100%);
+  z-index: -1;
+  pointer-events: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), inset 0 0 28px rgba(14, 165, 233, 0.08);
+}
+
+body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex form.jkhive-login-hex-form {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  /* Centrar el bloque header+cuerpo+pie dentro del hex (no franjas 25/50/25 rígidas) */
+  justify-content: center;
+  align-items: stretch;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  padding: var(--jkhive-login-hex-inner-pad-y) var(--jkhive-login-hex-inner-pad-x);
+}
+
+/* Grilla equivalente a .jkhive-modal-content.jkhive-modal-hex (modals.css) */
+body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex form.jkhive-login-hex-form:has(> .jkhive-modal-header) {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex form.jkhive-login-hex-form:has(> .jkhive-modal-header)::-webkit-scrollbar {
+  display: none;
+}
+
+body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex form.jkhive-login-hex-form > .jkhive-modal-header {
+  flex: 0 0 auto;
+  width: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0;
+  margin: 0 0 clamp(0.2rem, 0.8vh, 0.5rem);
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
+}
+
+body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex form.jkhive-login-hex-form > .jkhive-modal-header::before {
+  display: none;
+}
+
+body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex form.jkhive-login-hex-form > .jkhive-modal-header > *:not(.jkhive-modal-close) {
+  margin-top: 0;
+}
+
+body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex form.jkhive-login-hex-form > .jkhive-modal-header > *:not(.jkhive-modal-close) ~ *:not(.jkhive-modal-close) {
+  margin-top: 0;
+}
+
+body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex form.jkhive-login-hex-form > .jkhive-modal-header .jkhive-modal-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 0;
+}
+
+body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex form.jkhive-login-hex-form > .jkhive-modal-header .jkhive-modal-header-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  padding: 0;
+}
+
+body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex form.jkhive-login-hex-form > .jkhive-modal-header .jkhive-modal-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--jk-metal-light);
+  margin: 0;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex .jkhive-login-modal-header-icon {
+  font-size: 2rem;
+  color: var(--jk-accent-honey);
+  filter: drop-shadow(0 0 10px rgba(244, 196, 48, 0.4));
+  margin-bottom: 0.15rem;
+}
+
+body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex form.jkhive-login-hex-form > .jkhive-modal-body {
+  flex: 0 1 auto;
+  min-height: 0;
+  width: 100%;
+  max-height: min(52vh, 100%);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex form.jkhive-login-hex-form > .jkhive-modal-body > .jkhive-modal-body-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0.25rem 0.15rem 0.35rem;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--jk-primary-blue) var(--jk-tech-dark);
+  -webkit-overflow-scrolling: touch;
+}
+
+body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex form.jkhive-login-hex-form > .jkhive-modal-body > .jkhive-modal-body-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex form.jkhive-login-hex-form > .jkhive-modal-body > .jkhive-modal-body-content::-webkit-scrollbar-track {
+  background: var(--jk-tech-dark);
+  border-radius: 3px;
+}
+
+body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex form.jkhive-login-hex-form > .jkhive-modal-body > .jkhive-modal-body-content::-webkit-scrollbar-thumb {
+  background: var(--jk-primary-blue);
+  border-radius: 3px;
+}
+
+body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex form.jkhive-login-hex-form > .jkhive-modal-footer {
+  flex: 0 0 auto;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: clamp(0.2rem, 0.8vh, 0.45rem) 0 0;
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex form.jkhive-login-hex-form > .jkhive-modal-footer::after {
+  display: none;
+}
+
+body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex form.jkhive-login-hex-form > .jkhive-modal-footer > :first-child {
+  margin-top: 0 !important;
+}
+
+body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex .jkhive-login-modal-footer-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  gap: 0;
+  padding: 0 0.65rem;
+}
+
+body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex .jkhive-login-submit-row {
+  margin-bottom: 0;
+  margin-top: 0.25rem;
+  display: flex;
+  justify-content: center;
+}
+
+/* Botón envío: anillo miel metálica → hover azul neón; interior siempre oscuro (solo cambia el borde). */
+body.jkhive-page-login .jkhive-login-action-submit {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+body.jkhive-page-login .jkhive-login-action-submit .jkhive-login-submit-btn {
+  text-decoration: none;
+  display: block;
+  width: 65.17px;
+  height: calc(65.17px * 1.1547);
+  overflow: visible;
+  position: relative;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0 auto;
+}
+
+body.jkhive-page-login .jkhive-login-submit-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+body.jkhive-page-login .jkhive-login-hex-ring {
+  --jkhive-login-hex-w: 65.17px;
+  width: var(--jkhive-login-hex-w);
+  height: calc(var(--jkhive-login-hex-w) * 1.1547);
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(
+    135deg,
+    var(--jk-accent-honey-dark) 0%,
+    var(--jk-accent-honey) 35%,
+    var(--jk-accent-honey-light) 55%,
+    var(--jk-accent-honey) 100%
+  );
+  box-shadow: 0 0 14px rgba(244, 196, 48, 0.45);
+  pointer-events: none;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease;
+}
+
+body.jkhive-page-login .jkhive-login-hex-ring::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(var(--jkhive-login-hex-w) - 5px);
+  height: calc((var(--jkhive-login-hex-w) - 5px) * 1.1547);
+  background: linear-gradient(145deg, var(--jk-tech-dark) 0%, var(--jk-tech-darker) 100%);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  z-index: 1;
+  pointer-events: none;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.35s ease;
+}
+
+body.jkhive-page-login .jkhive-login-hex-ring-inner {
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+body.jkhive-page-login .jkhive-login-hex-ring-icon {
+  font-size: 1.35rem;
+  margin: 0;
+  color: var(--jk-accent-honey-light);
+  fill: currentColor;
+  transition: color 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+}
+
+body.jkhive-page-login .jkhive-login-action-submit:hover .jkhive-login-hex-ring,
+body.jkhive-page-login .jkhive-login-action-submit:focus-visible .jkhive-login-hex-ring {
+  background: linear-gradient(
+    135deg,
+    var(--jk-primary-blue-dark) 0%,
+    var(--jk-primary-blue) 45%,
+    var(--jk-primary-blue-light) 100%
+  );
+  transform: scale(1.06);
+  box-shadow:
+    0 0 24px rgba(14, 165, 233, 0.85),
+    0 0 44px rgba(56, 189, 248, 0.55);
+  filter: brightness(1.1);
+}
+
+body.jkhive-page-login .jkhive-login-action-submit:hover .jkhive-login-hex-ring::after,
+body.jkhive-page-login .jkhive-login-action-submit:focus-visible .jkhive-login-hex-ring::after {
+  background: linear-gradient(145deg, var(--jk-tech-dark) 0%, var(--jk-tech-darker) 100%);
+  transform: translate(-50%, -50%) scale(1.01);
+}
+
+body.jkhive-page-login .jkhive-login-action-submit:hover .jkhive-login-hex-ring-icon,
+body.jkhive-page-login .jkhive-login-action-submit:focus-visible .jkhive-login-hex-ring-icon {
+  color: var(--jk-primary-blue-light);
+  animation: jkhive-login-key-glow 1.1s ease-in-out infinite;
+}
+
+@keyframes jkhive-login-key-glow {
+  0%, 100% {
+    transform: rotate(-6deg) scale(1);
+    filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.95));
+  }
+  50% {
+    transform: rotate(6deg) scale(1.06);
+    filter: drop-shadow(0 0 12px rgba(14, 165, 233, 1));
+  }
+}
+
+body.jkhive-page-login .jkhive-login-panel .jkhive-form-group {
+  margin-bottom: 1rem;
+}
+
+body.jkhive-page-login .jkhive-login-panel .jkhive-login-remember-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+body.jkhive-page-login .jkhive-login-panel .jkhive-login-remember-label {
+  margin: 0;
+  font-weight: normal;
+}
+
+body.jkhive-page-login .jkhive-login-panel .jkhive-form-label {
+  color: var(--jk-metal-light);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+body.jkhive-page-login .jkhive-login-panel .jkhive-form-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.7rem 1rem;
+  background: rgba(15, 23, 42, 0.75);
+  border: 2px solid var(--jk-primary-blue);
+  border-radius: 0.5rem;
+  color: var(--jk-metal-light);
+  font-size: 1rem;
+}
+
+body.jkhive-page-login .jkhive-login-panel .jkhive-form-input:focus {
+  outline: none;
+  border-color: var(--jk-primary-blue-light);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+}
+
+body.jkhive-page-login .jkhive-login-panel .jkhive-alert {
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+body.jkhive-page-login .jkhive-login-panel .jkhive-login-footer {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  border: none;
+  width: 100%;
+}
+
+body.jkhive-page-login .jkhive-login-panel .jkhive-login-footer p {
+  color: var(--jk-metal);
+  font-size: 0.72rem;
+  margin: 0 0 0.2rem;
+  line-height: 1.35;
+}
+
+body.jkhive-page-login .jkhive-login-panel .jkhive-login-footer p:last-child {
+  margin-bottom: 0;
+}
+
+body.jkhive-page-login .jkhive-login-panel .jkhive-login-footer a {
+  color: var(--jk-primary-blue-light);
+  text-decoration: none;
+}
+
+body.jkhive-page-login .jkhive-login-panel .jkhive-login-footer a:hover {
+  color: var(--jk-accent-honey);
+  text-decoration: underline;
+}
+
+/* ============================================================
+   ADMIN — tablas de datos (perfil tenía .jkhive-table solo inline;
+   el resto del panel necesita el mismo lenguaje visual JK Hive)
+   ============================================================ */
+body.admin-layout .admin-container {
+  color: var(--jk-metal-light);
+}
+
+/* Campos de formulario admin + modales del CRM: mismo lenguaje que .jkhive-form-input (jk-hive.css) */
+body.admin-layout .admin-container input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="reset"]):not([type="image"]),
+body.admin-layout .admin-container textarea,
+body.admin-layout .jkhive-modal input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="reset"]):not([type="image"]),
+body.admin-layout .jkhive-modal textarea {
+  box-sizing: border-box;
+  max-width: 100%;
+  /* Sin width:100% aquí: respeta inline (ej. número orden 80px) */
+  padding: 0.65rem 0.85rem !important;
+  background: linear-gradient(135deg, var(--jk-tech-dark) 0%, var(--jk-tech-medium) 100%);
+  border: 2px solid var(--jk-primary-blue);
+  border-radius: 0.5rem;
+  color: var(--jk-metal-light);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  font-family: inherit;
+  transition: var(--jk-transition, all 0.3s cubic-bezier(0.4, 0, 0.2, 1));
+  box-shadow: inset 0 0 10px rgba(14, 165, 233, 0.1);
+}
+
+body.admin-layout .admin-container textarea,
+body.admin-layout .jkhive-modal textarea {
+  min-height: 5.5rem;
+  resize: vertical;
+}
+
+/* Modales mensajería / CRM: campos a ancho útil */
+body.admin-layout .jkhive-modal textarea.form-control,
+body.admin-layout .jkhive-modal input.form-control:not([type="checkbox"]):not([type="radio"]):not([type="file"]) {
+  width: 100%;
+}
+
+body.admin-layout .admin-container input:focus,
+body.admin-layout .admin-container textarea:focus,
+body.admin-layout .jkhive-modal input:focus,
+body.admin-layout .jkhive-modal textarea:focus {
+  outline: none;
+  border-color: var(--jk-accent-honey);
+  box-shadow: 0 0 15px rgba(212, 160, 23, 0.28), inset 0 0 15px rgba(14, 165, 233, 0.18);
+}
+
+body.admin-layout .admin-container input::placeholder,
+body.admin-layout .admin-container textarea::placeholder,
+body.admin-layout .jkhive-modal input::placeholder,
+body.admin-layout .jkhive-modal textarea::placeholder {
+  color: var(--jk-metal-dark);
+  opacity: 0.9;
+}
+
+body.admin-layout .admin-container input[type="file"],
+body.admin-layout .jkhive-modal input[type="file"] {
+  padding: 0.5rem 0.65rem !important;
+  cursor: pointer;
+  background: rgba(15, 23, 42, 0.75);
+}
+
+body.admin-layout .admin-container input:disabled,
+body.admin-layout .admin-container textarea:disabled,
+body.admin-layout .admin-container select:disabled,
+body.admin-layout .jkhive-modal input:disabled,
+body.admin-layout .jkhive-modal textarea:disabled,
+body.admin-layout .jkhive-modal select:disabled {
+  opacity: 0.62;
+  cursor: not-allowed;
+}
+
+/* Select nativo: refuerzo (el padding inline de algunas pantallas anulaba la flecha / contraste) */
+body.admin-layout .admin-container select:not(.jkhive-hex-select),
+body.admin-layout .jkhive-modal select:not(.jkhive-hex-select) {
+  box-sizing: border-box;
+  max-width: 100%;
+  width: 100%;
+  padding: 0.45rem 2rem 0.45rem 0.65rem !important;
+  min-height: 2.375rem;
+  background: rgba(30, 41, 59, 0.92);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 16 16'%3E%3Cpath fill='%23e2e8f0' d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 12px 12px;
+  border: 1px solid rgba(14, 165, 233, 0.55);
+  border-radius: 0.375rem;
+  color: var(--jk-metal-light);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  transition: all 0.2s ease;
+  clip-path: none !important;
+}
+
+body.admin-layout .admin-container select:not(.jkhive-hex-select):hover,
+body.admin-layout .jkhive-modal select:not(.jkhive-hex-select):hover {
+  border-color: rgba(56, 189, 248, 0.9);
+  box-shadow: 0 0 0 1px rgba(14, 165, 233, 0.25);
+}
+
+body.admin-layout .admin-container select:not(.jkhive-hex-select):focus,
+body.admin-layout .jkhive-modal select:not(.jkhive-hex-select):focus {
+  outline: none;
+  border-color: rgba(56, 189, 248, 0.9);
+  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.25);
+}
+
+body.admin-layout .admin-container select:not(.jkhive-hex-select) option,
+body.admin-layout .jkhive-modal select:not(.jkhive-hex-select) option {
+  background: var(--jk-tech-dark);
+  color: var(--jk-metal-light);
+}
+
+/* HTML / código en admin: conservar monoespaciado aunque herede font del campo tech */
+body.admin-layout .admin-container textarea[style*="monospace"],
+body.admin-layout .admin-container input.jkhive-about-skill-line-input {
+  font-family: ui-monospace, SFMono-Regular, "Cascadia Code", Consolas, monospace;
+  font-size: 0.875rem;
+}
+
+body.admin-layout .admin-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(14, 165, 233, 0.28);
+}
+
+body.admin-layout .admin-header-copy h1 {
+  margin: 0 0 0.35rem;
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--jk-accent-honey);
+  text-shadow: 0 0 14px rgba(212, 160, 23, 0.35);
+}
+
+body.admin-layout .admin-header-copy h1 i {
+  margin-right: 0.45rem;
+  opacity: 0.95;
+}
+
+body.admin-layout .admin-header-copy p {
+  margin: 0;
+  max-width: 52rem;
+  color: var(--jk-metal-medium);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+body.admin-layout .admin-header-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Fila de acciones en formularios admin: forzar eje horizontal (los actionbutton-med son block en jk-hive.css) */
+body.admin-layout .jkhive-admin-form-actions {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.65rem;
+  margin-top: 0.85rem;
+}
+
+body.admin-layout .jkhive-admin-form-actions > .jkhive-actionbutton-med,
+body.admin-layout .jkhive-admin-form-actions > .jkhive-bttn-med {
+  display: inline-block !important;
+  width: auto !important;
+  flex: 0 0 auto;
+  vertical-align: middle;
+}
+
+body.admin-layout .jkhive-admin-form-actions > form.jkhive-admin-inline-form {
+  display: inline-block !important;
+  width: auto !important;
+  flex: 0 0 auto;
+  margin: 0;
+  vertical-align: middle;
+}
+
+body.admin-layout .table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 10px;
+  border: 1px solid rgba(14, 165, 233, 0.22);
+  background: rgba(15, 23, 42, 0.35);
+}
+
+body.admin-layout table.jkhive-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  background: rgba(15, 23, 42, 0.75);
+  font-size: 0.875rem;
+}
+
+body.admin-layout table.jkhive-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: rgba(30, 41, 59, 0.95);
+  color: var(--jk-accent-honey);
+  font-weight: 700;
+  text-align: left;
+  padding: 0.65rem 0.75rem;
+  border-bottom: 1px solid rgba(14, 165, 233, 0.35);
+  white-space: nowrap;
+}
+
+body.admin-layout table.jkhive-table tbody td {
+  padding: 0.55rem 0.75rem;
+  color: var(--jk-metal-light);
+  border-bottom: 1px solid rgba(51, 65, 85, 0.65);
+  vertical-align: top;
+}
+
+body.admin-layout table.jkhive-table tbody tr:nth-child(even) td {
+  background: rgba(30, 41, 59, 0.25);
+}
+
+body.admin-layout table.jkhive-table tbody tr:hover td {
+  background: rgba(14, 165, 233, 0.08);
+}
+
+body.admin-layout table.jkhive-table th.jkhive-th-estado,
+body.admin-layout table.jkhive-table th.jkhive-th-acciones {
+  text-align: center;
+  width: 1%;
+  white-space: nowrap;
+}
+
+body.admin-layout table.jkhive-table td.jkhive-td-estado,
+body.admin-layout table.jkhive-table td.actions-cell {
+  vertical-align: middle;
+  text-align: center;
+}
+
+body.admin-layout table.jkhive-table .jkhive-admin-actions-inner {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+body.admin-layout table.jkhive-table .jkhive-admin-actions-inner > * {
+  flex: 0 0 auto;
+}
+
+body.admin-layout table.jkhive-table td.actions-cell {
+  white-space: nowrap;
+}
+
+body.admin-layout table.jkhive-table .jkhive-admin-actions-inner .jkhive-bttn-table {
+  display: inline-block !important;
+  vertical-align: middle;
+}
+
+body.admin-layout table.jkhive-table .jkhive-admin-actions-inner .jkhive-admin-inline-form {
+  display: inline !important;
+  vertical-align: middle;
+}
+
+body.admin-layout table.jkhive-table .jkhive-admin-inline-form button {
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  line-height: 0;
+}
+
+body.admin-layout .jkhive-audit-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+}
+
+body.admin-layout .jkhive-audit-filters label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--jk-metal-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+body.admin-layout .jkhive-audit-filters input[type="search"],
+body.admin-layout .jkhive-audit-filters input[type="text"] {
+  min-width: 12rem;
+  max-width: 22rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid rgba(14, 165, 233, 0.45);
+  background: rgba(30, 41, 59, 0.85);
+  color: var(--jk-metal-light);
+  font-size: 0.875rem;
+  box-sizing: border-box;
+}
+
+body.admin-layout .jkhive-audit-filters input:focus {
+  outline: none;
+  border-color: rgba(56, 189, 248, 0.85);
+  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2);
+}
+
+body.admin-layout .jkhive-audit-filters select {
+  min-width: 10rem;
+  max-width: 22rem;
+  padding: 0.45rem 0.6rem;
+  min-height: 2.375rem;
+  border-radius: 6px;
+  border: 1px solid rgba(14, 165, 233, 0.45);
+  background: rgba(30, 41, 59, 0.85);
+  color: var(--jk-metal-light);
+  font-size: 0.875rem;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+body.admin-layout .jkhive-audit-filters select:focus {
+  outline: none;
+  border-color: rgba(56, 189, 248, 0.85);
+  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2);
+}
+
+body.admin-layout .jkhive-audit-filter-submit {
+  display: flex;
+  align-items: center;
+  align-self: center;
+}
+
+/* Paginación JK Hive: auditoría y cualquier listado admin con .jkhive-pagination */
+.jkhive-audit-page .jkhive-pagination,
+body.admin-layout .jkhive-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  margin-bottom: 2rem;
+  padding: 1rem 1rem 1.1rem;
+  border-top: 1px solid rgba(14, 165, 233, 0.35);
+  border-radius: 0 0 10px 10px;
+  background: rgba(15, 23, 42, 0.72);
+  box-sizing: border-box;
+  width: 100%;
+  clear: both;
+  position: relative;
+  z-index: 1;
+}
+
+.jkhive-audit-page .jkhive-pagination-meta,
+body.admin-layout .jkhive-pagination-meta {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--jk-metal-light);
+}
+
+.jkhive-audit-page .jkhive-pagination-actions,
+body.admin-layout .jkhive-pagination-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+/* Hex distinto al de filtros: icono claro sobre fondo oscuro (evita miel sobre miel) */
+.jkhive-audit-page .jkhive-pagination .jkhive-bttn-med .jkhive-hex,
+.jkhive-audit-page .jkhive-pagination .jkhive-bttn-med.jkhive-btn-anim-coinleft .jkhive-hex,
+.jkhive-audit-page .jkhive-pagination .jkhive-bttn-med.jkhive-btn-anim-coinright .jkhive-hex,
+body.admin-layout .jkhive-pagination .jkhive-bttn-med .jkhive-hex,
+body.admin-layout .jkhive-pagination .jkhive-bttn-med.jkhive-btn-anim-coinleft .jkhive-hex,
+body.admin-layout .jkhive-pagination .jkhive-bttn-med.jkhive-btn-anim-coinright .jkhive-hex {
+  background: linear-gradient(160deg, rgba(30, 58, 95, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(56, 189, 248, 0.35) !important;
+}
+
+.jkhive-audit-page .jkhive-pagination .jkhive-bttn-med .jkhive-hex-icon,
+.jkhive-audit-page .jkhive-pagination .jkhive-bttn-med .jkhive-hex-content,
+.jkhive-audit-page .jkhive-pagination .jkhive-bttn-med .jkhive-hex-content svg,
+body.admin-layout .jkhive-pagination .jkhive-bttn-med .jkhive-hex-icon,
+body.admin-layout .jkhive-pagination .jkhive-bttn-med .jkhive-hex-content,
+body.admin-layout .jkhive-pagination .jkhive-bttn-med .jkhive-hex-content svg {
+  color: #e0f2fe !important;
+  fill: currentColor !important;
+}
+
+.jkhive-audit-page .jkhive-pagination .jkhive-pagination-btn-disabled,
+body.admin-layout .jkhive-pagination .jkhive-pagination-btn-disabled {
+  opacity: 0.55;
+  pointer-events: none;
+  filter: grayscale(0.15);
+}
+
+@media (max-width: 600px) {
+  .jkhive-audit-page .jkhive-pagination,
+  body.admin-layout .jkhive-pagination {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .jkhive-audit-page .jkhive-pagination-meta,
+  body.admin-layout .jkhive-pagination-meta {
+    text-align: center;
+  }
+
+  .jkhive-audit-page .jkhive-pagination-actions,
+  body.admin-layout .jkhive-pagination-actions {
+    justify-content: center;
+  }
+}
+
+body.admin-layout .jkhive-audit-severity {
+  display: inline-block;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+body.admin-layout .jkhive-audit-severity--info {
+  background: rgba(14, 165, 233, 0.2);
+  color: var(--jk-primary-blue-light);
+}
+
+body.admin-layout .jkhive-audit-severity--warning {
+  background: rgba(234, 179, 8, 0.2);
+  color: #facc15;
+}
+
+body.admin-layout .jkhive-audit-severity--error,
+body.admin-layout .jkhive-audit-severity--critical {
+  background: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+}
+
+body.admin-layout .jkhive-audit-cell-ellipsis {
+  max-width: 14rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body.admin-layout .jkhive-audit-url {
+  max-width: 12rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: ui-monospace, monospace;
+  font-size: 0.8rem;
+}
+
+body.admin-layout .jkhive-audit-empty {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: var(--jk-metal-medium);
+  font-size: 0.95rem;
+}
+
+/* ============================================================
+   Admin About — lengüetas + paneles rectangulares + edición en línea (perfil)
+   ============================================================ */
+body.admin-layout .jkhive-about-admin-page .jkhive-about-admin-msg {
+  color: var(--jk-accent-teal);
+}
+
+body.admin-layout .jkhive-about-admin-page .jkhive-about-admin-err,
+body.admin-layout .jkhive-about-admin-page .jkhive-about-admin-db-warning {
+  color: var(--jk-accent-red);
+}
+
+/* Un solo recuadro: lengüetas + contenido */
+body.admin-layout .jkhive-about-admin-sheet {
+  width: 100%;
+  max-width: 100%;
+  margin: 1rem 0 1.25rem;
+  box-sizing: border-box;
+  border-radius: 12px;
+  border: 1px solid rgba(14, 165, 233, 0.35);
+  background: linear-gradient(165deg, var(--jk-tech-dark) 0%, var(--jk-tech-darker) 100%);
+  box-shadow:
+    0 10px 28px rgba(15, 23, 42, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+body.admin-layout .jkhive-about-admin-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.45rem;
+  margin: 0;
+  padding: 0.75rem 1rem 0.65rem;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(14, 165, 233, 0.22);
+  background: rgba(10, 14, 39, 0.35);
+}
+
+body.admin-layout .jkhive-about-admin-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.8rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--jk-metal-medium);
+  text-decoration: none;
+  border-radius: 8px 8px 0 0;
+  border: 1px solid transparent;
+  border-bottom: none;
+  margin-bottom: -1px;
+  transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+body.admin-layout .jkhive-about-admin-tab-icon {
+  font-size: 1.05rem;
+  color: var(--jk-accent-honey);
+  opacity: 0.9;
+  line-height: 1;
+}
+
+body.admin-layout .jkhive-about-admin-tab.is-active .jkhive-about-admin-tab-icon {
+  opacity: 1;
+}
+
+body.admin-layout .jkhive-about-admin-tab-label {
+  line-height: 1.2;
+}
+
+body.admin-layout .jkhive-about-admin-tab:hover {
+  color: var(--jk-metal-light);
+  background: rgba(14, 165, 233, 0.08);
+}
+
+body.admin-layout .jkhive-about-admin-tab.is-active {
+  color: var(--jk-accent-honey);
+  background: linear-gradient(180deg, rgba(14, 165, 233, 0.18) 0%, rgba(10, 14, 39, 0.92) 100%);
+  border-color: rgba(14, 165, 233, 0.35);
+  border-bottom-color: transparent;
+}
+
+body.admin-layout .jkhive-about-admin-sheet-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: min(75dvh, 900px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Perfil: el recuadro acompaña el alto del contenido (no estira hasta el fondo del viewport) */
+body.admin-layout .jkhive-about-admin-sheet:has(#jkhive-about-tab-panel-perfil.is-active) .jkhive-about-admin-sheet-body {
+  flex: 0 0 auto;
+  max-height: none;
+}
+
+body.admin-layout .jkhive-about-admin-sheet:has(#jkhive-about-tab-panel-perfil.is-active) .jkhive-about-admin-tab-panels {
+  flex: 0 0 auto;
+}
+
+body.admin-layout .jkhive-about-admin-sheet:has(#jkhive-about-tab-panel-perfil.is-active) #jkhive-about-tab-panel-perfil.is-active {
+  flex: 0 0 auto;
+  min-height: 0;
+  overflow: visible;
+}
+
+body.admin-layout .jkhive-about-admin-sheet:has(#jkhive-about-tab-panel-perfil.is-active) #jkhive-about-tab-panel-perfil .jkhive-about-admin-perfil-inner {
+  flex: 0 0 auto;
+  min-height: 0;
+  overflow: visible;
+}
+
+body.admin-layout .jkhive-about-admin-sheet:has(#jkhive-about-tab-panel-perfil.is-active) #jkhive-about-tab-panel-perfil .jkhive-about-admin-panel-body-scroll {
+  flex: 0 0 auto;
+  overflow: visible;
+  max-height: none;
+}
+
+body.admin-layout .jkhive-about-admin-tab-panels {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body.admin-layout .jkhive-about-admin-tab-panel[hidden] {
+  display: none !important;
+}
+
+body.admin-layout .jkhive-about-admin-tab-panel:not(.is-active) {
+  display: none;
+}
+
+body.admin-layout .jkhive-about-admin-tab-panel.is-active {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+body.admin-layout .jkhive-about-admin-tab-inner {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Perfil: alto según contenido (sin min-height de viewport) */
+
+/* Perfil: dos columnas desktop; una columna móvil (editores al final por orden DOM) */
+body.admin-layout .jkhive-about-admin-perfil-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+  gap: 1rem;
+  align-items: stretch;
+}
+
+@media (max-width: 768px) {
+  body.admin-layout .jkhive-about-admin-perfil-layout {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+}
+
+body.admin-layout .jkhive-about-admin-perfil-col--main {
+  min-width: 0;
+}
+
+body.admin-layout .jkhive-about-admin-perfil-col--editors {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+body.admin-layout .jkhive-about-admin-perfil-col--editors .jkhive-about-perfil-editor-field {
+  flex: 1 1 auto;
+  margin-bottom: 0;
+  min-height: 0;
+}
+
+body.admin-layout .jkhive-about-admin-perfil-col--editors .jkhive-about-perfil-editor-field:not(.jkhive-about-inline-field--labeled) {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Desktop: textarea Detalles = altura de la columna izquierda (misma fila del grid) */
+@media (min-width: 769px) {
+  body.admin-layout .jkhive-about-admin-perfil-col--editors .jkhive-about-perfil-editor-field.jkhive-about-inline-field--labeled {
+    display: grid;
+    grid-template-columns: minmax(7.5rem, 9rem) 1fr;
+    align-items: stretch;
+    height: 100%;
+  }
+
+  body.admin-layout .jkhive-about-admin-perfil-col--editors .jkhive-about-perfil-editor-field .jkhive-about-inline-control {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    height: 100%;
+  }
+
+  body.admin-layout .jkhive-about-admin-perfil-col--editors .jkhive-about-perfil-editor-field textarea.jkhive-about-inline-input {
+    flex: 1 1 auto;
+    min-height: 0;
+    resize: vertical;
+  }
+}
+
+@media (max-width: 768px) {
+  body.admin-layout .jkhive-about-admin-perfil-col--editors .jkhive-about-perfil-editor-field {
+    flex: 0 1 auto;
+  }
+
+  body.admin-layout .jkhive-about-admin-perfil-col--editors .jkhive-about-perfil-editor-field textarea.jkhive-about-inline-input {
+    resize: vertical;
+    min-height: auto;
+    flex: none;
+  }
+}
+
+/* Paneles internos ya no llevan borde propio (todo va en .jkhive-about-admin-sheet) */
+body.admin-layout .jkhive-about-admin-section-panel {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  max-width: none;
+  margin: 0;
+  min-height: 0;
+}
+
+body.admin-layout .jkhive-about-admin-panel-header {
+  flex: 0 0 auto;
+  text-align: center;
+  padding: 0.85rem 1rem 0.65rem;
+  border-bottom: 1px solid rgba(14, 165, 233, 0.2);
+}
+
+body.admin-layout .jkhive-about-admin-panel-header--compact {
+  text-align: left;
+  padding: 0.75rem 1rem 0.55rem;
+}
+
+body.admin-layout .jkhive-about-admin-panel-header-icon {
+  display: block;
+  font-size: 1.5rem;
+  color: var(--jk-accent-honey);
+  filter: drop-shadow(0 0 10px rgba(244, 196, 48, 0.35));
+  margin-bottom: 0.12rem;
+}
+
+body.admin-layout .jkhive-about-admin-panel-title {
+  margin: 0;
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--jk-metal-light);
+  letter-spacing: 0.02em;
+}
+
+body.admin-layout .jkhive-about-admin-panel-subtitle {
+  margin: 0.35rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: var(--jk-metal-medium);
+  max-width: 52ch;
+}
+
+body.admin-layout .jkhive-about-admin-h3 {
+  margin: 0.5rem 0 0.35rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--jk-accent-honey);
+}
+
+body.admin-layout .jkhive-about-admin-tab-panel-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem 1rem;
+  margin: 0.35rem 0 0.35rem;
+}
+
+body.admin-layout .jkhive-about-admin-tab-panel-tools .jkhive-about-admin-h3 {
+  margin: 0;
+}
+
+body.admin-layout .jkhive-about-admin-panel-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body.admin-layout .jkhive-about-admin-tab-inner > .jkhive-about-admin-panel-body-scroll {
+  flex: 1 1 auto;
+}
+
+body.admin-layout .jkhive-about-admin-panel-body-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1rem;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--jk-primary-blue) var(--jk-tech-dark);
+  -webkit-overflow-scrolling: touch;
+}
+
+body.admin-layout .jkhive-about-admin-panel-body-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+body.admin-layout .jkhive-about-admin-panel-body-scroll::-webkit-scrollbar-track {
+  background: var(--jk-tech-dark);
+  border-radius: 3px;
+}
+
+body.admin-layout .jkhive-about-admin-panel-body-scroll::-webkit-scrollbar-thumb {
+  background: var(--jk-primary-blue);
+  border-radius: 3px;
+}
+
+body.admin-layout .jkhive-about-admin-panel-footer {
+  flex: 0 0 auto;
+  min-height: 0.35rem;
+  border-top: 1px solid rgba(14, 165, 233, 0.12);
+}
+
+body.admin-layout .jkhive-about-admin-profile-wrap {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body.admin-layout .jkhive-about-admin-profile-photo-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.35rem;
+}
+
+body.admin-layout .jkhive-about-admin-profile-photo-preview-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+body.admin-layout .jkhive-about-admin-profile-photo-preview-wrap.is-uploading {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+body.admin-layout .jkhive-about-admin-profile-photo-preview-wrap img {
+  display: block;
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid rgba(14, 165, 233, 0.35);
+}
+
+body.admin-layout .jkhive-about-admin-photo-pick-btn {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  isolation: isolate;
+}
+
+/* Velado detrás del lápiz (::before) para no mezclar opacidad con el ícono */
+body.admin-layout .jkhive-about-admin-photo-pick-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.35);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+
+body.admin-layout .jkhive-about-admin-profile-photo-preview-wrap:hover .jkhive-about-admin-photo-pick-btn::before,
+body.admin-layout .jkhive-about-admin-photo-pick-btn:focus-visible::before {
+  opacity: 1;
+}
+
+body.admin-layout .jkhive-about-admin-photo-pick-btn:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+/* Lápiz foto: encima del velado; oculto por defecto; verde → cian al hover sobre el hex */
+body.admin-layout .jkhive-about-admin-photo-pick-btn .jkhive-about-inline-btn-hex {
+  position: relative;
+  z-index: 1;
+  width: 42px;
+  height: calc(42px * 1.1547);
+  font-size: 1.05rem;
+  color: #5cff5c;
+  filter:
+    drop-shadow(0 0 8px rgba(92, 255, 92, 0.95))
+    drop-shadow(0 0 16px rgba(57, 255, 20, 0.45));
+  opacity: 0;
+  transition:
+    opacity 0.15s ease,
+    color 0.15s ease,
+    filter 0.15s ease;
+}
+
+/* Visible con hover sobre la miniatura o foco teclado: verde; hover directo sobre el hex → cian neón */
+body.admin-layout .jkhive-about-admin-profile-photo-preview-wrap:hover .jkhive-about-admin-photo-pick-btn .jkhive-about-inline-btn-hex,
+body.admin-layout .jkhive-about-admin-photo-pick-btn:focus-visible .jkhive-about-inline-btn-hex {
+  opacity: 1;
+  color: #5cff5c;
+  filter:
+    drop-shadow(0 0 8px rgba(92, 255, 92, 0.95))
+    drop-shadow(0 0 16px rgba(57, 255, 20, 0.45));
+}
+
+body.admin-layout .jkhive-about-admin-profile-photo-preview-wrap:hover .jkhive-about-admin-photo-pick-btn .jkhive-about-inline-btn-hex:hover {
+  color: #5cefff;
+  filter:
+    drop-shadow(0 0 10px rgba(0, 245, 255, 0.85))
+    drop-shadow(0 0 20px rgba(34, 211, 238, 0.5));
+}
+
+body.admin-layout .jkhive-about-admin-profile-photo-preview-wrap:hover .jkhive-about-admin-photo-pick-btn:active .jkhive-about-inline-btn-hex {
+  color: #5cefff;
+  filter:
+    drop-shadow(0 0 10px rgba(0, 245, 255, 0.85))
+    drop-shadow(0 0 20px rgba(34, 211, 238, 0.5));
+}
+
+body.admin-layout .jkhive-about-admin-photo-pick-btn .jkhive-about-inline-btn-hex i {
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+body.admin-layout .jkhive-about-admin-photo-file {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+body.admin-layout .jkhive-about-admin-profile-photo-field {
+  flex: 1;
+  min-width: 0;
+}
+
+body.admin-layout .jkhive-about-admin-profile-photo-block {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, 9rem) 1fr;
+  align-items: stretch;
+  column-gap: 0.6rem;
+  margin-bottom: 0.32rem;
+}
+
+body.admin-layout .jkhive-about-admin-profile-photo-block .jkhive-about-admin-profile-photo-row {
+  grid-column: 2;
+  margin-bottom: 0;
+}
+
+body.admin-layout .jkhive-about-inline-field--labeled {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, 9rem) 1fr;
+  align-items: stretch;
+  column-gap: 0.6rem;
+}
+
+/* A la derecha de la columna de etiqueta + centrado vertical respecto a la altura del control (input/textarea/fila foto) */
+body.admin-layout .jkhive-about-inline-label {
+  justify-self: end;
+  text-align: end;
+  align-self: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.28;
+  margin: 0;
+  padding: 0;
+  cursor: default;
+  color: var(--jk-accent-honey-light);
+  letter-spacing: 0.02em;
+  /* Color sólido + sombras: el gradiente con background-clip:text recorría el ancho del label
+     y aclaraba tramos distintos según la longitud ("Título profesional:", "Bajo el hex:", etc.). */
+  text-shadow:
+    0 1px 0 var(--jk-accent-honey-dark),
+    0 0 12px rgba(244, 196, 48, 0.22),
+    0 0 1px rgba(212, 160, 23, 0.9);
+}
+
+body.admin-layout .jkhive-about-inline-control {
+  position: relative;
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  body.admin-layout .jkhive-about-admin-profile-photo-block {
+    grid-template-columns: 1fr;
+  }
+
+  body.admin-layout .jkhive-about-admin-profile-photo-block .jkhive-about-admin-profile-photo-row {
+    grid-column: 1;
+  }
+
+  body.admin-layout .jkhive-about-admin-profile-photo-block > .jkhive-about-inline-label {
+    padding-top: 0;
+    padding-bottom: 0.2rem;
+    justify-self: start;
+    text-align: start;
+  }
+
+  body.admin-layout .jkhive-about-inline-field--labeled {
+    grid-template-columns: 1fr;
+  }
+
+  body.admin-layout .jkhive-about-inline-field--labeled .jkhive-about-inline-label {
+    padding-top: 0;
+    padding-bottom: 0.2rem;
+    justify-self: start;
+    text-align: start;
+  }
+
+  body.admin-layout .jkhive-about-inline-field--textarea.jkhive-about-inline-field--labeled .jkhive-about-inline-label {
+    padding-top: 0;
+  }
+}
+
+body.admin-layout .jkhive-about-admin-profile-hint {
+  margin: 0.15rem 0 0.4rem;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: var(--jk-metal-medium);
+}
+
+body.admin-layout .jkhive-about-admin-profile-hint code {
+  font-size: 0.68rem;
+  color: var(--jk-metal-light);
+}
+
+/* Campo en línea: lápiz / ticket dentro del borde del control (esquina superior derecha del input) */
+body.admin-layout .jkhive-about-inline-field {
+  position: relative;
+  margin-bottom: 0.32rem;
+}
+
+body.admin-layout .jkhive-about-inline-field--checkbox {
+  margin-bottom: 0.25rem;
+}
+
+body.admin-layout .jkhive-about-inline-field .jkhive-modal-form-control.jkhive-about-inline-input {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  /* padding derecho reservado para ícono dentro del campo (lápiz más grande) */
+  padding: 0.32rem 2.5rem 0.32rem 0.45rem;
+  font-size: 0.8rem;
+  line-height: 1.28;
+}
+
+body.admin-layout .jkhive-about-inline-field .jkhive-modal-form-control.jkhive-about-inline-input:not(textarea) {
+  min-height: 0;
+}
+
+body.admin-layout .jkhive-about-inline-field--textarea .jkhive-about-inline-input {
+  min-height: 3.2rem;
+  resize: vertical;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.76rem;
+  line-height: 1.32;
+  padding-top: 0.42rem;
+}
+
+body.admin-layout .jkhive-about-inline-checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  line-height: 1.3;
+  color: var(--jk-metal-light);
+  cursor: pointer;
+  margin: 0;
+  padding: 0.28rem 2.15rem 0.28rem 0;
+  box-sizing: border-box;
+}
+
+body.admin-layout .jkhive-about-inline-checkbox {
+  margin-top: 0.12rem;
+  flex-shrink: 0;
+  accent-color: var(--jk-primary-blue);
+  width: 1rem;
+  height: 1rem;
+}
+
+body.admin-layout .jkhive-about-inline-checkbox:disabled {
+  cursor: default;
+  opacity: 0.85;
+}
+
+body.admin-layout .jkhive-about-inline-btn {
+  position: absolute;
+  /* Dentro del rectángulo del control, no en un canal externo */
+  top: 5px;
+  right: 5px;
+  z-index: 3;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: opacity 0.15s ease, background 0.15s ease;
+}
+
+body.admin-layout .jkhive-about-inline-btn.jkhive-about-inline-pen {
+  width: 32px;
+  height: 32px;
+  top: 3px;
+  right: 3px;
+}
+
+body.admin-layout .jkhive-about-inline-btn.jkhive-about-inline-ticket {
+  width: 32px;
+  height: 32px;
+  top: 3px;
+  right: 3px;
+}
+
+/* Guardar en línea perfil About: ✓ azul neón, sin recuadro relleno; misma posición/caja que el lápiz (top/right 3px, 32×32) */
+body.admin-layout .jkhive-about-inline-btn.jkhive-about-inline-ticket.jkhive-inline-save-ticket {
+  top: 3px;
+  right: 3px;
+  transform: none;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  color: #5cefff;
+  font-size: 0.85rem;
+  line-height: 1;
+  font-weight: 900;
+  box-sizing: border-box;
+  filter: none;
+  /* ~20 % más grueso el trazo del carácter, mismo tamaño tipográfico */
+  -webkit-text-stroke: 0.07em #5cefff;
+  paint-order: stroke fill;
+  text-shadow:
+    0 0 6px rgba(94, 239, 255, 0.95),
+    0 0 14px rgba(56, 189, 248, 0.8),
+    0 0 22px rgba(14, 165, 233, 0.5);
+}
+
+body.admin-layout .jkhive-about-inline-btn.jkhive-about-inline-ticket.jkhive-inline-save-ticket:hover {
+  background: transparent;
+  color: #7df9ff;
+  filter: none;
+  -webkit-text-stroke-color: #7df9ff;
+  text-shadow:
+    0 0 8px rgba(125, 249, 255, 1),
+    0 0 18px rgba(56, 189, 248, 0.9),
+    0 0 28px rgba(34, 211, 238, 0.55);
+}
+
+@media (max-width: 768px) {
+  body.admin-layout .jkhive-about-inline-btn.jkhive-about-inline-ticket.jkhive-inline-save-ticket {
+    font-size: 0.75rem;
+  }
+}
+
+/* Detalles (columna editores): lápiz/ticket más a la izquierda para no montarse en la barra vertical del textarea */
+body.admin-layout .jkhive-about-admin-perfil-col--editors .jkhive-about-inline-btn.jkhive-about-inline-pen,
+body.admin-layout .jkhive-about-admin-perfil-col--editors .jkhive-about-inline-btn.jkhive-about-inline-ticket {
+  right: 0.95rem;
+}
+
+body.admin-layout .jkhive-about-inline-btn-hex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: calc(24px * 1.1547);
+  font-size: 0.62rem;
+  color: var(--jk-accent-honey-light);
+  filter: drop-shadow(0 0 6px rgba(14, 165, 233, 0.35));
+}
+
+body.admin-layout .jkhive-about-inline-btn.jkhive-about-inline-pen .jkhive-about-inline-btn-hex {
+  width: 30px;
+  height: calc(30px * 1.1547);
+  font-size: 0.88rem;
+  color: #5cff5c;
+  filter:
+    drop-shadow(0 0 6px rgba(92, 255, 92, 0.9))
+    drop-shadow(0 0 12px rgba(57, 255, 20, 0.4));
+}
+
+body.admin-layout .jkhive-about-inline-btn.jkhive-about-inline-pen:hover .jkhive-about-inline-btn-hex {
+  color: #5cefff;
+  filter:
+    drop-shadow(0 0 8px rgba(0, 245, 255, 0.85))
+    drop-shadow(0 0 16px rgba(34, 211, 238, 0.45));
+}
+
+body.admin-layout .jkhive-about-inline-btn.jkhive-about-inline-pen .jkhive-about-inline-btn-hex i {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+body.admin-layout .jkhive-about-inline-btn:hover .jkhive-about-inline-btn-hex {
+  color: var(--jk-primary-blue-light);
+}
+
+body.admin-layout .jkhive-about-inline-ticket {
+  display: none;
+}
+
+body.admin-layout .jkhive-about-inline-field.is-editing .jkhive-about-inline-ticket {
+  display: flex;
+}
+
+body.admin-layout .jkhive-about-inline-field.is-editing .jkhive-about-inline-pen {
+  display: none;
+}
+
+body.admin-layout .jkhive-about-inline-field.is-locked .jkhive-about-inline-pen {
+  opacity: 0;
+  pointer-events: none;
+}
+
+body.admin-layout .jkhive-about-inline-field.is-locked:hover .jkhive-about-inline-pen {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+body.admin-layout .jkhive-about-inline-field.is-saving {
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+body.admin-layout .jkhive-about-inline-field.is-editing .jkhive-about-inline-input:not(:disabled) {
+  border-color: rgba(56, 189, 248, 0.75);
+  box-shadow: 0 0 0 1px rgba(14, 165, 233, 0.2);
+}
+
+/* About admin — Habilidades: barra de herramientas y modales apilados */
+.jkhive-about-admin-page .jkhive-about-habilidades-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.jkhive-about-admin-page .jkhive-about-maint-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.jkhive-about-admin-page .jkhive-about-maint-h3 {
+  margin: 1rem 0 0.5rem;
+  font-size: 1rem;
+  color: var(--jk-accent-honey, #d4a017);
+}
+
+.jkhive-about-admin-page .jkhive-about-maint-hint {
+  margin: 0 0 0.75rem;
+  font-size: 0.875rem;
+  color: var(--jk-tech-muted, #888);
+  line-height: 1.4;
+}
+
+.jkhive-about-admin-page .jkhive-about-tag-form-maint {
+  margin: 0 0 0.5rem;
+  padding: 0.75rem 0 0;
+  border-top: 1px solid var(--jk-tech-medium, rgba(255, 255, 255, 0.12));
+}
+
+.jkhive-about-admin-page .jkhive-about-maint-modal-content.jkhive-about-maint-wide {
+  max-width: min(960px, 96vw);
+}
+
+.jkhive-about-admin-page .jkhive-about-maint-table-wrap {
+  max-height: min(45vh, 420px);
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+
+.jkhive-about-admin-page #aboutSectionsMaintModal.jkhive-modal {
+  z-index: 10050;
+}
+
+.jkhive-about-admin-page #aboutSkillLineModal.jkhive-modal {
+  z-index: 10060;
+}
+
+.jkhive-about-admin-page #aboutSectionFormModal.jkhive-modal {
+  z-index: 10070;
+}
+
+/* Fin de crm.css */
+

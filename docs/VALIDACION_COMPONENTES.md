@@ -1,5 +1,7 @@
 # Fase 13 — Validación por componente (showcase)
 
+Contrato global (tokens, galerías, temas): **[JK_HIVE_FRAMEWORK_CONTRACT.md](JK_HIVE_FRAMEWORK_CONTRACT.md)**.
+
 ## Criterios
 
 1. **Aislamiento:** no requiere proyecto jklubs/jkhive en disco para servir el showcase (solo activos empaquetados + PHP).  

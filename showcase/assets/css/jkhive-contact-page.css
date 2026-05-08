@@ -1,0 +1,161 @@
+/**
+ * JK Hive — página Contacto (tarjetas, intro, alertas; el submit sigue en contact-style.css).
+ */
+
+.page-public.contact-page .jkhive-contact-wrap {
+  padding-top: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 3rem;
+}
+
+.jkhive-contact-intro {
+  color: var(--jk-metal-light);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  max-width: 900px;
+}
+
+.jkhive-contact-intro p {
+  margin: 0 0 0.75rem;
+}
+
+.jkhive-contact-intro p:last-child {
+  margin-bottom: 0;
+}
+
+.jkhive-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* Móvil: formulario primero, información de contacto debajo */
+@media (max-width: 768px) {
+  .jkhive-contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .jkhive-contact-card--form {
+    order: 1;
+  }
+
+  .jkhive-contact-card--info {
+    order: 2;
+  }
+}
+
+.jkhive-contact-card {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--jk-tech-medium);
+  border-radius: 15px;
+  padding: 2.5rem;
+  backdrop-filter: blur(10px);
+}
+
+.jkhive-contact-card-title {
+  color: var(--jk-accent-honey);
+  margin: 0 0 1.5rem;
+  font-size: 1.4rem;
+  border-bottom: 2px solid var(--jk-primary-blue);
+  padding-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.jkhive-contact-card-title i {
+  font-size: 1.1em;
+}
+
+.jkhive-contact-channel {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.jkhive-contact-channel:last-child {
+  margin-bottom: 0;
+}
+
+.jkhive-contact-channel-icon {
+  color: var(--jk-accent-honey);
+  font-size: 1.1rem;
+  line-height: 1.5;
+  flex-shrink: 0;
+}
+
+.jkhive-contact-channel-body {
+  flex: 1;
+  min-width: 0;
+  color: var(--jk-metal-light);
+  line-height: 1.6;
+}
+
+.jkhive-contact-channel-body p:last-child {
+  margin-bottom: 0;
+}
+
+.jkhive-contact-form .form-label {
+  display: block;
+  color: var(--jk-metal-light);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.jkhive-contact-form .form-control {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid var(--jk-tech-medium);
+  color: var(--jk-metal-light);
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.jkhive-contact-form .form-control:focus {
+  border-color: var(--jk-primary-blue);
+  outline: none;
+  box-shadow: 0 0 10px rgba(14, 165, 233, 0.2);
+}
+
+.jkhive-contact-alert {
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.jkhive-contact-alert--success {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #10b981;
+}
+
+.jkhive-contact-alert--error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+  padding: 1rem;
+}
+
+.jkhive-contact-alert--success .jkhive-contact-alert-icon {
+  font-size: 1.5rem;
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.jkhive-contact-submit-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  display: block;
+}

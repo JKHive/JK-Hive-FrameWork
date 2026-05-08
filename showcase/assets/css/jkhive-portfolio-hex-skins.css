@@ -1,0 +1,106 @@
+/**
+ * Portafolio: sección «cyan» = mismo patrón que el carrusel del home (index.php):
+ * jkhive-itemgallery-med + .jkhive-hex.jkhive-hex-cyan-item.jkhive-hex-skin-canonical-cyan + editorial.
+ * Los colores del hex los define jkhive-elements.css / jk-hive.css (no duplicar aquí).
+ *
+ * Solo puente de layout: el itemgallery rellena la celda .jkhive-services-item sin cambiar la grilla.
+ * ::after del cyan: corrección de proporción cuando el .jkhive-hex es fluido (100%).
+ */
+
+.page-portfolio .jkhive-portfolio-services-hex .jkhive-services-item .jkhive-portfolio-home-cyan-wrap.jkhive-itemgallery-med {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.page-portfolio .jkhive-portfolio-services-hex .jkhive-portfolio-home-cyan-wrap.jkhive-itemgallery-med .jkhive-hex {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Sustituye height calc(%)*1.1547 de elements cuando el padre es fluido */
+.page-portfolio .jkhive-portfolio-services-hex .jkhive-portfolio-home-cyan-wrap.jkhive-itemgallery-med .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan)::after {
+    width: calc(100% - 4px) !important;
+    height: auto !important;
+    max-height: none;
+    aspect-ratio: 1 / 1.1547;
+}
+
+.page-portfolio .jkhive-portfolio-services-hex .jkhive-portfolio-home-cyan-wrap .jkhive-hex-gallery-icon img {
+    max-width: 2.6775rem;
+    max-height: 2.6775rem;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+/* ========== Miel: sigue en .jkhive-services-hex (piel ventajas), sin inventar variantes ========== */
+.jkhive-services-hex.jkhive-hex-skin-canonical-honey::before {
+    display: none !important;
+}
+
+.jkhive-services-hex.jkhive-hex-skin-canonical-honey {
+    background: var(--jk-primary-blue-light) !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.jkhive-services-hex.jkhive-hex-skin-canonical-honey::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% - 4px);
+    max-width: calc(100% - 4px);
+    height: auto;
+    aspect-ratio: 1 / 1.1547;
+    box-sizing: border-box;
+    background: var(--jk-accent-honey-light) !important;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    z-index: 1;
+    pointer-events: none;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.jkhive-services-item:hover .jkhive-services-hex.jkhive-hex-skin-canonical-honey,
+.jkhive-services-item:focus-within .jkhive-services-hex.jkhive-hex-skin-canonical-honey {
+    background: var(--jk-accent-honey-light) !important;
+    box-shadow: var(--jk-shadow-lg, 0 10px 30px rgba(0, 0, 0, 0.3)), 0 0 30px rgba(244, 196, 48, 0.8) !important;
+    transform: scale(1.05);
+}
+
+.jkhive-services-item:hover .jkhive-services-hex.jkhive-hex-skin-canonical-honey::after,
+.jkhive-services-item:focus-within .jkhive-services-hex.jkhive-hex-skin-canonical-honey::after {
+    background: var(--jk-tech-dark) !important;
+    transform: translate(-50%, -50%) scale(1.05);
+}
+
+.jkhive-services-hex.jkhive-hex-skin-canonical-honey .jkhive-services-icon {
+    color: var(--jk-accent-honey-light);
+    filter: drop-shadow(0 0 10px rgba(244, 196, 48, 0.8));
+}
+
+.jkhive-services-hex.jkhive-hex-skin-canonical-honey .jkhive-services-title {
+    color: var(--jk-primary-blue-dark) !important;
+    text-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
+}
+
+.jkhive-services-item:hover .jkhive-services-hex.jkhive-hex-skin-canonical-honey .jkhive-services-title,
+.jkhive-services-item:focus-within .jkhive-services-hex.jkhive-hex-skin-canonical-honey .jkhive-services-title {
+    color: var(--jk-primary-blue-light) !important;
+    text-shadow: 0 0 15px rgba(56, 189, 248, 0.6) !important;
+}
+
+.jkhive-services-item:hover .jkhive-services-hex.jkhive-hex-skin-canonical-honey .jkhive-services-icon,
+.jkhive-services-item:focus-within .jkhive-services-hex.jkhive-hex-skin-canonical-honey .jkhive-services-icon {
+    color: var(--jk-accent-honey);
+    filter: drop-shadow(0 0 15px rgba(244, 196, 48, 1));
+}

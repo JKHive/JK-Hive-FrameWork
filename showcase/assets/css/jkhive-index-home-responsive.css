@@ -1,0 +1,482 @@
+/**
+ * JK Hive — Home (index): responsive y mobile.
+ * Alcance: solo body.jkhive-index-home (no altera otras páginas públicas).
+ * Desktop: replica espaciados que antes estaban en inline styles de index.php.
+ */
+
+/* ---------- Hero: nombre arriba, logo/animación centro, tagline abajo (vertical equilibrado) ---------- */
+body.jkhive-index-home .hero-jkhive-hub:not(.hero-collapsed) .hero-inner.hero-jkhive-inner-stack {
+  justify-content: center;
+  align-items: center;
+  gap: clamp(0.65rem, 2.2vh, 1.15rem);
+  min-height: clamp(300px, 46vh, 440px);
+  padding-top: clamp(0.5rem, 2vh, 1rem);
+  padding-bottom: clamp(0.65rem, 2.5vh, 1.25rem);
+  box-sizing: border-box;
+}
+
+body.jkhive-index-home .hero-jkhive-hub:not(.hero-collapsed) .hero-inner .hero-title.hero-jkhive-hero-name {
+  order: 1;
+  margin: 0 !important;
+  margin-bottom: 0 !important;
+  font-size: clamp(1.6rem, 4vw, 2.65rem);
+  line-height: 1.15;
+  text-align: center;
+  max-width: min(100%, 36rem);
+  padding: 0 0.75rem;
+}
+
+body.jkhive-index-home .hero-jkhive-hub:not(.hero-collapsed) .hero-inner .hero-jkhive-hub-cluster {
+  order: 2;
+  margin-top: 0;
+  margin-bottom: 0;
+  min-height: clamp(168px, 28vw, 248px);
+}
+
+body.jkhive-index-home .hero-jkhive-hub:not(.hero-collapsed) .hero-inner .hero-subtitle.hero-jkhive-hero-tagline {
+  order: 3;
+  margin: 0 !important;
+  padding: 0 1rem !important;
+  text-align: center;
+  max-width: min(100%, 40rem);
+  font-size: clamp(0.98rem, 2.6vw, 1.28rem);
+  line-height: 1.35;
+}
+
+@media (max-width: 768px) {
+  body.jkhive-index-home .hero-jkhive-hub:not(.hero-collapsed) .hero-inner.hero-jkhive-inner-stack {
+    min-height: clamp(260px, 52vw, 360px);
+    gap: clamp(0.5rem, 1.8vw, 0.9rem);
+  }
+
+  body.jkhive-index-home .hero-jkhive-hub:not(.hero-collapsed) .hero-inner .hero-jkhive-hub-cluster {
+    min-height: clamp(140px, 38vw, 200px);
+  }
+}
+
+@media (max-width: 480px) {
+  body.jkhive-index-home .hero-jkhive-hub:not(.hero-collapsed) .hero-inner.hero-jkhive-inner-stack {
+    min-height: clamp(240px, 58vw, 320px);
+  }
+
+  body.jkhive-index-home .hero-jkhive-hub:not(.hero-collapsed) .hero-inner .hero-jkhive-hub-cluster {
+    min-height: clamp(120px, 42vw, 175px);
+  }
+}
+
+/* ---------- Desktop (igual que inline previos) ---------- */
+body.jkhive-index-home .jkhive-index-page {
+  padding: 0 1rem 4rem;
+  box-sizing: border-box;
+}
+
+body.jkhive-index-home .jkhive-index-section--hub {
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+}
+
+body.jkhive-index-home .jkhive-index-section-title {
+  text-align: center;
+}
+
+body.jkhive-index-home .jkhive-index-lead {
+  max-width: 800px;
+  margin: 1.5rem auto 2rem;
+  text-align: center;
+  color: var(--jk-metal-light);
+}
+
+/* Hub: menos aire entre la línea (::after) del h2 y el lead — alineado a ~1–2px por debajo del hueco barra↔título (típ. ~12px) */
+body.jkhive-index-home #contexto-servicio.jkhive-index-section--hub h2.jkhive-section-title.jkhive-index-section-title {
+  margin-bottom: 0;
+}
+
+body.jkhive-index-home #contexto-servicio.jkhive-index-section--hub .jkhive-index-lead {
+  margin-top: 11px;
+  margin-bottom: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.jkhive-index-home .jkhive-index-section--ventajas {
+  margin-bottom: 4rem;
+  padding: 3rem 0;
+}
+
+body.jkhive-index-home .jkhive-index-why-sub {
+  text-align: center;
+  color: var(--jk-metal);
+  max-width: 800px;
+  margin: 1.5rem auto 0;
+  padding: 0 0.25rem;
+  box-sizing: border-box;
+}
+
+body.jkhive-index-home .jkhive-index-ventajas-gallery {
+  margin-top: calc(2rem + 15px);
+}
+
+body.jkhive-index-home .jkhive-index-section--cta {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+body.jkhive-index-home .jkhive-index-cta-html {
+  max-width: 700px;
+  margin: 1.5rem auto;
+  color: var(--jk-metal-light);
+}
+
+body.jkhive-index-home .jkhive-index-cta-html p {
+  margin: 0.5rem 0;
+}
+
+/* Anclas: refuerzo scroll-margin (jkhive-style ya define html global) */
+body.jkhive-index-home main .jkhive-index-section[id] {
+  scroll-margin-top: 100px;
+}
+
+@media (min-width: 769px) {
+  body.jkhive-index-home main .jkhive-index-section[id] {
+    scroll-margin-top: 125px;
+  }
+}
+
+body.hero-scrolled.jkhive-index-home #contexto-servicio.jkhive-index-section--hub {
+  /* +5px respecto a 1.75rem: más aire barra colapsada ↔ título que línea de subrayado */
+  padding-top: calc(1.75rem + 5px);
+}
+
+body.hero-scrolled.jkhive-index-home #contexto-servicio.jkhive-index-section--hub .jkhive-index-lead {
+  margin-top: 11px;
+}
+
+@media (min-width: 769px) {
+  body.hero-scrolled.jkhive-index-home main .jkhive-index-section[id] {
+    scroll-margin-top: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  body.hero-scrolled.jkhive-index-home main .jkhive-index-section[id] {
+    scroll-margin-top: 105px;
+  }
+
+  body.hero-scrolled.jkhive-index-home #contexto-servicio.jkhive-index-section--hub .jkhive-index-lead {
+    margin-top: 10px;
+  }
+}
+
+/* ---------- Tablet / mobile ---------- */
+@media (max-width: 768px) {
+  /* Último refuerzo (este CSS va al final en index): barra colapsada, inner 200×100 centrado sin transform. */
+  html body.jkhive-index-home .hero-section.hero-collapsed .hero-inner {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    width: 200px !important;
+    height: 100px !important;
+    max-height: 100px !important;
+    margin: -58px 0 0 -100px !important;
+    transform: none !important;
+    right: auto !important;
+    bottom: auto !important;
+  }
+
+  body.jkhive-index-home .jkhive-index-page {
+    padding: 0 0.5rem 2.75rem;
+  }
+
+  body.jkhive-index-home .jkhive-index-section--hub {
+    margin-top: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+
+  body.jkhive-index-home .jkhive-index-section-title {
+    font-size: clamp(1.35rem, 4.2vw, 1.65rem);
+    line-height: 1.2;
+    padding: 0 0.35rem;
+  }
+
+  body.jkhive-index-home .jkhive-index-lead {
+    margin: 1.1rem auto 1.5rem;
+    padding: 0 0.35rem;
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  body.jkhive-index-home #contexto-servicio.jkhive-index-section--hub .jkhive-index-lead {
+    margin-top: 10px;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Carrusel: 10px más arriba que el margin-top base (2rem) de jkhive-hub-carousel.css */
+  body.jkhive-index-home #contexto-servicio .jkhive-hub-carousel-wrap {
+    margin-top: calc(2rem - 10px);
+  }
+
+  body.jkhive-index-home .jkhive-index-lead .jkhive-lead-text {
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  body.jkhive-index-home .jkhive-index-section--ventajas {
+    margin-bottom: 2.5rem;
+    padding: 2rem 0;
+  }
+
+  body.jkhive-index-home .jkhive-index-why-sub {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    margin-top: 1rem;
+  }
+
+  body.jkhive-index-home .jkhive-index-ventajas-gallery {
+    margin-top: 1.5rem;
+    padding-left: 0.15rem;
+    padding-right: 0.15rem;
+  }
+
+  /**
+   * #ventajas — solo ≤768px: grid 3+2+1 + itemgallery 90px (desktop sin tocar: flex + jk-hive por defecto).
+   */
+  body.jkhive-index-home #ventajas.jkhive-index-section--ventajas {
+    overflow: visible;
+  }
+
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery.jkhive-hex-gallery-small {
+    display: grid !important;
+    grid-template-columns: repeat(3, 90px);
+    justify-content: center;
+    align-content: start;
+    /* column-gap: separación horizontal entre ítems; row-gap: 1px entre filas del panal */
+    row-gap: 1px;
+    column-gap: 2px;
+    padding-top: 28px;
+    padding-bottom: 14px;
+    overflow: visible;
+  }
+
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery.jkhive-hex-gallery-small .jkhive-itemgallery-small {
+    width: 90px;
+    height: 104px;
+    /* Sin margen horizontal: el 1px lateral sumaba desvío a la derecha en la 2.ª fila */
+    margin: -26px 0;
+  }
+
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small .jkhive-hex {
+    width: 90px !important;
+    height: calc(90px * 1.1547) !important;
+  }
+
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small .jkhive-hex::after {
+    width: calc(90px - 4px) !important;
+    height: calc((90px - 4px) * 1.1547) !important;
+  }
+
+  /* Hex 90px: centrado vertical estable (este CSS va después de jkhive-style) */
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small .jkhive-hex-content.jkhive-hex-content-editorial {
+    justify-content: center !important;
+    align-items: center !important;
+    align-content: center !important;
+    padding: 0.26rem 6% 0.3rem 6% !important;
+    gap: 0.14rem !important;
+  }
+
+  /* transform en wrapper: jk-hive fuerza .jkhive-itemgallery-small { transform: none !important } — honeycomb exige !important aquí */
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(1) {
+    grid-row: 1;
+    grid-column: 1;
+    transform: none !important;
+  }
+
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(2) {
+    grid-row: 1;
+    grid-column: 2;
+    transform: none !important;
+  }
+
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(3) {
+    grid-row: 1;
+    grid-column: 3;
+    transform: none !important;
+  }
+
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(4) {
+    grid-row: 2;
+    grid-column: 1;
+    margin-top: 0;
+    /* Con column-gap 2px el valle entre hex fila 1 queda en 91px → 91 - 45 = 46px desde el inicio de celda */
+    transform: translateX(46px) !important;
+  }
+
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(5) {
+    grid-row: 2;
+    grid-column: 2;
+    margin-top: 0;
+    transform: translateX(46px) !important;
+  }
+
+  /* Centrado bajo los dos hex de la fila 2: misma traslación que el 5.º = quedaba bajo la 2.ª columna */
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(6) {
+    grid-row: 3;
+    grid-column: 1 / -1;
+    justify-self: center;
+    margin-top: 0;
+    transform: none !important;
+    width: 90px;
+    max-width: 90px;
+  }
+
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(1):hover,
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(2):hover,
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(3):hover {
+    transform: scale(1.05) !important;
+  }
+
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(4):hover,
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(5):hover {
+    transform: translateX(46px) scale(1.05) !important;
+  }
+
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(6):hover {
+    transform: scale(1.05) !important;
+  }
+
+  body.jkhive-index-home .jkhive-index-section--cta {
+    padding: 2rem 0.75rem;
+  }
+
+  body.jkhive-index-home .jkhive-index-cta-html {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    padding: 0 0.25rem;
+  }
+
+  /**
+   * #cta (¿Listo para comenzar?): hex CTAs en mobile.
+   * jkhive-elements.css fuerza html body .jkhive-bttn-big a 65.17px y gana sobre jkhive-style (55.39px).
+   * Refuerzo local misma escala 85% que el estándar del sitio en ≤768px.
+   */
+  html body.jkhive-index-home #cta.cta-section-hex .cta-buttons-hex .jkhive-bttn-big,
+  html body.jkhive-index-home #cta.cta-section-hex .cta-buttons-hex .jkhive-bttn-big > a,
+  html body.jkhive-index-home #cta.cta-section-hex .cta-buttons-hex .jkhive-bttn-big > button {
+    width: 55.39px !important;
+    height: calc(55.39px * 1.1547) !important;
+  }
+
+  html body.jkhive-index-home #cta.cta-section-hex .cta-buttons-hex .jkhive-bttn-big .jkhive-hex {
+    width: 55.39px !important;
+    height: calc(55.39px * 1.1547) !important;
+  }
+
+  html body.jkhive-index-home #cta.cta-section-hex .cta-buttons-hex .jkhive-bttn-big .jkhive-hex-icon,
+  html body.jkhive-index-home #cta.cta-section-hex .cta-buttons-hex .jkhive-bttn-big .jkhive-hex-content {
+    font-size: 1.35rem !important;
+  }
+
+  /* Modal detalle carrusel: safe area + ancho útil */
+  body.jkhive-index-home .jkhive-hub-detail-modal.jkhive-modal-content {
+    width: min(520px, calc(100vw - 1.25rem)) !important;
+    max-width: min(520px, calc(100vw - 1.25rem)) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: max(0.75rem, env(safe-area-inset-top, 0px)) !important;
+    margin-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px)) !important;
+    box-sizing: border-box !important;
+  }
+
+}
+
+@media (max-width: 480px) {
+  body.jkhive-index-home .jkhive-index-page {
+    padding-bottom: 2.25rem;
+  }
+
+  body.jkhive-index-home .jkhive-index-section-title {
+    font-size: 1.28rem;
+  }
+
+  body.jkhive-index-home .jkhive-index-lead {
+    font-size: 0.9rem;
+  }
+
+  body.jkhive-index-home .jkhive-index-why-sub {
+    font-size: 0.88rem;
+  }
+}
+
+/**
+ * Viewports muy estrechos: el carrusel (hex + flechas táctiles) no debe desbordar.
+ * Flechas ~44px c/u → reservar ~96px; el resto para el stage.
+ */
+@media (max-width: 380px) {
+  body.jkhive-index-home #jkHubCarouselStage.jkhive-hub-carousel-stage.tipos-modal-stage-hex {
+    width: min(240px, calc(100vw - 100px)) !important;
+    max-width: min(240px, calc(100vw - 100px)) !important;
+    height: calc(min(240px, calc(100vw - 100px)) * 1.1547) !important;
+    --jk-hub-carousel-hex: min(240px, calc(100vw - 100px));
+  }
+
+}
+
+/* #ventajas: 2 columnas (2+2+2 honeycomb). */
+@media (max-width: 300px) {
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery.jkhive-hex-gallery-small {
+    grid-template-columns: repeat(2, 90px);
+    row-gap: 1px;
+    column-gap: 2px;
+  }
+
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(1) {
+    grid-row: 1;
+    grid-column: 1;
+    transform: none !important;
+  }
+
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(2) {
+    grid-row: 1;
+    grid-column: 2;
+    transform: none !important;
+  }
+
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(3) {
+    grid-row: 2;
+    grid-column: 1;
+    margin-top: 0;
+    transform: translateX(46px) !important;
+  }
+
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(4) {
+    grid-row: 2;
+    grid-column: 2;
+    margin-top: 0;
+    transform: translateX(46px) !important;
+  }
+
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(5) {
+    grid-row: 3;
+    grid-column: 1;
+    margin-top: 0;
+    transform: none !important;
+  }
+
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(6) {
+    grid-row: 3;
+    grid-column: 2;
+    margin-top: 0;
+    transform: none !important;
+  }
+
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(1):hover,
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(2):hover,
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(5):hover,
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(6):hover {
+    transform: scale(1.05) !important;
+  }
+
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(3):hover,
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(4):hover {
+    transform: translateX(46px) scale(1.05) !important;
+  }
+}

@@ -1,0 +1,69 @@
+/**
+ * Temas JK Hive Showcase — sustituyen primarios / tech / glows.
+ * INVARIANTE: --jk-accent-honey* no se redefine (identidad abeja / miel metálico).
+ */
+
+/* --- Aurora: frescura digital, teal + violeta profundo --- */
+body.jkfw-theme-aurora {
+  --jk-primary-blue: #2dd4bf;
+  --jk-primary-blue-light: #5eead4;
+  --jk-primary-blue-dark: #14b8a6;
+  --jk-primary-blue-darker: #0f766e;
+  --jk-secondary-green: #a78bfa;
+  --jk-secondary-green-light: #c4b5fd;
+  --jk-secondary-green-dark: #7c3aed;
+  --jk-tech-darker: #0c1222;
+  --jk-tech-dark: #151b2e;
+  --jk-tech-medium: #2d3a5c;
+  --jk-tech-light: #3d4f7a;
+  --jk-glow-blue: 0 0 22px rgba(45, 212, 191, 0.45), 0 0 44px rgba(167, 139, 250, 0.25);
+  --jk-glow-cyan: 0 0 20px rgba(167, 139, 250, 0.4), 0 0 40px rgba(45, 212, 191, 0.2);
+  --jkhive-canonical-blue-hex-shadow: 0 8px 32px rgba(45, 212, 191, 0.28), inset 0 0 40px rgba(167, 139, 250, 0.12);
+  --jkhive-canonical-blue-hex-shadow-hover: 0 12px 40px rgba(45, 212, 191, 0.42), 0 0 60px rgba(244, 196, 48, 0.28),
+    inset 0 0 60px rgba(167, 139, 250, 0.2);
+  --jkhive-canonical-blue-hex-glow-radial: radial-gradient(circle at 50% 0%, rgba(45, 212, 191, 0.28) 0%, transparent 70%);
+}
+
+/* --- Cobalt: corporativo frío, azul acero --- */
+body.jkfw-theme-cobalt {
+  --jk-primary-blue: #3b82f6;
+  --jk-primary-blue-light: #60a5fa;
+  --jk-primary-blue-dark: #2563eb;
+  --jk-primary-blue-darker: #1e3a8a;
+  --jk-secondary-green: #22d3ee;
+  --jk-secondary-green-light: #67e8f9;
+  --jk-secondary-green-dark: #0891b2;
+  --jk-tech-darker: #020617;
+  --jk-tech-dark: #0f172a;
+  --jk-tech-medium: #1e293b;
+  --jk-tech-light: #334155;
+  --jk-glow-blue: 0 0 20px rgba(59, 130, 246, 0.45), 0 0 40px rgba(34, 211, 238, 0.2);
+  --jk-glow-cyan: 0 0 20px rgba(34, 211, 238, 0.4), 0 0 40px rgba(59, 130, 246, 0.2);
+  --jkhive-canonical-blue-hex-shadow: 0 8px 32px rgba(59, 130, 246, 0.3), inset 0 0 40px rgba(34, 211, 238, 0.1);
+  --jkhive-canonical-blue-hex-shadow-hover: 0 12px 40px rgba(59, 130, 246, 0.45), 0 0 60px rgba(244, 196, 48, 0.25),
+    inset 0 0 60px rgba(34, 211, 238, 0.18);
+  --jkhive-canonical-blue-hex-glow-radial: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.25) 0%, transparent 70%);
+}
+
+/* --- Ember: calor humano, coral + carbón cálido (miel resalta más) --- */
+body.jkfw-theme-ember {
+  --jk-primary-blue: #f97316;
+  --jk-primary-blue-light: #fb923c;
+  --jk-primary-blue-dark: #ea580c;
+  --jk-primary-blue-darker: #9a3412;
+  --jk-secondary-green: #f43f5e;
+  --jk-secondary-green-light: #fb7185;
+  --jk-secondary-green-dark: #e11d48;
+  --jk-tech-darker: #1a0f0d;
+  --jk-tech-dark: #292018;
+  --jk-tech-medium: #42302a;
+  --jk-tech-light: #5c4339;
+  --jk-metal-light: #f1e9e4;
+  --jk-metal: #d4c4bc;
+  --jk-glow-blue: 0 0 22px rgba(249, 115, 22, 0.4), 0 0 40px rgba(244, 63, 94, 0.25);
+  --jk-glow-cyan: 0 0 20px rgba(244, 63, 94, 0.35), 0 0 40px rgba(249, 115, 22, 0.2);
+  --jkhive-canonical-blue-hex-shadow: 0 8px 32px rgba(249, 115, 22, 0.28), inset 0 0 40px rgba(244, 63, 94, 0.1);
+  --jkhive-canonical-blue-hex-shadow-hover: 0 12px 40px rgba(249, 115, 22, 0.4), 0 0 60px rgba(244, 196, 48, 0.35),
+    inset 0 0 60px rgba(244, 63, 94, 0.15);
+  --jkhive-canonical-blue-hex-glow-radial: radial-gradient(circle at 50% 0%, rgba(249, 115, 22, 0.22) 0%, transparent 70%);
+}

@@ -16,7 +16,7 @@ require __DIR__ . '/includes/layout-main-open.php';
         <form class="jkfw-contact-form" action="#" method="post" style="max-width:28rem;margin-top:1.25rem;">
           <div class="jkfw-admin-field" style="margin-bottom:1rem;">
             <label class="jkfw-admin-label" for="jkfw-contact-subject">Motivo</label>
-            <select id="jkfw-contact-subject" name="subject" class="jkhive-hex-select" title="Motivo">
+            <select id="jkfw-contact-subject" name="subject" class="jkhive-hex-select" data-tooltip="Motivo" aria-label="Motivo">
               <option value="">Seleccionar…</option>
               <option value="demo">Consulta general</option>
               <option value="support">Soporte técnico</option>

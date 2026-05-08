@@ -1,0 +1,417 @@
+/**
+ * =============================================================================
+ * JK Hive - Gallery Catalog Layout (jkhive-gallery-catalog.css)
+ * =============================================================================
+ *
+ * Layout de catálogo con hero colapsable:
+ * - Cuando el hero se transforma en barra (body.hero-scrolled), la barra de
+ *   filtros + paginación superior se fija debajo del hero.
+ * - La paginación inferior queda fija al borde inferior del viewport (sticky).
+ * - La galería hace scroll en el espacio entre ambas barras.
+ * - Al llegar al final del scroll, la página sigue y se muestra el footer.
+ *
+ * REQUISITOS:
+ * - Página con hero (hero-section) que colapsa (hero-collapse.js).
+ * - body recibe la clase "hero-scrolled" cuando el hero está colapsado.
+ * - Estructura HTML (ver comentario al final del archivo).
+ *
+ * USO EN CUALQUIER SITIO JK HIVE:
+ * 1. Incluir este CSS después de hero-honeycomb-bar.css.
+ * 2. Incluir jkhive-gallery-catalog.js (después de hero-collapse.js).
+ * 3. Usar la estructura de contenedores indicada en la página de catálogo.
+ *
+ * VARIABLES CSS (opcional): el layout usa las mismas coordenadas que la barra
+ * del hero. Si tu sitio tiene navbar/hero con otras medidas, sobrescribe en
+ * tu propio CSS:
+ *   --jkhive-gallery-catalog-hero-bottom: 225px;  /* desktop: navbar top + hero height */
+ *   --jkhive-gallery-catalog-hero-left: 140px;
+ *   --jkhive-gallery-catalog-hero-bottom-mobile: 200px;
+ *   --jkhive-gallery-catalog-hero-left-mobile: 101px;
+ * =============================================================================
+ */
+
+/* Coordenadas por defecto: coinciden con hero-honeycomb-bar.css
+   Desktop: navbar 70px + hero barra 160px = 230px
+   Mobile:  navbar 60px + hero barra 140px = 200px */
+:root {
+  --jkhive-gallery-catalog-hero-bottom: 230px;
+  --jkhive-gallery-catalog-hero-left: 140px;
+  --jkhive-gallery-catalog-hero-bottom-mobile: 200px;
+  --jkhive-gallery-catalog-hero-left-mobile: 101px;
+  --jkhive-gallery-catalog-toolbar-z: 1399;
+  --jkhive-gallery-catalog-pagination-bottom-z: 1300;
+}
+
+/* -----------------------------------------------------------------------------
+   Contenedor de la barra (filtros + paginación superior)
+   En flujo normal ocupa su espacio; cuando está pinned, el spacer mantiene el hueco.
+   ----------------------------------------------------------------------------- */
+.jkhive-gallery-catalog-toolbar-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.jkhive-gallery-catalog-toolbar {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0.75rem 1.25rem 0.5rem;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: stretch;
+  min-height: 0;
+
+  /* Misma “piel” que la hero barra (sin blur/backdrop-filter, sin sombras grandes). */
+  background: var(--jk-tech-darker, #0f172a);
+  border-bottom: 2px solid rgba(14, 165, 233, 0.25);
+}
+
+.jkhive-gallery-catalog-toolbar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--honeycomb-url);
+  background-size: var(--honeycomb-size-sidebar);
+  background-repeat: repeat;
+  background-position: 0 0;
+  pointer-events: none;
+  opacity: 0.55;
+  z-index: 0;
+}
+
+.jkhive-gallery-catalog-toolbar > * {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+/* Paginación dentro de la barra: sin caja/borde, integrada, justo arriba del borde inferior de la barra */
+.jkhive-gallery-catalog-toolbar .catalog-pagination-in-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin: 0;
+  padding: 0.35rem 0 0;
+  border: none;
+  background: transparent;
+  border-radius: 0;
+}
+.jkhive-gallery-catalog-toolbar .catalog-pagination-info {
+  color: var(--jk-metal-light);
+  font-size: 0.85rem;
+  margin-right: 0.25rem;
+}
+.jkhive-gallery-catalog-toolbar .catalog-pagination-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  padding: 0.4rem 0.65rem;
+  background: rgba(30, 41, 59, 0.9);
+  border: 1px solid rgba(14, 165, 233, 0.5);
+  color: var(--jk-metal-light);
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+.jkhive-gallery-catalog-toolbar .catalog-pagination-link:hover {
+  background: rgba(14, 165, 233, 0.25);
+  border-color: var(--jk-primary-blue);
+}
+.jkhive-gallery-catalog-toolbar .catalog-pagination-current {
+  background: var(--jk-primary-blue);
+  border-color: var(--jk-primary-blue-light);
+}
+
+/* Spacer: cuando la toolbar está fija, el JS le asigna height para no colapsar el layout */
+.jkhive-gallery-catalog-toolbar-spacer {
+  display: block;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Wrap con z-index para que la barra fija quede por encima del contenido al hacer scroll (como la hero-barra). */
+body.hero-scrolled .jkhive-gallery-catalog-toolbar-wrap {
+  position: relative;
+  z-index: 1400;
+}
+/* Pegado justo debajo de la barra hero: mismas coordenadas que .hero-section.hero-collapsed (hero-honeycomb-bar.css) */
+body.hero-scrolled .jkhive-gallery-catalog-toolbar-wrap .jkhive-gallery-catalog-toolbar {
+  position: fixed !important;
+  top: 230px !important;   /* navbar 70px + hero bar 160px (desktop) */
+  left: 140px !important;
+  right: 0 !important;
+  width: calc(100vw - 140px) !important;
+  z-index: var(--jkhive-gallery-catalog-toolbar-z);
+  padding: 0.75rem 1rem 0.5rem !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex-wrap: nowrap !important;
+  align-items: stretch !important;
+  gap: 0.5rem !important;
+  box-sizing: border-box;
+}
+
+/* -----------------------------------------------------------------------------
+   Filtros: siempre en una línea en desktop; botón(s) a la derecha.
+   Mobile: 2 columnas 70/30 (izq selects, der botón centrado).
+   ----------------------------------------------------------------------------- */
+.jkhive-gallery-catalog-toolbar .filters-container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  backdrop-filter: none;
+  border-radius: 0;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: nowrap;
+}
+
+.jkhive-gallery-catalog-toolbar .filters-fields {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.jkhive-gallery-catalog-toolbar .filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1 1 0;
+  min-width: 160px;
+}
+
+.jkhive-gallery-catalog-toolbar .filter-group label {
+  color: var(--jk-metal-light);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  opacity: 0.95;
+}
+
+.jkhive-gallery-catalog-toolbar .filter-group select {
+  background: rgba(30, 41, 59, 0.9);
+  border: 1px solid rgba(14, 165, 233, 0.55);
+  color: var(--jk-metal-light);
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none;
+  min-height: 44px;
+}
+
+.jkhive-gallery-catalog-toolbar .filter-group select:focus {
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.18);
+  border-color: rgba(56, 189, 248, 0.9);
+}
+
+.jkhive-gallery-catalog-toolbar .filter-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  flex: 0 0 auto;
+  padding-right: 0.25rem;
+}
+
+body.hero-scrolled .jkhive-gallery-catalog-toolbar-wrap .jkhive-gallery-catalog-toolbar #catalog-pagination-top,
+body.hero-scrolled .jkhive-gallery-catalog-toolbar-wrap .jkhive-gallery-catalog-toolbar .catalog-pagination {
+  margin-top: 0;
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+/* -----------------------------------------------------------------------------
+   Mobile: barra en flujo y barra fija — mismos valores que hero bar (60+140=200, left 101)
+   Tamaños reducidos y layout 70% selectores / 30% botón centrado.
+   ----------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  /* Barra compacta en mobile: menos alto; padding derecho suficiente para que el ícono filtrar no quede pegado al borde */
+  .catalog-page .jkhive-gallery-catalog-toolbar {
+    padding: 0.35rem 1rem 0.25rem !important;
+    gap: 0.35rem !important;
+  }
+  .catalog-page .jkhive-gallery-catalog-toolbar .filters-container {
+    display: grid !important;
+    grid-template-columns: 70% 30% !important;
+    align-items: stretch !important;
+    gap: 0.4rem !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    flex-wrap: nowrap !important;
+  }
+  .catalog-page .jkhive-gallery-catalog-toolbar .filters-fields {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.35rem !important;
+    min-width: 0 !important;
+  }
+  .catalog-page .jkhive-gallery-catalog-toolbar .filter-group {
+    min-width: 0 !important;
+    gap: 0.2rem !important;
+  }
+  .catalog-page .jkhive-gallery-catalog-toolbar .filter-group label {
+    font-size: 0.7rem !important;
+  }
+  /* Selectores más compactos en mobile: menor altura y padding (evitar que queden tamaño desktop). */
+  body.catalog-page .jkhive-gallery-catalog-toolbar .filter-group select,
+  .catalog-page .jkhive-gallery-catalog-toolbar .filter-group select {
+    font-size: 0.75rem !important;
+    padding: 0.28rem 0.38rem !important;
+    min-height: 30px !important;
+    border-radius: 6px !important;
+    line-height: 1.2 !important;
+  }
+  .catalog-page .jkhive-gallery-catalog-toolbar .filter-actions {
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 0.35rem !important;
+  }
+  .catalog-page .jkhive-gallery-catalog-toolbar .filter-actions .jkhive-hex {
+    width: 28px !important;
+    height: calc(28px * 1.1547) !important;
+  }
+  .catalog-page .jkhive-gallery-catalog-toolbar .filter-actions .jkhive-hex-icon {
+    font-size: 0.7rem !important;
+  }
+  /* Paginación en barra: compactar verticalmente botones de número y Siguiente/Anterior (no los textos). */
+  .catalog-page .jkhive-gallery-catalog-toolbar .catalog-pagination-in-bar {
+    padding: 0.15rem 0 0 !important;
+    gap: 0.25rem 0.35rem !important;
+  }
+  .catalog-page .jkhive-gallery-catalog-toolbar .catalog-pagination-info {
+    font-size: 0.75rem !important;
+  }
+  .catalog-page .jkhive-gallery-catalog-toolbar .catalog-pagination-link {
+    padding: 0.2rem 0.32rem !important;
+    font-size: 0.72rem !important;
+    min-width: 1.4rem !important;
+    min-height: 1.6rem !important;
+    line-height: 1.2 !important;
+    border-radius: 5px !important;
+  }
+
+  /* Mobile: wrap sin z-index para no tapar la hero. La hero limita su pintado con contain:paint (abajo). */
+  body.hero-scrolled .jkhive-gallery-catalog-toolbar-wrap {
+    z-index: auto !important;
+  }
+  /* Catálogo mobile: hero-barra encima (1402) y contain:paint para que solo pinte en su caja (60-200px) y no tape la barra selector (200px+). */
+  body.catalog-page.hero-scrolled .hero-section.hero-collapsed {
+    z-index: 1402 !important;
+    contain: paint;
+  }
+  /* Mobile: barra NO fija — scroll con la página. padding derecho para separar ícono filtrar del borde. */
+  body.hero-scrolled .jkhive-gallery-catalog-toolbar-wrap .jkhive-gallery-catalog-toolbar {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    padding: 0.35rem 1rem 0.25rem !important;
+    padding-top: 2.5rem !important;
+  }
+  /* Catálogo mobile: spacer = altura hero-barra móvil (115px), no la del hero completo. */
+  body.hero-scrolled.catalog-page .hero-collapse-spacer {
+    height: 115px !important;
+    background: linear-gradient(to bottom, var(--jk-tech-darker) 115px, transparent 115px);
+  }
+  body.hero-scrolled.catalog-page .hero-collapse-spacer::before {
+    height: 115px;
+  }
+  /* Mobile: margen para que la barra selector quede pegada bajo la hero-barra con la primera fila visible (+90px). */
+  body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap {
+    margin-top: calc(2.5rem + 115px) !important;
+  }
+  /* Paginación inferior: compactar verticalmente en mobile (botones de número y Siguiente/Anterior). */
+  .catalog-page .jkhive-gallery-catalog-pagination-bottom,
+  .catalog-page #catalog-pagination-bottom {
+    padding: 0.5rem 0.75rem !important;
+    gap: 0.35rem !important;
+  }
+  .catalog-page .jkhive-gallery-catalog-pagination-bottom a,
+  .catalog-page #catalog-pagination-bottom a {
+    padding: 0.2rem 0.35rem !important;
+    font-size: 0.75rem !important;
+    min-width: 1.5rem !important;
+    min-height: 1.5rem !important;
+    line-height: 1.2 !important;
+    border-radius: 5px !important;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Paginación inferior: en flujo del documento, pegada arriba del footer.
+   No es visible desde el principio; solo al hacer scroll hasta abajo (la visible siempre es la superior, en la barra de filtros).
+   ----------------------------------------------------------------------------- */
+.jkhive-gallery-catalog-pagination-bottom,
+#catalog-pagination-bottom.jkhive-gallery-catalog-pagination-bottom {
+  position: relative;
+  margin: 1.5rem 0 0 !important;
+  padding: 1rem;
+  box-shadow: none;
+  z-index: auto;
+}
+
+/* Contenedor de la galería: área de scroll entre toolbar y paginación inferior.
+   Sin fondo ni sombra: mismo fondo que body para que no se vea “velo” ni franja al transicionar. */
+.jkhive-gallery-catalog-scroll {
+  min-height: 200px;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Zona de contenido del catálogo: sin velo (transparente) y z-index por debajo de la barra fija
+   para que la galería NUNCA se dibuje encima al hacer scroll. */
+body.hero-scrolled.catalog-page .jkhive-main-content,
+body.hero-scrolled.catalog-page .page-content,
+body.hero-scrolled.catalog-page .jkhive-container,
+body.catalog-page.hero-scrolled .jkhive-gallery-catalog-scroll {
+  position: relative;
+  z-index: 1;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+/* El wrap de la barra no pinta fondo propio: solo la barra y el spacer (en jkhive-style) */
+body.catalog-page .jkhive-gallery-catalog-toolbar-wrap {
+  background: transparent !important;
+}
+
+/*
+ * ESTRUCTURA HTML ESPERADA (replicable en cualquier JK Hive):
+ *
+ * <main>
+ *   <?php include 'hero-section.php'; ?>
+ *   <div class="page-content">
+ *     <div class="jkhive-container">
+ *       <div class="jkhive-gallery-catalog-toolbar-wrap">
+ *         <div class="jkhive-gallery-catalog-toolbar" id="jkhive-gallery-catalog-toolbar">
+ *           <form class="filters-container">...</form>
+ *           <nav id="catalog-pagination-top" class="catalog-pagination">...</nav>
+ *         </div>
+ *         <div class="jkhive-gallery-catalog-toolbar-spacer" id="jkhive-gallery-catalog-toolbar-spacer" aria-hidden="true"></div>
+ *       </div>
+ *       <div class="jkhive-gallery-catalog-scroll">
+ *         <div class="jkhive-product-gallery">...</div>
+ *       </div>
+ *       <nav id="catalog-pagination-bottom" class="catalog-pagination jkhive-gallery-catalog-pagination-bottom">...</nav>
+ *     </div>
+ *   </div>
+ * </main>
+ * <footer>...</footer>
+ */

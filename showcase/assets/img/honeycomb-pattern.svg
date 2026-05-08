@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="52" height="90" viewBox="0 0 52 90">
+  <defs>
+    <pattern id="honeycomb-pattern" patternUnits="userSpaceOnUse" width="52" height="90">
+      <!-- Hexágono fila 1 (arriba) -->
+      <path fill="none" stroke="#0ea5e9" stroke-width="1" opacity="0.075" d="m0,15 26-15 26,15v30l-26,15-26-15z"/>
+      <!-- Hexágono fila 2 (abajo, desfasado +26px x 45px hacia la derecha) - evita overflow a la izquierda que generaba líneas/velo -->
+      <path fill="none" stroke="#0ea5e9" stroke-width="1" opacity="0.075" transform="translate(26, 45)" d="m0,15 26-15 26,15v30l-26,15-26-15z"/>
+    </pattern>
+  </defs>
+  <rect width="52" height="90" fill="url(#honeycomb-pattern)"/>
+</svg>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

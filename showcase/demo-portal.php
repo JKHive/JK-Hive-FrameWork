@@ -4,8 +4,8 @@ declare(strict_types=1);
 $jk_nav = 'standalone';
 $jk_page_title = 'Portal web — JK Hive';
 $jk_breadcrumb = 'Portal demo';
-$jk_body_class = 'page-public jkhive-showcase-body';
-$jk_demo_auth = true;
+$jk_body_class = 'page-public jkhive-showcase-body admin-layout crm-layout';
+$jk_demo_auth = false;
 $jk_hide_demo_modal = true;
 $jk_extra_css = '<link rel="stylesheet" href="assets/css/jkfw-catalog-demo.css">' . "\n";
 

@@ -1,0 +1,1414 @@
+/**
+ * JK Hive - Navbar Styles
+ * 
+ * Estilos universales e independientes para el navbar superior
+ * Este archivo contiene TODOS los estilos relacionados con el navbar:
+ * - Navbar principal
+ * - Selector de idiomas
+ * - Selector de notificaciones
+ * - Menú de usuario
+ * - Badges y elementos hexagonales
+ * - Responsive (desktop y mobile)
+ * 
+ * IMPORTANTE: Este archivo es completamente independiente y aislado
+ * de otros estilos del sistema para evitar conflictos.
+ */
+
+/* ========================================
+   NAVBAR PRINCIPAL
+   ======================================== */
+/* left: 140px para que el borde del navbar coincida con la línea del sidebar (vértice, no T). */
+.jkhive-navbar {
+  position: fixed;
+  top: 0;
+  left: 140px;
+  right: 0;
+  height: 70px;
+  box-sizing: border-box; /* Asegurar que el tamaño es exacto */
+  background: var(--jk-tech-darker); /* Unificar fondo sólido */
+  z-index: 1500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--jk-spacing-xl);
+  box-shadow: none;
+  border-bottom: 2px solid rgba(14, 165, 233, 0.3);
+  overflow: visible;
+}
+
+/* Texture honeycomb para navbar para unificar fondo */
+.jkhive-navbar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--honeycomb-url);
+  background-size: var(--honeycomb-size-sidebar);
+  background-repeat: repeat;
+  background-position: 0 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Navbar left section (breadcrumb/title) */
+.jkhive-navbar-left {
+  display: flex;
+  align-items: center;
+  gap: var(--jk-spacing-md);
+  padding-left: 0.5rem; /* Gap mínimo del borde izquierdo */
+  flex: 1; /* Ocupar espacio disponible */
+  min-width: 0; /* Permitir shrink */
+}
+
+.jkhive-navbar-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--jk-metal-light); /* White/Silver color matching the original */
+  text-shadow: 0 0 15px rgba(14, 165, 233, 0.6);
+  margin: 0;
+  cursor: pointer;
+  white-space: nowrap; /* Prevent wrapping in small screens */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+}
+
+.jkhive-navbar-breadcrumb {
+  font-size: 0.9rem;
+  color: var(--jk-metal);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.jkhive-navbar-breadcrumb a {
+  color: var(--jk-primary-blue-light);
+  text-decoration: none;
+  transition: var(--jk-transition-fast);
+}
+
+.jkhive-navbar-breadcrumb a:hover {
+  color: var(--jk-accent-honey);
+}
+
+/* Navbar right section (utilities) */
+.jkhive-navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  overflow: visible; /* Allow language selector dropdown to be visible */
+}
+
+/* Ícono de usuario siempre visible; JS reemplaza el contenido pero el contenedor no se oculta */
+#userMenuContainer {
+  opacity: 1;
+  visibility: visible;
+  flex-shrink: 0;
+}
+
+#userMenuContainer .jkhive-navbar-hex-item {
+  width: 38px;
+  height: calc(38px * 1.1547);
+}
+
+/* Navbar hexagonal items wrapper (for badges) */
+.jkhive-navbar-hex-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Navbar hexagonal items - íconos amarillos, relleno tech sin borde ni líneas en los bordes */
+.jkhive-navbar-hex-item {
+  position: relative;
+  width: 38px;
+  height: calc(38px * 1.1547);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(135deg, var(--jk-tech-medium) 0%, var(--jk-tech-dark) 100%);
+  box-shadow: var(--jk-shadow);
+  cursor: pointer;
+  transition: var(--jk-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--jk-accent-honey, #f4c430);
+  font-size: 1.02rem;
+  text-shadow: 0 0 8px rgba(244, 196, 48, 0.5);
+  z-index: 1;
+}
+
+.jkhive-navbar-hex-item:hover {
+  z-index: 10;
+  transform: scale(1.1);
+  box-shadow: var(--jk-shadow-lg), 0 0 20px rgba(6, 182, 212, 0.6);
+  color: var(--jk-accent-cyan, #06b6d4);
+  text-shadow: 0 0 12px rgba(6, 182, 212, 0.8);
+  filter: brightness(1.3);
+}
+
+/* Enlace directo al login (SSR): los <a> heredan color del nav; forzar miel metálica como el resto de hex. */
+a.jkhive-navbar-hex-item,
+a.jkhive-navbar-hex-item:visited {
+  color: var(--jk-accent-honey, #f4c430);
+  text-decoration: none;
+}
+
+/* Ícono de usuario: scale(1.05) en hover para alinear con el resto */
+#userMenuToggle:hover {
+  transform: scale(1.05);
+}
+
+/* Ícono de buscar: bajar 0.5px verticalmente para centrado óptimo */
+#searchIcon i {
+  transform: translateY(0.5px);
+}
+
+/* ========================================
+   BUSCADOR EXPANDIBLE (estilo House Sitting - sin modal)
+   Ícono fijo a la derecha; cuadro se despliega desde el ícono hacia la izquierda
+   Orden visual: [input][X][icon] — X a la izquierda del texto, más cercano al ícono
+   ======================================== */
+.jkhive-search-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-direction: row;
+  position: relative;
+}
+
+.jkhive-search-expandable {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+  position: relative;
+}
+
+.jkhive-search-wrapper.expanded .jkhive-search-expandable {
+  width: 220px;
+  margin-right: clamp(2px, 0.4vw, 5px); /* separación a la izquierda del ícono: 5px desktop, proporcional al ancho */
+  opacity: 1;
+  overflow: visible;
+}
+
+.jkhive-search-input-row {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 6px;
+}
+
+.jkhive-search-input {
+  flex: 1;
+  min-width: 0;
+  height: 34px;
+  padding: 0 12px;
+  font-size: 0.85rem;
+  background: linear-gradient(135deg, var(--jk-tech-dark) 0%, var(--jk-tech-medium) 100%);
+  border: 1px solid rgba(14, 165, 233, 0.4);
+  border-radius: 6px;
+  color: var(--jk-metal-light);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.jkhive-search-input::placeholder {
+  color: var(--jk-metal);
+}
+
+.jkhive-search-input:focus {
+  border-color: var(--jk-primary-blue);
+  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.25);
+}
+
+.jkhive-search-close {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.4) 0%, rgba(185, 28, 28, 0.5) 100%);
+  border: 1px solid rgba(220, 38, 38, 0.7);
+  border-radius: 6px;
+  color: #fecaca;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, filter 0.2s, transform 0.2s;
+  box-shadow: 0 0 8px rgba(220, 38, 38, 0.3);
+}
+
+.jkhive-search-close:hover {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.7) 0%, rgba(185, 28, 28, 0.8) 100%);
+  border-color: #ef4444;
+  color: #fff;
+  filter: brightness(1.15);
+  transform: scale(1.1);
+}
+
+.jkhive-search-results {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  left: auto;
+  min-width: 240px;
+  max-width: 320px;
+  max-height: 280px;
+  overflow-y: auto;
+  background: linear-gradient(135deg, var(--jk-tech-darker) 0%, var(--jk-tech-dark) 100%);
+  border: 1px solid rgba(14, 165, 233, 0.4);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 20px rgba(14, 165, 233, 0.15);
+  z-index: 10001;
+  padding: 6px 0;
+  display: none;
+}
+
+.jkhive-search-wrapper.has-results .jkhive-search-results {
+  display: block;
+}
+
+.jkhive-search-result-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  color: var(--jk-metal-light);
+  text-decoration: none;
+  transition: background 0.15s;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+}
+
+.jkhive-search-result-item:hover {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.2) 0%, rgba(14, 165, 233, 0.1) 100%);
+  color: var(--jk-accent-cyan);
+}
+
+.jkhive-search-result-item i {
+  width: 20px;
+  text-align: center;
+  color: var(--jk-primary-blue-light);
+  font-size: 0.9rem;
+}
+
+.jkhive-search-result-item .result-title {
+  flex: 1;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.jkhive-search-result-item .result-context {
+  font-size: 0.7rem;
+  color: var(--jk-metal);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.jkhive-search-results .search-empty,
+.jkhive-search-results .search-loading {
+  padding: 20px;
+  text-align: center;
+  color: var(--jk-metal);
+  font-size: 0.8rem;
+}
+
+.jkhive-search-results .search-loading i {
+  margin-right: 6px;
+}
+
+@media (max-width: 768px) {
+  .jkhive-search-wrapper.expanded .jkhive-search-expandable {
+    width: 160px;
+    margin-right: clamp(2px, 0.5vw, 4px); /* menor separación en móvil, proporcional */
+  }
+  .jkhive-search-input {
+    font-size: 0.8rem;
+    height: 32px;
+  }
+  .jkhive-search-close {
+    width: 24px;
+    height: 24px;
+    font-size: 1rem;
+  }
+  .jkhive-search-results {
+    min-width: 200px;
+    max-height: 220px;
+  }
+}
+
+/* Notification badge - HEXAGONAL - TAMAÑO PEQUEÑO */
+.jkhive-notification-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 16px; /* Tamaño pequeño */
+  height: calc(16px * 1.1547) !important; /* Altura proporcional hexagonal */
+  min-width: 16px;
+  background: var(--jk-primary-blue) !important;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%) !important; /* Forma hexagonal */
+  border-radius: 0 !important; /* Eliminar border-radius circular */
+  display: none; /* Hidden by default */
+  align-items: center;
+  justify-content: center;
+  font-size: 0.55rem; /* Texto más pequeño */
+  font-weight: 900 !important; /* Negrita extra gruesa para mejor visibilidad */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; /* Fuente más gruesa */
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 0 10px rgba(14, 165, 233, 0.8);
+  animation: jkhive-anmtn-navbar-pulse 2s ease-in-out infinite;
+  z-index: 1000;
+  pointer-events: none;
+  line-height: 1;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  text-shadow: 0 0 3px rgba(212, 160, 23, 0.9), 0 1px 2px rgba(0, 0, 0, 0.5), 0 0 6px rgba(244, 196, 48, 0.6);
+  letter-spacing: 0.02em; /* Ligero espaciado para mejor legibilidad */
+}
+
+.jkhive-notification-badge[style*="display: block"],
+.jkhive-notification-badge[style*="display:flex"],
+.jkhive-notification-badge[style*="display: flex"] {
+  display: flex !important;
+}
+
+@keyframes jkhive-anmtn-navbar-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* ========================================
+   HEXAGONAL DROPDOWN MENU SYSTEM
+   ======================================== 
+   
+   This system can be reused for: Language Selector, User Menu, Notifications, etc.
+   
+   STRUCTURE:
+   .jk-[type]-selector          → Container (38x38px, grows on open)
+     └─ .jk-[type]-hex-container → Inner container (handles overflow)
+        └─ .jk-[type]-hex        → Individual hexagon items
+   
+   HONEYCOMB PATTERN POSITIONS:
+   - All hexagons start at: top: 0, left: 11px (centered)
+   - When .open, they move to their honeycomb positions:
+   
+   Row 1 (center):     ES: top: 0,    left: 11px
+   Row 2 (right):      EN: top: 34px,  left: 31px
+   Row 3 (center):     IT: top: 68px,  left: 11px
+   Row 4 (right):      DE: top: 102px, left: 31px
+   
+   Pattern continues: center → right → center → right (zigzag)
+   Vertical spacing: 34px between rows (honeycomb overlap)
+   Horizontal offset: 20px from center (31px vs 11px)
+   
+   ACTIVE STATE:
+   - .active class applies metallic honey yellow background
+   - Active item is ALWAYS visible (closed or open)
+   - Active item maintains honeycomb position when open
+   - Non-active items are hidden when closed (opacity: 0, scale: 0)
+   
+   RESPONSIVE:
+   - Container expands downward only (no upward shift)
+   - Uses overflow: visible to prevent clipping
+   - z-index: 9999 when open to stay above all content
+   
+   TO REPLICATE FOR OTHER MENUS:
+   1. Copy .jkhive-lang-selector structure
+   2. Rename classes (e.g., .jk-user-selector, .jk-notif-selector)
+   3. Adjust honeycomb positions based on number of items
+   4. Keep vertical spacing at 34px for proper honeycomb effect
+   5. Keep horizontal offset at ±20px from center
+   6. Ensure .active state uses !important for all styles
+   
+   ======================================== */
+.jkhive-lang-selector {
+  position: relative;
+  width: 38px; /* Mismo tamaño que .jkhive-navbar-hex-item */
+  height: calc(38px * 1.1547);
+  z-index: 1;
+  overflow: visible !important; /* CRITICAL: Allow children to overflow */
+  align-self: center;
+}
+
+.jkhive-lang-selector.open {
+  z-index: 9999; /* Higher than everything to avoid being covered */
+  /* DON'T change width/height - let container expand with overflow visible */
+  overflow: visible !important; /* CRITICAL: Allow children to overflow */
+}
+
+.jkhive-lang-selector:hover {
+  z-index: 10;
+}
+
+/* Desktop: bajar 2px el ícono de idiomas para alinearlo con el resto del navbar */
+@media (min-width: 769px) {
+  .jkhive-lang-selector {
+    transform: translateY(2px);
+  }
+}
+
+.jkhive-lang-hex-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 92px;
+  height: calc(38px * 1.1547); /* Mismo que .jkhive-navbar-hex-item */
+  z-index: 9999;
+  overflow: visible !important;
+  pointer-events: none;
+}
+
+.jkhive-lang-selector.open .jkhive-lang-hex-container {
+  height: 140px; /* Proporcional para honeycomb 38px */
+  width: 92px;
+  top: 0;
+  pointer-events: none !important;
+}
+
+/* Mismo estilo que .jkhive-navbar-hex-item: relleno tech, ícono miel, sin borde ni líneas amarillas */
+.jkhive-lang-hex {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 38px !important;
+  height: calc(38px * 1.1547) !important;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%) !important;
+  background: linear-gradient(135deg, var(--jk-tech-medium) 0%, var(--jk-tech-dark) 100%) !important;
+  border: none !important;
+  box-shadow: var(--jk-shadow) !important;
+  cursor: pointer !important;
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: var(--jk-accent-honey, #f4c430) !important;
+  font-weight: 700 !important;
+  font-size: 0.6rem !important;
+  text-shadow: 0 0 8px rgba(244, 196, 48, 0.5) !important;
+  user-select: none !important;
+  z-index: 1 !important;
+}
+
+/* Activo = mismo aspecto que el resto del menú */
+.jkhive-lang-hex.active {
+  background: linear-gradient(135deg, var(--jk-tech-medium) 0%, var(--jk-tech-dark) 100%) !important;
+  border: none !important;
+  color: var(--jk-accent-honey, #f4c430) !important;
+  box-shadow: var(--jk-shadow) !important;
+  text-shadow: 0 0 8px rgba(244, 196, 48, 0.5) !important;
+  z-index: 200 !important;
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  pointer-events: all !important;
+  display: flex !important;
+  visibility: visible !important;
+}
+
+/* Inactive language options - hidden by default */
+.jkhive-lang-hex:not(.active) {
+  opacity: 0 !important;
+  transform: scale(0) !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+/* Cuando está abierto, el activo sigue con el mismo estilo del menú */
+.jkhive-lang-selector.open .jkhive-lang-hex.active {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  pointer-events: all !important;
+  display: flex !important;
+  z-index: 10001 !important;
+  visibility: visible !important;
+  background: linear-gradient(135deg, var(--jk-tech-medium) 0%, var(--jk-tech-dark) 100%) !important;
+  border: none !important;
+  color: var(--jk-accent-honey, #f4c430) !important;
+  box-shadow: var(--jk-shadow) !important;
+  text-shadow: 0 0 8px rgba(244, 196, 48, 0.5) !important;
+}
+
+/* When selector is open, show all options */
+/* NOTA: No forzar opacity/visibility aquí para permitir que transition-delay funcione */
+/* Las reglas específicas con transition-delay manejarán la opacidad y visibilidad */
+.jkhive-lang-selector.open .jkhive-lang-hex:not(.active) {
+  pointer-events: all !important;
+  display: flex !important;
+  z-index: 10000 !important;
+  /* opacity y visibility se manejan en las reglas específicas con transition-delay */
+}
+
+/* Honeycomb pattern - all hexagons start stacked at top */
+.jkhive-lang-hex[data-lang="es"],
+.jkhive-lang-hex[data-lang="en"],
+.jkhive-lang-hex[data-lang="it"],
+.jkhive-lang-hex[data-lang="de"] {
+  top: 0 !important;
+  left: 0 !important; /* Centered in container */
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) !important;
+}
+
+/* When selector is open, arrange in honeycomb zigzag pattern */
+/* Fine-tuned alignment based on visual feedback */
+
+/* Opciones desplegables: mismo estilo del menú, sin borde ni líneas amarillas */
+.jkhive-lang-selector.open .jkhive-lang-hex[data-lang="es"]:not(.active),
+.jkhive-lang-selector.open .jkhive-lang-hex[data-lang="en"]:not(.active),
+.jkhive-lang-selector.open .jkhive-lang-hex[data-lang="it"]:not(.active),
+.jkhive-lang-selector.open .jkhive-lang-hex[data-lang="de"]:not(.active) {
+  background: linear-gradient(135deg, var(--jk-tech-medium) 0%, var(--jk-tech-dark) 100%) !important;
+  border: none !important;
+  color: var(--jk-accent-honey, #f4c430) !important;
+  box-shadow: var(--jk-shadow) !important;
+  text-shadow: 0 0 8px rgba(244, 196, 48, 0.5) !important;
+}
+
+.jkhive-lang-selector.open .jkhive-lang-hex[data-lang="es"]:not(.active) {
+  top: 0 !important;
+  left: 0 !important;
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  visibility: visible !important;
+  transition-delay: 0s !important;
+}
+
+.jkhive-lang-selector.open .jkhive-lang-hex[data-lang="en"]:not(.active) {
+  top: 34px !important;
+  left: 19px !important;
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  visibility: visible !important;
+  transition-delay: 0.1s !important;
+}
+
+.jkhive-lang-selector.open .jkhive-lang-hex[data-lang="it"]:not(.active) {
+  top: 68px !important;
+  left: 0 !important;
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  visibility: visible !important;
+  transition-delay: 0.2s !important;
+}
+
+.jkhive-lang-selector.open .jkhive-lang-hex[data-lang="de"]:not(.active) {
+  top: 102px !important;
+  left: 19px !important;
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  visibility: visible !important;
+  transition-delay: 0.3s !important;
+}
+
+/* Posiciones del activo cuando el selector está abierto */
+.jkhive-lang-selector.open .jkhive-lang-hex[data-lang="es"].active {
+  top: 0 !important;
+  left: 0 !important;
+  background: linear-gradient(135deg, var(--jk-tech-medium) 0%, var(--jk-tech-dark) 100%) !important;
+  border: none !important;
+  color: var(--jk-accent-honey, #f4c430) !important;
+  box-shadow: var(--jk-shadow) !important;
+  text-shadow: 0 0 8px rgba(244, 196, 48, 0.5) !important;
+}
+
+.jkhive-lang-selector.open .jkhive-lang-hex[data-lang="en"].active {
+  top: 34px !important;
+  left: 19px !important;
+  background: linear-gradient(135deg, var(--jk-tech-medium) 0%, var(--jk-tech-dark) 100%) !important;
+  border: none !important;
+  color: var(--jk-accent-honey, #f4c430) !important;
+  box-shadow: var(--jk-shadow) !important;
+  text-shadow: 0 0 8px rgba(244, 196, 48, 0.5) !important;
+}
+
+.jkhive-lang-selector.open .jkhive-lang-hex[data-lang="it"].active {
+  top: 68px !important;
+  left: 0 !important;
+  background: linear-gradient(135deg, var(--jk-tech-medium) 0%, var(--jk-tech-dark) 100%) !important;
+  border: none !important;
+  color: var(--jk-accent-honey, #f4c430) !important;
+  box-shadow: var(--jk-shadow) !important;
+  text-shadow: 0 0 8px rgba(244, 196, 48, 0.5) !important;
+}
+
+.jkhive-lang-selector.open .jkhive-lang-hex[data-lang="de"].active {
+  top: 102px !important;
+  left: 19px !important;
+  background: linear-gradient(135deg, var(--jk-tech-medium) 0%, var(--jk-tech-dark) 100%) !important;
+  border: none !important;
+  color: var(--jk-accent-honey, #f4c430) !important;
+  box-shadow: var(--jk-shadow) !important;
+  text-shadow: 0 0 8px rgba(244, 196, 48, 0.5) !important;
+}
+
+/* Hover: mismo que .jkhive-navbar-hex-item (scale + cyan glow, sin borde) */
+.jkhive-lang-hex:hover {
+  transform: scale(1.1) !important;
+  box-shadow: var(--jk-shadow-lg), 0 0 20px rgba(6, 182, 212, 0.6) !important;
+  color: var(--jk-accent-cyan, #06b6d4) !important;
+  text-shadow: 0 0 12px rgba(6, 182, 212, 0.8) !important;
+  filter: brightness(1.3);
+  z-index: 300 !important;
+}
+
+.jkhive-lang-hex.active:hover {
+  transform: scale(1.1) !important;
+  box-shadow: var(--jk-shadow-lg), 0 0 20px rgba(6, 182, 212, 0.6) !important;
+  color: var(--jk-accent-cyan, #06b6d4) !important;
+  text-shadow: 0 0 12px rgba(6, 182, 212, 0.8) !important;
+}
+
+/* Banderas/emoji: mismo tamaño que iconos del navbar. ENG (texto) un poco más pequeño para que encaje en el hex. */
+.jkhive-lang-hex .flag-icon {
+  font-size: 1.02rem;
+  display: block;
+  text-align: center;
+  width: 100%;
+  line-height: 1;
+  margin-top: -4px;
+}
+
+.jkhive-lang-hex[data-lang="en"] .flag-icon {
+  font-size: 0.69rem; /* 0.75rem − 8% */
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* ========================================
+   NOTIFICATIONS SELECTOR (Hexagonal Menu)
+   COPIADO EXACTAMENTE del selector de idiomas - misma estructura y funcionamiento
+   ======================================== */
+.jkhive-notif-selector {
+  position: relative;
+  width: 35px; /* Reducido ~3px desde 38px - mismo que selector de idiomas */
+  height: 35px;
+  z-index: 1;
+  overflow: visible !important; /* CRITICAL: Allow children to overflow */
+  align-self: center; /* Align vertically with other navbar hexagons */
+  top: -2px; /* Compensate for 2px vertical offset */
+}
+
+.jkhive-notif-selector.open {
+  z-index: 9999; /* Higher than everything to avoid being covered */
+  /* DON'T change width/height - let container expand with overflow visible */
+  overflow: visible !important; /* CRITICAL: Allow children to overflow */
+}
+
+.jkhive-notif-selector:hover {
+  z-index: 10;
+}
+
+.jkhive-notif-hex-container {
+  position: absolute;
+  top: 0; /* Align with selector top */
+  left: 0; /* Centered alignment */
+  width: 92px; /* Proporcional para honeycomb 35px */
+  height: 35px;
+  z-index: 9999;
+  overflow: visible !important; /* Allow hexagons to overflow */
+  pointer-events: none; /* Allow clicking through empty areas */
+}
+
+.jkhive-notif-selector.open .jkhive-notif-hex-container {
+  /* Container expands but selector stays same size */
+  height: 160px; /* Proporcional para honeycomb 35px (124px último hex + 36px) */
+  width: 92px; /* Wide enough for zigzag pattern */
+  top: 0; /* Start from top of selector */
+  pointer-events: none !important; /* Mantener none para permitir que eventos pasen a través de áreas vacías - los hexágonos individuales tienen pointer-events: all */
+}
+
+.jkhive-notif-hex {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 35px;
+  height: calc(35px * 1.1547);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(135deg, var(--jk-tech-medium) 0%, var(--jk-tech-dark) 100%);
+  border: none;
+  box-shadow: var(--jk-shadow);
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--jk-accent-honey, #f4c430);
+  font-weight: 700;
+  font-size: 0.6rem;
+  text-shadow: 0 0 8px rgba(244, 196, 48, 0.5);
+  user-select: none;
+  z-index: 1;
+  text-align: center;
+}
+
+/* Active notification hexagon (main bell icon) - mismo estilo que el resto del navbar (tech, ícono miel) */
+.jkhive-notif-hex.jkhive-notif-main {
+  background: linear-gradient(135deg, var(--jk-tech-medium) 0%, var(--jk-tech-dark) 100%) !important;
+  border: none !important;
+  color: var(--jk-accent-honey, #f4c430) !important;
+  box-shadow: var(--jk-shadow) !important;
+  text-shadow: 0 0 8px rgba(244, 196, 48, 0.5) !important;
+  z-index: 200 !important;
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  pointer-events: all !important;
+  display: flex !important;
+  visibility: visible !important;
+  font-size: 1.02rem;
+}
+
+/* User menu icon - mismo aspecto que el resto de hexágonos (tech + ícono miel); cyan solo cuando el dropdown está abierto */
+#userMenuToggle {
+  background: linear-gradient(135deg, var(--jk-tech-medium) 0%, var(--jk-tech-dark) 100%) !important;
+  border: none !important;
+  color: var(--jk-accent-honey, #f4c430) !important;
+  text-shadow: 0 0 8px rgba(244, 196, 48, 0.5) !important;
+  box-shadow: var(--jk-shadow) !important;
+}
+
+/* User menu icon - cyan cuando el dropdown está activo */
+.jkhive-user-menu-wrapper:has(#userMenuDropdown.active) #userMenuToggle,
+.jkhive-user-menu-wrapper.active #userMenuToggle {
+  background: linear-gradient(135deg, var(--jk-primary-blue-dark) 0%, var(--jk-primary-blue) 50%, var(--jk-primary-blue-light) 100%) !important;
+  border-color: var(--jk-primary-blue-light) !important;
+  color: var(--jk-white) !important;
+  box-shadow: var(--jk-shadow), var(--jk-glow-blue), inset 0 0 30px rgba(14, 165, 233, 0.3) !important;
+  text-shadow: 0 0 8px rgba(14, 165, 233, 0.8) !important;
+}
+
+/* Inactive notification options - hidden by default */
+.jkhive-notif-hex:not(.jkhive-notif-main) {
+  opacity: 0;
+  transform: scale(0);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* When selector is open, keep main hexagon visible with cyan background */
+.jkhive-notif-selector.open .jkhive-notif-hex.jkhive-notif-main {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  pointer-events: all !important;
+  visibility: visible !important;
+  background: linear-gradient(135deg, var(--jk-primary-blue-dark) 0%, var(--jk-primary-blue) 50%, var(--jk-primary-blue-light) 100%) !important;
+  border-color: var(--jk-primary-blue-light) !important;
+  color: var(--jk-white) !important;
+  box-shadow: var(--jk-shadow), var(--jk-glow-blue), inset 0 0 30px rgba(14, 165, 233, 0.3) !important;
+  text-shadow: 0 0 8px rgba(14, 165, 233, 0.8) !important;
+}
+
+/* When selector is open, show all options */
+.jkhive-notif-selector.open .jkhive-notif-hex:not(.jkhive-notif-main) {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  pointer-events: all !important;
+  display: flex !important;
+  z-index: 10000 !important; /* Igual que el selector de idiomas */
+  visibility: visible !important;
+  position: absolute !important; /* Asegurar posicionamiento */
+}
+
+/* Honeycomb pattern - all hexagons start stacked at top */
+.jkhive-notif-hex[data-notif-type="messages"],
+.jkhive-notif-hex[data-notif-type="purchases"],
+.jkhive-notif-hex[data-notif-type="donations"],
+.jkhive-notif-hex[data-notif-type="users"] {
+  top: 0;
+  left: 0; /* Centered in container */
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* When selector is open, arrange in honeycomb zigzag pattern - EMPEZAR DESFASADO DESDE EL PRINCIPIO */
+/* Todos los hexágonos tienen fondo cyan cuando el menú está abierto */
+.jkhive-notif-selector.open .jkhive-notif-hex[data-notif-type="messages"]:not(.jkhive-notif-main) {
+  top: 31px; /* Proporcional para honeycomb 35px */
+  left: 18px;
+  transition-delay: 0s;
+  background: linear-gradient(135deg, var(--jk-primary-blue-dark) 0%, var(--jk-primary-blue) 50%, var(--jk-primary-blue-light) 100%) !important;
+  border-color: var(--jk-primary-blue-light) !important;
+  color: var(--jk-white) !important;
+  box-shadow: var(--jk-shadow), var(--jk-glow-blue), inset 0 0 30px rgba(14, 165, 233, 0.3) !important;
+  text-shadow: 0 0 8px rgba(14, 165, 233, 0.8) !important;
+}
+
+.jkhive-notif-selector.open .jkhive-notif-hex[data-notif-type="purchases"]:not(.jkhive-notif-main) {
+  top: 62px; /* Proporcional para honeycomb 35px */
+  left: 0; /* Centrado */
+  transition-delay: 0.1s;
+  background: linear-gradient(135deg, var(--jk-primary-blue-dark) 0%, var(--jk-primary-blue) 50%, var(--jk-primary-blue-light) 100%) !important;
+  border-color: var(--jk-primary-blue-light) !important;
+  color: var(--jk-white) !important;
+  box-shadow: var(--jk-shadow), var(--jk-glow-blue), inset 0 0 30px rgba(14, 165, 233, 0.3) !important;
+  text-shadow: 0 0 8px rgba(14, 165, 233, 0.8) !important;
+}
+
+.jkhive-notif-selector.open .jkhive-notif-hex[data-notif-type="donations"]:not(.jkhive-notif-main) {
+  top: 93px; /* Proporcional para honeycomb 35px */
+  left: 18px;
+  transition-delay: 0.2s;
+  background: linear-gradient(135deg, var(--jk-primary-blue-dark) 0%, var(--jk-primary-blue) 50%, var(--jk-primary-blue-light) 100%) !important;
+  border-color: var(--jk-primary-blue-light) !important;
+  color: var(--jk-white) !important;
+  box-shadow: var(--jk-shadow), var(--jk-glow-blue), inset 0 0 30px rgba(14, 165, 233, 0.3) !important;
+  text-shadow: 0 0 8px rgba(14, 165, 233, 0.8) !important;
+}
+
+.jkhive-notif-selector.open .jkhive-notif-hex[data-notif-type="users"]:not(.jkhive-notif-main) {
+  top: 124px; /* Proporcional para honeycomb 35px */
+  left: 0; /* Centrado */
+  transition-delay: 0.3s;
+  background: linear-gradient(135deg, var(--jk-primary-blue-dark) 0%, var(--jk-primary-blue) 50%, var(--jk-primary-blue-light) 100%) !important;
+  border-color: var(--jk-primary-blue-light) !important;
+  color: var(--jk-white) !important;
+  box-shadow: var(--jk-shadow), var(--jk-glow-blue), inset 0 0 30px rgba(14, 165, 233, 0.3) !important;
+  text-shadow: 0 0 8px rgba(14, 165, 233, 0.8) !important;
+}
+
+/* Hover effects */
+.jkhive-notif-hex:hover {
+  transform: scale(1.05);
+  border-color: var(--jk-primary-blue-light);
+  box-shadow: var(--jk-shadow-lg), var(--jk-glow-blue);
+  filter: brightness(1.3);
+  z-index: 300 !important;
+}
+
+.jkhive-notif-hex.jkhive-notif-main:hover {
+  transform: scale(1.05);
+  border-color: var(--jk-accent-honey-light);
+  box-shadow: var(--jk-shadow-lg), var(--jk-glow-neon);
+}
+
+/* Icons inside hexagons */
+.jkhive-notif-hex svg {
+  width: 20px;
+  height: 20px;
+  color: var(--jk-metal-light);
+  display: block;
+}
+
+.jkhive-notif-hex.jkhive-notif-main i {
+  font-size: 1.02rem;
+  display: block;
+}
+
+/* Badge for notification counts - HEXAGONAL - TAMAÑO PEQUEÑO - FUERA del clip-path del hexágono */
+.jkhive-notif-badge,
+.jkhive-notif-badge-main,
+.notif-count-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: red !important;
+  color: white !important;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%) !important; /* Forma hexagonal */
+  border-radius: 0 !important; /* Eliminar border-radius circular */
+  width: 14px; /* Tamaño pequeño */
+  height: calc(14px * 1.1547) !important; /* Altura proporcional hexagonal */
+  min-width: 14px;
+  font-size: 8px; /* Texto más pequeño */
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900 !important; /* Negrita extra gruesa para mejor visibilidad */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; /* Fuente más gruesa */
+  z-index: 100000 !important; /* MUY ALTO para estar por encima de TODO, incluyendo otros elementos del navbar */
+  border: none !important; /* Sin bordes para badges hexagonales */
+  box-shadow: none !important;
+  pointer-events: none;
+  letter-spacing: 0.02em; /* Ligero espaciado para mejor legibilidad */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); /* Sombra de texto para mejor contraste */
+}
+
+/* Ocultar badges de los hexágonos del menú cuando el selector está cerrado */
+.jkhive-notif-selector:not(.open) .jkhive-notif-badge[data-notif-type] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Badge principal (campanita) - posicionado relativo al hexágono principal */
+/* El hexágono principal está en left: 0, width: 38px, así que el badge debe estar en left: 30px (38px - 8px) */
+.jkhive-notif-badge-main {
+  top: -5px; /* -8px + 3px hacia abajo = -5px */
+  left: 27px; /* 30px - 3px hacia la izquierda = 27px */
+  right: auto;
+  z-index: 100001 !important; /* Más alto que el menú abierto (z-index: 10000) */
+}
+
+/* Badges de los hexágonos del menú - posicionados según su hexágono correspondiente */
+/* Los badges están posicionados relativo al container, calculando desde left del hexágono + width del hexágono - 8px */
+.jkhive-notif-selector.open .jkhive-notif-badge[data-notif-type="messages"] {
+  top: 28px; /* Proporcional para honeycomb 35px */
+  left: 47px;
+  right: auto;
+  z-index: 100001 !important; /* Más alto que el menú abierto */
+  display: flex !important; /* Mostrar cuando el menú está abierto */
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.jkhive-notif-selector.open .jkhive-notif-badge[data-notif-type="purchases"] {
+  top: 59px; /* Proporcional para honeycomb 35px */
+  left: 29px;
+  right: auto;
+  z-index: 100001 !important; /* Más alto que el menú abierto */
+  display: flex !important; /* Mostrar cuando el menú está abierto */
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.jkhive-notif-selector.open .jkhive-notif-badge[data-notif-type="donations"] {
+  top: 90px; /* Proporcional para honeycomb 35px */
+  left: 47px;
+  right: auto;
+  z-index: 100001 !important; /* Más alto que el menú abierto */
+  display: flex !important; /* Mostrar cuando el menú está abierto */
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.jkhive-notif-selector.open .jkhive-notif-badge[data-notif-type="users"] {
+  top: 121px; /* Proporcional para honeycomb 35px */
+  left: 29px;
+  right: auto;
+  z-index: 100001 !important; /* Más alto que el menú abierto */
+  display: flex !important; /* Mostrar cuando el menú está abierto */
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Asegurar que los badges de notificaciones sean hexagonales - TAMAÑO PEQUEÑO - reglas adicionales con mayor especificidad */
+.jkhive-navbar .jkhive-notif-badge,
+.jkhive-navbar .jkhive-notif-badge-main,
+.jkhive-navbar .notif-count-badge,
+.jkhive-navbar .jkhive-notification-badge,
+.jkhive-notif-selector .jkhive-notif-badge,
+.jkhive-notif-selector .jkhive-notif-badge-main,
+.jkhive-notif-selector .notif-count-badge {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%) !important;
+  border-radius: 0 !important;
+}
+
+.jkhive-navbar .jkhive-notif-badge,
+.jkhive-navbar .jkhive-notif-badge-main,
+.jkhive-navbar .notif-count-badge,
+.jkhive-notif-selector .jkhive-notif-badge,
+.jkhive-notif-selector .jkhive-notif-badge-main,
+.jkhive-notif-selector .notif-count-badge {
+  width: 14px !important; /* Tamaño extra pequeño */
+  height: calc(14px * 1.1547) !important;
+  min-width: 14px !important;
+  font-size: 8px !important;
+  font-weight: 900 !important; /* Negrita extra gruesa */
+  border: none !important; /* Sin bordes para badges hexagonales */
+  box-shadow: none !important;
+  letter-spacing: 0.02em !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
+}
+
+.jkhive-navbar .jkhive-notification-badge {
+  width: 16px !important; /* Tamaño pequeño */
+  height: calc(16px * 1.1547) !important;
+  min-width: 16px !important;
+  font-size: 0.55rem !important;
+  font-weight: 900 !important; /* Negrita extra gruesa */
+  letter-spacing: 0.02em !important;
+}
+
+/* Placeholder styles for future features */
+.jkhive-navbar-placeholder {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* ========================================
+   USER MENU DROPDOWN
+   ======================================== */
+.jkhive-user-menu-wrapper {
+  position: relative;
+}
+
+.jkhive-user-menu-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: linear-gradient(135deg, var(--jk-tech-dark) 0%, var(--jk-tech-darker) 100%);
+  border: 2px solid var(--jk-primary-blue);
+  border-radius: 0.5rem;
+  box-shadow: var(--jk-shadow-lg), var(--jk-glow-blue);
+  min-width: 200px;
+  z-index: 1000;
+  display: none;
+  overflow: hidden;
+}
+
+.jkhive-user-menu-dropdown.active {
+  display: block;
+  animation: jkhive-anmtn-navbar-slidedown 0.3s ease;
+}
+
+@keyframes jkhive-anmtn-navbar-slidedown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.jkhive-user-menu-item {
+  padding: 0.4375rem 1rem; /* 7px vertical - 1px menos que 0.5rem */
+  color: var(--jk-metal-light);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: var(--jk-transition);
+  border-bottom: 1px solid var(--jk-tech-medium);
+}
+
+.jkhive-user-menu-item:last-child {
+  border-bottom: none;
+}
+
+.jkhive-user-menu-item:hover {
+  background: linear-gradient(135deg, var(--jk-tech-medium) 0%, var(--jk-tech-dark) 100%);
+  color: var(--jk-accent-honey);
+}
+
+.jkhive-user-menu-item i {
+  width: 20px;
+  text-align: center;
+}
+
+.jkhive-user-menu-header {
+  padding: 1rem;
+  border-bottom: 2px solid var(--jk-primary-blue);
+  background: linear-gradient(135deg, var(--jk-tech-medium) 0%, var(--jk-tech-dark) 100%);
+}
+
+.jkhive-user-menu-header .user-name {
+  font-weight: 700;
+  color: var(--jk-metal-light);
+  margin-bottom: 0.25rem;
+}
+
+.jkhive-user-menu-header .user-email {
+  font-size: 0.85rem;
+  color: var(--jk-metal-dark);
+}
+
+.jkhive-user-menu-header .user-profile {
+  font-size: 0.75rem;
+  color: var(--jk-accent-honey);
+  margin-top: 0.25rem;
+  font-weight: 600;
+}
+
+/* ========================================
+   RESPONSIVE - MOBILE
+   ======================================== */
+@media (max-width: 768px) {
+  .jkhive-navbar {
+    left: 101px; /* Mismo borde que la línea del sidebar en mobile (vértice con la línea lateral). */
+    height: 60px;
+    padding: 0 var(--jk-spacing-md);
+    justify-content: flex-end; /* Menú a la derecha cuando breadcrumb está oculto */
+  }
+
+  .jkhive-navbar-left {
+    padding-left: 0.5rem; /* Gap mínimo del borde izquierdo mantenido en mobile */
+    flex: 1; /* Ocupar espacio disponible */
+    min-width: 0; /* Permitir shrink */
+  }
+  
+  .jkhive-navbar-right {
+    gap: 1px;
+    flex-shrink: 0; /* No encoger el menú derecho */
+  }
+  
+  .jkhive-navbar-title {
+    font-size: 1.15rem; /* Ajustado para nombre del sitio (ej. JK Lubs) */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Puntos suspensivos si no cabe */
+    white-space: nowrap;
+    width: 100%; /* Ocupar todo el espacio de su contenedor */
+    line-height: 1.2;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+  }
+  
+  .jkhive-navbar-hex-item {
+    width: 32px;
+    height: calc(32px * 1.1547);
+    font-size: 0.85rem;
+  }
+
+  /* Menú de usuario en mobile: ícono 32px y dropdown compacto */
+  .jkhive-user-menu-wrapper {
+    width: 32px;
+    height: calc(32px * 1.1547);
+    flex-shrink: 0;
+  }
+  #userMenuToggle,
+  .jkhive-user-menu-wrapper .jkhive-navbar-hex-item {
+    width: 32px !important;
+    min-width: 32px !important;
+    height: calc(32px * 1.1547) !important;
+    min-height: calc(32px * 1.1547) !important;
+    font-size: 0.85rem !important;
+  }
+  .jkhive-user-menu-wrapper #userMenuToggle i {
+    font-size: 0.85rem !important;
+  }
+  .jkhive-user-menu-dropdown {
+    min-width: 160px;
+    max-width: min(260px, calc(100vw - 2rem));
+    top: calc(100% + 6px);
+    right: 0;
+  }
+  .jkhive-user-menu-header {
+    padding: 0.6rem 0.75rem;
+  }
+  .jkhive-user-menu-header .user-name {
+    font-size: 0.9rem;
+  }
+  .jkhive-user-menu-header .user-email,
+  .jkhive-user-menu-header .user-profile {
+    font-size: 0.75rem;
+  }
+  .jkhive-user-menu-item {
+    padding: 0.35rem 0.75rem;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+  }
+  .jkhive-user-menu-item i {
+    width: 16px;
+    font-size: 0.8rem;
+  }
+  
+  /* ============================================================
+     SELECTOR DE IDIOMAS MOBILE - SELLADO - NO MODIFICAR
+     ============================================================
+     Estos estilos están ajustados y probados. Cualquier cambio aquí
+     rompe el menú desplegable de idiomas en mobile. Si jk-hive.css
+     u otro archivo tiene reglas del lang-selector mobile, ELIMINARLAS
+     y mantener este archivo como única fuente de verdad.
+     NO añadir reglas de .jkhive-lang-selector ni .jkhive-lang-hex
+     en mobile a otros archivos CSS.
+     ============================================================ */
+  .jkhive-lang-selector {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  
+  .jkhive-lang-hex {
+    width: 32px !important;
+    height: calc(32px * 1.1547) !important;
+    font-size: calc(0.55rem * 1.2325) !important;
+  }
+  
+  .jkhive-lang-hex-container {
+    left: 0 !important;
+    width: 85px !important;
+    z-index: 9999;
+  }
+  
+  .jkhive-lang-selector.open .jkhive-lang-hex-container {
+    top: 0 !important;
+    height: 122px !important;
+  }
+  
+  /* Honeycomb pattern for mobile - misma especificidad que desktop (:not(.active) y .active)
+     para anular las reglas base. Valores compactos para reducir separación vertical. */
+  .jkhive-lang-hex[data-lang="es"],
+  .jkhive-lang-hex[data-lang="en"],
+  .jkhive-lang-hex[data-lang="it"],
+  .jkhive-lang-hex[data-lang="de"] {
+    top: 0;
+    left: 0 !important;
+  }
+  
+  /* Toggle (.active) sin cambios. Solo items desplegables (:not(.active)): -1px izq, +2px abajo */
+  .jkhive-lang-selector.open .jkhive-lang-hex[data-lang="es"].active {
+    top: 0 !important;
+    left: 0 !important;
+  }
+  .jkhive-lang-selector.open .jkhive-lang-hex[data-lang="es"]:not(.active) {
+    top: 3px !important;
+    left: -1px !important;
+  }
+  
+  .jkhive-lang-selector.open .jkhive-lang-hex[data-lang="en"].active {
+    top: 25.5px !important;
+    left: 17px !important;
+  }
+  .jkhive-lang-selector.open .jkhive-lang-hex[data-lang="en"]:not(.active) {
+    top: 28.5px !important;
+    left: 16px !important;
+  }
+  
+  .jkhive-lang-selector.open .jkhive-lang-hex[data-lang="it"].active {
+    top: 53.5px !important;
+    left: 0 !important;
+  }
+  .jkhive-lang-selector.open .jkhive-lang-hex[data-lang="it"]:not(.active) {
+    top: 56.5px !important;
+    left: -1px !important;
+  }
+  
+  .jkhive-lang-selector.open .jkhive-lang-hex[data-lang="de"].active {
+    top: 82.5px !important;
+    left: 17px !important;
+  }
+  .jkhive-lang-selector.open .jkhive-lang-hex[data-lang="de"]:not(.active) {
+    top: 85.5px !important;
+    left: 16px !important;
+  }
+  
+  .jkhive-lang-hex .flag-icon {
+    font-size: 0.86rem !important;
+  }
+  .jkhive-lang-hex[data-lang="en"] .flag-icon {
+    font-size: 0.58rem !important; /* 0.63rem − 8% */
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  
+  /* Reducir selector de notificaciones a 32px (igual que otros hexágonos) */
+  .jkhive-notif-selector {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  
+  .jkhive-notif-hex-container {
+    width: 85px !important; /* Reducido proporcionalmente desde 100px */
+    height: 32px !important; /* Reducido proporcionalmente desde 38px */
+  }
+  
+  .jkhive-notif-selector.open .jkhive-notif-hex-container {
+    height: 147px !important; /* Reducido proporcionalmente desde 174px (174 * 32/38 ≈ 147) */
+    width: 85px !important;
+  }
+  
+  /* Reducir hexágonos de notificaciones a 32px */
+  .jkhive-notif-hex {
+    width: 32px !important;
+    height: calc(32px * 1.1547) !important;
+  }
+  
+  /* Ajustar tamaño de iconos dentro de hexágonos de notificaciones */
+  .jkhive-notif-hex svg {
+    width: 17px !important; /* Reducido desde 20px */
+    height: 17px !important;
+  }
+  
+  .jkhive-notif-hex.jkhive-notif-main i {
+    font-size: 0.86rem !important; /* Reducido desde 1.02rem */
+  }
+  
+  /* Ajustar posiciones del patrón honeycomb para tamaño reducido */
+  .jkhive-notif-selector.open .jkhive-notif-hex[data-notif-type="messages"]:not(.jkhive-notif-main) {
+    top: 29px !important; /* Reducido desde 34px (34 * 32/38 ≈ 29) */
+    left: 17px !important; /* Reducido desde 20px (20 * 32/38 ≈ 17) */
+  }
+  
+  .jkhive-notif-selector.open .jkhive-notif-hex[data-notif-type="purchases"]:not(.jkhive-notif-main) {
+    top: 57px !important; /* Reducido desde 68px (68 * 32/38 ≈ 57) */
+    left: 0 !important;
+  }
+  
+  .jkhive-notif-selector.open .jkhive-notif-hex[data-notif-type="donations"]:not(.jkhive-notif-main) {
+    top: 86px !important; /* Reducido desde 102px (102 * 32/38 ≈ 86) */
+    left: 17px !important; /* Reducido desde 20px */
+  }
+  
+  .jkhive-notif-selector.open .jkhive-notif-hex[data-notif-type="users"]:not(.jkhive-notif-main) {
+    top: 114px !important; /* Reducido desde 136px (136 * 32/38 ≈ 114) */
+    left: 0 !important;
+  }
+  
+  /* Reducir badges de notificaciones */
+  .jkhive-notif-badge,
+  .jkhive-notif-badge-main,
+  .notif-count-badge {
+    width: 12px !important; /* Reducido desde 14px */
+    height: calc(12px * 1.1547) !important;
+    min-width: 12px !important;
+    font-size: 7px !important; /* Reducido desde 8px */
+    top: -7px !important; /* Ajustado proporcionalmente */
+    right: -7px !important;
+  }
+  
+  /* Badge principal (campanita) - ajustado para tamaño 32px */
+  /* Hexágono principal está en left: 0, width: 32px, badge en esquina superior derecha */
+  .jkhive-notif-badge-main {
+    top: -4px !important; /* Ajustado desde -5px */
+    left: 23px !important; /* 32px (width) - 6px (offset) - 3px (ajuste) = 23px */
+    right: auto !important;
+  }
+  
+  /* Badges de los hexágonos del menú cuando está abierto - ajustados para tamaño 32px */
+  /* messages: hexágono en top: 29px, left: 17px, width: 32px */
+  .jkhive-notif-selector.open .jkhive-notif-badge[data-notif-type="messages"] {
+    top: 26px !important; /* 29px (top del hex) - 3px (offset hacia arriba) = 26px */
+    left: 43px !important; /* 17px (left del hex) + 32px (width) - 6px (offset) = 43px */
+    right: auto !important;
+  }
+  
+  /* purchases: hexágono en top: 57px, left: 0, width: 32px */
+  .jkhive-notif-selector.open .jkhive-notif-badge[data-notif-type="purchases"] {
+    top: 54px !important; /* 57px (top del hex) - 3px (offset hacia arriba) = 54px */
+    left: 26px !important; /* 0px (left del hex) + 32px (width) - 6px (offset) = 26px */
+    right: auto !important;
+  }
+  
+  /* donations: hexágono en top: 86px, left: 17px, width: 32px */
+  .jkhive-notif-selector.open .jkhive-notif-badge[data-notif-type="donations"] {
+    top: 83px !important; /* 86px (top del hex) - 3px (offset hacia arriba) = 83px */
+    left: 43px !important; /* 17px (left del hex) + 32px (width) - 6px (offset) = 43px */
+    right: auto !important;
+  }
+  
+  /* users: hexágono en top: 114px, left: 0, width: 32px */
+  .jkhive-notif-selector.open .jkhive-notif-badge[data-notif-type="users"] {
+    top: 111px !important; /* 114px (top del hex) - 3px (offset hacia arriba) = 111px */
+    left: 26px !important; /* 0px (left del hex) + 32px (width) - 6px (offset) = 26px */
+    right: auto !important;
+  }
+  
+  .jkhive-main-content {
+    margin-top: 60px;
+  }
+  
+  .jkhive-navbar-breadcrumb {
+    display: none;
+  }
+}
+
+/* Cluster hex en navbar (landing pro showcase) */
+.jkfw-navbar-hex-cluster {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.42rem;
+  margin-right: 0.75rem;
+}
+
+.jkfw-navbar-hex-cluster .jkhive-navbar-hex-item.is-active {
+  box-shadow: var(--jk-shadow-lg), 0 0 16px rgba(6, 182, 212, 0.55);
+  color: var(--jk-accent-cyan, #06b6d4);
+  filter: brightness(1.05);
+}
+

@@ -1,0 +1,146 @@
+/**
+ * HouseSitting - Hero Hexagon Animation Styles
+ * Adaptado de JK Hive
+ */
+
+.hero-hex-animation-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1500px;
+  height: calc(90px * 1.1547);
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-hex-animated {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  pointer-events: none;
+  cursor: default;
+  will-change: transform, opacity;
+}
+
+.hero-hex-animated *,
+.hero-hex-animated a {
+  pointer-events: none !important;
+  cursor: default !important;
+}
+
+.hero-hex-animated .jkhive-hex {
+  width: 90px;
+  height: calc(90px * 1.1547);
+  position: relative;
+  transform-origin: center;
+}
+
+.hero-hex-animated:hover { z-index: 2; }
+
+@keyframes hexAppear {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+  to { opacity: 0.9; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes hexDisappear {
+  from { opacity: 0.9; transform: translate(-50%, -50%) scale(1); }
+  to { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+}
+
+.hero-hex-animated .jkhive-hex-content {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.hero-hex-animated .jkhive-hex {
+  filter: drop-shadow(0 0 10px rgba(14, 165, 233, 0.6));
+  transition: filter 0.3s ease;
+}
+
+.hero-hex-animated:hover .jkhive-hex {
+  filter: drop-shadow(0 0 20px rgba(212, 160, 23, 0.8));
+}
+
+.hero-section .jkhive-editorial-hero-logo {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-section .jkhive-editorial-hero-logo .jkhive-hex-content,
+.hero-section .jkhive-editorial-hero-logo .jkhive-hex {
+  transition: all 0.3s ease;
+}
+
+.hero-section { overflow: visible !important; }
+
+/* ========================================
+   Hero logo JK Lubs — mismo look que logo sidebar (colores, borde). Sin animación ni doble cara.
+   Tamaño 90px en hero section; barra en hero-honeycomb-bar.css.
+   ======================================== */
+.hero-section .jkhive-editorial-hero-logo .jkhive-hex {
+  width: 90px !important;
+  height: calc(90px * 1.1547) !important;
+  --hex-size: 90px;
+  background: linear-gradient(135deg, var(--jk-accent-honey-dark) 0%, var(--jk-accent-honey) 50%, var(--jk-accent-honey-light) 70%, var(--jk-accent-honey) 100%) !important;
+  box-shadow: var(--jk-shadow-honey), 0 0 30px rgba(212, 160, 23, 0.6), inset 0 0 40px rgba(244, 196, 48, 0.3) !important;
+  border: 3px solid var(--jk-accent-honey-light) !important;
+  animation: none !important;
+}
+.hero-section .jkhive-editorial-hero-logo .jkhive-hex-content {
+  color: var(--jk-tech-darker) !important;
+  font-weight: 900 !important;
+}
+.hero-section .jkhive-editorial-hero-logo .jkhive-logo-main {
+  font-size: 1.5rem !important;
+  color: var(--jk-tech-darker) !important;
+  text-shadow: 0 0 15px rgba(244, 196, 48, 1), 0 0 30px rgba(212, 160, 23, 0.8), 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+}
+.hero-section .jkhive-editorial-hero-logo .jkhive-logo-sub {
+  font-size: 0.5rem !important;
+  color: var(--jk-accent-honey-light, #f4c430) !important;
+  text-shadow: 0 0 10px rgba(244, 196, 48, 0.8), 0 0 20px rgba(212, 160, 23, 0.6) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.15em !important;
+}
+.hero-section .jkhive-editorial-hero-logo .jkhive-logo-editorial-head .jkhive-logo-divider {
+  width: 100% !important;
+  height: 2px !important;
+  background: linear-gradient(90deg, transparent 0%, #0ea5e9 20%, #06b6d4 50%, #0ea5e9 80%, transparent 100%) !important;
+  box-shadow: 0 0 10px rgba(14, 165, 233, 1), 0 0 20px rgba(6, 182, 212, 0.6) !important;
+  margin: 0.2rem 0 0 0 !important;
+}
+
+@media (min-width: 769px) {
+  .hero-section .jkhive-editorial-hero-logo {
+    margin-bottom: 5px !important;
+  }
+  .hero-logo-wrapper {
+    margin-bottom: 0.2rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section .jkhive-editorial-hero-logo {
+    margin-bottom: 12px !important;
+  }
+  .hero-section .jkhive-editorial-hero-logo .jkhive-hex {
+    margin-top: calc(90px * 0.5774 * 0.85) !important;
+    margin-bottom: calc(90px * 0.5774 * 0.85) !important;
+  }
+  /* Misma barra que hub mobile / sidebar: 2px y margen bajo el main alineado al patrón JK Hive. */
+  .hero-section .jkhive-editorial-hero-logo .jkhive-logo-editorial-head .jkhive-logo-divider,
+  .hero-section .jkhive-editorial-hero-logo .jkhive-logo-editorial-head .jkhive-logo-divider-jkhive {
+    height: 2px !important;
+    min-height: 2px !important;
+    margin: 0.12rem 0 0 0 !important;
+    box-shadow: 0 0 10px rgba(14, 165, 233, 1), 0 0 20px rgba(6, 182, 212, 0.6) !important;
+  }
+}

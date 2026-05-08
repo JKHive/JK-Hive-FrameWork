@@ -1,0 +1,155 @@
+/**
+ * Bullets hexagonales (panal) — portado del CRM OutSrcIT para About admin/público.
+ */
+
+.jkhive-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.jkhive-hex-bullets-add-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.jkhive-hex-bullets-add-row .jkhive-hex-bullets-input-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.jkhive-bullets-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: var(--jk-tech-darker);
+  border: 1px solid var(--jk-tech-medium);
+  min-height: 60px;
+  max-height: 150px;
+  overflow-y: auto;
+  position: relative;
+  border-radius: 0.5rem;
+}
+
+.jkhive-bullets-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../img/honeycomb-pattern.svg');
+  background-size: 22.4px 38.5px;
+  background-repeat: repeat;
+  background-position: 0 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.15;
+  filter: brightness(3) contrast(15);
+  border-radius: 0.5rem;
+}
+
+.jkhive-bullet-item {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0;
+  padding-left: 0.7rem;
+  padding-right: 0.7rem;
+  background: linear-gradient(135deg, var(--jk-tech-dark) 0%, var(--jk-tech-medium) 100%);
+  clip-path: polygon(12px 0%, calc(100% - 12px) 0%, 100% 50%, calc(100% - 12px) 100%, 12px 100%, 0% 50%);
+  box-shadow: 0 0 10px rgba(14, 165, 233, 0.3), inset 0 0 8px rgba(14, 165, 233, 0.1);
+  transition: all 0.3s ease;
+  color: var(--jk-metal-light);
+  font-size: 0.85rem;
+  font-weight: 500;
+  min-width: 60px;
+}
+
+.jkhive-bullet-item::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: var(--jk-primary-blue);
+  clip-path: polygon(12px 0%, calc(100% - 12px) 0%, 100% 50%, calc(100% - 12px) 100%, 12px 100%, 0% 50%);
+  z-index: -1;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.jkhive-bullet-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(14, 165, 233, 0.5), inset 0 0 10px rgba(14, 165, 233, 0.2);
+  background: linear-gradient(135deg, var(--jk-tech-medium) 0%, var(--jk-primary-blue-dark) 100%);
+}
+
+.jkhive-bullet-item:hover::before {
+  background: var(--jk-accent-cyan);
+  box-shadow: 0 0 10px rgba(20, 184, 166, 0.6);
+}
+
+.jkhive-bullet-item--readonly:hover {
+  transform: none;
+}
+
+.jkhive-bullet-text {
+  color: var(--jk-metal-light);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.jkhive-bullet-remove {
+  background: none;
+  border: none;
+  color: var(--jk-metal-light);
+  cursor: pointer;
+  padding: 0.2rem;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  opacity: 0.7;
+}
+
+.jkhive-bullet-remove:hover {
+  background: rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.jkhive-bullets-empty {
+  position: relative;
+  z-index: 1;
+  color: var(--jk-metal-medium);
+  font-size: 0.85rem;
+  margin: 0;
+  padding: 0.5rem;
+  text-align: center;
+  width: 100%;
+  font-style: italic;
+}
+
+.jkhive-bullets-container--readonly {
+  max-height: none;
+}
+
+.jkhive-about-lines-form:not(.jkhive-about-lines-js) .jkhive-about-lines-js-ui {
+  display: none;
+}
+
+.jkhive-about-lines-form.jkhive-about-lines-js .jkhive-about-lines-fallback {
+  display: none;
+}

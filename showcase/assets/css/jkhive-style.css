@@ -1,0 +1,2326 @@
+/*
+ * JK Portal - Main Styles
+ * Site-specific styles for the JK Portal website
+ * Nota: jk-hive.css se carga desde el HTML, no usar @import
+ */
+
+/* ========================================
+   PORTAL-SPECIFIC STYLES
+   ======================================== */
+
+/* Scroll Offset for Anchor Links (navbar + hero bar colapsada + gap) */
+html {
+  scroll-padding-top: 125px; /* navbar + barra hero + gap ajustado */
+}
+
+section[id],
+article[id] {
+  scroll-margin-top: 125px;
+}
+
+@media (max-width: 768px) {
+  html {
+    scroll-padding-top: 100px;
+  }
+
+  section[id],
+  article[id] {
+    scroll-margin-top: 100px;
+  }
+}
+
+/* Hero Section - Cybernetic Style (igual que Housesitting: honeycomb + gradient; imagen opcional solo aquí) */
+.hero-section {
+  background: 
+    var(--honeycomb-url) repeat,
+    linear-gradient(135deg, var(--jk-tech-darker) 0%, var(--jk-tech-dark) 30%, var(--jk-primary-blue-darker) 70%, var(--jk-tech-dark) 100%);
+  background-size: var(--honeycomb-size-sections), 100% 100%;
+  background-position: 0 0, 0 0;
+  padding: 2rem;
+  text-align: center;
+  color: var(--jk-metal-light);
+  border-bottom: 3px solid var(--jk-primary-blue);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(14, 165, 233, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 360px;
+  transition: all 0.35s ease;
+}
+
+/* Imagen de fondo hero desactivada; la franja de íconos (engranaje, tractor, moto, auto, camión) va debajo del logo */
+.hero-section::before {
+  content: none;
+}
+
+.hero-section.hero-collapsed::before {
+  content: none;
+}
+
+/* Franja de íconos debajo del logo: engranaje, tractor, moto, auto, camión (como representación visual) */
+.hero-icons-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(0.75rem, 4vw, 1.5rem);
+  margin-bottom: 0.75rem;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-icons-strip i {
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  color: var(--jk-accent-honey, #f4c430);
+  opacity: 0.9;
+  text-shadow: 0 0 10px rgba(244, 196, 48, 0.5);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.hero-icons-strip i:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.hero-section.hero-collapsed .hero-icons-strip {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: 280px;
+    padding: 1.5rem 1rem;
+  }
+  .hero-icons-strip i {
+    font-size: 1.15rem;
+  }
+  .hero-icons-strip {
+    gap: 0.5rem;
+  }
+}
+@media (max-width: 576px) {
+  .hero-section {
+    min-height: 240px;
+    padding: 1.25rem 0.75rem;
+  }
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.hero-logo-wrapper {
+  margin-bottom: 0.5rem;
+}
+
+/* Logo del hero: imagen dentro del hex, se adapta al tamaño del contenedor */
+.hero-section .jkhive-editorial-hero-logo .jkhive-hex-content-img {
+  padding: 8%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-section .jkhive-editorial-hero-logo .hero-logo-img,
+.hero-section .jkhive-editorial-hero-logo .jkhive-logo-img {
+  width: 72%;
+  height: auto;
+  max-height: 72%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
+}
+
+/* Full mode: orden logo, título, subtítulo, luego 4 CTAs en fila */
+.hero-inner .hero-logo-wrapper { order: 1; }
+.hero-inner .hero-icons-strip { order: 2; }
+.hero-inner .hero-title { order: 3; }
+.hero-inner .hero-subtitle { order: 4; }
+.hero-inner .hero-ctas-row { order: 5; }
+
+.hero-ctas-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.hero-ctas-registro,
+.hero-ctas-ingresar {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.hero-cta-item {
+  flex-shrink: 0;
+}
+
+.hero-cta-fake {
+  display: none;
+}
+
+/* Hero collapsed: estilos base en hero-honeycomb-bar.css */
+/*
+ * Transición hero → barra: mismos márgenes fijos que JK Lubs (jklubs/www/public/assets/css/jkhive-style.css).
+ * Ver jklubs/www/views/partials/README-hero.md. No usar calc(--hero-collapse-spacer-h): allí el espaciador
+ * conserva la altura del hero expandido pero el acercamiento del contenido al viewport está calibrado así.
+ */
+
+.hero-collapse-spacer {
+  display: none;
+  height: 0;
+}
+body.hero-scrolled .hero-collapse-spacer {
+  display: block;
+  /* Fondo oscuro solo en la franja que coincide con la barra (160px desktop), no en todo el spacer. */
+  background: linear-gradient(to bottom, var(--jk-tech-darker) 160px, transparent 160px);
+  position: relative;
+}
+body.hero-scrolled .hero-collapse-spacer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 160px; /* Solo la altura de la hero barra; no extender honeycomb más abajo. */
+  background-image: var(--honeycomb-url);
+  background-size: var(--honeycomb-size-sidebar);
+  background-repeat: repeat;
+  background-position: 0 0;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+  body.hero-scrolled .hero-collapse-spacer {
+    background: linear-gradient(to bottom, var(--jk-tech-darker) 115px, transparent 115px);
+  }
+  body.hero-scrolled .hero-collapse-spacer::before {
+    height: 115px;
+  }
+  /* Barra colapsada 115px móvil: alinear contenido bajo navbar+barra (60+115); igual que JK Lubs */
+  body.hero-scrolled .hero-collapse-spacer + .jkhive-content-wrap {
+    margin-top: -290px;
+  }
+}
+body.hero-scrolled .hero-collapse-spacer + .jkhive-content-wrap {
+  margin-top: -265px;
+}
+body.hero-scrolled .hero-collapse-spacer + .jkhive-page-container {
+  margin-top: -90px;
+}
+body.hero-scrolled .hero-collapse-spacer + .page-content {
+  margin-top: -90px;
+}
+body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap {
+  margin-top: -200px;
+}
+
+@media (max-width: 768px) {
+  /* Hero full: mismo 85% que el resto del sitio (55.39px, 1.35rem). La regla global de jkhive-bttn-big ya lo aplica; aquí solo ajustamos el wrapper .hero-cta-item para que no fuerce otro tamaño. */
+  .hero-section:not(.hero-collapsed) .hero-cta-item,
+  html body .hero-section:not(.hero-collapsed) .hero-cta-item {
+    width: 55.39px !important;
+    height: calc(55.39px * 1.1547) !important;
+  }
+  .hero-section:not(.hero-collapsed) .hero-cta-item .jkhive-hex,
+  .hero-section:not(.hero-collapsed) .hero-cta-item .jkhive-hex {
+    width: 55.39px !important;
+    height: calc(55.39px * 1.1547) !important;
+  }
+  .hero-section:not(.hero-collapsed) .hero-cta-item .jkhive-hex-icon {
+    font-size: 1.35rem !important;
+  }
+
+  .hero-section.hero-collapsed {
+    top: 60px;
+    left: 101px; /* Mismo borde que la línea del sidebar en mobile. */
+    height: 115px; /* Alineado con hero-honeycomb-bar.css (barra colapsada) */
+    padding: 4px 1rem;
+  }
+  /* Barra colapsada: 32px (definido en hero-honeycomb-bar.css; aquí por si se carga antes) */
+  .hero-section.hero-collapsed .hero-cta-item,
+  html body .hero-section.hero-collapsed .hero-cta-item {
+    width: 32px !important;
+    height: calc(32px * 1.1547) !important;
+  }
+  .hero-section.hero-collapsed .hero-cta-item .jkhive-hex,
+  .hero-section.hero-collapsed .hero-cta-item .jkhive-hex {
+    width: 32px !important;
+    height: calc(32px * 1.1547) !important;
+  }
+  /* Alineado a hero-honeycomb-bar.css: barra CTAs +10% en ícono; html body coherente con ese archivo */
+  html body .hero-section.hero-collapsed .hero-cta-item .jkhive-hex-icon,
+  html body .hero-section.hero-collapsed .hero-cta-registro-cliente .jkhive-hex-icon,
+  html body .hero-section.hero-collapsed .hero-cta-ingresar-cliente .jkhive-hex-icon {
+    font-size: 0.88rem !important;
+  }
+}
+
+/* Hero section - la textura honeycomb ya está aplicada en el background del .hero-section */
+
+/* Animated Glow */
+.hero-section::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.2) 0%, transparent 70%);
+  animation: heroGlow 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes heroGlow {
+  0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 30px rgba(14, 165, 233, 1), 0 0 60px rgba(14, 165, 233, 0.5);
+  position: relative;
+  z-index: 1;
+  color: var(--jk-metal-light);
+}
+
+.hero-subtitle {
+  font-size: 1.3rem;
+  font-weight: 700 !important; /* Negrita desktop y mobile */
+  opacity: 0.9;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  color: var(--jk-metal);
+  text-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
+}
+
+/* Desktop: texto hero - más padding bot (+5px), menos espacio arriba (-5px) */
+@media (min-width: 769px) {
+  .hero-subtitle {
+    margin-top: -5px;
+    padding-top: 0;
+    padding-bottom: 5px;
+  }
+}
+
+/* Wrapper de contenido principal - reemplaza container-fluid (JK Hive, sin Bootstrap) */
+.jkhive-content-wrap {
+  width: 100%;
+  padding: 0.5rem 1rem 2rem;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+@media (min-width: 768px) {
+  .jkhive-content-wrap {
+    padding: 0.5rem 1.5rem 2rem;
+  }
+}
+
+/* Grid y utilidades - reemplazo Bootstrap (JK Hive) */
+.jkhive-row { display: flex; flex-wrap: wrap; gap: 1.5rem; margin: 0; padding: 0; }
+.jkhive-col-half { flex: 1 1 45%; min-width: 280px; }
+.jkhive-col-third { flex: 1 1 30%; min-width: 280px; }
+.jkhive-col-quarter { flex: 1 1 22%; min-width: 200px; }
+.jk-mb-3 { margin-bottom: 1rem; }
+.jk-mb-4 { margin-bottom: 1.5rem; }
+.jk-mb-5 { margin-bottom: 3rem; }
+.jk-me-2 { margin-inline-end: 0.5rem; }
+.jk-me-3 { margin-inline-end: 0.75rem; }
+.jk-text-info { color: var(--jk-primary-blue-light, #38bdf8); }
+.jk-text-success { color: var(--jk-secondary-green, #2dd4bf); }
+.jk-text-warning { color: var(--jk-accent-honey, #f4c430); }
+.jk-text-muted { color: var(--jk-metal); opacity: 0.8; }
+.jk-mb-0 { margin-bottom: 0; }
+.jk-mb-2 { margin-bottom: 0.5rem; }
+.jk-mt-5 { margin-top: 3rem; }
+.jk-h-100 { height: 100%; }
+.jk-lead { font-size: 1.25rem; line-height: 1.5; }
+.jk-list-unstyled { list-style: none; padding: 0; margin: 0; }
+.jkhive-page-container { width: 100%; max-width: 1320px; margin: 0 auto; padding: 3rem 1rem; box-sizing: border-box; }
+
+/* Grid JK Hive - reemplazo Bootstrap (row, col-*) */
+.row { display: flex; flex-wrap: wrap; margin: 0; padding: 0; }
+.row.g-4 { gap: 1.5rem; }
+.row.justify-content-center { justify-content: center; }
+.jkhive-row.justify-content-center { justify-content: center; }
+.text-center { text-align: center; }
+.d-inline-block { display: inline-block !important; }
+.col-12 { flex: 0 0 100%; max-width: 100%; }
+.col-md-6 { flex: 0 0 100%; max-width: 100%; }
+.col-md-12 { flex: 0 0 100%; max-width: 100%; }
+.col-lg-3 { flex: 0 0 100%; max-width: 100%; }
+.col-lg-4 { flex: 0 0 100%; max-width: 100%; }
+.col-xl { flex: 1 1 0; min-width: 0; }
+@media (min-width: 768px) {
+  .col-md-6 { flex: 0 0 50%; max-width: 50%; }
+  .col-md-12 { flex: 0 0 100%; max-width: 100%; }
+}
+@media (min-width: 992px) {
+  .col-lg-3 { flex: 0 0 25%; max-width: 25%; }
+  .col-lg-4 { flex: 0 0 33.333333%; max-width: 33.333333%; }
+}
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-3 { margin-bottom: 1rem; }
+.mb-4 { margin-bottom: 1.5rem; }
+.mb-5 { margin-bottom: 3rem; }
+.mt-5 { margin-top: 3rem; }
+.me-2 { margin-inline-end: 0.5rem; }
+.mb-0 { margin-bottom: 0; }
+.h-100 { height: 100%; }
+.invalid-feedback { display: none; color: #f87171; font-size: 0.875rem; margin-top: 0.25rem; }
+.was-validated .form-control:invalid ~ .invalid-feedback,
+.was-validated .form-select:invalid ~ .invalid-feedback { display: block; }
+
+/* Section Containers */
+.section-container {
+  padding: 3rem 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  color: var(--jk-primary-blue);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 4px;
+  background: var(--jk-accent-honey);
+  border-radius: 2px;
+}
+
+.section-subtitle {
+  color: var(--jk-gray-600);
+  font-size: 1.1rem;
+  margin-top: 1.5rem;
+}
+
+/* Service Cards - Using Hexagonal Gallery System */
+/* Usa el sistema de galería hexagonal (puntas vertical) */
+
+/* Service Card Container - Similar a jkhive-hex-gallery */
+.service-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem 1rem;
+  padding: 2rem 0;
+  width: 100%;
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+/* Service Card Base - Hexágono vertical */
+.service-card {
+  position: relative;
+  transition: transform 0.3s ease, z-index 0s;
+  flex-shrink: 0;
+}
+
+.service-card:hover {
+  z-index: 10;
+  transform: scale(1.05);
+}
+
+/* Service Card Hex (el contenedor hexagonal) */
+.service-card-hex {
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(135deg, 
+    rgba(15, 23, 42, 0.95) 0%, 
+    rgba(30, 41, 59, 0.95) 100%);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(14, 165, 233, 0.3), 
+              inset 0 0 40px rgba(14, 165, 233, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.service-card:hover .service-card-hex {
+  box-shadow: 0 12px 40px rgba(14, 165, 233, 0.5), 
+              0 0 60px rgba(244, 196, 48, 0.3),
+              inset 0 0 60px rgba(14, 165, 233, 0.25);
+}
+
+/* Glow effect pseudo */
+.service-card-hex::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.3) 0%, transparent 70%);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Service Card Sizes - BIG (2 por fila) - Mantener para compatibilidad, pero usar jkhive-carouselitem-big */
+.service-card-big {
+  width: 390px; /* Tamaño más grande (jkhive-itemgallery-big) */
+  height: 450px; /* Proporción hexagonal */
+}
+
+/* Service Card Sizes - MEDIUM (4 por fila) */
+.service-card-medium {
+  width: 242px;
+  height: 279px;
+}
+
+/* Service Card Sizes - SMALL (6 por fila) */
+.service-card-small {
+  width: 140px;
+  height: 162px;
+}
+
+/* Content Elements - Los estilos de carousel items están ahora en jk-hive.css */
+/* Mantener solo para service-card-big para compatibilidad */
+.service-card-big .service-icon {
+  font-size: 3.5rem;
+  color: var(--jk-accent-cyan);
+  margin-bottom: 0.75rem;
+  filter: drop-shadow(0 0 15px rgba(6, 182, 212, 0.8));
+  position: relative;
+  z-index: 2;
+}
+
+.service-card-big .service-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--jk-accent-honey);
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 10px rgba(212, 160, 23, 0.5);
+  position: relative;
+  z-index: 2;
+}
+
+.service-card-big .service-description {
+  font-size: 1rem;
+  color: var(--jk-accent-cyan);
+  line-height: 1.5;
+  opacity: 0.9;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 0rem;
+}
+
+/* Estilos base para service-card (NO para jkhive-carouselitem - esos están en jk-hive.css) */
+.service-card .service-icon {
+  font-size: 3rem;
+  color: var(--jk-accent-cyan);
+  margin-bottom: 0.75rem;
+  filter: drop-shadow(0 0 15px rgba(6, 182, 212, 0.8));
+  position: relative;
+  z-index: 2;
+}
+
+.service-card .service-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--jk-accent-honey);
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 10px rgba(212, 160, 23, 0.5);
+  position: relative;
+  z-index: 2;
+}
+
+.service-card .service-description {
+  font-size: 0.85rem;
+  color: var(--jk-accent-cyan);
+  line-height: 1.5;
+  opacity: 0.9;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 0rem;
+}
+
+/* Info button positioning */
+.service-card .jkhive-btn-hex-info {
+  position: relative;
+  margin-top: 0.75rem;
+  z-index: 10;
+}
+
+/* Tamaño ajustado para cards pequeñas */
+.service-card-small .service-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.service-card-small .service-title {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.service-card-small .service-description {
+  font-size: 0.7rem;
+}
+
+.service-card-small .jkhive-btn-hex-info {
+  width: 28px;
+  height: calc(28px * 1.1547);
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+/* Tamaño ajustado para cards medianas */
+.service-card-medium .service-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.service-card-medium .service-title {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.service-card-medium .service-description {
+  font-size: 0.8rem;
+}
+
+/* ========================================
+   CONTEXTO DEL SERVICIO - Carrusel riesgos vivienda deshabitada
+   ======================================== */
+.contexto-servicio-carousel .contexto-slide {
+  cursor: pointer;
+}
+
+.contexto-servicio-carousel .contexto-slide > div {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+
+.contexto-servicio-carousel .contexto-slide .service-description {
+  font-size: 1.02rem;
+  line-height: 1.5;
+  padding: 0 0.5rem;
+}
+
+.contexto-servicio-carousel .contexto-slide .service-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  padding: 0 0.25rem;
+}
+
+.contexto-servicio-carousel .contexto-slide .service-icon-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.contexto-servicio-carousel .contexto-slide .contexto-badge {
+  position: absolute;
+  top: -0.4rem;
+  left: 100%;
+  margin-left: calc(0.25rem - 15px);
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--jk-tech-darker);
+  background: var(--jk-accent-honey);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: color 0.25s ease, background 0.25s ease;
+}
+
+.contexto-servicio-carousel .contexto-slide:hover .contexto-badge {
+  color: var(--jk-primary-blue);
+  background: rgba(14, 165, 233, 0.2);
+}
+
+.jkhive-link-contexto {
+  color: var(--jk-accent-honey);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.jkhive-link-contexto:hover {
+  color: var(--jk-accent-honey-light);
+  text-decoration: underline;
+}
+
+/* ========================================
+   QUÉ ES + CÓMO FUNCIONA - Tamaños homogéneos con sección anterior
+   ======================================== */
+#que-es-como-funciona {
+  margin-top: -40px;
+}
+#que-es-como-funciona .que-es-card {
+  transform: none !important;
+}
+
+#que-es-como-funciona .que-es-card h4.text-info {
+  color: var(--jk-primary-blue-light) !important;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+#que-es-como-funciona .que-es-card h4.text-info i {
+  font-size: 1rem;
+}
+
+#que-es-como-funciona .que-es-card p {
+  color: var(--jk-metal);
+  line-height: 1.5;
+  font-size: 1.17rem;
+}
+
+@media (min-width: 769px) {
+  /* Párrafo izquierdo: 120px hacia la derecha */
+  #que-es-como-funciona .jkhive-row > .jkhive-col-half:first-child .que-es-card {
+    margin-left: 120px;
+  }
+  /* Párrafo derecho: 60px hacia la izquierda (desde su borde izquierdo) */
+  #que-es-como-funciona .jkhive-row > .jkhive-col-half:last-child .que-es-card {
+    margin-left: 60px;
+  }
+  #que-es-como-funciona .que-es-card p {
+    max-width: 80%;
+    font-size: 1.27rem;
+  }
+  #que-es-como-funciona .que-es-card li {
+    max-width: 80%;
+    font-size: 1.27rem;
+  }
+}
+
+#que-es-como-funciona .que-es-card ul {
+  margin-bottom: 0;
+}
+
+#que-es-como-funciona .que-es-card li {
+  margin-bottom: 0.5rem;
+  color: var(--jk-metal);
+  line-height: 1.5;
+  font-size: 1.17rem;
+}
+
+#que-es-como-funciona .que-es-card li:last-child {
+  margin-bottom: 0;
+}
+
+#que-es-como-funciona .que-es-card li i.jk-text-success {
+  color: var(--jk-secondary-green) !important;
+}
+
+#que-es-como-funciona .que-es-cta-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  #que-es-como-funciona .jkhive-section-title {
+    font-size: 1.17rem !important;
+    margin-bottom: calc(1.5rem - 20px) !important;
+  }
+  #que-es-como-funciona .jkhive-row > .jkhive-col-half:last-child {
+    margin-top: -75px;
+  }
+  #que-es-como-funciona .que-es-card {
+    margin-left: -30px;
+    width: 115%;
+    margin-right: -15%;
+  }
+  #que-es-como-funciona .que-es-card h4.jk-text-info {
+    font-size: 0.87rem !important;
+  }
+  #que-es-como-funciona .que-es-card h4.jk-text-info i {
+    font-size: 0.73rem !important;
+  }
+  #que-es-como-funciona .que-es-card p,
+  #que-es-como-funciona .que-es-card li {
+    font-size: 0.83rem !important;
+    max-width: 100%;
+  }
+  #que-es-como-funciona .que-es-cta-wrap {
+    margin-top: calc(1.3rem - 30px);
+  }
+  /* CTA - Forma parte de House Sitting Chile (tamaño botones = regla global 55.39px) */
+  #cta {
+    margin-top: -90px !important;
+    margin-bottom: -50px !important;
+  }
+  #cta .jkhive-section-title {
+    font-size: 1.17rem !important;
+  }
+  #cta p {
+    font-size: 0.9rem !important;
+    margin-bottom: 2rem !important;
+    margin-top: 1.5rem !important;
+  }
+  #cta .jkhive-link-contexto {
+    font-size: 0.65rem !important;
+  }
+  #cta > div:first-of-type {
+    gap: 1.5rem !important;
+  }
+  #cta > div:last-of-type {
+    margin-top: 0.5625rem !important;
+  }
+}
+
+/* ========================================
+   CTA SECTION HEX - Estándar sitio (index #cta, about #cta-about, etc.)
+   Mismos botones hex, tamaños y animaciones en todo el sitio.
+   Ver housesitting-docs/Botones_Estándar_Housesitting.txt
+   ======================================== */
+.cta-buttons-hex {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+/* ========================================
+   MOBILE (768px): UNA SOLA REGLA GLOBAL para todos los jkhive-bttn-big
+   Reducción 85% (65.17 → 55.39px, icono 1.35rem). Aplica a: hero full, #cta, cta-section-hex,
+   #destacados, #nosotros, contact submit, checkout, checkout-success, etc.
+   La barra hero colapsada mantiene 32px (hero-honeycomb-bar.css).
+   ======================================== */
+@media (max-width: 768px) {
+  .jkhive-bttn-big,
+  .jkhive-bttn-big > a,
+  .jkhive-bttn-big > button {
+    width: 55.39px !important;
+    height: calc(55.39px * 1.1547) !important;
+  }
+  .jkhive-bttn-big .jkhive-hex {
+    width: 55.39px !important;
+    height: calc(55.39px * 1.1547) !important;
+  }
+  .jkhive-bttn-big .jkhive-hex-icon {
+    font-size: 1.35rem !important;
+  }
+
+  .cta-section-hex .cta-buttons-hex {
+    gap: 1.5rem;
+  }
+}
+
+/* Enlaces secundarios (contexto-servicio, CTA): mismo tamaño en desktop */
+@media (min-width: 769px) {
+  #contexto-servicio .jkhive-link-contexto,
+  #cta .jkhive-link-contexto {
+    font-size: 1rem;
+  }
+}
+
+/* Separación carrusel–link: 1/3 del original (desktop y mobile) */
+#contexto-servicio .contexto-servicio-carousel {
+  padding-bottom: 1rem !important;
+}
+#contexto-servicio .contexto-link-wrap {
+  margin-top: 0.67rem !important;
+}
+
+/* #contexto-servicio mobile: TODO reducido 35% */
+@media (max-width: 768px) {
+  #contexto-servicio {
+    margin-top: 1.3rem !important;
+    margin-bottom: 3.25rem !important;
+  }
+  #contexto-servicio .jkhive-section-title {
+    font-size: 1.17rem !important;
+    margin-top: 1.95rem !important;
+  }
+  #contexto-servicio .jkhive-section-title::after {
+    height: 2.6px !important;
+  }
+  #contexto-servicio .contexto-link-wrap {
+    margin-top: 0.43rem !important;
+  }
+  #contexto-servicio .jkhive-link-contexto {
+    font-size: 0.65rem !important;
+  }
+  #contexto-servicio .contexto-servicio-carousel {
+    padding: 1.95rem 0 0.65rem 0 !important;
+  }
+  #contexto-servicio .contexto-servicio-carousel .service-carousel-wrapper {
+    gap: 2px !important;
+  }
+  #contexto-servicio .contexto-servicio-carousel .contexto-slide.jkhive-carouselitem-med {
+    width: 253.5px !important;
+    height: calc(253.5px * 1.1547) !important;
+  }
+  #contexto-servicio .contexto-servicio-carousel .contexto-slide .jkhive-hex {
+    width: 253.5px !important;
+    height: calc(253.5px * 1.1547) !important;
+  }
+  #contexto-servicio .contexto-servicio-carousel .contexto-slide .jkhive-hex::after {
+    width: calc(253.5px - 4px) !important;
+    height: calc((253.5px - 4px) * 1.1547) !important;
+  }
+  #contexto-servicio .contexto-servicio-carousel .contexto-slide .service-icon {
+    font-size: 2.275rem !important;
+  }
+  #contexto-servicio .contexto-servicio-carousel .contexto-slide .service-title {
+    font-size: 0.78rem !important;
+  }
+  #contexto-servicio .contexto-servicio-carousel .contexto-slide .service-description {
+    font-size: 0.66rem !important;
+  }
+  #contexto-servicio .contexto-servicio-carousel .contexto-slide .contexto-badge {
+    font-size: 0.39rem !important;
+    padding: 0.1rem 0.26rem !important;
+    top: -0.3rem !important;
+    left: 100% !important;
+    margin-left: calc(0.2rem - 15px) !important;
+  }
+  #contexto-servicio .contexto-servicio-carousel .carousel-nav {
+    width: 32px !important;
+    height: calc(32px * 1.1547) !important;
+    font-size: 1rem !important;
+  }
+}
+
+/* ========================================
+   HOUSESITTING ROLES - Estilo perfil jkhive.work/about
+   4 hexágonos con hex-border-yellow, 1 botón por item
+   ======================================== */
+#housesitting-roles {
+  margin-bottom: 2rem;
+  padding: 0;
+}
+
+.jkhive-hex-gallery-roles {
+  display: grid !important;
+  grid-template-columns: repeat(4, 200px);
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: start;
+  max-width: 900px;
+  margin: 0 auto;
+  /* Aire vertical alineado con contrato panal (¼ altura + breath), flat 200px */
+  --jkhive-hive-apex: 1.1547;
+  --jkhive-gallery-hex-flat: 200px;
+  --jkhive-gallery-edge-breath: clamp(0.6rem, 2.15vw, 1.12rem);
+  --jkhive-gallery-tip-fraction: 0.25;
+  --jkhive-gallery-hex-bounding-height: calc(var(--jkhive-gallery-hex-flat) * var(--jkhive-hive-apex));
+  --jkhive-gallery-vertical-tip-pad: calc(var(--jkhive-gallery-hex-bounding-height) * var(--jkhive-gallery-tip-fraction) + var(--jkhive-gallery-edge-breath));
+  padding-top: var(--jkhive-gallery-vertical-tip-pad);
+  padding-bottom: var(--jkhive-gallery-vertical-tip-pad);
+}
+
+.jkhive-hex-gallery-roles .jkhive-hex-gallery-item {
+  width: 200px;
+  height: calc(200px * 1.1547);
+  margin: 0;
+  position: relative;
+  transition: transform 0.3s ease, z-index 0s;
+}
+
+.jkhive-hex-gallery-roles .jkhive-hex-gallery-item:hover {
+  z-index: 10;
+}
+
+.jkhive-hex-gallery-roles .jkhive-hex-gallery-hex {
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%) !important;
+  backdrop-filter: blur(10px) !important;
+  box-shadow: 0 8px 32px rgba(14, 165, 233, 0.3), inset 0 0 40px rgba(14, 165, 233, 0.15) !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  cursor: default;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.jkhive-hex-gallery-roles .jkhive-hex-gallery-hex.hex-border-yellow::before {
+  display: none !important;
+}
+
+.jkhive-hex-gallery-roles .jkhive-hex-gallery-hex.hex-border-yellow::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(135deg, var(--jk-accent-honey) 0%, var(--jk-accent-honey-light) 100%);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.jkhive-hex-gallery-roles .jkhive-hex-gallery-item:hover .jkhive-hex-gallery-hex.hex-border-yellow {
+  background: var(--jk-accent-honey-light) !important;
+  transform: scale(1.025) !important;
+  box-shadow: var(--jk-shadow-lg), 0 0 30px rgba(244, 196, 48, 0.8) !important;
+}
+
+.jkhive-hex-gallery-roles .jkhive-hex-gallery-item:hover .jkhive-hex-gallery-hex.hex-border-yellow::after {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) scale(1.025) !important;
+  width: calc(100% - 6px) !important;
+  height: calc((100% - 6px) * 1.1547) !important;
+  background: var(--jk-tech-dark) !important;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  opacity: 1 !important;
+}
+
+.jkhive-hex-gallery-roles .jkhive-hex-gallery-hex.hex-border-yellow > * {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.jkhive-hex-gallery-roles .jkhive-roles-icon {
+  font-size: 2.5rem !important;
+  color: var(--jk-accent-honey) !important;
+  margin-bottom: 0.75rem;
+  cursor: help;
+}
+
+.jkhive-hex-gallery-roles .jkhive-hex-gallery-item:hover .jkhive-roles-icon {
+  color: var(--jk-primary-blue) !important;
+  filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.6)) brightness(1.1) !important;
+}
+
+.jkhive-hex-gallery-roles .jkhive-hex-gallery-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.jkhive-hex-gallery-roles .jkhive-hex-gallery-item:hover .jkhive-bttn-table .jkhive-hex {
+  background: var(--jk-primary-blue-light) !important;
+  box-shadow: var(--jk-shadow-lg), 0 0 30px rgba(56, 189, 248, 0.8) !important;
+}
+
+.jkhive-hex-gallery-roles .jkhive-hex-gallery-item:hover .jkhive-bttn-table .jkhive-hex-icon {
+  color: var(--jk-metal-light) !important;
+}
+
+/* Animaciones íconos roles - excluir de reglas genéricas jkhive-elements */
+.jkhive-hex-gallery-roles .jkhive-bttn-table .jkhive-hex-icon {
+  transition: transform 0.5s ease, color 0.3s ease !important;
+  transform-origin: center !important;
+  animation: none !important;
+  transform: none !important;
+}
+
+/* Estado base - sin transform (hs-btn-* ya excluidos del genérico) */
+
+/* Ingresar: 360° (rueda) - NO 180° porque enter→salir */
+.jkhive-hex-gallery-roles .hs-btn-ingresar a:hover .jkhive-hex-icon,
+.jkhive-hex-gallery-roles .hs-btn-ingresar:hover .jkhive-hex-icon {
+  transform: rotate(360deg) !important;
+}
+
+/* Registrarse: 360° sobre eje horizontal (flip completo) */
+.jkhive-hex-gallery-roles .hs-btn-registro {
+  perspective: 150px;
+}
+.jkhive-hex-gallery-roles .hs-btn-registro a:hover .jkhive-hex-icon,
+.jkhive-hex-gallery-roles .hs-btn-registro:hover .jkhive-hex-icon {
+  transform: rotateX(360deg) !important;
+}
+
+@media (max-width: 768px) {
+  .jkhive-hex-gallery-roles {
+    grid-template-columns: repeat(2, 160px);
+    gap: 1rem;
+    padding-top: 20px;
+  }
+
+  .jkhive-hex-gallery-roles .jkhive-hex-gallery-item {
+    width: 160px;
+    height: calc(160px * 1.1547);
+  }
+
+  .jkhive-hex-gallery-roles .jkhive-roles-icon {
+    font-size: 2rem !important;
+  }
+}
+
+/* Service Card Carousel Container - UNA LINEA HORIZONTAL DE HEXÁGONOS */
+.service-carousel {
+  position: relative;
+  width: calc(100% - 120px); /* Espacio para las flechas laterales */
+  max-width: 1176px; /* Ancho para 3 hexágonos medianos (390px × 3) + 2 separaciones de 3px = 1176px */
+  overflow: hidden; /* Oculta los clones fuera de vista */
+  padding: 3rem 0;
+  margin: 0 auto;
+}
+
+.service-carousel-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 3px; /* Separación de 3px entre hexágonos */
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  padding: 0; /* Sin padding para evitar mostrar partes de hexágonos */
+  width: 100%;
+}
+
+/* Carousel Navigation Buttons - Hexagonal */
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 200; /* Por encima de los hexágonos */
+  cursor: pointer;
+  width: 50px;
+  height: calc(50px * 1.1547);
+  display: flex; /* Visible por defecto, JavaScript lo oculta si no es necesario */
+  align-items: center;
+  justify-content: center;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(135deg, 
+    var(--jk-primary-blue) 0%, 
+    var(--jk-accent-cyan) 100%);
+  color: var(--jk-metal-light);
+  font-size: 1.5rem;
+  border: none;
+  outline: none;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 0 0 2px var(--jk-primary-blue))
+          drop-shadow(0 4px 15px rgba(14, 165, 233, 0.3));
+}
+
+.carousel-nav:hover {
+  transform: translateY(-50%) scale(1.15);
+  background: linear-gradient(135deg, 
+    var(--jk-accent-honey) 0%, 
+    var(--jk-accent-honey-light) 100%);
+  filter: drop-shadow(0 0 0 2px var(--jk-accent-honey))
+          drop-shadow(0 4px 20px rgba(244, 196, 48, 0.6));
+  color: var(--jk-tech-darker);
+}
+
+.carousel-nav:active {
+  transform: translateY(-50%) scale(1.05);
+}
+
+.carousel-nav-prev {
+  left: 10px; /* Dentro del viewport, al borde izquierdo */
+}
+
+.carousel-nav-next {
+  right: 10px; /* Dentro del viewport, al borde derecho */
+}
+
+/* Card size adjustments for small */
+.service-card-small .service-icon {
+  font-size: 1.8rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.service-card-small .service-title {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.service-card-small .service-description {
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+/* Language Switcher */
+.lang-switcher {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2000;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.lang-btn {
+  width: 50px;
+  height: 50px;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: var(--jk-white);
+  border: 2px solid var(--jk-accent-honey);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: var(--jk-primary-blue);
+  transition: var(--jk-transition);
+  font-size: 0.9rem;
+}
+
+.lang-btn:hover {
+  background: var(--jk-accent-honey);
+  transform: scale(1.1);
+}
+
+.lang-btn.active {
+  background: var(--jk-primary-blue);
+  color: white;
+  border-color: var(--jk-accent-honey);
+}
+
+/* About Section - Tech Style */
+.about-section {
+  background: linear-gradient(135deg, var(--jk-tech-dark) 0%, var(--jk-tech-darker) 100%);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: var(--jk-shadow-md), inset 0 0 40px rgba(14, 165, 233, 0.1);
+  border-left: 5px solid var(--jk-primary-blue);
+  border: 2px solid rgba(14, 165, 233, 0.3);
+  border-left-width: 5px;
+  color: var(--jk-metal-light);
+}
+
+/* CTA Section - Cybernetic */
+.cta-section {
+  background: linear-gradient(135deg, var(--jk-secondary-green-dark) 0%, var(--jk-primary-blue-dark) 50%, var(--jk-secondary-green-dark) 100%);
+  padding: 3rem 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  color: var(--jk-metal-light);
+  box-shadow: var(--jk-shadow-lg), var(--jk-glow-cyan);
+  border: 3px solid var(--jk-primary-blue);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(20, 184, 166, 0.2) 0%, transparent 70%);
+  animation: ctaPulse 3s ease-in-out infinite;
+}
+
+@keyframes ctaPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.cta-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 0 20px rgba(20, 184, 166, 0.8);
+}
+
+/* eBook Cards - Cybernetic */
+.ebook-card {
+  background: linear-gradient(135deg, var(--jk-tech-dark) 0%, var(--jk-tech-darker) 100%);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: var(--jk-shadow-md), inset 0 0 30px rgba(14, 165, 233, 0.1);
+  transition: var(--jk-transition);
+  border: 2px solid rgba(14, 165, 233, 0.3);
+  height: 100%;
+}
+
+.ebook-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--jk-shadow-lg), var(--jk-glow-blue);
+  border-color: var(--jk-primary-blue-light);
+}
+
+.ebook-cover {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-bottom: 3px solid var(--jk-primary-blue);
+  filter: brightness(0.9) contrast(1.1);
+}
+
+.ebook-card:hover .ebook-cover {
+  filter: brightness(1) contrast(1.2);
+}
+
+.ebook-body {
+  padding: 1.5rem;
+}
+
+.ebook-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--jk-metal-light);
+  margin-bottom: 0.75rem;
+  text-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
+}
+
+.ebook-author {
+  color: var(--jk-primary-blue-light);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 8px rgba(14, 165, 233, 0.5);
+}
+
+.ebook-description {
+  color: var(--jk-metal);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.ebook-price {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.ebook-price-current {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--jk-secondary-green);
+}
+
+.ebook-price-original {
+  font-size: 1rem;
+  color: var(--jk-gray-400);
+  text-decoration: line-through;
+}
+
+.ebook-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.ebook-badge-featured {
+  background: var(--jk-accent-honey);
+  color: var(--jk-gray-900);
+}
+
+.ebook-badge-new {
+  background: var(--jk-secondary-green);
+  color: white;
+}
+
+/* Pricing Tables */
+.pricing-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: var(--jk-shadow-md);
+  border: 2px solid var(--jk-gray-200);
+  transition: var(--jk-transition);
+  height: 100%;
+  position: relative;
+}
+
+.pricing-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--jk-shadow-lg);
+}
+
+.pricing-card.popular {
+  border-color: var(--jk-accent-honey);
+  border-width: 3px;
+  transform: scale(1.05);
+}
+
+.pricing-header {
+  text-align: center;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--jk-accent-honey);
+  margin-bottom: 1.5rem;
+}
+
+.pricing-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--jk-primary-blue);
+  margin-bottom: 0.5rem;
+}
+
+.pricing-price {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--jk-gray-900);
+}
+
+.pricing-price small {
+  font-size: 1rem;
+  color: var(--jk-gray-500);
+}
+
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+}
+
+.pricing-features li {
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.pricing-features li i {
+  margin-right: 0.5rem;
+}
+
+/* Contact Form - Tech Style */
+.contact-form {
+  background: linear-gradient(135deg, var(--jk-tech-dark) 0%, var(--jk-tech-darker) 100%);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: var(--jk-shadow-md), inset 0 0 40px rgba(14, 165, 233, 0.1);
+  border: 2px solid rgba(14, 165, 233, 0.3);
+}
+
+.form-label {
+  font-weight: 600;
+  color: var(--jk-primary-blue-light);
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 8px rgba(14, 165, 233, 0.5);
+}
+
+.form-control, .form-select {
+  display: block;
+  width: 100%;
+  border: 2px solid rgba(14, 165, 233, 0.3);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  transition: var(--jk-transition-fast);
+  background: rgba(15, 23, 42, 0.5);
+  color: var(--jk-metal-light);
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--jk-primary-blue);
+  box-shadow: 0 0 0 0.2rem rgba(14, 165, 233, 0.25), inset 0 0 20px rgba(14, 165, 233, 0.1);
+  background: rgba(15, 23, 42, 0.7);
+}
+
+.form-control::placeholder {
+  color: var(--jk-metal-dark);
+}
+
+/* Shopping Cart */
+.cart-item {
+  background: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: var(--jk-shadow);
+  border-left: 4px solid var(--jk-accent-honey);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cart-item-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.cart-item-details {
+  flex: 1;
+}
+
+.cart-item-title {
+  font-weight: 700;
+  color: var(--jk-gray-900);
+  margin-bottom: 0.25rem;
+}
+
+.cart-item-price {
+  color: var(--jk-secondary-green);
+  font-weight: 600;
+}
+
+.cart-summary {
+  background: var(--jk-gray-50);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  border: 2px solid var(--jk-accent-honey);
+}
+
+.cart-summary-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--jk-gray-300);
+}
+
+.cart-summary-total {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--jk-primary-blue);
+  padding-top: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.1rem; /* +10% vs 1rem */
+    font-weight: 700;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .lang-switcher {
+    top: 10px;
+    right: 10px;
+  }
+  
+  .lang-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 0.75rem;
+  }
+  
+  .service-card {
+    margin-bottom: 1rem;
+    min-height: 280px;
+    padding: 2.5rem 2rem;
+  }
+  
+  /* Responsive carousel sizes */
+  .service-card-big {
+    width: 100%; /* 1 por fila en móvil */
+  }
+  
+  .service-card-medium {
+    width: calc(50% - 2rem); /* 2 por fila en móvil */
+  }
+  
+  .service-card-small {
+    width: calc(33.333% - 1.5rem); /* 3 por fila en móvil */
+  }
+  
+  .service-icon {
+    font-size: 2rem;
+    margin-top: 0.5rem;
+  }
+  
+  .service-title {
+    font-size: 1.2rem;
+  }
+  
+  .service-description {
+    font-size: 0.85rem;
+  }
+  
+  /* Carousel adjustments for mobile */
+  .service-carousel {
+    width: calc(100% - 80px); /* Menos espacio para flechas en móvil */
+  }
+  
+  /* Carousel nav buttons - smaller on mobile */
+  .carousel-nav {
+    width: 40px;
+    height: calc(40px * 1.1547);
+    font-size: 1.2rem;
+  }
+  
+  .carousel-nav-prev {
+    left: 5px;
+  }
+  
+  .carousel-nav-next {
+    right: 5px;
+  }
+  
+  /* Service Cards - Mobile sizes */
+  .service-card-big {
+    width: 250px;
+    height: 289px;
+  }
+  
+  .service-card-medium {
+    width: 207px;
+    height: 239px;
+  }
+  
+  .service-card-small {
+    width: 120px;
+    height: 139px;
+  }
+  
+  .service-icon {
+    font-size: 2.5rem;
+  }
+  
+  .service-title {
+    font-size: 1.1rem;
+  }
+  
+  .service-description {
+    font-size: 0.75rem;
+  }
+  
+  .pricing-card.popular {
+    transform: scale(1);
+  }
+}
+
+/* Loading States */
+.loading-spinner {
+  text-align: center;
+  padding: 3rem;
+}
+
+.loading-spinner .jkhive-hex {
+  margin: 0 auto;
+}
+
+/* Alert Messages */
+.alert-custom {
+  border-radius: 0.5rem;
+  padding: 1rem 1.5rem;
+  border-left: 4px solid;
+}
+
+.alert-custom.alert-success {
+  background: #d1fae5;
+  color: #065f46;
+  border-left-color: var(--jk-secondary-green);
+}
+
+.alert-custom.alert-error {
+  background: #fee2e2;
+  color: #991b1b;
+  border-left-color: #ef4444;
+}
+
+.alert-custom.alert-info {
+  background: #dbeafe;
+  color: #1e40af;
+  border-left-color: var(--jk-primary-blue);
+}
+
+.alert-custom.alert-warning {
+  background: #fef3c7;
+  color: #92400e;
+  border-left-color: var(--jk-accent-honey);
+}
+
+/* Category Filter Select - Cybernetic Style */
+.jkhive-category-filter-wrapper {
+  text-align: center;
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.jkhive-category-filter-label {
+  color: var(--jk-metal-medium);
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+}
+
+.jkhive-category-select {
+  position: relative;
+  font-family: 'Inter', sans-serif;
+}
+
+.jkhive-category-select select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 0.75rem 3rem 0.75rem 1.25rem;
+  border: 2px solid var(--jk-primary-blue);
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--jk-tech-dark) 0%, var(--jk-tech-darker) 100%);
+  color: var(--jk-metal-light);
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(14, 165, 233, 0.2), inset 0 0 20px rgba(14, 165, 233, 0.1);
+  text-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
+  min-width: 220px;
+}
+
+.jkhive-category-select select:hover {
+  border-color: var(--jk-accent-honey);
+  box-shadow: 0 6px 20px rgba(244, 196, 48, 0.3), inset 0 0 30px rgba(14, 165, 233, 0.15);
+  transform: translateY(-2px);
+}
+
+.jkhive-category-select select:focus {
+  border-color: var(--jk-accent-cyan);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.3), 0 8px 25px rgba(14, 165, 233, 0.4), inset 0 0 30px rgba(14, 165, 233, 0.2);
+  transform: translateY(-2px);
+}
+
+.jkhive-category-select select option {
+  background: var(--jk-tech-darker);
+  color: var(--jk-metal-light);
+  padding: 0.75rem;
+  font-weight: 500;
+  border: none;
+}
+
+.jkhive-category-select::after {
+  content: '▼';
+  position: absolute;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--jk-accent-honey);
+  font-size: 0.9rem;
+  text-shadow: 0 0 10px rgba(244, 196, 48, 0.6);
+  transition: all 0.3s ease;
+}
+
+.jkhive-category-select:hover::after {
+  color: var(--jk-accent-cyan);
+  text-shadow: 0 0 15px rgba(6, 182, 212, 0.8);
+}
+
+/* Editorial menu item - diseño tipo logo */
+.jkhive-hex-content-editorial {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+}
+
+.jkhive-hex-content-editorial .jkhive-editorial-icon {
+  font-size: 1rem !important;
+  line-height: 1 !important;
+  margin-bottom: 0.2rem !important;
+  color: var(--jk-metal-light) !important;
+}
+
+/* ESTILOS IDÉNTICOS A LA PÁGINA WEB - NO MODIFICAR */
+.jkhive-hex-content-editorial .jkhive-logo-main {
+  font-size: 1.75rem !important; /* IGUAL que la página web */
+  font-weight: 900 !important;
+  color: var(--jk-metal-light) !important;
+  letter-spacing: 0 !important; /* Sin letter-spacing adicional, igual que la página web */
+  line-height: 1 !important;
+  margin-bottom: 0 !important; /* Sin margin-bottom, igual que la página web */
+}
+
+.jkhive-hex-content-editorial .jkhive-logo-editorial-head .jkhive-logo-divider {
+  width: 100% !important;
+  height: 2px !important;
+  background: linear-gradient(90deg, transparent 0%, #0ea5e9 20%, #06b6d4 50%, #0ea5e9 80%, transparent 100%) !important;
+  margin: 0.2rem 0 0 0 !important;
+}
+
+.jkhive-hex-content-editorial .jkhive-logo-sub {
+  font-size: 0.5rem !important;
+  font-weight: 700 !important;
+  color: var(--jk-accent-honey-light, #f4c430) !important; /* IGUAL que la página web (accent-honey-light no accent-honey) */
+  letter-spacing: 0.15em !important; /* IGUAL que la página web (0.15em no 0.1em) */
+  line-height: 1 !important;
+  margin-top: 0.05rem !important;
+  text-shadow: 0 0 10px rgba(244, 196, 48, 0.8), 0 0 20px rgba(212, 160, 23, 0.6) !important; /* IGUAL que la página web */
+}
+
+/* Eliminar subrayados y estilos de enlace por defecto en TODO el sidebar */
+.jkhive-sidebar a,
+.jkhive-sidebar a:link,
+.jkhive-sidebar a:visited,
+.jkhive-sidebar a:hover,
+.jkhive-sidebar a:focus,
+.jkhive-sidebar a:active {
+  text-decoration: none !important;
+  border: none !important;
+  outline: none !important;
+  color: inherit !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Estilos específicos para enlaces dentro de items del menú */
+.jkhive-nav-item a,
+.jkhive-nav-item a:link,
+.jkhive-nav-item a:visited,
+.jkhive-nav-item a:hover,
+.jkhive-nav-item a:focus,
+.jkhive-nav-item a:active {
+  text-decoration: none !important;
+  text-decoration-line: none !important;
+  text-decoration-style: none !important;
+  text-decoration-color: transparent !important;
+  text-underline-offset: 0 !important;
+  text-underline-position: auto !important;
+  border: none !important;
+  outline: none !important;
+  color: inherit !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* Asegurar que el contenido dentro de los enlaces también herede estilos */
+.jkhive-nav-item a * {
+  text-decoration: none !important;
+  text-decoration-line: none !important;
+  color: inherit !important;
+}
+
+/* Submenú: cuando está en body (fuera del sidebar), quitar subrayado de todos los items */
+body > .jkhive-submenu-horizontal .jkhive-submenu-item,
+body > .jkhive-submenu-horizontal .jkhive-submenu-item * {
+  text-decoration: none !important;
+  text-decoration-line: none !important;
+  -webkit-text-decoration-line: none !important;
+}
+
+/* Eliminar text-shadow SOLO de los items del menú (NO del logo) */
+.jkhive-nav-item .jkhive-hex-icon,
+.jkhive-nav-item .jkhive-hex-text,
+.jkhive-nav-item .jkhive-editorial-icon,
+.jkhive-hex-content-editorial .jkhive-logo-main,
+.jkhive-hex-content-editorial .jkhive-logo-sub {
+  text-shadow: none !important;
+}
+
+/* Logo JK HIVE principal - color dorado en HIVE */
+.jkhive-sidebar-logo .jkhive-logo-sub {
+  color: var(--jk-accent-honey) !important;
+  text-shadow: 0 0 10px rgba(244, 196, 48, 0.8), 0 0 20px rgba(212, 160, 23, 0.6) !important;
+}
+
+/* Logo JK EDITORIAL en el hero */
+.jkhive-editorial-hero-logo {
+  margin-bottom: 17px !important; /* Mismo espacio que padding-top para uniformidad */
+}
+
+.jkhive-editorial-hero-logo .jk-logo-sub {
+  color: var(--jk-accent-honey) !important;
+  text-shadow: 0 0 10px rgba(244, 196, 48, 0.8), 0 0 20px rgba(212, 160, 23, 0.6) !important;
+}
+
+/* Responsive adjustments for category filter */
+@media (max-width: 768px) {
+  .jkhive-category-filter-wrapper {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .jkhive-category-filter-label {
+    font-size: 1rem;
+  }
+  
+  .jkhive-category-select select {
+    font-size: 0.95rem;
+    padding: 0.65rem 2.5rem 0.65rem 1rem;
+    min-width: 180px;
+  }
+  
+  .jkhive-category-select::after {
+    right: 1rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Fix for hexagonal gallery with filtered items */
+/* Remover items ocultos completamente del flujo del grid */
+#booksGallery.filtered .jkhive-hex-gallery-item:not(.visible-item) {
+  display: none !important;
+}
+
+/* Reset solo lo necesario para reposicionar */
+#booksGallery.filtered .jkhive-hex-gallery-item.visible-item {
+  grid-column: auto !important;
+  grid-row: auto !important;
+}
+
+/* Primera fila: items 1-5 - mantener márgenes originales del grid */
+#booksGallery.filtered .jkhive-hex-gallery-item.visible-item[data-visible-index="1"] { 
+  grid-column: 1 !important; 
+  grid-row: 1 !important;
+  transform: none !important;
+  margin: 0 3px -60px 3px !important;
+}
+#booksGallery.filtered .jkhive-hex-gallery-item.visible-item[data-visible-index="2"] { 
+  grid-column: 2 !important; 
+  grid-row: 1 !important;
+  transform: none !important;
+  margin: 0 3px -60px 3px !important;
+}
+#booksGallery.filtered .jkhive-hex-gallery-item.visible-item[data-visible-index="3"] { 
+  grid-column: 3 !important; 
+  grid-row: 1 !important;
+  transform: none !important;
+  margin: 0 3px -60px 3px !important;
+}
+#booksGallery.filtered .jkhive-hex-gallery-item.visible-item[data-visible-index="4"] { 
+  grid-column: 4 !important; 
+  grid-row: 1 !important;
+  transform: none !important;
+  margin: 0 3px -60px 3px !important;
+}
+#booksGallery.filtered .jkhive-hex-gallery-item.visible-item[data-visible-index="5"] { 
+  grid-column: 5 !important; 
+  grid-row: 1 !important;
+  transform: none !important;
+  margin: 0 3px -60px 3px !important;
+}
+
+/* Segunda fila: items 6-9 desplazados con márgenes originales */
+#booksGallery.filtered .jkhive-hex-gallery-item.visible-item[data-visible-index="6"] { 
+  grid-column: 1 !important; 
+  grid-row: 2 !important; 
+  transform: translateX(106px) !important;
+  margin: -1px 3px -60px 3px !important;
+}
+#booksGallery.filtered .jkhive-hex-gallery-item.visible-item[data-visible-index="7"] { 
+  grid-column: 2 !important; 
+  grid-row: 2 !important; 
+  transform: translateX(106px) !important;
+  margin: -1px 3px -60px 3px !important;
+}
+#booksGallery.filtered .jkhive-hex-gallery-item.visible-item[data-visible-index="8"] { 
+  grid-column: 3 !important; 
+  grid-row: 2 !important; 
+  transform: translateX(106px) !important;
+  margin: -1px 3px -60px 3px !important;
+}
+#booksGallery.filtered .jkhive-hex-gallery-item.visible-item[data-visible-index="9"] { 
+  grid-column: 4 !important; 
+  grid-row: 2 !important; 
+  transform: translateX(106px) !important;
+  margin: -1px 3px -60px 3px !important;
+}
+
+/* ========================================
+   HOVER EFFECTS PARA ITEMS FILTRADOS
+   ======================================== */
+
+/* Hover para primera fila (items 1-5) */
+#booksGallery.filtered .jkhive-hex-gallery-item.visible-item[data-visible-index="1"]:hover,
+#booksGallery.filtered .jkhive-hex-gallery-item.visible-item[data-visible-index="2"]:hover,
+#booksGallery.filtered .jkhive-hex-gallery-item.visible-item[data-visible-index="3"]:hover,
+#booksGallery.filtered .jkhive-hex-gallery-item.visible-item[data-visible-index="4"]:hover,
+#booksGallery.filtered .jkhive-hex-gallery-item.visible-item[data-visible-index="5"]:hover {
+  transform: scale(0.95) !important;
+  z-index: 10 !important;
+}
+
+/* Hover para segunda fila (items 6-9) - mantener translateX */
+#booksGallery.filtered .jkhive-hex-gallery-item.visible-item[data-visible-index="6"]:hover,
+#booksGallery.filtered .jkhive-hex-gallery-item.visible-item[data-visible-index="7"]:hover,
+#booksGallery.filtered .jkhive-hex-gallery-item.visible-item[data-visible-index="8"]:hover,
+#booksGallery.filtered .jkhive-hex-gallery-item.visible-item[data-visible-index="9"]:hover {
+  transform: translateX(106px) scale(0.95) !important;
+  z-index: 10 !important;
+}
+
+/* Asegurar que el efecto ::before funcione en hover */
+#booksGallery.filtered .jkhive-hex-gallery-item.visible-item:hover .jkhive-hex-gallery-hex::before {
+  opacity: 0.3 !important;
+}
+
+/* ========================================
+   CTA SECTION - Botón de Contacto
+   ======================================== */
+/* El botón de contacto usa jkhive-actionbutton-big con clase jkhive-hex-honey */
+/* Todos los estilos están en jk-hive.css - no necesita estilos adicionales aquí */
+
+/* ========================================
+   FOOTER - Zona dividida en dos columnas iguales (50% / 50%)
+   Izquierda: enlaces (Sitio + Información) centrados en la columna, texto alineado a la izquierda.
+   Derecha: corporativo centrado en la columna.
+   Mobile: sin línea vertical; primero enlaces, después corporativo.
+   ======================================== */
+.jkhive-footer {
+  box-sizing: border-box;
+  padding: 2.5rem 2rem 2rem;
+}
+
+/* Grilla: footer mismo borde que main (140px desktop, 101px mobile); vértice con la línea del sidebar. */
+body:has(#jkhive-sidebar-container) .jkhive-footer {
+  margin-left: 140px;
+  width: calc(100% - 140px);
+}
+
+/* Main sin fondo extra; evita capas que generen rastro vertical. Los bordes de nav/hero/footer se mantienen. */
+body:has(#jkhive-sidebar-container) .jkhive-main-content {
+  box-shadow: none;
+}
+
+/* Una sola capa de brillo suave en lugar de 3 radiales: evita las divisiones/líneas verticales en el fondo (nav hasta abajo). */
+body:has(#jkhive-sidebar-container)::after {
+  background: radial-gradient(ellipse 120% 100% at 50% 50%, rgba(14, 165, 233, 0.04) 0%, transparent 55%);
+  animation: none;
+  opacity: 1;
+}
+
+/* Contenedor interior: en mobile columna (enlaces arriba, corporativo abajo); en desktop dos mitades */
+.jkhive-footer-inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  align-items: stretch;
+}
+
+/* Desktop: dos columnas iguales 50% / 50%, línea vertical solo en desktop */
+@media (min-width: 769px) {
+  .jkhive-footer {
+    padding: 3rem 2rem 2.5rem;
+  }
+
+  .jkhive-footer-inner {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  /* Columna izquierda (50%): enlaces centrados como bloque, texto a la izquierda */
+  .footer-left {
+    width: 50%;
+    flex: 0 0 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    padding-right: 1.5rem;
+    border-right: 1px solid rgba(14, 165, 233, 0.25);
+    box-sizing: border-box;
+  }
+
+  .footer-left .footer-col {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
+    padding-right: 2rem;
+    margin-right: 0;
+    border-right: none;
+    min-width: 0;
+  }
+
+  .footer-left .footer-col-info {
+    padding-right: 0;
+  }
+
+  /* Ecosistema: dos columnas de enlaces (flujo por columnas de hasta 4 filas).
+     6 ítems → 4+2; al sumar sistemas sigue llenando columna a columna (4+4+…). */
+  .footer-left .footer-col-info .footer-ecosystem-list {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(4, auto);
+    gap: 0.45rem 1.25rem;
+    align-items: start;
+  }
+
+  /* Columna derecha (50%): corporativo centrado en la columna */
+  .footer-right {
+    width: 50%;
+    flex: 0 0 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 1.5rem;
+    box-sizing: border-box;
+  }
+
+  .footer-right .footer-corporate {
+    text-align: center;
+    padding-top: 0;
+    align-items: center;
+  }
+
+  .footer-right .footer-corporate p {
+    text-align: center;
+  }
+}
+
+/* Título de cada columna (Sitio, Información): alineado a la izquierda */
+.footer-col-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--jk-metal-light);
+  margin: 0 0 0.6rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.95;
+  text-align: left;
+  width: 100%;
+}
+
+.footer-col-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.45rem;
+}
+
+.footer-col-list li {
+  margin: 0;
+}
+
+.footer-col-list .footer-link {
+  color: var(--jk-primary-blue-light);
+  font-size: 0.8125rem;
+  text-decoration: none;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.footer-col-list .footer-link:hover {
+  color: var(--jk-accent-honey);
+  text-shadow: 0 0 10px rgba(244, 196, 48, 0.8);
+  text-decoration: underline;
+}
+
+.footer-corporate {
+  text-align: left;
+  padding-top: 0.25rem;
+}
+
+.footer-corporate p {
+  margin: 0.4rem 0;
+  font-size: 0.9375rem;
+  color: var(--jk-metal-light);
+}
+
+.footer-corporate .footer-link {
+  font-weight: 600;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.footer-corporate .small {
+  font-size: 0.8125rem;
+  opacity: 0.85;
+}
+
+/* Texto muted fuera del enlace; el .footer-link conserva color pleno (igual que JK WebS y columnas). */
+.jkhive-footer .footer-corporate p.small.footer-copyright-line {
+  opacity: 1;
+}
+
+.jkhive-footer .footer-corporate .footer-copyright-muted {
+  color: var(--jk-metal-light);
+  opacity: 0.75;
+}
+
+@media (max-width: 768px) {
+  /* Main: mismo borde que sidebar en mobile (101px); vértice con la línea lateral. */
+  body:has(#jkhive-sidebar-container):not(.page-public) .jkhive-main-content {
+    padding: var(--jk-spacing-md);
+    margin-left: 101px;
+  }
+  
+  body.page-public .jkhive-main-content {
+    padding: 0 !important;
+    margin-top: 60px;
+    margin-left: 101px;
+  }
+  .jkhive-content-wrap,
+  .jkhive-page-container {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  .jkhive-footer {
+    padding: 1.25rem 1rem 1.25rem;
+  }
+
+  .jkhive-footer-inner {
+    gap: 1rem;
+  }
+
+  body:has(#jkhive-sidebar-container) .jkhive-footer {
+    margin-left: 101px;
+    width: calc(100% - 101px);
+  }
+
+  /* Mobile: enlaces-footer en dos columnas iguales (Sitio | Información); después corporativo */
+  .footer-left {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    border-right: none;
+    padding-right: 0;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .footer-left .footer-col {
+    flex: 1 1 50%;
+    min-width: 0;
+    padding-right: 0.5rem;
+  }
+
+  .footer-right {
+    padding-left: 0;
+    align-items: flex-start;
+  }
+
+  .footer-right .footer-corporate {
+    text-align: left;
+    align-items: flex-start;
+    padding-top: 0.65rem;
+  }
+
+  .footer-right .footer-corporate p {
+    text-align: left;
+    font-size: 0.65rem !important;
+    margin: 0.3rem 0;
+  }
+
+  .footer-right .footer-corporate .small {
+    font-size: 0.65rem !important;
+  }
+
+  /* Tamaños de texto mobile: iguales en enlaces y corporativo (0.65rem cuerpo, 0.6rem títulos) */
+  .footer-col-title {
+    font-size: 0.6rem;
+    margin-bottom: 0.28rem;
+  }
+
+  .footer-col-list {
+    gap: 0.22rem;
+  }
+
+  .footer-col-list .footer-link {
+    font-size: 0.65rem;
+  }
+
+  .footer-corporate {
+    padding-top: 0.65rem;
+    border-top: 1px solid rgba(14, 165, 233, 0.2);
+  }
+
+  .footer-corporate p,
+  .footer-corporate .small {
+    font-size: 0.65rem;
+  }
+}
+
+/* ========================================
+   Home — sección #ventajas (¿Por qué elegirme?)
+   Centrado vertical del stack (icono + título + subtítulo): padding vertical en rem,
+   no en % (en CSS % top/bottom usa el ancho del contenedor y desvirtúa el centro en hex altos).
+   Ámbito estricto: solo #ventajas + galería small.
+   ======================================== */
+#ventajas .jkhive-hex-gallery-small .jkhive-hex-content.jkhive-hex-content-editorial {
+  justify-content: center !important;
+  align-items: center !important;
+  align-content: center !important;
+  box-sizing: border-box !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0.5rem 10% 0.55rem 10% !important;
+  gap: 0.28rem !important;
+}
+
+#ventajas .jkhive-hex-gallery-small .jkhive-hex-gallery-icon {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+#ventajas .jkhive-hex-gallery-small .jkhive-hex-gallery-title {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.15 !important;
+  flex-shrink: 0 !important;
+}
+
+#ventajas .jkhive-hex-gallery-small .jkhive-hex-gallery-subtitle {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.2 !important;
+  flex-shrink: 0 !important;
+}
+
+@media (max-width: 768px) {
+  #ventajas .jkhive-hex-gallery-small .jkhive-hex-content.jkhive-hex-content-editorial {
+    padding: 0.4rem 8% 0.45rem 8% !important;
+    gap: 0.22rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  #ventajas .jkhive-hex-gallery-small .jkhive-hex-content.jkhive-hex-content-editorial {
+    padding: 0.32rem 7% 0.38rem 7% !important;
+    gap: 0.18rem !important;
+  }
+}
+
+

@@ -1,0 +1,463 @@
+/**
+ * Hero Honeycomb Bar - Barra colapsada en forma de panal
+ * Una sola sección, sin columnas. Posiciones aplicadas por hero-honeycomb-bar.js
+ */
+
+/* Barra colapsada: sección única, sin grid ni columnas.
+   Anular transition del .hero-section (jkhive-style usa "transition: all 0.35s") para que
+   la barra aparezca al instante y solo el contenido haga fade-in; si no, en desktop se ve
+   el hero "morphando" y el contenido saltando durante 0.35s. */
+/* left: 140px para alinear hero barra con la línea del sidebar (igual que navbar; vértice, no T). */
+/* CRÍTICO: overflow: visible evita que .hero-section { overflow: hidden } de jkhive-style recorte el contenido. */
+/* La barra debe recibir eventos: no poner pointer-events: none en la sección ni en el inner. */
+/* Cuando la barra está colapsada, ocultar/neutralizar contenedor de hex animados para que no tapen hover ni tooltips. */
+.hero-section.hero-collapsed .hero-hex-animation-container,
+.hero-section.hero-collapsed .hero-hex-animated {
+  pointer-events: none !important;
+  z-index: 0 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+/* Stacking: isolation para que nada exterior intercale; barra siempre encima para hover/tooltip/clic. */
+.hero-section.hero-collapsed {
+  position: fixed;
+  top: 70px;
+  left: 140px;
+  right: 0;
+  min-height: unset;
+  height: 160px;
+  padding: 4px 1.5rem;
+  display: block !important;
+  z-index: 1400;
+  isolation: isolate !important;
+  border-radius: 0;
+  transition: none !important;
+  background: var(--jk-tech-darker) !important;
+  overflow: visible !important;
+  box-shadow: none !important;
+  pointer-events: auto !important;
+}
+/* Misma textura honeycomb que navbar: evita franja distinta y líneas en el borde. */
+.hero-section.hero-collapsed::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background-image: var(--honeycomb-url) !important;
+  background-size: var(--honeycomb-size-sidebar) !important;
+  background-repeat: repeat !important;
+  background-position: 0 0 !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
+}
+
+/* Contenedor del panal. Fase 1: al colapsar, el contenido del hero desaparece suave (transition).
+   Fase 2: tras ~400ms el JS aplica posiciones; luego el honeycomb aparece suave (animation).
+   pointer-events: auto para que hover, tooltips y clics funcionen en los ítems.
+   z-index por encima de cualquier .hero-hex-animation-container/.hero-hex-animated que pueda solaparse. */
+.hero-section.hero-collapsed .hero-inner {
+  position: relative;
+  width: 220px;
+  height: 160px;
+  display: block !important;
+  margin: 0 auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease-out;
+  animation: hero-bar-reveal 0.3s ease-out 0.4s forwards;
+  pointer-events: auto !important;
+  z-index: 10 !important;
+}
+@keyframes hero-bar-reveal {
+  to { opacity: 1; visibility: visible; }
+}
+
+/* Desktop: centrado vertical del honeycomb con position absolute (no depender de flex ni de orden de CSS).
+   El JS posiciona los hexágonos respecto al centro de .hero-inner; si .hero-inner no está centrado en la barra, el panal se ve descentrado.
+   IMPORTANTE: top usa calc(50% + 10px). Esos +10px son compensación para que el panal se vea centrado en la barra.
+   Si en el futuro el centrado se "desconfigura" y el honeycomb se corre hacia ABAJO, la causa suele ser este +10px
+   (alguien lo quitó o lo cambió). NO quitar ni modificar sin probar; si el panal queda muy arriba, subir el valor. */
+@media (min-width: 769px) {
+  .hero-section.hero-collapsed .hero-inner {
+    position: absolute !important;
+    top: calc(50% + 10px) !important;
+    left: 50% !important;
+    margin: 0 !important;
+    transform: translate(-50%, -50%) !important;
+    animation: hero-bar-reveal 0.35s ease-out 0.6s forwards;
+  }
+}
+
+/* Eliminar toda herencia de columnas/flex - wrappers invisibles para el flujo */
+.hero-section.hero-collapsed .hero-ctas-row,
+.hero-section.hero-collapsed .hero-ctas-registro,
+.hero-section.hero-collapsed .hero-ctas-ingresar {
+  display: contents !important;
+  position: static !important;
+  grid-column: unset !important;
+  grid-row: unset !important;
+}
+
+.hero-section.hero-collapsed .hero-title,
+.hero-section.hero-collapsed .hero-subtitle {
+  display: none !important;
+}
+
+/* === Tamaño hexágono base: desktop (+20% desde 36px ≈ 43.6px), mobile en @media === */
+:root {
+  --hex-bar-size: 43.56px;
+  --hex-bar-height: calc(var(--hex-bar-size) * 1.1547);
+}
+
+/* Honeycomb: posiciones absolute por hero-honeycomb-bar.js.
+   Los 3 que ya existen en el hero: fade-out suave (transition) al colapsar; fade-in con delay.
+   Los 4 que crea el JS a los 400ms: fade-in con delay 0 (o 0.2s desktop) para que todos entren a la vez. */
+/* Ítems del honeycomb: encima de cualquier capa de animación (hero-hex-animated); reciben hover, tooltip y clic.
+   z-index 5 para que queden por encima del logo (z-index 2) y no se tape hover/tooltip/clic. */
+.hero-section.hero-collapsed .hero-cta-registro-cliente,
+.hero-section.hero-collapsed .hero-cta-ingresar-cliente,
+.hero-section.hero-collapsed .hero-cta-about,
+.hero-section.hero-collapsed .hero-cta-contact,
+.hero-section.hero-collapsed .hero-cta-faq,
+.hero-section.hero-collapsed .hero-cta-policies,
+.hero-section.hero-collapsed .hero-cta-postular-sitter,
+.hero-section.hero-collapsed .hero-cta-ingresar-sitter,
+.hero-section.hero-collapsed .hero-logo-wrapper {
+  position: absolute !important;
+  margin: 0 !important;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease-out;
+  animation: hero-bar-reveal 0.3s ease-out forwards;
+  z-index: 5 !important;
+  pointer-events: auto !important;
+}
+/* 3 que ya están en el hero: delay 0.4s (mobile) / 0.6s (desktop) para coincidir con applyPositions */
+.hero-section.hero-collapsed .hero-cta-registro-cliente,
+.hero-section.hero-collapsed .hero-cta-ingresar-cliente,
+.hero-section.hero-collapsed .hero-logo-wrapper {
+  animation-delay: 0.4s;
+}
+/* 4 que el JS inserta a los 400ms: delay 0 para que entren justo al insertar (mismo momento que los 3) */
+.hero-section.hero-collapsed .hero-cta-about,
+.hero-section.hero-collapsed .hero-cta-contact,
+.hero-section.hero-collapsed .hero-cta-faq,
+.hero-section.hero-collapsed .hero-cta-policies {
+  animation-delay: 0s;
+}
+@media (min-width: 769px) {
+  .hero-section.hero-collapsed .hero-cta-registro-cliente,
+  .hero-section.hero-collapsed .hero-cta-ingresar-cliente,
+  .hero-section.hero-collapsed .hero-logo-wrapper {
+    animation-duration: 0.35s;
+    animation-delay: 0.6s;
+  }
+  .hero-section.hero-collapsed .hero-cta-about,
+  .hero-section.hero-collapsed .hero-cta-contact,
+  .hero-section.hero-collapsed .hero-cta-faq,
+  .hero-section.hero-collapsed .hero-cta-policies {
+    animation-duration: 0.35s;
+    animation-delay: 0.2s;
+  }
+}
+
+/* Logo centrado en el panal; DEBE quedar por DEBAJO de los 6 ítems (z-index 2) para no bloquear hover/tooltip/clic. */
+.hero-section.hero-collapsed .hero-logo-wrapper {
+  margin-bottom: 0 !important;
+  padding-top: 0 !important;
+  z-index: 2 !important;
+  filter: drop-shadow(0 0 10px rgba(212, 160, 23, 0.8)) drop-shadow(0 0 22px rgba(184, 134, 11, 0.5));
+}
+
+/* Logo en barra: mismo tamaño y mismo grosor de borde que el resto de hexes del honeycomb. Sin animación. Overflow visible para que la barra del divider no se recorte. */
+.hero-section.hero-collapsed .hero-logo-wrapper .jkhive-editorial-hero-logo .jkhive-hex {
+  width: var(--hex-bar-size) !important;
+  height: var(--hex-bar-height) !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  background: linear-gradient(135deg, var(--jk-accent-honey-dark) 0%, var(--jk-accent-honey) 50%, var(--jk-accent-honey-light) 70%, var(--jk-accent-honey) 100%) !important;
+  box-shadow: var(--jk-shadow-honey), 0 0 30px rgba(212, 160, 23, 0.6), inset 0 0 40px rgba(244, 196, 48, 0.3), 0 0 0 1.5px var(--jk-accent-honey-light) !important;
+  border: none !important;
+  animation: none !important;
+}
+.hero-section.hero-collapsed .hero-logo-wrapper .jkhive-editorial-hero-logo .jkhive-hex-content {
+  color: var(--jk-tech-darker) !important;
+  font-weight: 900 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+/* Efecto luz amarilla detrás de las letras: resplandor que hace resaltar JK y LUBS */
+.hero-section.hero-collapsed .hero-logo-wrapper .jkhive-editorial-hero-logo .jkhive-logo-main,
+.hero-section.hero-collapsed .hero-logo-wrapper .jkhive-editorial-hero-logo .jkhive-logo-main-jkhive {
+  font-size: 0.65rem !important;
+  color: var(--jk-tech-darker) !important;
+  text-shadow: 0 0 8px rgba(244, 196, 48, 1), 0 0 16px rgba(244, 196, 48, 0.9), 0 0 24px rgba(212, 160, 23, 0.8), 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+}
+.hero-section.hero-collapsed .hero-logo-wrapper .jkhive-editorial-hero-logo .jkhive-logo-sub,
+.hero-section.hero-collapsed .hero-logo-wrapper .jkhive-editorial-hero-logo .jkhive-logo-sub-jkhive {
+  font-size: 0.35rem !important;
+  color: var(--jk-accent-honey-light, #f4c430) !important;
+  text-shadow: 0 0 6px rgba(244, 196, 48, 1), 0 0 12px rgba(244, 196, 48, 0.9), 0 0 18px rgba(212, 160, 23, 0.7), 0 1px 2px rgba(0, 0, 0, 0.25) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.15em !important;
+}
+/* Barra horizontal azul tech: ancho = texto superior (JK/HS/… vía .jkhive-logo-editorial-head). */
+.hero-section.hero-collapsed .hero-logo-wrapper .jkhive-editorial-hero-logo .jkhive-logo-editorial-head .jkhive-logo-divider,
+.hero-section.hero-collapsed .hero-logo-wrapper .jkhive-editorial-hero-logo .jkhive-logo-editorial-head .jkhive-logo-divider-jkhive {
+  width: 100% !important;
+  height: 2px !important;
+  min-height: 2px !important;
+  margin: 0.1rem 0 0 0 !important;
+  padding: 0 !important;
+  flex-shrink: 0 !important;
+  display: block !important;
+  position: relative !important;
+  z-index: 2 !important;
+  background: linear-gradient(90deg, transparent 0%, #0ea5e9 20%, #06b6d4 50%, #0ea5e9 80%, transparent 100%) !important;
+  box-shadow: 0 0 8px rgba(14, 165, 233, 1), 0 0 16px rgba(6, 182, 212, 0.8), 0 0 24px rgba(6, 182, 212, 0.5) !important;
+}
+/* Anular ::after por si otro CSS lo definió (evitar doble barra) */
+.hero-section.hero-collapsed .hero-logo-wrapper .jkhive-editorial-hero-logo .jkhive-logo-editorial-head .jkhive-logo-divider::after,
+.hero-section.hero-collapsed .hero-logo-wrapper .jkhive-editorial-hero-logo .jkhive-logo-editorial-head .jkhive-logo-divider-jkhive::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Logo imagen en barra colapsada: -15% para que no sobresalga del hex */
+.hero-section.hero-collapsed .hero-logo-wrapper .jkhive-editorial-hero-logo .jkhive-hex-content-img {
+  padding: 18% !important;
+}
+.hero-section.hero-collapsed .hero-logo-wrapper .jkhive-editorial-hero-logo .hero-logo-img,
+.hero-section.hero-collapsed .hero-logo-wrapper .jkhive-editorial-hero-logo .jkhive-logo-img {
+  width: 85% !important;
+  height: auto !important;
+  max-height: 85% !important;
+  object-fit: contain !important;
+}
+
+/* CTAs colapsados: tamaño fijo; el enlace debe ocupar todo el área para hover y tooltip */
+.hero-section.hero-collapsed .hero-cta-item,
+html body .hero-section.hero-collapsed .hero-cta-item {
+  width: var(--hex-bar-size) !important;
+  height: var(--hex-bar-height) !important;
+}
+
+/* Enlace debe ser el hit-target para hover y tooltip; siempre encima del hex. */
+.hero-section.hero-collapsed .hero-cta-item > a,
+html body .hero-section.hero-collapsed .hero-cta-item > a,
+.hero-section.hero-collapsed .hero-cta-registro-cliente > a,
+.hero-section.hero-collapsed .hero-cta-ingresar-cliente > a {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  position: relative !important;
+  z-index: 2 !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+.hero-section.hero-collapsed .hero-cta-item .jkhive-hex,
+.hero-section.hero-collapsed .hero-cta-item .jkhive-hex {
+  width: var(--hex-bar-size) !important;
+  height: var(--hex-bar-height) !important;
+}
+
+/* Contenido interno de hex CTAs (no .hero-logo-wrapper): +10% respecto a 1rem.
+   html body: vencer jkhive-elements.css (html body .jkhive-bttn-big .jkhive-hex-icon 1.59375rem) en desktop. */
+html body .hero-section.hero-collapsed .hero-cta-item .jkhive-hex-icon,
+html body .hero-section.hero-collapsed .hero-cta-registro-cliente .jkhive-hex-icon,
+html body .hero-section.hero-collapsed .hero-cta-ingresar-cliente .jkhive-hex-icon,
+html body .hero-section.hero-collapsed .hero-cta-postular-sitter .jkhive-hex-icon,
+html body .hero-section.hero-collapsed .hero-cta-ingresar-sitter .jkhive-hex-icon {
+  font-size: 1.1rem !important;
+  /* NO poner animation: none; las animaciones de icono vienen de jkhive-elements.css (fa-oil-can, fa-user, fa-info-circle, etc.). */
+}
+
+/* About, Contact, FAQ, Políticas: visibles solo en barra colapsada, mismo estilo que CTAs */
+.hero-section.hero-collapsed .hero-cta-about,
+.hero-section.hero-collapsed .hero-cta-contact,
+.hero-section.hero-collapsed .hero-cta-faq,
+.hero-section.hero-collapsed .hero-cta-policies {
+  display: block !important;
+}
+
+/* ===== HOVER, TOOLTIP Y ANIMACIONES DE ÍCONOS (no anular) =====
+   Los ítems del honeycomb son .jkhive-bttn-big; heredan hover (cyan, scale 1.05) y animaciones
+   por icono de jkhive-elements.css. Solo fijamos tamaño y color aquí; NUNCA sobrescribir
+   animation en .jkhive-hex-icon (fa-oil-can→globe, fa-user→linkedin, fa-info-circle→handshake, etc.).
+   NUNCA poner animation: none en .hero-cta-item .jkhive-hex-icon ni en .hero-cta-*-cliente .jkhive-hex-icon.
+   CRÍTICO: pointer-events: auto en ítems y enlaces para que hover, clic y tooltip funcionen. */
+.hero-section.hero-collapsed .hero-cta-registro-cliente,
+.hero-section.hero-collapsed .hero-cta-ingresar-cliente,
+.hero-section.hero-collapsed .hero-cta-item {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+.hero-section.hero-collapsed .hero-cta-registro-cliente a,
+.hero-section.hero-collapsed .hero-cta-ingresar-cliente a,
+.hero-section.hero-collapsed .hero-cta-item a,
+.hero-section.hero-collapsed .hero-cta-registro-cliente .jkhive-hex,
+.hero-section.hero-collapsed .hero-cta-ingresar-cliente .jkhive-hex,
+.hero-section.hero-collapsed .hero-cta-item .jkhive-hex,
+.hero-section.hero-collapsed .hero-cta-registro-cliente .jkhive-hex-content,
+.hero-section.hero-collapsed .hero-cta-ingresar-cliente .jkhive-hex-content,
+.hero-section.hero-collapsed .hero-cta-item .jkhive-hex-content,
+.hero-section.hero-collapsed .hero-cta-registro-cliente .jkhive-hex-icon,
+.hero-section.hero-collapsed .hero-cta-ingresar-cliente .jkhive-hex-icon,
+.hero-section.hero-collapsed .hero-cta-item .jkhive-hex-icon {
+  pointer-events: auto !important;
+}
+.hero-section.hero-collapsed .hero-cta-item .jkhive-hex,
+.hero-section.hero-collapsed .hero-cta-registro-cliente .jkhive-hex,
+.hero-section.hero-collapsed .hero-cta-ingresar-cliente .jkhive-hex {
+  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease !important;
+  pointer-events: auto !important;
+}
+/* Asegurar que los iconos del panal hereden animaciones de jkhive-elements (fa-oil-can→globe, fa-user→linkedin, etc.); no anular. */
+.hero-section.hero-collapsed .hero-cta-registro-cliente .jkhive-hex-icon,
+.hero-section.hero-collapsed .hero-cta-ingresar-cliente .jkhive-hex-icon,
+.hero-section.hero-collapsed .hero-cta-item .jkhive-hex-icon {
+  pointer-events: auto !important;
+}
+.hero-section.hero-collapsed .hero-cta-item:hover .jkhive-hex {
+  background: var(--jk-accent-cyan, #06b6d4) !important;
+  transform: scale(1.05) !important;
+  box-shadow: var(--jk-shadow-lg, 0 10px 30px rgba(0, 0, 0, 0.3)), 0 0 30px rgba(6, 182, 212, 0.8) !important;
+}
+.hero-section.hero-collapsed .hero-cta-item:hover .jkhive-hex::after {
+  background: var(--jk-tech-dark, #0a0e27) !important;
+  transform: translate(-50%, -50%) scale(0.75) !important;
+}
+.hero-section.hero-collapsed .hero-cta-item:hover .jkhive-hex-icon,
+.hero-section.hero-collapsed .hero-cta-item:hover .jkhive-hex-content,
+.hero-section.hero-collapsed .hero-cta-item:hover .jkhive-hex-content svg,
+.hero-section.hero-collapsed .hero-cta-registro-cliente:hover .jkhive-hex-icon,
+.hero-section.hero-collapsed .hero-cta-registro-cliente:hover .jkhive-hex-content,
+.hero-section.hero-collapsed .hero-cta-ingresar-cliente:hover .jkhive-hex-icon,
+.hero-section.hero-collapsed .hero-cta-ingresar-cliente:hover .jkhive-hex-content {
+  color: var(--jk-accent-cyan, #06b6d4) !important;
+  fill: currentColor !important;
+}
+/* Mismo hover (cyan, scale) para Catálogo e Ingresar en la barra; no depender solo de .hero-cta-item. */
+.hero-section.hero-collapsed .hero-cta-registro-cliente:hover .jkhive-hex,
+.hero-section.hero-collapsed .hero-cta-ingresar-cliente:hover .jkhive-hex {
+  background: var(--jk-accent-cyan, #06b6d4) !important;
+  transform: scale(1.05) !important;
+  box-shadow: var(--jk-shadow-lg, 0 10px 30px rgba(0, 0, 0, 0.3)), 0 0 30px rgba(6, 182, 212, 0.8) !important;
+}
+.hero-section.hero-collapsed .hero-cta-registro-cliente:hover .jkhive-hex::after,
+.hero-section.hero-collapsed .hero-cta-ingresar-cliente:hover .jkhive-hex::after {
+  background: var(--jk-tech-dark, #0a0e27) !important;
+  transform: translate(-50%, -50%) scale(0.75) !important;
+}
+
+/* === Mobile: hex 32px; barra 115px. .hero-inner absolute centrado en la barra (igual criterio que desktop); no se toca hero-honeycomb-bar.js. === */
+@media (max-width: 768px) {
+  .hero-section.hero-collapsed {
+    top: 60px;
+    left: 101px; /* Mismo borde que la línea del sidebar en mobile (hero barra alineada). */
+    height: 115px;
+    min-height: 0 !important;
+    padding: 4px 1rem;
+    overflow: visible !important; /* Solo para que la barra azul del logo no se recorte (único cambio de posicionamiento pedido) */
+    display: block !important;
+    box-sizing: border-box !important;
+    --hex-bar-size: 32px;
+    --hex-bar-height: 36.9504px; /* 32 * 1.1547 exacto para que no se alarguen */
+  }
+
+  /* Centrado sin transform en el inner (evita que otros CSS/animation lo pisen; hijos siguen con translate propio) */
+  .hero-section.hero-collapsed .hero-inner {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 200px !important;
+    height: 100px !important;
+    max-height: 100px !important;
+    /* −58px: mitad de 100px + desplazamiento óptico hacia arriba */
+    margin: -58px 0 0 -100px !important;
+    transform: none !important;
+    display: block !important;
+    flex-direction: unset !important;
+    align-items: unset !important;
+    justify-content: unset !important;
+    gap: 0 !important;
+    flex-shrink: 0 !important;
+    animation: hero-bar-reveal 0.35s ease-out 0.6s forwards;
+  }
+
+  /* Misma proporción en todos los hexes de la barra (32 x 36.9504). Anula la regla global de jkhive-style (55.39px). */
+  .hero-section.hero-collapsed .hero-cta-item,
+  html body .hero-section.hero-collapsed .hero-cta-item {
+    width: 32px !important;
+    height: 36.9504px !important;
+    min-width: 32px !important;
+    min-height: 36.9504px !important;
+  }
+  .hero-section.hero-collapsed .hero-cta-item > .jkhive-bttn-big,
+  .hero-section.hero-collapsed .hero-cta-item > .jkhive-bttn-big > a,
+  .hero-section.hero-collapsed .hero-cta-item > .jkhive-bttn-big > button {
+    width: 32px !important;
+    height: 36.9504px !important;
+  }
+  .hero-section.hero-collapsed .hero-cta-item .jkhive-hex,
+  .hero-section.hero-collapsed .hero-cta-item .jkhive-hex {
+    width: 32px !important;
+    height: 36.9504px !important;
+    min-width: 32px !important;
+    min-height: 36.9504px !important;
+  }
+  .hero-section.hero-collapsed .hero-logo-wrapper .jkhive-editorial-hero-logo .jkhive-logo-main,
+  .hero-section.hero-collapsed .hero-logo-wrapper .jkhive-editorial-hero-logo .jkhive-logo-main-jkhive {
+    font-size: 0.5rem !important;
+    text-shadow: 0 0 6px rgba(244, 196, 48, 1), 0 0 12px rgba(244, 196, 48, 0.95), 0 0 18px rgba(212, 160, 23, 0.9), 0 1px 3px rgba(0, 0, 0, 0.35) !important;
+  }
+  .hero-section.hero-collapsed .hero-logo-wrapper .jkhive-editorial-hero-logo .jkhive-logo-sub,
+  .hero-section.hero-collapsed .hero-logo-wrapper .jkhive-editorial-hero-logo .jkhive-logo-sub-jkhive {
+    font-size: 0.28rem !important;
+    text-shadow: 0 0 4px rgba(244, 196, 48, 1), 0 0 10px rgba(244, 196, 48, 0.95), 0 0 14px rgba(212, 160, 23, 0.85), 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  /* MOBILE: barra horizontal azul (ancho = texto superior, igual que desktop). */
+  .hero-section.hero-collapsed .hero-logo-wrapper .jkhive-editorial-hero-logo .jkhive-logo-editorial-head .jkhive-logo-divider,
+  .hero-section.hero-collapsed .hero-logo-wrapper .jkhive-editorial-hero-logo .jkhive-logo-editorial-head .jkhive-logo-divider-jkhive {
+    width: 100% !important;
+    height: 2px !important;
+    min-height: 2px !important;
+    margin: 0.08rem 0 0 0 !important;
+    padding: 0 !important;
+    flex-shrink: 0 !important;
+    display: block !important;
+    position: relative !important;
+    z-index: 2 !important;
+    background: linear-gradient(90deg, transparent 0%, #0ea5e9 25%, #06b6d4 50%, #0ea5e9 75%, transparent 100%) !important;
+    box-shadow: 0 0 6px rgba(14, 165, 233, 1), 0 0 12px rgba(6, 182, 212, 0.9) !important;
+  }
+  .hero-section.hero-collapsed .hero-logo-wrapper .jkhive-editorial-hero-logo .jkhive-logo-editorial-head .jkhive-logo-divider::after,
+  .hero-section.hero-collapsed .hero-logo-wrapper .jkhive-editorial-hero-logo .jkhive-logo-editorial-head .jkhive-logo-divider-jkhive::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  /* Misma proporción +10% que desktop (0.8rem → 0.88rem); .hero-logo-wrapper sin cambios */
+  html body .hero-section.hero-collapsed .hero-cta-item .jkhive-hex-icon,
+  html body .hero-section.hero-collapsed .hero-cta-registro-cliente .jkhive-hex-icon,
+  html body .hero-section.hero-collapsed .hero-cta-ingresar-cliente .jkhive-hex-icon,
+  html body .hero-section.hero-collapsed .hero-cta-postular-sitter .jkhive-hex-icon,
+  html body .hero-section.hero-collapsed .hero-cta-ingresar-sitter .jkhive-hex-icon {
+    font-size: 0.88rem !important;
+  }
+
+  .hero-section.hero-collapsed .hero-logo-wrapper .jkhive-editorial-hero-logo .jkhive-hex-content-img {
+    padding: 20% !important;
+  }
+
+  /* Menos padding en el hex del logo en mobile para que la barra azul quepa dentro del clip-path del hex 32px */
+  .hero-section.hero-collapsed .hero-logo-wrapper .jkhive-editorial-hero-logo .jkhive-hex-content {
+    padding: 2px 4px !important;
+  }
+}

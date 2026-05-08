@@ -1,0 +1,49 @@
+{
+  "site": {
+    "navbarTitle": "JK Hive Framework"
+  },
+  "sidebar": [
+    { "id": "home", "href": "index.php", "icon": "fas fa-th-large", "tooltip": "Selector de demos" },
+    { "id": "framework-demo", "href": "framework-demo.php", "icon": "fas fa-flask", "tooltip": "Demo técnica" },
+    { "id": "demo-crm", "href": "demo-crm.php", "icon": "fas fa-chart-line", "tooltip": "CRM demo" },
+    { "id": "about", "href": "about.php", "icon": "fas fa-id-card", "tooltip": "About" },
+    { "id": "contact", "href": "contact.php", "icon": "fas fa-envelope", "tooltip": "Contacto" },
+    { "id": "messaging", "href": "messaging.php", "icon": "fas fa-comments", "tooltip": "Mensajería" },
+    { "id": "users", "href": "users.php", "icon": "fas fa-users", "tooltip": "Usuarios", "roles": ["demo_admin", "guest"] },
+    { "id": "products", "href": "products.php", "icon": "fas fa-box", "tooltip": "Productos", "roles": ["demo_admin", "guest"] }
+  ],
+  "footer": {
+    "columns": [
+      {
+        "title": "Navegación",
+        "links": [
+          { "label": "Selector de demos", "href": "index.php" },
+          { "label": "Demo técnica", "href": "framework-demo.php" },
+          { "label": "About", "href": "about.php" },
+          { "label": "Contacto", "href": "contact.php" }
+        ]
+      },
+      {
+        "title": "Demos por vertical",
+        "links": [
+          { "label": "Landing básica", "href": "demo-landing-simple.php" },
+          { "label": "Landing avanzada", "href": "demo-landing-advanced.php" },
+          { "label": "E-commerce básico", "href": "demo-ecommerce-basic.php" },
+          { "label": "E-commerce avanzado", "href": "demo-ecommerce-advanced.php" },
+          { "label": "Portal web", "href": "demo-portal.php" },
+          { "label": "CRM", "href": "demo-crm.php" }
+        ]
+      },
+      {
+        "title": "Gestión demo",
+        "links": [
+          { "label": "Ingreso showcase", "href": "login.php" },
+          { "label": "Mensajería", "href": "messaging.php" },
+          { "label": "Usuarios", "href": "users.php" },
+          { "label": "Productos", "href": "products.php" }
+        ]
+      }
+    ],
+    "credit": "JK Hive Framework — showcase unificado (mismo CSS/JS; temas vía jkfw-themes.css; acento miel fijo en :root)."
+  }
+}

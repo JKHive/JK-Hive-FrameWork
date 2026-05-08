@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-$jk_nav = 'standalone';
+$jk_nav = 'demo-crm';
 $jk_page_title = 'CRM — JK Hive';
 $jk_breadcrumb = 'Tablero demo';
 $jk_body_class = 'page-public jkhive-showcase-body admin-layout crm-layout';
-$jk_demo_auth = true;
+$jk_demo_auth = false;
 $jk_hide_demo_modal = true;
 $jk_extra_css =
     '<link rel="stylesheet" href="assets/css/crm.css">' . "\n" .

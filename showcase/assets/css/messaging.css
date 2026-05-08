@@ -1,0 +1,1122 @@
+/**
+ * JK Hive - Messaging System Styles
+ * 
+ * Estilos para el sistema de mensajería interna
+ */
+
+.messaging-layout {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 20px;
+    min-height: 600px;
+    background: var(--jk-bg-primary, #0a0e27);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+/* Cuando se muestra un mensaje, ocultar la lista y mostrar la vista en su lugar */
+.messaging-layout.showing-message .messaging-list-container {
+    display: none;
+}
+
+.messaging-layout.showing-message .messaging-view {
+    display: flex !important;
+    grid-column: 2;
+}
+
+.messaging-sidebar {
+    background: var(--jk-bg-secondary, #1a1f3a);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.messaging-sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--jk-accent-blue, #0ea5e9);
+}
+
+.messaging-sidebar-header h3 {
+    color: var(--jk-text-primary, #ffffff);
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.btn-new-message {
+    background: var(--jk-accent-blue, #0ea5e9);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+}
+
+.btn-new-message:hover {
+    background: var(--jk-accent-blue-hover, #0284c7);
+}
+
+.messaging-folders {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.messaging-folder {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: var(--jk-text-secondary, #a0aec0);
+    transition: all 0.3s;
+    position: relative;
+}
+
+.messaging-folder:hover {
+    background: var(--jk-bg-hover, #252a47);
+    color: var(--jk-text-primary, #ffffff);
+}
+
+.messaging-folder.active {
+    background: var(--jk-accent-blue, #0ea5e9);
+    color: white;
+}
+
+.messaging-folder i {
+    width: 20px;
+    text-align: center;
+}
+
+/* Botón de vaciar papelera dentro de la lengüeta activa */
+.messaging-folder.active .empty-trash-btn-small {
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.messaging-folder.active .empty-trash-btn-small .jkhive-actionbutton-small {
+    margin: 0;
+}
+
+.unread-badge {
+    background: var(--jk-accent-red, #dc3545);
+    color: white;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    border-radius: 0;
+    padding: 2px 8px;
+    font-size: 0.75rem;
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: calc(1.5rem * 1.1547);
+    height: calc(1.5rem * 1.1547);
+}
+
+.messaging-list-container {
+    background: var(--jk-bg-secondary, #1a1f3a);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.messaging-list-header {
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--jk-accent-blue, #0ea5e9);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.messaging-header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+}
+
+.messaging-list-header h4 {
+    color: var(--jk-text-primary, #ffffff);
+    margin: 0;
+}
+
+.messaging-checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--jk-accent-blue, #0ea5e9);
+}
+
+.bulk-actions-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 15px;
+    background: var(--jk-bg-hover, #252a47);
+    border-radius: 5px;
+}
+
+/* Toolbar de acciones en lote - ahora usa botones hexagonales pequeños */
+.bulk-actions-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.bulk-actions-toolbar .jkhive-actionbutton-small {
+    margin: 0;
+}
+
+.bulk-actions-toolbar .jkhive-actionbutton-small > a {
+    text-decoration: none;
+    display: block;
+}
+
+.selected-count {
+    color: var(--jk-text-secondary, #a0aec0);
+    font-size: 0.85rem;
+    margin-left: 0.5rem;
+    white-space: nowrap;
+}
+
+/* Botón de vaciar papelera - usa jkhive-hex-button-wborder */
+.messaging-list-header .empty-trash-btn {
+    margin-left: auto;
+    margin-top: 10px;
+}
+
+.messaging-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.messaging-item {
+    background: var(--jk-bg-primary, #0a0e27);
+    border-radius: 8px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-left: 4px solid transparent;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.messaging-item:hover {
+    background: var(--jk-bg-hover, #252a47);
+    border-left-color: var(--jk-accent-blue, #0ea5e9);
+}
+
+.messaging-item.selected {
+    background: rgba(14, 165, 233, 0.1);
+    border-left-color: var(--jk-accent-blue, #0ea5e9);
+}
+
+.messaging-item.unread {
+    border-left-color: var(--jk-accent-blue, #0ea5e9);
+    font-weight: 600;
+}
+
+.messaging-item.starred {
+    border-left-color: var(--jk-accent-yellow, #d4a017);
+}
+
+.messaging-item-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.messaging-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.messaging-item-from {
+    color: var(--jk-text-primary, #ffffff);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.messaging-item-from i {
+    color: var(--jk-accent-yellow, #d4a017);
+}
+
+.messaging-item-date {
+    color: var(--jk-text-secondary, #a0aec0);
+    font-size: 0.85rem;
+    margin-left: auto;
+}
+
+.chat-message-count {
+    color: var(--jk-text-secondary, #a0aec0);
+    font-size: 0.75rem;
+    margin-left: 10px;
+    background: var(--jk-bg-hover, #252a47);
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+.chat-unread-badge {
+    background: var(--jk-accent-red, #dc3545);
+    color: white;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    border-radius: 0;
+    padding: 2px 6px; /* Padding reducido para tamaño pequeño */
+    font-size: 0.6rem; /* Tamaño de fuente más pequeño */
+    font-weight: 900; /* Negrita extra gruesa para mejor visibilidad */
+    margin-left: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: calc(1.2rem * 1.1547); /* Ancho mínimo más pequeño */
+    height: calc(1.2rem * 1.1547); /* Altura más pequeña */
+    letter-spacing: 0.02em; /* Ligero espaciado para mejor legibilidad */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); /* Sombra de texto para mejor contraste */
+}
+
+.messaging-item-attachment {
+    color: var(--jk-accent-blue, #0ea5e9);
+    font-size: 0.85rem;
+    margin-left: 8px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.messaging-item-attachment i {
+    color: var(--jk-accent-blue, #0ea5e9);
+}
+
+.messaging-item-subject {
+    color: var(--jk-text-primary, #ffffff);
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.messaging-item-preview {
+    color: var(--jk-text-secondary, #a0aec0);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.messaging-item-attachments {
+    margin-top: 8px;
+    color: var(--jk-accent-blue, #0ea5e9);
+    font-size: 0.85rem;
+}
+
+/* Estilos hover para botones del toolbar de acciones en lote */
+/* Todos los botones parten de amarillo miel metálico (jkhive-hex-honey) */
+
+/* Asegurar que todos los botones de bulk actions empiecen con amarillo miel metálico */
+body .bulk-actions-toolbar .jkhive-hex-honey,
+body .bulk-actions-toolbar .jkhive-hex,
+body .bulk-actions-toolbar .jkhive-actionbutton-small .jkhive-hex,
+body .bulk-actions-toolbar .jkhive-actionbutton-small .jkhive-hex-honey,
+body .bulk-actions-toolbar .jkhive-actionbutton-small a .jkhive-hex,
+body .bulk-actions-toolbar .jkhive-actionbutton-small a .jkhive-hex-honey {
+    background: var(--jk-accent-honey) !important;
+    border-color: var(--jk-accent-honey) !important;
+}
+
+/* Bandeja de entrada y Enviados - Eliminar (rojo metálico brillante) */
+body .bulk-actions-toolbar .bulk-action-delete:hover .jkhive-hex,
+body .bulk-actions-toolbar .bulk-action-delete a:hover .jkhive-hex,
+body .bulk-actions-toolbar .bulk-action-delete .jkhive-hex:hover,
+body .bulk-actions-toolbar .bulk-action-delete:hover .jkhive-hex-honey,
+body .bulk-actions-toolbar .bulk-action-delete a:hover .jkhive-hex-honey,
+body .bulk-actions-toolbar .bulk-action-delete:hover a .jkhive-hex,
+body .bulk-actions-toolbar .bulk-action-delete:hover a .jkhive-hex-honey {
+    background: linear-gradient(135deg, #cc0000, #ff3333, #cc0000) !important;
+    border-color: #ff3333 !important;
+    box-shadow:
+        0 0 20px rgba(255, 51, 51, 0.8),
+        0 0 40px rgba(204, 0, 0, 0.6),
+        inset 0 0 20px rgba(255, 51, 51, 0.3) !important;
+    filter: brightness(1.2) !important;
+    transform: scale(0.9) !important;
+}
+
+body .bulk-actions-toolbar .bulk-action-archive:hover .jkhive-hex,
+body .bulk-actions-toolbar .bulk-action-archive a:hover .jkhive-hex,
+body .bulk-actions-toolbar .bulk-action-archive .jkhive-hex:hover,
+body .bulk-actions-toolbar .bulk-action-archive:hover .jkhive-hex-honey,
+body .bulk-actions-toolbar .bulk-action-archive a:hover .jkhive-hex-honey,
+body .bulk-actions-toolbar .bulk-action-archive:hover a .jkhive-hex,
+body .bulk-actions-toolbar .bulk-action-archive:hover a .jkhive-hex-honey {
+    background: linear-gradient(135deg, #0066cc, #0088ff, #0066cc) !important;
+    border-color: #0088ff !important;
+    box-shadow:
+        0 0 20px rgba(0, 136, 255, 0.8),
+        0 0 40px rgba(0, 102, 204, 0.6),
+        inset 0 0 20px rgba(0, 136, 255, 0.3) !important;
+    filter: brightness(1.2) !important;
+    transform: scale(0.9) !important;
+}
+
+body .bulk-actions-toolbar .bulk-action-star:hover .jkhive-hex,
+body .bulk-actions-toolbar .bulk-action-star a:hover .jkhive-hex,
+body .bulk-actions-toolbar .bulk-action-star .jkhive-hex:hover,
+body .bulk-actions-toolbar .bulk-action-star:hover .jkhive-hex-honey,
+body .bulk-actions-toolbar .bulk-action-star a:hover .jkhive-hex-honey,
+body .bulk-actions-toolbar .bulk-action-star:hover a .jkhive-hex,
+body .bulk-actions-toolbar .bulk-action-star:hover a .jkhive-hex-honey {
+    background: linear-gradient(135deg, #ffaa00, #ffcc00, #ffaa00) !important;
+    border-color: #ffcc00 !important;
+    box-shadow:
+        0 0 20px rgba(255, 204, 0, 0.8),
+        0 0 40px rgba(255, 170, 0, 0.6),
+        inset 0 0 20px rgba(255, 204, 0, 0.3) !important;
+    filter: brightness(1.2) !important;
+    transform: scale(0.9) !important;
+}
+
+/* Destacados - Dejar de destacar (gris metálico brillante) */
+body .bulk-actions-toolbar .bulk-action-unstar:hover .jkhive-hex,
+body .bulk-actions-toolbar .bulk-action-unstar a:hover .jkhive-hex,
+body .bulk-actions-toolbar .bulk-action-unstar .jkhive-hex:hover,
+body .bulk-actions-toolbar .bulk-action-unstar:hover .jkhive-hex-honey,
+body .bulk-actions-toolbar .bulk-action-unstar a:hover .jkhive-hex-honey,
+body .bulk-actions-toolbar .bulk-action-unstar:hover a .jkhive-hex,
+body .bulk-actions-toolbar .bulk-action-unstar:hover a .jkhive-hex-honey {
+    background: linear-gradient(135deg, #666666, #999999, #666666) !important;
+    border-color: #999999 !important;
+    box-shadow:
+        0 0 20px rgba(153, 153, 153, 0.8),
+        0 0 40px rgba(102, 102, 102, 0.6),
+        inset 0 0 20px rgba(153, 153, 153, 0.3) !important;
+    filter: brightness(1.2) !important;
+    transform: scale(0.9) !important;
+}
+
+/* Archivados - Mover a bandeja de entrada (azul metálico brillante) */
+body .bulk-actions-toolbar .bulk-action-unarchive:hover .jkhive-hex,
+body .bulk-actions-toolbar .bulk-action-unarchive a:hover .jkhive-hex,
+body .bulk-actions-toolbar .bulk-action-unarchive .jkhive-hex:hover,
+body .bulk-actions-toolbar .bulk-action-unarchive:hover .jkhive-hex-honey,
+body .bulk-actions-toolbar .bulk-action-unarchive a:hover .jkhive-hex-honey,
+body .bulk-actions-toolbar .bulk-action-unarchive:hover a .jkhive-hex,
+body .bulk-actions-toolbar .bulk-action-unarchive:hover a .jkhive-hex-honey {
+    background: linear-gradient(135deg, #0066cc, #0088ff, #0066cc) !important;
+    border-color: #0088ff !important;
+    box-shadow:
+        0 0 20px rgba(0, 136, 255, 0.8),
+        0 0 40px rgba(0, 102, 204, 0.6),
+        inset 0 0 20px rgba(0, 136, 255, 0.3) !important;
+    filter: brightness(1.2) !important;
+    transform: scale(0.9) !important;
+}
+
+/* Restaurar (verde metálico brillante) */
+body .bulk-actions-toolbar .bulk-action-restore:hover .jkhive-hex,
+body .bulk-actions-toolbar .bulk-action-restore a:hover .jkhive-hex,
+body .bulk-actions-toolbar .bulk-action-restore .jkhive-hex:hover,
+body .bulk-actions-toolbar .bulk-action-restore:hover .jkhive-hex-honey,
+body .bulk-actions-toolbar .bulk-action-restore a:hover .jkhive-hex-honey,
+body .bulk-actions-toolbar .bulk-action-restore:hover a .jkhive-hex,
+body .bulk-actions-toolbar .bulk-action-restore:hover a .jkhive-hex-honey {
+    background: linear-gradient(135deg, #00cc66, #00ff88, #00cc66) !important;
+    border-color: #00ff88 !important;
+    box-shadow:
+        0 0 20px rgba(0, 255, 136, 0.8),
+        0 0 40px rgba(0, 204, 102, 0.6),
+        inset 0 0 20px rgba(0, 255, 136, 0.3) !important;
+    filter: brightness(1.2) !important;
+    transform: scale(0.9) !important;
+}
+
+/* Botón de vaciar papelera - inicialmente amarillo miel metálico */
+body .empty-trash-btn .jkhive-hex,
+body .empty-trash-btn .jkhive-hex-honey,
+body .empty-trash-btn-small .jkhive-hex,
+body .empty-trash-btn-small .jkhive-hex-honey {
+    background: var(--jk-accent-honey) !important;
+    border-color: var(--jk-accent-honey) !important;
+}
+
+/* Botón de vaciar papelera - hover rojo metálico brillante */
+body .empty-trash-btn:hover .jkhive-hex,
+body .empty-trash-btn:hover .jkhive-hex-honey,
+body .empty-trash-btn a:hover .jkhive-hex,
+body .empty-trash-btn a:hover .jkhive-hex-honey,
+body .empty-trash-btn .jkhive-hex:hover,
+body .empty-trash-btn .jkhive-hex-honey:hover,
+body .empty-trash-btn-small:hover .jkhive-hex,
+body .empty-trash-btn-small:hover .jkhive-hex-honey,
+body .empty-trash-btn-small a:hover .jkhive-hex,
+body .empty-trash-btn-small a:hover .jkhive-hex-honey,
+body .empty-trash-btn-small .jkhive-hex:hover,
+body .empty-trash-btn-small .jkhive-hex-honey:hover,
+body .empty-trash-btn .jkhive-actionbutton-small:hover .jkhive-hex,
+body .empty-trash-btn .jkhive-actionbutton-small:hover .jkhive-hex-honey,
+body .empty-trash-btn-small .jkhive-actionbutton-small:hover .jkhive-hex,
+body .empty-trash-btn-small .jkhive-actionbutton-small:hover .jkhive-hex-honey {
+    background: linear-gradient(135deg, #cc0000, #ff3333, #cc0000) !important;
+    border-color: #ff3333 !important;
+    box-shadow:
+        0 0 20px rgba(255, 51, 51, 0.8),
+        0 0 40px rgba(204, 0, 0, 0.6),
+        inset 0 0 20px rgba(255, 51, 51, 0.3) !important;
+    filter: brightness(1.2) drop-shadow(0 0 15px rgba(255, 51, 51, 0.9)) !important;
+    transform: scale(0.9) !important;
+}
+
+/* Estilos para mensajes anidados (respuestas) */
+.messaging-item.messaging-reply {
+    border-left: 3px solid var(--jk-accent-cyan, #06b6d4);
+    opacity: 0.9;
+    position: relative;
+}
+
+.messaging-reply-indicator {
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--jk-accent-cyan, #06b6d4);
+    font-size: 0.8rem;
+    background: var(--jk-bg-secondary, #1a1f3a);
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+.messaging-reply-label {
+    color: var(--jk-accent-cyan, #06b6d4);
+    font-size: 0.75rem;
+    font-weight: normal;
+    margin-left: 8px;
+    font-style: italic;
+}
+
+.messaging-replies-count {
+    margin-top: 8px;
+    color: var(--jk-accent-cyan, #06b6d4);
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: default;
+}
+
+.messaging-replies-count i {
+    font-size: 0.75rem;
+}
+
+.messaging-replies-count.has-new {
+    color: var(--jk-accent-orange, #f59e0b);
+    font-weight: 600;
+}
+
+.messaging-replies-count.has-new i {
+    color: var(--jk-accent-orange, #f59e0b);
+}
+
+/* Badge hexagonal - mantener colores originales */
+.new-replies-badge {
+    background: var(--jk-accent-red, #dc3545);
+    color: white;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    border-radius: 0;
+    padding: 2px 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-left: 8px;
+    animation: pulse 2s infinite;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: calc(1.5rem * 1.1547);
+    height: calc(1.5rem * 1.1547);
+}
+
+.messaging-item.has-new-replies {
+    border-left-color: var(--jk-accent-orange, #f59e0b);
+    background: rgba(245, 158, 11, 0.1);
+}
+
+.messaging-item.has-new-replies:hover {
+    background: rgba(245, 158, 11, 0.15);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* Estilos para hilo de conversación */
+.messaging-thread-message {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(14, 165, 233, 0.2);
+}
+
+.messaging-thread-message:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.messaging-thread-message.messaging-thread-latest {
+    background: rgba(244, 196, 48, 0.15);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 2px solid var(--jk-accent-honey, #d4a017);
+    margin-bottom: 2rem;
+}
+
+/* Eliminado .messaging-thread-current - solo se resalta el más reciente */
+
+.messaging-thread-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.messaging-thread-meta {
+    flex: 1;
+}
+
+.messaging-thread-meta div {
+    color: var(--jk-text-secondary, #a0aec0);
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+}
+
+.messaging-thread-meta strong {
+    color: var(--jk-text-primary, #ffffff);
+}
+
+.messaging-thread-reply-badge {
+    background: var(--jk-accent-cyan, #06b6d4);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    border-radius: 0;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-width: calc(2rem * 1.1547);
+    height: calc(2rem * 1.1547);
+}
+
+.messaging-thread-reply-badge i {
+    font-size: 0.7rem;
+}
+
+.messaging-thread-latest-badge {
+    background: var(--jk-accent-honey, #d4a017);
+    color: var(--jk-tech-dark, #0a0e27);
+    padding: 0.3rem 0.8rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 600;
+}
+
+.messaging-thread-latest-badge i {
+    font-size: 0.7rem;
+}
+
+.messaging-thread-subject {
+    color: var(--jk-text-primary, #ffffff);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.messaging-thread-body {
+    color: var(--jk-text-primary, #ffffff);
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.messaging-thread-separator {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--jk-accent-cyan, #06b6d4), transparent);
+    margin: 2rem 0;
+    opacity: 0.5;
+}
+
+.messaging-view {
+    background: var(--jk-bg-secondary, #1a1f3a);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.messaging-view-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--jk-accent-blue, #0ea5e9);
+}
+
+.btn-back {
+    background: var(--jk-bg-primary, #0a0e27);
+    color: var(--jk-text-primary, #ffffff);
+    border: 1px solid var(--jk-accent-blue, #0ea5e9);
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-back:hover {
+    background: var(--jk-accent-blue, #0ea5e9);
+}
+
+.messaging-view-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-action {
+    background: var(--jk-bg-primary, #0a0e27);
+    color: var(--jk-text-primary, #ffffff);
+    border: 1px solid var(--jk-accent-blue, #0ea5e9);
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+}
+
+.btn-action:hover {
+    background: var(--jk-accent-blue, #0ea5e9);
+}
+
+.btn-action i.active {
+    color: var(--jk-accent-yellow, #d4a017);
+}
+
+.messaging-view-content {
+    flex: 1;
+    color: var(--jk-text-primary, #ffffff);
+}
+
+.messaging-view-meta {
+    background: var(--jk-bg-primary, #0a0e27);
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+
+.messaging-view-subject {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--jk-text-primary, #ffffff);
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--jk-accent-blue, #0ea5e9);
+}
+
+.messaging-view-body {
+    line-height: 1.8;
+    white-space: pre-wrap;
+    margin-bottom: 20px;
+}
+
+.messaging-attachments {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--jk-accent-blue, #0ea5e9);
+}
+
+.messaging-attachments h4 {
+    color: var(--jk-text-primary, #ffffff);
+    margin-bottom: 15px;
+}
+
+.messaging-attachment {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px;
+    background: var(--jk-bg-primary, #0a0e27);
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.messaging-attachment i {
+    color: var(--jk-accent-blue, #0ea5e9);
+    font-size: 1.2rem;
+}
+
+.messaging-attachment span {
+    color: var(--jk-text-primary, #ffffff);
+    flex: 1;
+}
+
+.file-size {
+    color: var(--jk-text-secondary, #a0aec0);
+    font-size: 0.85rem;
+}
+
+.btn-download {
+    background: var(--jk-accent-blue, #0ea5e9);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: background 0.3s;
+}
+
+.btn-download:hover {
+    background: var(--jk-accent-blue-hover, #0284c7);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--jk-text-secondary, #a0aec0);
+    font-size: 1.1rem;
+}
+
+/* Modales */
+.messaging-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.messaging-modal-content {
+    background: var(--jk-bg-secondary, #1a1f3a);
+    border-radius: 8px;
+    padding: 30px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    margin: auto;
+    margin-top: 5vh;
+}
+
+.messaging-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--jk-accent-blue, #0ea5e9);
+}
+
+.messaging-modal-header h3 {
+    color: var(--jk-text-primary, #ffffff);
+    margin: 0;
+}
+
+.messaging-modal-close {
+    background: none;
+    border: none;
+    color: var(--jk-text-primary, #ffffff);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.messaging-modal-close:hover {
+    color: var(--jk-accent-red, #dc3545);
+}
+
+.messaging-form-group {
+    margin-bottom: 20px;
+}
+
+.messaging-form-group label {
+    display: block;
+    color: var(--jk-text-primary, #ffffff);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.messaging-form-group input,
+.messaging-form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--jk-accent-blue, #0ea5e9);
+    border-radius: 5px;
+    background: var(--jk-bg-primary, #0a0e27);
+    color: var(--jk-text-primary, #ffffff);
+    font-family: inherit;
+}
+
+.messaging-form-group textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.messaging-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-submit {
+    background: var(--jk-accent-blue, #0ea5e9);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s;
+}
+
+.btn-submit:hover {
+    background: var(--jk-accent-blue-hover, #0284c7);
+}
+
+.btn-cancel {
+    background: var(--jk-bg-primary, #0a0e27);
+    color: var(--jk-text-primary, #ffffff);
+    border: 1px solid var(--jk-accent-blue, #0ea5e9);
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.btn-cancel:hover {
+    background: var(--jk-accent-blue, #0ea5e9);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .messaging-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .messaging-sidebar {
+        display: none;
+    }
+    
+    .messaging-view {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+    }
+}
+
+/* ============================================
+   SOBRESCRIBIR ESTILOS GENERALES - MÁXIMA ESPECIFICIDAD
+   Asegurar que los botones de bulk actions NO se vuelvan cyan
+   ============================================ */
+
+/* ============================================
+   SOBRESCRIBIR REGLA GENERAL DE jk-hive.css CON COLORES ESPECÍFICOS
+   La regla .jkhive-actionbutton-small:hover .jkhive-hex:not(...) 
+   está convirtiendo los botones a cyan. Aplicamos colores directamente.
+   ============================================ */
+
+/* ELIMINAR - Rojo metálico brillante - SOBRESCRIBIR REGLA GENERAL */
+body .bulk-actions-toolbar .bulk-action-delete.jkhive-actionbutton-small:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-delete.jkhive-actionbutton-small:hover .jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-delete .jkhive-actionbutton-small:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-delete .jkhive-actionbutton-small:hover .jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-delete .jkhive-actionbutton-small a:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-delete .jkhive-actionbutton-small a:hover .jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green) {
+    background: linear-gradient(135deg, #cc0000, #ff3333, #cc0000) !important;
+    border-color: #ff3333 !important;
+    box-shadow: 0 0 20px rgba(255, 51, 51, 0.8), 0 0 40px rgba(204, 0, 0, 0.6), inset 0 0 20px rgba(255, 51, 51, 0.3) !important;
+    filter: brightness(1.2) !important;
+    transform: scale(0.9) !important;
+}
+
+/* ARCHIVAR - Azul metálico brillante - SOBRESCRIBIR REGLA GENERAL */
+body .bulk-actions-toolbar .bulk-action-archive.jkhive-actionbutton-small:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-archive.jkhive-actionbutton-small:hover .jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-archive .jkhive-actionbutton-small:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-archive .jkhive-actionbutton-small:hover .jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-archive .jkhive-actionbutton-small a:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-archive .jkhive-actionbutton-small a:hover .jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green) {
+    background: linear-gradient(135deg, #0066cc, #0088ff, #0066cc) !important;
+    border-color: #0088ff !important;
+    box-shadow: 0 0 20px rgba(0, 136, 255, 0.8), 0 0 40px rgba(0, 102, 204, 0.6), inset 0 0 20px rgba(0, 136, 255, 0.3) !important;
+    filter: brightness(1.2) !important;
+    transform: scale(0.9) !important;
+}
+
+/* DESTACAR - Amarillo metálico brillante - SOBRESCRIBIR REGLA GENERAL */
+body .bulk-actions-toolbar .bulk-action-star.jkhive-actionbutton-small:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-star.jkhive-actionbutton-small:hover .jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-star .jkhive-actionbutton-small:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-star .jkhive-actionbutton-small:hover .jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-star .jkhive-actionbutton-small a:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-star .jkhive-actionbutton-small a:hover .jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green) {
+    background: linear-gradient(135deg, #ffaa00, #ffcc00, #ffaa00) !important;
+    border-color: #ffcc00 !important;
+    box-shadow: 0 0 20px rgba(255, 204, 0, 0.8), 0 0 40px rgba(255, 170, 0, 0.6), inset 0 0 20px rgba(255, 204, 0, 0.3) !important;
+    filter: brightness(1.2) !important;
+    transform: scale(0.9) !important;
+}
+
+/* DESDESTACAR - Gris metálico brillante - SOBRESCRIBIR REGLA GENERAL */
+body .bulk-actions-toolbar .bulk-action-unstar.jkhive-actionbutton-small:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-unstar.jkhive-actionbutton-small:hover .jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-unstar .jkhive-actionbutton-small:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-unstar .jkhive-actionbutton-small:hover .jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-unstar .jkhive-actionbutton-small a:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-unstar .jkhive-actionbutton-small a:hover .jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green) {
+    background: linear-gradient(135deg, #666666, #999999, #666666) !important;
+    border-color: #999999 !important;
+    box-shadow: 0 0 20px rgba(153, 153, 153, 0.8), 0 0 40px rgba(102, 102, 102, 0.6), inset 0 0 20px rgba(153, 153, 153, 0.3) !important;
+    filter: brightness(1.2) !important;
+    transform: scale(0.9) !important;
+}
+
+/* DESARCHIVAR - Azul metálico brillante - SOBRESCRIBIR REGLA GENERAL */
+body .bulk-actions-toolbar .bulk-action-unarchive.jkhive-actionbutton-small:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-unarchive.jkhive-actionbutton-small:hover .jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-unarchive .jkhive-actionbutton-small:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-unarchive .jkhive-actionbutton-small:hover .jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-unarchive .jkhive-actionbutton-small a:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-unarchive .jkhive-actionbutton-small a:hover .jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green) {
+    background: linear-gradient(135deg, #0066cc, #0088ff, #0066cc) !important;
+    border-color: #0088ff !important;
+    box-shadow: 0 0 20px rgba(0, 136, 255, 0.8), 0 0 40px rgba(0, 102, 204, 0.6), inset 0 0 20px rgba(0, 136, 255, 0.3) !important;
+    filter: brightness(1.2) !important;
+    transform: scale(0.9) !important;
+}
+
+/* RESTAURAR - Verde metálico brillante - SOBRESCRIBIR REGLA GENERAL */
+body .bulk-actions-toolbar .bulk-action-restore.jkhive-actionbutton-small:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-restore.jkhive-actionbutton-small:hover .jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-restore .jkhive-actionbutton-small:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-restore .jkhive-actionbutton-small:hover .jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-restore .jkhive-actionbutton-small a:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-restore .jkhive-actionbutton-small a:hover .jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green) {
+    background: linear-gradient(135deg, #00cc66, #00ff88, #00cc66) !important;
+    border-color: #00ff88 !important;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.8), 0 0 40px rgba(0, 204, 102, 0.6), inset 0 0 20px rgba(0, 255, 136, 0.3) !important;
+    filter: brightness(1.2) !important;
+    transform: scale(0.9) !important;
+}
+
+/* ============================================
+   REGLAS ADICIONALES CON MÁXIMA ESPECIFICIDAD
+   Para asegurar que sobrescriban la regla general de jk-hive.css
+   ============================================ */
+
+/* ELIMINAR - Rojo metálico brillante - REGLAS ADICIONALES */
+body .bulk-actions-toolbar .bulk-action-delete.jkhive-actionbutton-small:hover .jkhive-hex.jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-delete.jkhive-actionbutton-small a:hover .jkhive-hex.jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green) {
+    background: linear-gradient(135deg, #cc0000, #ff3333, #cc0000) !important;
+    border-color: #ff3333 !important;
+    box-shadow: 0 0 20px rgba(255, 51, 51, 0.8), 0 0 40px rgba(204, 0, 0, 0.6), inset 0 0 20px rgba(255, 51, 51, 0.3) !important;
+    filter: brightness(1.2) !important;
+    transform: scale(0.9) !important;
+}
+
+/* ARCHIVAR - Azul metálico brillante - REGLAS ADICIONALES */
+body .bulk-actions-toolbar .bulk-action-archive.jkhive-actionbutton-small:hover .jkhive-hex.jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-archive.jkhive-actionbutton-small a:hover .jkhive-hex.jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green) {
+    background: linear-gradient(135deg, #0066cc, #0088ff, #0066cc) !important;
+    border-color: #0088ff !important;
+    box-shadow: 0 0 20px rgba(0, 136, 255, 0.8), 0 0 40px rgba(0, 102, 204, 0.6), inset 0 0 20px rgba(0, 136, 255, 0.3) !important;
+    filter: brightness(1.2) !important;
+    transform: scale(0.9) !important;
+}
+
+/* DESTACAR - Amarillo metálico brillante - REGLAS ADICIONALES */
+body .bulk-actions-toolbar .bulk-action-star.jkhive-actionbutton-small:hover .jkhive-hex.jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-star.jkhive-actionbutton-small a:hover .jkhive-hex.jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green) {
+    background: linear-gradient(135deg, #ffaa00, #ffcc00, #ffaa00) !important;
+    border-color: #ffcc00 !important;
+    box-shadow: 0 0 20px rgba(255, 204, 0, 0.8), 0 0 40px rgba(255, 170, 0, 0.6), inset 0 0 20px rgba(255, 204, 0, 0.3) !important;
+    filter: brightness(1.2) !important;
+    transform: scale(0.9) !important;
+}
+
+/* DESDESTACAR - Gris metálico brillante - REGLAS ADICIONALES */
+body .bulk-actions-toolbar .bulk-action-unstar.jkhive-actionbutton-small:hover .jkhive-hex.jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-unstar.jkhive-actionbutton-small a:hover .jkhive-hex.jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green) {
+    background: linear-gradient(135deg, #666666, #999999, #666666) !important;
+    border-color: #999999 !important;
+    box-shadow: 0 0 20px rgba(153, 153, 153, 0.8), 0 0 40px rgba(102, 102, 102, 0.6), inset 0 0 20px rgba(153, 153, 153, 0.3) !important;
+    filter: brightness(1.2) !important;
+    transform: scale(0.9) !important;
+}
+
+/* DESARCHIVAR - Azul metálico brillante - REGLAS ADICIONALES */
+body .bulk-actions-toolbar .bulk-action-unarchive.jkhive-actionbutton-small:hover .jkhive-hex.jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-unarchive.jkhive-actionbutton-small a:hover .jkhive-hex.jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green) {
+    background: linear-gradient(135deg, #0066cc, #0088ff, #0066cc) !important;
+    border-color: #0088ff !important;
+    box-shadow: 0 0 20px rgba(0, 136, 255, 0.8), 0 0 40px rgba(0, 102, 204, 0.6), inset 0 0 20px rgba(0, 136, 255, 0.3) !important;
+    filter: brightness(1.2) !important;
+    transform: scale(0.9) !important;
+}
+
+/* RESTAURAR - Verde metálico brillante - REGLAS ADICIONALES */
+body .bulk-actions-toolbar .bulk-action-restore.jkhive-actionbutton-small:hover .jkhive-hex.jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .bulk-actions-toolbar .bulk-action-restore.jkhive-actionbutton-small a:hover .jkhive-hex.jkhive-hex-honey:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green) {
+    background: linear-gradient(135deg, #00cc66, #00ff88, #00cc66) !important;
+    border-color: #00ff88 !important;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.8), 0 0 40px rgba(0, 204, 102, 0.6), inset 0 0 20px rgba(0, 255, 136, 0.3) !important;
+    filter: brightness(1.2) !important;
+    transform: scale(0.9) !important;
+}
+
+/* VACIAR PAPELERA - Rojo metálico brillante - REGLAS ADICIONALES */
+body .empty-trash-btn .jkhive-actionbutton-small:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .empty-trash-btn .jkhive-actionbutton-small a:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .empty-trash-btn-small .jkhive-actionbutton-small:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green),
+body .empty-trash-btn-small .jkhive-actionbutton-small a:hover .jkhive-hex:not(.jkhive-hex-submit):not(.jkhive-hex-cyan):not(.jkhive-hex-red):not(.jkhive-hex-green) {
+    background: linear-gradient(135deg, #cc0000, #ff3333, #cc0000) !important;
+    border-color: #ff3333 !important;
+    box-shadow: 0 0 20px rgba(255, 51, 51, 0.8), 0 0 40px rgba(204, 0, 0, 0.6), inset 0 0 20px rgba(255, 51, 51, 0.3) !important;
+    filter: brightness(1.2) drop-shadow(0 0 15px rgba(255, 51, 51, 0.9)) !important;
+    transform: scale(0.9) !important;
+}
+
