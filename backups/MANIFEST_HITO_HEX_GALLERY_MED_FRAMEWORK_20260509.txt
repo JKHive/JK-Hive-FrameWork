@@ -37,6 +37,8 @@ Documentación (normativa):
   showcase/includes/jkfw-launcher-medium-hex-gallery-surface-open.php    (nuevo)
   showcase/includes/jkfw-product-gallery-catalog.php                     (nuevo)
 
+Commit GitHub (main): 71415d8 — feat(showcase): sellar galería MEDIUM al framework (paginación, escalas, docs)
+
 Notas:
   • Respaldo lógico: estado registrado en commit/push de GitHub + este manifiesto.
   • Sync mesa: copiar showcase/assets/* → JKHFW/assets/ y includes equivalentes; partial mirror copiado a mesa con orden anti-cronológico.
