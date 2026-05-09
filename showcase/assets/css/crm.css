@@ -1671,8 +1671,9 @@ body.admin-layout .jkhive-audit-filter-submit {
 }
 
 /* Paginación JK Hive: auditoría y cualquier listado admin con .jkhive-pagination */
+/* Excluir .jkhive-pagination--hex-gallery: usa controles estándar JK Hive + estilos en jkfw-launcher.css */
 .jkhive-audit-page .jkhive-pagination,
-body.admin-layout .jkhive-pagination {
+body.admin-layout .jkhive-pagination:not(.jkhive-pagination--hex-gallery) {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -1692,14 +1693,14 @@ body.admin-layout .jkhive-pagination {
 }
 
 .jkhive-audit-page .jkhive-pagination-meta,
-body.admin-layout .jkhive-pagination-meta {
+body.admin-layout .jkhive-pagination:not(.jkhive-pagination--hex-gallery) .jkhive-pagination-meta {
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--jk-metal-light);
 }
 
 .jkhive-audit-page .jkhive-pagination-actions,
-body.admin-layout .jkhive-pagination-actions {
+body.admin-layout .jkhive-pagination:not(.jkhive-pagination--hex-gallery) .jkhive-pagination-actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -1710,9 +1711,9 @@ body.admin-layout .jkhive-pagination-actions {
 .jkhive-audit-page .jkhive-pagination .jkhive-bttn-med .jkhive-hex,
 .jkhive-audit-page .jkhive-pagination .jkhive-bttn-med.jkhive-btn-anim-coinleft .jkhive-hex,
 .jkhive-audit-page .jkhive-pagination .jkhive-bttn-med.jkhive-btn-anim-coinright .jkhive-hex,
-body.admin-layout .jkhive-pagination .jkhive-bttn-med .jkhive-hex,
-body.admin-layout .jkhive-pagination .jkhive-bttn-med.jkhive-btn-anim-coinleft .jkhive-hex,
-body.admin-layout .jkhive-pagination .jkhive-bttn-med.jkhive-btn-anim-coinright .jkhive-hex {
+body.admin-layout .jkhive-pagination:not(.jkhive-pagination--hex-gallery) .jkhive-bttn-med .jkhive-hex,
+body.admin-layout .jkhive-pagination:not(.jkhive-pagination--hex-gallery) .jkhive-bttn-med.jkhive-btn-anim-coinleft .jkhive-hex,
+body.admin-layout .jkhive-pagination:not(.jkhive-pagination--hex-gallery) .jkhive-bttn-med.jkhive-btn-anim-coinright .jkhive-hex {
   background: linear-gradient(160deg, rgba(30, 58, 95, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%) !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(56, 189, 248, 0.35) !important;
 }
@@ -1720,9 +1721,9 @@ body.admin-layout .jkhive-pagination .jkhive-bttn-med.jkhive-btn-anim-coinright 
 .jkhive-audit-page .jkhive-pagination .jkhive-bttn-med .jkhive-hex-icon,
 .jkhive-audit-page .jkhive-pagination .jkhive-bttn-med .jkhive-hex-content,
 .jkhive-audit-page .jkhive-pagination .jkhive-bttn-med .jkhive-hex-content svg,
-body.admin-layout .jkhive-pagination .jkhive-bttn-med .jkhive-hex-icon,
-body.admin-layout .jkhive-pagination .jkhive-bttn-med .jkhive-hex-content,
-body.admin-layout .jkhive-pagination .jkhive-bttn-med .jkhive-hex-content svg {
+body.admin-layout .jkhive-pagination:not(.jkhive-pagination--hex-gallery) .jkhive-bttn-med .jkhive-hex-icon,
+body.admin-layout .jkhive-pagination:not(.jkhive-pagination--hex-gallery) .jkhive-bttn-med .jkhive-hex-content,
+body.admin-layout .jkhive-pagination:not(.jkhive-pagination--hex-gallery) .jkhive-bttn-med .jkhive-hex-content svg {
   color: #e0f2fe !important;
   fill: currentColor !important;
 }
@@ -1736,18 +1737,18 @@ body.admin-layout .jkhive-pagination .jkhive-pagination-btn-disabled {
 
 @media (max-width: 600px) {
   .jkhive-audit-page .jkhive-pagination,
-  body.admin-layout .jkhive-pagination {
+  body.admin-layout .jkhive-pagination:not(.jkhive-pagination--hex-gallery) {
     flex-direction: column;
     align-items: stretch;
   }
 
   .jkhive-audit-page .jkhive-pagination-meta,
-  body.admin-layout .jkhive-pagination-meta {
+  body.admin-layout .jkhive-pagination:not(.jkhive-pagination--hex-gallery) .jkhive-pagination-meta {
     text-align: center;
   }
 
   .jkhive-audit-page .jkhive-pagination-actions,
-  body.admin-layout .jkhive-pagination-actions {
+  body.admin-layout .jkhive-pagination:not(.jkhive-pagination--hex-gallery) .jkhive-pagination-actions {
     justify-content: center;
   }
 }

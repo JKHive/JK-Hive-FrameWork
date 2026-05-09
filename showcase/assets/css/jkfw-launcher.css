@@ -1374,3 +1374,13 @@ body.admin-layout .jkhive-pagination.jkhive-pagination--hex-gallery .jkhive-pagi
   justify-content: center;
   width: 100%;
 }
+
+/*
+ * jk-hive.css panal MEDIUM aplica transform + scale en :hover sobre la celda `[class*="jkhive-itemgallery-"]`
+ * (incl. filas “cortas” 9n+6…9). En launcher el hover canónico es el del .jkhive-hex interior; el transform en el
+ * wrapper generaba una animación de fila par ajena al patrón launcher/noticias.
+ */
+html body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium > .jkfw-launcher-hexlink.jkhive-itemgallery-med:hover,
+html body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium > .jkfw-launcher-news-hex:hover {
+  transform: none !important;
+}
