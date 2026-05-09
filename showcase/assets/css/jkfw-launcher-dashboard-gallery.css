@@ -1,8 +1,6 @@
 /**
- * Panal MEDIUM del selector JKHFW — copia literal del bloque sellado «GALERÍA VISTA RÁPIDA»
- * en jkhive/public/assets/css/crm.css (~L299–724), enlazando la misma estructura que dashboard.php:
- *   main.jkfw-launcher-hive-main > section.jkhive-section-dashboard > .jkhive-hex-gallery-medium > .jkhive-itemgallery-med
- * Selector escalado desde `main:has(.jkhive-section-dashboard)` (CRM con sidebar) para no cargar todo crm.css.
+ * Panal MEDIUM en vistas con section.dashboard: overrides «vista rápida» legacy.
+ * NO aplicar a .jkfw-launcher-hex-gallery — geometría canónica en jk-hive.css + jkfw-launcher.css.
  */
 
 /* Launcher: menos aire que CRM (allí hay cabecera de página + menú) */
@@ -15,145 +13,147 @@
 }
 
 /* Base galería - Desktop por defecto */
-main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) {
-  --jkhive-hive-flat: 260px !important;
-  --jkhive-hive-gap-x: 5px !important;
-  /* Misma geometría que CRM: mitad flat+gap (=132.5) para que nth de jk-hive no herede stagger con gap 55 */
-  --jkhive-hive-stagger: 132.5px !important;
+main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) {
   grid-template-columns: repeat(5, 260px) !important;
   gap: 0 5px !important;
   justify-content: center !important;
-  padding-top: clamp(1.75rem, 3.2vw, 2.35rem) !important;
-  padding-bottom: clamp(1.5rem, 3vw, 2.1rem) !important;
+  padding-top: 60px !important;
 }
 
-/* Desktop (769px+): gap 5px, offset fila2 = 132.5px (= (260+5)/2) */
+/* Desktop (769px+) */
 @media (min-width: 769px) {
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med .jkhive-hex-gallery-icon,
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med .jkhive-hex-gallery-title {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med .jkhive-hex-gallery-icon,
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med .jkhive-hex-gallery-title {
     margin-bottom: 0.375rem;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) {
     grid-template-columns: repeat(5, 260px) !important;
     gap: 0 5px !important;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med {
     width: 260px !important;
     height: calc(260px * 1.1547) !important;
     margin: 0 0 -75px 0 !important;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+6),
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+7),
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+8),
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+9) {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+6),
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+7),
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+8),
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+9) {
     transform: translateX(132.5px);
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+6):hover,
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+7):hover,
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+8):hover,
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+9):hover {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+6):hover,
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+7):hover,
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+8):hover,
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+9):hover {
     transform: translateX(132.5px) scale(1.05);
   }
 
-  /* Showcases con solo 2 ítems: dos pistas (evita tres huecos vacíos en fila de 5) */
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med):has(> .jkhive-itemgallery-med:nth-child(2):last-child) {
+  /* Extensión framework: filas cortas del launcher/news */
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:has(> .jkhive-itemgallery-med:nth-child(2):last-child) {
     grid-template-columns: repeat(2, 260px) !important;
     justify-content: center !important;
   }
-
-  /* Showcases con 3 ítems: mantener centrado (secciones 1 y 2) */
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med):has(> .jkhive-itemgallery-med:nth-child(3):last-child) {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:has(> .jkhive-itemgallery-med:nth-child(3):last-child) {
     grid-template-columns: repeat(3, 260px) !important;
     justify-content: center !important;
   }
-
-  /* Tercera sección (Sistemas web): con 4 ítems, centrar la fila (evita hueco de la 5ta pista). */
-  main.jkfw-launcher-hive-main
-    > section[aria-labelledby="jkfw-sec-web"].jkhive-section-dashboard
-    .jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:has(> .jkhive-itemgallery-med:nth-child(4):last-child) {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:has(> .jkhive-itemgallery-med:nth-child(4):last-child) {
     grid-template-columns: repeat(4, 260px) !important;
     justify-content: center !important;
   }
 }
 
-main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery {
+/* Evitar líneas/bordes que segmentan el fondo */
+main:has(.jkhive-section-dashboard) .jkhive-hex-gallery {
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
 }
 
-/* --- 768px: Layout 3+2 (filas de 3 y 2 ítems) --- */
+/* --- 768px: Layout 3+2 --- */
 @media (max-width: 768px) {
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) {
     grid-template-columns: repeat(3, 130px) !important;
     gap: 0 3px !important;
     row-gap: 0 !important;
-    padding-top: clamp(1rem, 2.5vw, 1.35rem) !important;
+    padding-top: 30px !important;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med):has(> .jkhive-itemgallery-med:nth-child(3):last-child) {
-    justify-content: center !important;
-  }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med {
     width: 130px !important;
     height: 150px !important;
     margin: -38px 3px 0 3px !important;
     transform: none !important;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med .jkhive-hex {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med .jkhive-hex {
     width: 130px !important;
     height: calc(130px * 1.1547) !important;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med .jkhive-hex::after {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med .jkhive-hex::after {
     width: calc(130px - 4px) !important;
     height: calc((130px - 4px) * 1.1547) !important;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(5n+4),
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(5n+5),
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+6),
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+7),
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+8),
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+9) {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(5n+4),
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(5n+5),
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+6),
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+7),
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+8),
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+9) {
     margin-top: -35px !important;
     transform: translateX(66px) !important;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:hover {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:hover {
     transform: scale(1.05) !important;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(5n+4):hover,
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(5n+5):hover,
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+6):hover,
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+7):hover,
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+8):hover,
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(9n+9):hover {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(5n+4):hover,
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(5n+5):hover,
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+6):hover,
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+7):hover,
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+8):hover,
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+9):hover {
     transform: translateX(66px) scale(1.05) !important;
+  }
+
+
+  /* Contenido interno calibrado (referencia housesitting-docs/GALERIA_VISTA_RAPIDA_CRM.txt) */
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-hex-gallery-icon {
+    font-size: 1.38rem !important;
+    margin-bottom: 0.008rem !important;
+  }
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-hex-gallery-title {
+    font-size: 0.9rem !important;
+    margin-bottom: 0.008rem !important;
+  }
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-hex-gallery-subtitle {
+    font-size: 0.53rem !important;
+    padding-bottom: 0.008rem !important;
   }
 }
 
-/* --- 480px: Layout 2+1+2 (3 filas) --- */
+/* --- 480px: Layout 2+1+2 --- */
 @media (max-width: 480px) {
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) {
     grid-template-columns: repeat(2, 100px) !important;
     gap: 0 3px !important;
     justify-content: center !important;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med {
     width: 100px !important;
     height: 115px !important;
     margin: -29px 1px 0 1px !important;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med .jkhive-hex {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med .jkhive-hex {
     width: 100px !important;
     height: calc(100px * 1.1547) !important;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med .jkhive-hex::after {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med .jkhive-hex::after {
     width: calc(100px - 4px) !important;
     height: calc((100px - 4px) * 1.1547) !important;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+1),
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+2) {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+1),
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+2) {
     transform: none !important;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+3) {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+3) {
     grid-column: 1 / -1 !important;
     justify-self: center !important;
     width: 100px !important;
@@ -161,23 +161,23 @@ main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery 
     margin-top: -26.5px !important;
     transform: translateX(1px) !important;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) {
     grid-template-columns: repeat(2, 100px) !important;
     gap: 0 3px !important;
     row-gap: 0 !important;
-    padding-top: clamp(0.65rem, 2vw, 0.95rem) !important;
+    padding-top: 20px !important;
     justify-content: center !important;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med {
     width: 100px !important;
     height: 115px !important;
     margin: -29px 1px 0 1px !important;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(3n+1),
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(3n+2) {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(3n+1),
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(3n+2) {
     transform: none !important;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(3n+3) {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(3n+3) {
     grid-column: 1 / -1 !important;
     justify-self: center !important;
     width: 100px !important;
@@ -185,46 +185,76 @@ main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery 
     margin-top: -26.5px !important;
     transform: translateX(1px) !important;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+4),
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+5) {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+4),
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+5) {
     margin-top: -26px !important;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:hover {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:hover {
     transform: scale(1.05) !important;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium .jkhive-itemgallery-med:nth-child(3n+3):hover {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(3n+3):hover {
     transform: translateX(1px) scale(1.05) !important;
+  }
+
+
+  /* Contenido interno calibrado 480px */
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-hex-gallery-icon {
+    font-size: 1.63rem !important;
+    margin-bottom: 0.18rem !important;
+  }
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-hex-gallery-title {
+    font-size: 1.07rem !important;
+    margin-bottom: 0.18rem !important;
+  }
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-hex-gallery-subtitle {
+    font-size: 0.62rem !important;
+    padding-bottom: 0.18rem !important;
   }
 }
 
 /* --- 360px: mismo patrón 2+1+2, hex 80px --- */
 @media (max-width: 360px) {
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) {
     grid-template-columns: repeat(2, 80px) !important;
     gap: 0 1px !important;
-    padding-top: 0.5rem !important;
+    padding-top: 12px !important;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med {
     width: 80px !important;
     height: 92px !important;
     margin: -23px 1px 0 1px !important;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med .jkhive-hex {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med .jkhive-hex {
     width: 80px !important;
     height: calc(80px * 1.1547) !important;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med .jkhive-hex::after {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med .jkhive-hex::after {
     width: calc(80px - 4px) !important;
     height: calc((80px - 4px) * 1.1547) !important;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+3) {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+3) {
     width: 80px !important;
     height: 92px !important;
     margin-top: -20.5px !important;
     transform: translateX(1px) !important;
   }
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+4),
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+5) {
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+4),
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+5) {
     margin-top: -20px !important;
+  }
+
+
+  /* Contenido interno calibrado 360px */
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-hex-gallery-icon {
+    font-size: 1.3rem !important;
+    margin-bottom: 0.11rem !important;
+  }
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-hex-gallery-title {
+    font-size: 0.85rem !important;
+    margin-bottom: 0.11rem !important;
+  }
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-hex-gallery-subtitle {
+    font-size: 0.5rem !important;
+    padding-bottom: 0.11rem !important;
   }
 }

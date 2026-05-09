@@ -1,0 +1,42 @@
+Hito cerrado 2026-05-09 — Galería JK Hive MEDIUM sellada al framework (paginación + escalas + docs + sync mesa)
+=================================================================================================================
+
+Objetivo:
+  • Contrato único para galería MEDIUM (modo estático vs paginado), tres escalas big/med/small,
+    orden anti-cronológico en feeds, rutas de scripts/CSS y mirror XAMPP (JKHFW/assets sin carpeta showcase).
+
+Fuente mesa antes/después de alinear: c:\xampp\htdocs\JKHFW
+Espejo en repo: JK-Hive-FrameWork/showcase/
+
+Documentación (normativa):
+  docs/JK_HIVE_FRAMEWORK_CONTRACT.md  §§ 2.b, 2.c (nuevo/contenido ampliado)
+  docs/FRAMEWORK_RULES.md             bloque “Galerías hex MEDIUM”
+  .cursor/rules/jkhfw-hex-gallery-medium-modes.mdc
+
+Árbol principal tocado por este hito (no exhaustivo — ver git show):
+  showcase/assets/js/jkhive-hex-gallery-framework.js
+  showcase/assets/css/jkfw-launcher.css
+  showcase/includes/layout-scripts.php
+  showcase/includes/jkfw-launcher-blocks.php
+  showcase/includes/partials/jkfw-landing-simple-home-mirror.php  (nuevo en repo; paginate + orden feed)
+  showcase/demo-landing-simple.php
+  showcase/includes/jkfw-landing-simple-hero.php
+  showcase/includes/jkfw-landing-simple-sidebar.php
+  showcase/assets/css/crm.css
+  showcase/assets/css/jk-hive.css
+  showcase/assets/css/jkfw-launcher-dashboard-gallery.css
+  showcase/assets/css/jkhive-elements.css
+  showcase/assets/css/jkhive-navbar.css
+  showcase/assets/css/krauss-mobile.css
+  showcase/assets/css/product-gallery.css
+  showcase/assets/js/search.js
+  showcase/demo-landing-advanced-gallery.php
+  showcase/demo-landing-advanced.php
+  showcase/includes/layout-head.php
+  showcase/includes/jkfw-launcher-medium-hex-gallery-surface-close.php   (nuevo)
+  showcase/includes/jkfw-launcher-medium-hex-gallery-surface-open.php    (nuevo)
+  showcase/includes/jkfw-product-gallery-catalog.php                     (nuevo)
+
+Notas:
+  • Respaldo lógico: estado registrado en commit/push de GitHub + este manifiesto.
+  • Sync mesa: copiar showcase/assets/* → JKHFW/assets/ y includes equivalentes; partial mirror copiado a mesa con orden anti-cronológico.

@@ -444,16 +444,6 @@
   .crm-layout .jkhive-dashboard-header .jkhive-section-subtitle {
     font-size: 0.9rem !important;
   }
-  .crm-layout .jkhive-hex-gallery-medium {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 1rem !important;
-    margin-top: 1.5rem !important;
-  }
-  /* Solo ítems del grid del dashboard; no el hex de estado de carga-masiva (.carga-masiva-status-wrap) */
-  .crm-layout .jkhive-hex-gallery-medium .jkhive-itemgallery-med {
-    min-height: 44px !important;
-  }
   .crm-layout .crm-container {
     padding-left: 0.75rem !important;
     padding-right: 0.75rem !important;
@@ -463,9 +453,6 @@
 @media (max-width: 576px) {
   .crm-layout .jkhive-section-dashboard {
     padding: 0.75rem 0.5rem !important;
-  }
-  .crm-layout .jkhive-hex-gallery-medium {
-    gap: 0.75rem !important;
   }
 }
 
@@ -513,6 +500,8 @@
     width: 100% !important;
     max-width: 100%;
     min-height: 44px;
+    font-size: calc(100% * 1.15) !important;
+    text-align: center !important;
   }
   .admin-layout #productsCount {
     font-size: 0.8rem !important;

@@ -15,16 +15,8 @@
 
 .jkhive-product-gallery {
   max-width: 1600px;
-  /* Misma geometría que jk-hive HEXAGONAL GALLERY: ¼ altura hex + breath; extra hacia paginación */
-  --jkhive-hive-apex: 1.1547;
-  --jkhive-gallery-hex-flat: 210px;
-  --jkhive-gallery-edge-breath: clamp(0.6rem, 2.15vw, 1.12rem);
-  --jkhive-gallery-tip-fraction: 0.25;
-  --jkhive-gallery-hex-bounding-height: calc(var(--jkhive-gallery-hex-flat) * var(--jkhive-hive-apex));
-  --jkhive-gallery-vertical-tip-pad: calc(var(--jkhive-gallery-hex-bounding-height) * var(--jkhive-gallery-tip-fraction) + var(--jkhive-gallery-edge-breath));
-  --jkhive-product-gallery-pagination-gap: clamp(2rem, 5vw, 4rem);
-  padding-top: var(--jkhive-gallery-vertical-tip-pad);
-  padding-bottom: calc(var(--jkhive-gallery-vertical-tip-pad) + var(--jkhive-product-gallery-pagination-gap));
+  padding-top: 60px;
+  padding-bottom: 120px; /* Separación con la paginación inferior (los ítems tienen margin-bottom -60px) */
   display: grid;
   grid-template-columns: repeat(5, 210px);
   grid-gap: 0;
@@ -413,12 +405,8 @@
 
 @media (max-width: 992px) {
   .jkhive-product-gallery {
-    --jkhive-gallery-hex-flat: 160px;
-    --jkhive-gallery-hex-bounding-height: calc(var(--jkhive-gallery-hex-flat) * var(--jkhive-hive-apex));
-    --jkhive-gallery-vertical-tip-pad: calc(var(--jkhive-gallery-hex-bounding-height) * var(--jkhive-gallery-tip-fraction) + var(--jkhive-gallery-edge-breath));
-    padding-top: var(--jkhive-gallery-vertical-tip-pad);
-    padding-bottom: calc(var(--jkhive-gallery-vertical-tip-pad) + var(--jkhive-product-gallery-pagination-gap));
     grid-template-columns: repeat(3, 160px);
+    padding-top: 1rem;
   }
   .jkhive-product-gallery .jkhive-product-gallery-item {
     width: 160px;
@@ -453,12 +441,8 @@
 /* Mobile: patrón 3-2-3-2 (5 items por ciclo), no 9n. Tres columnas; filas de 2 centradas con translateX. */
 @media (max-width: 768px) {
   .jkhive-product-gallery {
-    --jkhive-gallery-hex-flat: 130px;
-    --jkhive-gallery-hex-bounding-height: calc(var(--jkhive-gallery-hex-flat) * var(--jkhive-hive-apex));
-    --jkhive-gallery-vertical-tip-pad: calc(var(--jkhive-gallery-hex-bounding-height) * var(--jkhive-gallery-tip-fraction) + var(--jkhive-gallery-edge-breath));
-    padding-top: var(--jkhive-gallery-vertical-tip-pad);
-    padding-bottom: calc(var(--jkhive-gallery-vertical-tip-pad) + var(--jkhive-product-gallery-pagination-gap));
     grid-template-columns: repeat(3, 130px);
+    padding-top: 0.75rem;
     gap: 0;
     justify-content: center;
     overflow-x: hidden;
@@ -566,11 +550,6 @@
 /* Small mobile: mismo patrón 3-2-3-2, columnas 110px; contenido aún más reducido */
 @media (max-width: 576px) {
   .jkhive-product-gallery {
-    --jkhive-gallery-hex-flat: 110px;
-    --jkhive-gallery-hex-bounding-height: calc(var(--jkhive-gallery-hex-flat) * var(--jkhive-hive-apex));
-    --jkhive-gallery-vertical-tip-pad: calc(var(--jkhive-gallery-hex-bounding-height) * var(--jkhive-gallery-tip-fraction) + var(--jkhive-gallery-edge-breath));
-    padding-top: var(--jkhive-gallery-vertical-tip-pad);
-    padding-bottom: calc(var(--jkhive-gallery-vertical-tip-pad) + var(--jkhive-product-gallery-pagination-gap));
     grid-template-columns: repeat(3, 110px);
     overflow-x: hidden;
   }
@@ -677,6 +656,13 @@
   min-height: auto;
   background: transparent !important;
   box-shadow: none !important;
+}
+/*
+ * Showcase: `jkhive-style.css` fija `.jkhive-page-container { max-width: 1320px }`, más estrecho que
+ * el panal 5×210 + márgenes. JK Lubs catálogo no aplica ese tope sobre el mismo ancho efectivo.
+ */
+.catalog-page .jkhive-main-content > .jkhive-content-wrap > .jkhive-page-container {
+  max-width: 1600px;
 }
 .catalog-page .jkhive-container {
   max-width: 1600px;

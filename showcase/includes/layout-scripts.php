@@ -10,10 +10,14 @@ $jk_hub_hero = ! empty($jk_hub_hero);
   <script src="assets/js/error-handler.js"></script>
   <script src="assets/js/tooltip.js"></script>
   <script src="assets/js/jkhive-elements.js"></script>
+  <script src="assets/js/jkhive-hex-gallery-framework.js"></script>
 <?php if ($jk_hub_hero) : ?>
   <script src="assets/js/hero-collapse.js"></script>
   <script src="assets/js/hero-honeycomb-bar-jkhive.js"></script>
   <script src="assets/js/jkhive-hub-hero-animation.js"></script>
+<?php endif; ?>
+<?php if (! empty($jk_gallery_catalog_js)) : ?>
+  <script src="assets/js/jkhive-gallery-catalog.js"></script>
 <?php endif; ?>
   <script src="assets/js/showcase-interactions.js"></script>
 <?php if (! empty($jk_shopping_cart)) : ?>

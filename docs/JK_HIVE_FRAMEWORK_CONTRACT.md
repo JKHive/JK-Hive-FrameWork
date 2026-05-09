@@ -24,6 +24,41 @@ Documento único para **no repetir** correcciones págin aa página. Las impleme
 - Patrones: 9n (desktop 5-4), 5n (móvil 3-2) — ver `product-gallery.css` y doc histórica GALERIA-PRODUCTOS (JK Lubs).
 - Hex horizontales (puntas izq/der) **no** usan esta geometría de tip vertical.
 
+### 2.b Tres escalas visuales de panal (ítems con comportamientos propios)
+
+JK Hive define **tres tamaños** de galería vertical; cada uno combina contenedor + clase de ítem y tiene **geometría, ciclo `nth-child` y hover** documentados en `jk-hive.css` (y extensiones en `product-gallery.css`, `jkhive-index-home-responsive.css`, etc.). Al integrar contenido en el framework unificado, **no mezclar** escalas en un mismo contenedor y **respetar** el ítem canónico de cada escala:
+
+| Escala | Contenedor | Ítem típico | Notas |
+|--------|------------|-------------|--------|
+| **Grande** | `.jkhive-hex-gallery-big` | `.jkhive-itemgallery-big` / carruseles big | Hex mayor, filas/ciclos propios; hovers de celda según bloque BIG. |
+| **Mediano** | `.jkhive-hex-gallery-medium` | `.jkhive-itemgallery-med` | Panal 9n (desktop) / 5n (móvil); hovers con `transform`/`::after` en ITEM GALLERY MEDIUM. |
+| **Pequeño** | `.jkhive-hex-gallery-small` | `.jkhive-itemgallery-small` | Panal compacto; hovers y offsets por `nth-child` en escenarios tipo “ventajas”. |
+
+Los **skins** de color (p. ej. `jkhive-hex-cyan-item`, `jkhive-hex-blue-item`) son **ortogonales** a la escala: cambian la lectura visual pero deben seguir aplicándose al **hex exterior** del ítem, con mitigaciones ya definidas para CTAs anidados (`jkfw-btn-scope`, `jkfw-launcher.css` § launcher).
+
+### 2.c Galería **MEDIUM**: modo estático vs modo paginado (sellado framework)
+
+Referencias canónicas:
+
+- Script: `showcase/assets/js/jkhive-hex-gallery-framework.js` (solo actúa si existe el atributo de paginación).
+- Estilos pager en contexto admin/launcher: `showcase/assets/css/jkfw-launcher.css` (clase `jkhive-pagination--hex-gallery`; complementa `crm.css` sin romper listados genéricos).
+- Carga global del script: `showcase/includes/layout-scripts.php`.
+
+**Modo 1 — Lista finita (sin paginación)**  
+
+- Contenedor: `.jkhive-hex-gallery.jkhive-hex-gallery-medium` **sin** `data-jkhive-paginate`.
+- Comportamiento: todos los ítems permanecen en el DOM; el panal **crece verticalmente**. Pensado para conjuntos acotados (habitualmente pocas tarjetas); debe seguir siendo correcto con más ítems (p. ej. 18–36) si hiciera falta, **sin** activar el framework de páginas.
+
+**Modo 2 — Feed que crece en el tiempo (con paginación)**  
+
+- Contenedor: misma clase MEDIUM más **`data-jkhive-paginate="true"`**.
+- Comportamiento: **igual al estado validado en mesa** — reconstrucción de página respetando ciclo honeycomb MEDIUM, pager con meta compacta (“Mostrando *a–b* de *n*”), bloque centrado, sin control “ir a página”.
+- **Orden de contenido:** en noticias y feeds similares, **anti-cronológico** (más nuevas primero en el panal y en las primeras páginas). La entrada más antigua queda al final. Los datos deben ordenarse **antes** del HTML; si se usa `array_reverse` solo para pintado, preservar **índices** alineados con el JSON del modal (`data-jkfw-news-idx` ↔ `items[i]` en `#jkfw-simple-news-modal-data`).
+
+**Ejemplo integrado (landing básica CANON):** `showcase/includes/partials/jkfw-landing-simple-home-mirror.php` + `demo-landing-simple.php`.
+
+**Sincronización mesa XAMPP:** el árbol vivo `c:\xampp\htdocs\JKHFW` usa `assets\` y `includes\` en la raíz del sitio — **no** existe `showcase\` bajo JKHFW. Copiar desde `JK-Hive-FrameWork/showcase/assets/` → `JKHFW/assets/` (y equivalente PHP/includes) al validar en Apache.
+
 ## 3. Galería catálogo (`.jkhive-product-gallery`)
 
 - Layout y breakpoints en `product-gallery.css` **parte 1**; estilo visual **parte 2**.

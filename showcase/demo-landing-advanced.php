@@ -52,14 +52,12 @@ $h = static fn (string $s): string => htmlspecialchars($s, ENT_QUOTES | ENT_SUBS
           <p style="color:var(--jk-metal-light);max-width:48rem;line-height:1.55;">Sección informativa editable en versión real mediante módulo de contenido.</p>
         </section>
 
-        <section id="landing-gallery">
-        <h2 class="jkhive-section-title sm">Galería de productos / servicios</h2>
-        <div class="jkhive-hex-gallery jkhive-hex-gallery-medium jkfw-launcher-hex-gallery">
-          <?= jkfw_launcher_hex_link('#landing-gallery', 'fas fa-gem', 'Servicio A', 'Demo administrable sobre panal oficial.', 'jkhive-itemgallery-med', 'jkhive-hex-cyan-item') ?>
-          <?= jkfw_launcher_hex_link('#landing-gallery', 'fas fa-bezier-curve', 'Servicio B', 'Misma geometría med que el selector.', 'jkhive-itemgallery-med', 'jkhive-hex-blue-item') ?>
-          <?= jkfw_launcher_hex_link('#landing-gallery', 'fas fa-shield-halved', 'Servicio C', 'Sin layout flex improvisado.', 'jkhive-itemgallery-med', 'jkhive-hex-cyan-item') ?>
-          <?= jkfw_launcher_hex_link('#landing-gallery', 'fas fa-rocket', 'Servicio D', 'Responsive honeycomb JK Hive.', 'jkhive-itemgallery-med', 'jkhive-hex-blue-item') ?>
-        </div>
+        <section id="landing-gallery" aria-labelledby="jkfw-adv-pro-gallery-h">
+          <h2 id="jkfw-adv-pro-gallery-h" class="jkhive-section-title" style="font-size:1.05rem;"><?= $h('Galería de productos / servicios') ?></h2>
+          <p style="color:var(--jk-metal-light);max-width:48rem;line-height:1.55;">
+            <?= $h('Catálogo con panal canónico, filtros, buscador, paginación e ítems por página está en la vista dedicada.') ?>
+          </p>
+          <p style="margin-top:0.65rem;"><a href="demo-landing-advanced-gallery.php" style="color:var(--jk-primary-blue-light);font-weight:600;"><?= $h('Abrir galería interactiva (demo)') ?></a></p>
         </section>
 
         <section id="landing-contact">

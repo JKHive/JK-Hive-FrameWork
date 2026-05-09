@@ -37,7 +37,7 @@ class SearchSystem {
                     </div>
                     <div class="jkhive-modal-body">
                         <div class="search-input-container" style="margin-bottom: 20px;">
-                            <input type="text" id="searchInput" class="form-control" placeholder="Buscar productos, servicios, libros..." autocomplete="off" style="width: 100%; padding: 12px; font-size: 1.1rem; background: var(--jk-tech-dark); border: 2px solid var(--jk-primary-blue); color: var(--jk-metal-light); border-radius: 8px;">
+                            <input type="text" id="searchInput" class="form-control" placeholder="Buscar productos, servicios, libros..." autocomplete="off" style="width: 100%; padding: 12px; font-size: calc(1.1rem * 1.15); text-align: center; background: var(--jk-tech-dark); border: 2px solid var(--jk-primary-blue); color: var(--jk-metal-light); border-radius: 8px;">
                         </div>
                         <div id="searchResults" class="search-results" style="max-height: 500px; overflow-y: auto;"></div>
                     </div>

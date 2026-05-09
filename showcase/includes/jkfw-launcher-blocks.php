@@ -175,6 +175,64 @@ function jkfw_launcher_landing_basic_theme_hex(array $themeLabels, string $activ
       '</div>';
 }
 
+/**
+ * Ítem hex galería media “noticia”: CTA abre `#jkfwSimpleNewsModal` vía datos JSON (`#jkfw-simple-news-modal-data`).
+ * Icono hex principal y botón pies: tema noticias (por defecto `fa-newspaper`).
+ *
+ * `$index` debe coincidir con la posición del ítem en el array `items` del JSON del modal (ver contrato en docs/JK_HIVE_FRAMEWORK_CONTRACT.md §2.c).
+ */
+function jkfw_launcher_hex_news_item(
+    int $index,
+    string $title,
+    string $hint,
+    string $galleryIconFa = 'fa-newspaper',
+    string $size = 'jkhive-itemgallery-med',
+    string $skin = 'jkhive-hex-cyan-item'
+): string {
+    $h = static fn (string $s): string => htmlspecialchars($s, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    $gi = trim($galleryIconFa);
+    if ($gi === '' || !preg_match('/^fa-[a-z0-9-]{2,40}$/i', $gi)) {
+        $gi = 'fa-newspaper';
+    }
+    $openLabel = $h('Ver noticia: ' . $title);
+
+    return '<div class="jkfw-launcher-hexlink jkfw-launcher-hex-with-cta jkfw-launcher-news-hex ' . $h($size) . '" role="group" aria-label="' . $h($title) . '">' .
+        '<div class="jkhive-hex ' . $h($skin) . '">' .
+          '<div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item jkhive-hex-no-hover-scrollbars">' .
+            '<div class="jkhive-hex-item-head">' .
+              '<div class="jkhive-hex-item-head-tip"></div>' .
+              '<div class="jkhive-hex-item-head-main">' .
+                '<i class="jkhive-hex-gallery-icon fas ' . $h($gi) . '"></i>' .
+              '</div>' .
+            '</div>' .
+            '<div class="jkhive-hex-item-body">' .
+              '<div class="jkhive-hex-item-body-scroll">' .
+                '<div class="jkfw-launcher-hex-body-copy">' .
+                  '<div class="jkhive-hex-gallery-title">' . $h($title) . '</div>' .
+                  '<div class="jkhive-hex-gallery-subtitle">' . $h($hint) . '</div>' .
+                '</div>' .
+              '</div>' .
+            '</div>' .
+            '<div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-cta">' .
+              '<div class="jkhive-hex-item-foot-main">' .
+                '<div class="jkfw-btn-scope jkfw-jkhive-cta-sm-slot">' .
+                  '<div class="jkhive-admoptions-bttn jkhive-bttn-sm jkhive-btn-anim-shake jkfw-jkhive-cta-sm" data-tooltip="' . $openLabel . '">' .
+                    '<button type="button" class="jkfw-simple-news-open jkhive-bttn-inner" data-jkfw-news-idx="' . (string) ((int) $index) .
+                    '" aria-label="' . $openLabel . '">' .
+                      '<div class="jkhive-hex"><div class="jkhive-hex-content">' .
+                      '<i class="jkhive-hex-icon fas fa-newspaper" aria-hidden="true"></i>' .
+                      '</div></div>' .
+                    '</button>' .
+                  '</div>' .
+                '</div>' .
+              '</div>' .
+              '<div class="jkhive-hex-item-foot-tip"></div>' .
+            '</div>' .
+          '</div>' .
+        '</div>' .
+      '</div>';
+}
+
 /** Botón tema horizontal estático (p. ej. panel admin landing pro). */
 function jkfw_admin_theme_horizontal_link(string $slug, string $label, bool $active): string
 {

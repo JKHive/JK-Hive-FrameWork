@@ -23,3 +23,10 @@ Estas reglas son obligatorias para toda correccion futura en la mesa `JKHFW`.
 - `jkhive-gallery-align-right`
 
 Estas utilidades deben preferirse antes de crear estilos inline o reglas especificas temporales.
+
+## Galerías hex MEDIUM (framework sellado)
+
+- Contrato único: **`docs/JK_HIVE_FRAMEWORK_CONTRACT.md`** §§ **2.b** (tres escalas big / med / small y skins) y **2.c** (MEDIUM sin paginación vs `data-jkhive-paginate="true"`, orden anti-cronológico para feeds, archivos tocados, sync XAMPP).
+- Regla operativa del agente: **`.cursor/rules/jkhfw-hex-gallery-medium-modes.mdc`** (refuerzo breve en cada sesión).
+
+Cualquier nueva página que use galería MEDIUM **debe** adherirse a ese contrato; no duplicar lógica de pager ni overrides sueltos fuera de las hojas canónicas citadas.

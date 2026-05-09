@@ -10,6 +10,8 @@ $jk_extra_css = $jk_extra_css ?? '';
 $jk_body_top_script = isset($jk_body_top_script) ? (string) $jk_body_top_script : '';
 $jk_body_class = trim((string) (($jk_body_class ?? 'page-public jkhive-showcase-body')) . ' ' . jkfw_theme_body_class_suffix());
 $jk_hub_hero = ! empty($jk_hub_hero);
+/** Si true (pág. tipo productos.php), no cargar CSS de launcher/hex About — mismo subconjunto base que JK Lubs site-layout-start.php. */
+$jk_catalog_public_layout = isset($jk_catalog_public_layout) && $jk_catalog_public_layout;
 $jk_hide_top_navbar = ! empty($jk_hide_top_navbar);
 $jk_hide_sidebar = ! empty($jk_hide_sidebar);
 $jk_demo_auth = ! empty($jk_demo_auth);
@@ -35,8 +37,11 @@ $t_slug = jkfw_theme_resolve();
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="assets/css/jk-hive.css">
   <link rel="stylesheet" href="assets/css/jkfw-themes.css">
+<?php if (! $jk_catalog_public_layout) : ?>
   <link rel="stylesheet" href="assets/css/jkhive-hex-gallery-mobile-honey-1col.css">
   <link rel="stylesheet" href="assets/css/jkhive-hex-item-layout.css">
+  <link rel="stylesheet" href="assets/css/jkfw-launcher-dashboard-gallery.css">
+<?php endif; ?>
   <link rel="stylesheet" href="assets/css/jkhive-style.css">
   <link rel="stylesheet" href="assets/css/jkhive-elements.css">
   <link rel="stylesheet" href="assets/css/jkhive-navbar.css">

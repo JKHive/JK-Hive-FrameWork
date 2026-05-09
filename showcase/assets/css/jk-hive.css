@@ -1141,6 +1141,8 @@ body.page-public .jkhive-main-content {
   --jkhive-hive-apex: 1.1547;
   --jkhive-hive-flat: 210px;
   --jkhive-hive-gap-x: 0px;
+  /* Panal flat-top: paso vertical entre filas = √3/2 × (flat + gap); solape = H + row-gap − ese paso */
+  --jkhive-hive-sqrt3-half: 0.8660254037844386;
   --jkhive-hive-stagger: calc((var(--jkhive-hive-flat) + var(--jkhive-hive-gap-x)) / 2);
   --jkhive-gallery-edge-breath: clamp(0.6rem, 2.15vw, 1.12rem);
   --jkhive-gallery-tip-fraction: 0.25;
@@ -1150,13 +1152,68 @@ body.page-public .jkhive-main-content {
   padding-bottom: var(--jkhive-gallery-vertical-tip-pad);
 }
 
-/* Ítems 260px (med / why-me): columnas + gap alineados al ancho flat */
+/*
+ * La base .jkhive-hex-gallery usa flex; variantes deben imponer grid con **dos clases**
+ * (0,2,0) para ganar a reglas sueltas de una clase en hojas cargadas después.
+ */
+.jkhive-hex-gallery.jkhive-hex-gallery-medium,
+.jkhive-hex-gallery.jkhive-hex-gallery-big,
+.jkhive-hex-gallery.jkhive-hex-gallery-small {
+  display: grid;
+}
+
+/*
+ * Ítems 260px (itemgallery-med / why-me): CANÓN del panal MEDIUM.
+ * --jkhive-hive-gap-x = hueco entre celdas en X e Y (mismo ritmo visual).
+ * Opcional marketing: .jkhive-hex-gallery-medium--spread { --jkhive-hive-gap-x: 55px; } (hueco grande).
+ */
 .jkhive-hex-gallery-medium:is(:has(.jkhive-itemgallery-med), :has(.jkhive-why-me-item)) {
-  gap: 0 55px;
   --jkhive-gallery-hex-flat: 260px;
   grid-template-columns: repeat(5, 260px);
   --jkhive-hive-flat: 260px;
+  --jkhive-hive-gap-x: 5px;
+  --jkhive-hive-row-gap-y: var(--jkhive-hive-gap-x);
+  /* Desde la 2.ª fila visual: bajar 3px (margin-top en hijos ≥6 — ver bloques 9n+* itemgallery/why-me). */
+  --jkhive-hive-row-vertical-nudge: 3px;
+  --jkhive-hive-row-pull: calc(
+    var(--jkhive-gallery-hex-flat) * var(--jkhive-hive-apex)
+    + var(--jkhive-hive-row-gap-y)
+    - var(--jkhive-hive-sqrt3-half) * (var(--jkhive-gallery-hex-flat) + var(--jkhive-hive-gap-x))
+  );
+  gap: var(--jkhive-hive-row-gap-y) var(--jkhive-hive-gap-x);
+  --jkhive-hive-stagger: calc((var(--jkhive-hive-flat) + var(--jkhive-hive-gap-x)) / 2);
+}
+
+.jkhive-hex-gallery-medium:is(:has(.jkhive-itemgallery-med), :has(.jkhive-why-me-item))
+  > :is(.jkhive-itemgallery-med, .jkhive-why-me-item) {
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: calc(-1 * var(--jkhive-hive-row-pull));
+}
+
+/*
+ * Solo la 1.ª fila del panal (primeros 5 hijos en el patrón 5+4): margin-top 0.
+ * Error común: :nth-child(9n+1)…(9n+5) también coincide con 10…14 (n=1), que son la fila LARGA
+ * del mismo ciclo y deben llevar --jkhive-hive-row-vertical-nudge; al forzarles 0 ganaba en
+ * especificidad y el bajado 3px “no existía” en filas 10–14, 19–23, etc.
+ */
+.jkhive-hex-gallery-medium:is(:has(.jkhive-itemgallery-med), :has(.jkhive-why-me-item))
+  > :is(.jkhive-itemgallery-med, .jkhive-why-me-item):nth-child(-n + 5) {
+  margin-top: 0;
+  transform: none;
+}
+
+.jkhive-hex-gallery-medium--spread:is(:has(.jkhive-itemgallery-med), :has(.jkhive-why-me-item)) {
   --jkhive-hive-gap-x: 55px;
+  --jkhive-hive-row-gap-y: var(--jkhive-hive-gap-x);
+  --jkhive-hive-row-vertical-nudge: 3px;
+  --jkhive-hive-row-pull: calc(
+    var(--jkhive-gallery-hex-flat) * var(--jkhive-hive-apex)
+    + var(--jkhive-hive-row-gap-y)
+    - var(--jkhive-hive-sqrt3-half) * (var(--jkhive-gallery-hex-flat) + var(--jkhive-hive-gap-x))
+  );
+  gap: var(--jkhive-hive-row-gap-y) var(--jkhive-hive-gap-x);
+  --jkhive-hive-stagger: calc((var(--jkhive-hive-flat) + var(--jkhive-hive-gap-x)) / 2);
 }
 .jkhive-hex-gallery-medium:has(.jkhive-why-me-item:nth-child(4):last-child) {
   grid-template-columns: repeat(4, 260px);
@@ -1176,24 +1233,56 @@ body.page-public .jkhive-main-content {
 .jkhive-hex-gallery-medium:has(.jkhive-why-me-item:nth-child(4):last-child) .jkhive-why-me-item:nth-child(3) { grid-column: 3; grid-row: 1; }
 .jkhive-hex-gallery-medium:has(.jkhive-why-me-item:nth-child(4):last-child) .jkhive-why-me-item:nth-child(4) { grid-column: 4; grid-row: 1; margin-right: 15px !important; margin-left: 15px !important; }
 
-/* Exactamente 4 ítems jkhive-itemgallery-med (p. ej. portafolio CMS): fila 4×260px — NO aplica al selector launch (.jkfw-launcher-hex-gallery: panal 5-4 estándar). */
-.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(> .jkhive-itemgallery-med:nth-child(4):last-child) {
+/*
+ * Exactamente 4 ítems jkhive-itemgallery-med: una fila 4×260px (CRM y launcher).
+ * Antes `:not(.jkfw-launcher-hex-gallery)` dejaba .jkfw-launcher-hex-gallery solo con repeat(4) pero SIN resets
+ * de row-pull/grid — el mismo panal parecía "no responder" al ajustar nudge/Stagger para filas honeycomb ≥2.
+ */
+.jkhive-hex-gallery-medium:has(> .jkhive-itemgallery-med:nth-child(4):last-child) {
   grid-template-columns: repeat(4, 260px);
 }
-.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(> .jkhive-itemgallery-med:nth-child(4):last-child) .jkhive-itemgallery-med:nth-child(1),
-.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(> .jkhive-itemgallery-med:nth-child(4):last-child) .jkhive-itemgallery-med:nth-child(2),
-.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(> .jkhive-itemgallery-med:nth-child(4):last-child) .jkhive-itemgallery-med:nth-child(3),
-.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(> .jkhive-itemgallery-med:nth-child(4):last-child) .jkhive-itemgallery-med:nth-child(4) {
+.jkhive-hex-gallery-medium:has(> .jkhive-itemgallery-med:nth-child(4):last-child) .jkhive-itemgallery-med:nth-child(1),
+.jkhive-hex-gallery-medium:has(> .jkhive-itemgallery-med:nth-child(4):last-child) .jkhive-itemgallery-med:nth-child(2),
+.jkhive-hex-gallery-medium:has(> .jkhive-itemgallery-med:nth-child(4):last-child) .jkhive-itemgallery-med:nth-child(3),
+.jkhive-hex-gallery-medium:has(> .jkhive-itemgallery-med:nth-child(4):last-child) .jkhive-itemgallery-med:nth-child(4) {
   margin-bottom: 0 !important;
   margin-right: 15px !important;
   margin-left: 15px !important;
   margin-top: 0 !important;
   transform: none !important;
 }
-.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(> .jkhive-itemgallery-med:nth-child(4):last-child) .jkhive-itemgallery-med:nth-child(1) { grid-column: 1; grid-row: 1; }
-.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(> .jkhive-itemgallery-med:nth-child(4):last-child) .jkhive-itemgallery-med:nth-child(2) { grid-column: 2; grid-row: 1; }
-.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(> .jkhive-itemgallery-med:nth-child(4):last-child) .jkhive-itemgallery-med:nth-child(3) { grid-column: 3; grid-row: 1; }
-.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(> .jkhive-itemgallery-med:nth-child(4):last-child) .jkhive-itemgallery-med:nth-child(4) { grid-column: 4; grid-row: 1; margin-right: 15px !important; margin-left: 15px !important; }
+.jkhive-hex-gallery-medium:has(> .jkhive-itemgallery-med:nth-child(4):last-child) .jkhive-itemgallery-med:nth-child(1) { grid-column: 1; grid-row: 1; }
+.jkhive-hex-gallery-medium:has(> .jkhive-itemgallery-med:nth-child(4):last-child) .jkhive-itemgallery-med:nth-child(2) { grid-column: 2; grid-row: 1; }
+.jkhive-hex-gallery-medium:has(> .jkhive-itemgallery-med:nth-child(4):last-child) .jkhive-itemgallery-med:nth-child(3) { grid-column: 3; grid-row: 1; }
+.jkhive-hex-gallery-medium:has(> .jkhive-itemgallery-med:nth-child(4):last-child) .jkhive-itemgallery-med:nth-child(4) { grid-column: 4; grid-row: 1; margin-right: 15px !important; margin-left: 15px !important; }
+
+/*
+ * Launcher / tarjetas CRM (.jkfw-launcher-hex-gallery): pocas celdas en escritorio —
+ * repetir sólo las pistas necesarias y centrar (evita fila de 5 con huecos falsos).
+ * Móvil sigue usando repeat(3, 130px) en el bloque @media (max-width: 768px) más abajo.
+ */
+.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:has(.jkhive-itemgallery-med):has(> .jkhive-itemgallery-med:nth-child(2):last-child) {
+  grid-template-columns: repeat(2, 260px);
+  justify-content: center;
+}
+.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:has(.jkhive-itemgallery-med):has(> .jkhive-itemgallery-med:nth-child(3):last-child) {
+  grid-template-columns: repeat(3, 260px);
+  justify-content: center;
+}
+.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:has(.jkhive-itemgallery-med):has(> .jkhive-itemgallery-med:nth-child(4):last-child) {
+  justify-content: center;
+}
+
+/*
+ * Launcher MEDIUM 2× y 3× (p. ej. index.php primera fila = 3 tarjetas):
+ * una sola banda útil equivalente — el row-pull del panal 5–4 multiciclo NO aplica aquí:
+ * mismos márgenes negativos que en filas cortas aplastaban la vista “sin cambios” ante microajustes nth-child.
+ */
+.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:has(.jkhive-itemgallery-med):has(> .jkhive-itemgallery-med:nth-child(2):last-child) > .jkhive-itemgallery-med,
+.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:has(.jkhive-itemgallery-med):has(> .jkhive-itemgallery-med:nth-child(3):last-child) > .jkhive-itemgallery-med {
+  margin-bottom: 0 !important;
+  transform: none !important;
+}
 
 /* Exactamente 4 ítems a 210px (services-item / hex-gallery-item): fila única 4 columnas — portfolio jkhive.work */
 .jkhive-hex-gallery-medium:has(.jkhive-services-item:nth-child(4):last-child),
@@ -1232,13 +1321,25 @@ body.page-public .jkhive-main-content {
   transition: transform 0.3s ease, z-index 0s;
 }
 
-/* Panal medium 5-4: misma geometría para hex-gallery-item, why-me e itemgallery (stagger = (flat+gap)/2) */
-.jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(9n+6),
-.jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(9n+7),
-.jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(9n+8),
-.jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(9n+9) {
+/* Panal medium 5-4 — fila corta escalonada (+ microajuste sólo ítems 210px por redondeos de clip-path) */
+.jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-services-item):nth-child(9n+6),
+.jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-services-item):nth-child(9n+7),
+.jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-services-item):nth-child(9n+8),
+.jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-services-item):nth-child(9n+9) {
   transform: translateX(var(--jkhive-hive-stagger));
   margin-top: -1px;
+}
+
+.jkhive-hex-gallery-medium :is(.jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+6),
+.jkhive-hex-gallery-medium :is(.jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+7),
+.jkhive-hex-gallery-medium :is(.jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+8),
+.jkhive-hex-gallery-medium :is(.jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+9) {
+  /* Nudge vertical vía translateY (no margin-top): el panal ya usa transform para stagger — misma capa visual. */
+  transform: translate(
+    var(--jkhive-hive-stagger),
+    var(--jkhive-hive-row-vertical-nudge, 0px)
+  );
+  margin-top: 0;
 }
 
 .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(9n+6) { grid-column: 1; }
@@ -1246,12 +1347,22 @@ body.page-public .jkhive-main-content {
 .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(9n+8) { grid-column: 3; }
 .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(9n+9) { grid-column: 4; }
 
-.jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(9n+10),
-.jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(9n+11),
-.jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(9n+12),
-.jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(9n+13),
-.jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(9n+14) {
+/* Filas largas (9n+10…14): hex 210 mantiene margin-top 0; itemgallery/why-me heredan bajada 3px (no pisar con 0). */
+.jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-services-item):nth-child(9n+10),
+.jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-services-item):nth-child(9n+11),
+.jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-services-item):nth-child(9n+12),
+.jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-services-item):nth-child(9n+13),
+.jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-services-item):nth-child(9n+14) {
   transform: none;
+  margin-top: 0;
+}
+
+.jkhive-hex-gallery-medium :is(.jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+10),
+.jkhive-hex-gallery-medium :is(.jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+11),
+.jkhive-hex-gallery-medium :is(.jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+12),
+.jkhive-hex-gallery-medium :is(.jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+13),
+.jkhive-hex-gallery-medium :is(.jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+14) {
+  transform: translateY(var(--jkhive-hive-row-vertical-nudge, 0px));
   margin-top: 0;
 }
 
@@ -1321,6 +1432,32 @@ body.page-public .jkhive-main-content {
 .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(9n+8):hover,
 .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(9n+9):hover {
   transform: translateX(var(--jkhive-hive-stagger)) scale(1.05);
+}
+
+/*
+ * why-me / itemgallery: mismo nudge vertical en hover que en reposo + scale (filas cortas).
+ * El bloque siguiente refina filas largas (solo itemgallery / why-me).
+ */
+.jkhive-hex-gallery-medium :is(.jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+6):hover,
+.jkhive-hex-gallery-medium :is(.jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+7):hover,
+.jkhive-hex-gallery-medium :is(.jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+8):hover,
+.jkhive-hex-gallery-medium :is(.jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+9):hover {
+  transform: translate(
+    var(--jkhive-hive-stagger),
+    var(--jkhive-hive-row-vertical-nudge, 0px)
+  )
+    scale(1.05);
+}
+
+/*
+ * Filas largas itemgallery / why-me: reposo lleva solo translateY; hover = translateY + scale.
+ */
+.jkhive-hex-gallery-medium :is(.jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+10):hover,
+.jkhive-hex-gallery-medium :is(.jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+11):hover,
+.jkhive-hex-gallery-medium :is(.jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+12):hover,
+.jkhive-hex-gallery-medium :is(.jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+13):hover,
+.jkhive-hex-gallery-medium :is(.jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+14):hover {
+  transform: translateY(var(--jkhive-hive-row-vertical-nudge, 0px)) scale(1.05);
 }
 
 /* ========================================
@@ -1609,7 +1746,20 @@ body.page-public .jkhive-main-content {
   .jkhive-hex-gallery-medium {
     --jkhive-gallery-hex-flat: 130px;
     --jkhive-hive-flat: 130px;
-    --jkhive-hive-gap-x: 2px;
+    --jkhive-hive-gap-x: 3px;
+    --jkhive-hive-row-gap-y: 0px;
+    --jkhive-hive-stagger: calc((var(--jkhive-hive-flat) + var(--jkhive-hive-gap-x)) / 2);
+  }
+
+  .jkhive-hex-gallery-medium:is(:has(.jkhive-itemgallery-med), :has(.jkhive-why-me-item)) {
+    --jkhive-hive-gap-x: 3px;
+    --jkhive-hive-row-gap-y: var(--jkhive-hive-gap-x);
+    --jkhive-hive-row-vertical-nudge: 3px;
+    --jkhive-hive-row-pull: calc(
+      var(--jkhive-gallery-hex-flat) * var(--jkhive-hive-apex)
+      + var(--jkhive-hive-row-gap-y)
+      - var(--jkhive-hive-sqrt3-half) * (var(--jkhive-gallery-hex-flat) + var(--jkhive-hive-gap-x))
+    );
   }
 
   .jkhive-hex-gallery-small {
@@ -1645,10 +1795,10 @@ body.page-public .jkhive-main-content {
     transform: scale(1.05);
   }
   
-  /* Gallery Medium - Mobile (3-2-3-2): mismas celdas que escritorio 5-4 pero flat/gap móvil */
+  /* Gallery Medium - Mobile (3-2): panal oficial (gap + solape coherentes en X/Y) */
   .jkhive-hex-gallery-medium {
     grid-template-columns: repeat(3, 130px) !important;
-    gap: 0 !important;
+    gap: var(--jkhive-hive-row-gap-y) var(--jkhive-hive-gap-x) !important;
     /* padding-y hereda --jkhive-gallery-vertical-tip-pad (flat móvil → altura y reserva se recalculan solas) */
   }
 
@@ -1671,21 +1821,21 @@ body.page-public .jkhive-main-content {
     margin: -38px 1px !important;
   }
 
-  .jkhive-hex-gallery-medium:has(> .jkhive-itemgallery-med:nth-child(4):last-child) .jkhive-itemgallery-med {
-    margin: -38px 1px !important;
-  }
-
   .jkhive-hex-gallery-medium:has(.jkhive-why-me-item) {
     grid-template-columns: repeat(3, 130px) !important;
-    gap: 0 !important;
+    gap: var(--jkhive-hive-row-gap-y) var(--jkhive-hive-gap-x) !important;
     --jkhive-gallery-hex-flat: 150px;
   }
 
-  /* Anular grid-column / translate de escritorio en todas las celdas del panal */
-  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(9n+6),
-  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(9n+7),
-  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(9n+8),
-  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(9n+9) {
+  /*
+   * Anular grid-column / translate 5-4 de escritorio en ítems 210px.
+   * Ítems itemgallery / why-me: mismo reset — si no, 9n+6…9 siguen forzando cols 1–4 y stagger de 5 columnas
+   * con solo 3 pistas móviles, y el panal “desordena” filas 6–9.
+   */
+  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-services-item, .jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+6),
+  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-services-item, .jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+7),
+  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-services-item, .jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+8),
+  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-services-item, .jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+9) {
     transform: none;
     margin-top: 0;
     grid-column: auto;
@@ -1699,20 +1849,53 @@ body.page-public .jkhive-main-content {
     grid-column: auto;
   }
 
-  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]) {
+  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item) {
     width: 130px;
     height: 150px;
     margin: -38px 1px !important;
   }
 
-  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(5n+4),
-  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(5n+5) {
+  .jkhive-hex-gallery-medium:is(:has(.jkhive-itemgallery-med)) > [class*="jkhive-itemgallery-"] {
+    width: 130px !important;
+    height: 150px !important;
+    margin-left: 3px !important;
+    margin-right: 3px !important;
+    /* margin-top: fila 1 desde reglas base; filas 2+ vía 9n+* / stagger — no forzar 0 !important (pisaba la bajada 3px). */
+    margin-bottom: calc(-1 * var(--jkhive-hive-row-pull)) !important;
+  }
+
+  /*
+   * Móvil 3+2: filas cortas solo en 5n+4 y 5n+5 (4–5, 9–10, 14–15…).
+   * NO mezclar 9n+6…9 (eso es el periodo 5+4 de escritorio; aquí rompe ítems 6–8).
+   */
+  .jkhive-hex-gallery-medium:is(:has(.jkhive-itemgallery-med))
+    > [class*="jkhive-itemgallery-"]:is(:nth-child(5n+4), :nth-child(5n+5)) {
+    margin-top: calc(
+      -1 * var(--jkhive-hive-row-pull) + var(--jkhive-hive-gap-x) + var(--jkhive-hive-row-vertical-nudge)
+    ) !important;
+    transform: translateX(var(--jkhive-hive-stagger)) !important;
+  }
+
+  .jkhive-hex-gallery-medium:is(:has(.jkhive-itemgallery-med))
+    > [class*="jkhive-itemgallery-"]:is(:nth-child(5n+4), :nth-child(5n+5)):hover {
+    transform: translateX(var(--jkhive-hive-stagger)) scale(1.05) !important;
+  }
+
+  .jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:has(.jkhive-itemgallery-med):has(> .jkhive-itemgallery-med:nth-child(2):last-child) > .jkhive-itemgallery-med,
+  .jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:has(.jkhive-itemgallery-med):has(> .jkhive-itemgallery-med:nth-child(3):last-child) > .jkhive-itemgallery-med {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    transform: none !important;
+  }
+
+  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item):nth-child(5n+4),
+  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item):nth-child(5n+5) {
     margin-top: 0px !important;
     transform: translateX(var(--jkhive-hive-stagger));
   }
 
-  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(5n+4):hover,
-  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(5n+5):hover {
+  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item):nth-child(5n+4):hover,
+  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item):nth-child(5n+5):hover {
     transform: translateX(var(--jkhive-hive-stagger)) scale(1.05);
   }
 
@@ -1726,11 +1909,10 @@ body.page-public .jkhive-main-content {
     height: calc((130px - 4px) * 1.1547) !important;
   }
 
-  /* Sobrescribir hover escritorio fila 5-4 (9n+6…9): en móvil 3-2 no llevan translateX */
-  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(9n+6):hover,
-  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(9n+7):hover,
-  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(9n+8):hover,
-  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(9n+9):hover {
+  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item):nth-child(9n+6):hover,
+  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item):nth-child(9n+7):hover,
+  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item):nth-child(9n+8):hover,
+  .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item):nth-child(9n+9):hover {
     transform: scale(1.05);
   }
   
@@ -4029,11 +4211,11 @@ body .empty-trash-btn-small .jkhive-actionbutton-small:hover .jkhive-hex-honey {
   margin: 0;
 }
 
-/* Medium: 2x tamaño de small (260px vs 130px), separación proporcional */
+/* Medium: 2x tamaño de small — solape vertical lo define la galería (.jkhive-hive-row-pull), no valores mágicos aquí */
 .jkhive-itemgallery-med {
   width: 260px;
   height: calc(260px * 1.1547);
-  margin: -75px 0; /* margin-top negativo proporcional, sin margin horizontal (el gap del grid se encarga) */
+  margin: 0;
   transition: transform 0.3s ease, z-index 0s;
 }
 

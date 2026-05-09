@@ -228,6 +228,55 @@
   padding-top: 0;
 }
 
+/*
+ * Landing básica (#noticias): si el contenedor omitía `jkfw-launcher-hex-gallery`, no se aplicaban
+ * body-scroll gap / copy column — distancia vertical interior distinta al launcher canónico.
+ */
+.jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkfw-launcher-hexlink.jkhive-itemgallery-med .jkhive-hex-gallery-subtitle {
+  max-width: min(100%, 16.5rem);
+  line-height: 1.28;
+}
+.jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkfw-launcher-hexlink.jkhive-itemgallery-med .jkhive-hex-item-head-main {
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+.jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkfw-launcher-hexlink.jkhive-itemgallery-med .jkhive-hex-item-body {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+.jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkfw-launcher-hexlink.jkhive-itemgallery-med .jkhive-hex-item-body-scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.18rem;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 5%;
+}
+.jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkfw-launcher-hexlink.jkhive-itemgallery-med .jkhive-hex-item-body-scroll .jkfw-theme-hexh-wrap.jkfw-btn-scope {
+  margin-top: 0;
+}
+.jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkfw-launcher-hexlink.jkhive-itemgallery-med .jkfw-launcher-hex-body-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.18rem;
+  flex: 0 1 auto;
+}
+.jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkfw-launcher-hexlink.jkhive-itemgallery-med .jkfw-launcher-hex-foot-cta .jkhive-hex-item-foot-main {
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 0;
+}
+
 .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-jkhive-cta-sm-slot {
   display: flex;
   justify-content: center;
@@ -267,7 +316,8 @@
   cursor: default !important;
 }
 
-.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-jkhive-cta-sm.jkhive-admoptions-bttn a.jkhive-bttn-inner {
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-jkhive-cta-sm.jkhive-admoptions-bttn a.jkhive-bttn-inner,
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-jkhive-cta-sm.jkhive-admoptions-bttn button.jkhive-bttn-inner {
   cursor: pointer !important;
 }
 
@@ -276,9 +326,25 @@
   filter: none !important;
 }
 
+/* Fila larga / ítems sin stagger: solo scale (panal oficial jk-hive.css). */
 .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med:hover > .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item),
 .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med:focus-within > .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) {
   transform: scale(1.022) !important;
+}
+
+/* Filas cortas 9n+6…9 (stagger): NO sustituir translateX del panal por scale suelto — si no, el “orden” visual se rompe. */
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium
+  .jkfw-launcher-hexlink.jkhive-itemgallery-med:is(:nth-child(9n + 6), :nth-child(9n + 7), :nth-child(9n + 8), :nth-child(9n + 9)):hover
+  > .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item),
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium
+  .jkfw-launcher-hexlink.jkhive-itemgallery-med:is(:nth-child(9n + 6), :nth-child(9n + 7), :nth-child(9n + 8), :nth-child(9n + 9)):focus-within
+  > .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) {
+  /* Alineado al panal MEDIUM: la celda lleva translate(X,Y); el hex interior mantiene el mismo par + scale. */
+  transform: translate(
+      var(--jkhive-hive-stagger),
+      var(--jkhive-hive-row-vertical-nudge, 0px)
+    )
+    scale(1.022) !important;
 }
 
 .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-btn-scope.jkfw-jkhive-cta-sm-slot {
@@ -427,19 +493,9 @@ html body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-he
   pointer-events: auto;
 }
 
-@media (min-width: 769px) {
-  /* Tercera sección: con 4 ítems debe centrarse la fila completa. */
-  main.jkfw-launcher-hive-main
-    > section[aria-labelledby="jkfw-sec-web"].jkhive-section-dashboard
-    .jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:has(> .jkhive-itemgallery-med:nth-child(4):last-child) {
-    grid-template-columns: repeat(4, 260px) !important;
-    justify-content: center !important;
-  }
-}
-
 @media (max-width: 768px) {
-  /* Dos ítems: el panal 3-columnas CRM sigue marcando tamaños !important — solo suaviza gap cuando hace falta */
-  main.jkfw-launcher-hive-main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med):has(> .jkhive-itemgallery-med:nth-child(2):last-child) {
+  /* Dos ítems: mismo contrato crm.css (jkfw-launcher-dashboard-gallery.css) */
+  main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med):has(> .jkhive-itemgallery-med:nth-child(2):last-child) {
     justify-content: center !important;
   }
 }
@@ -449,7 +505,8 @@ html body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-he
  * servicios 210px; chocan con jkhive-itemgallery-med (+ solapamiento). Aplica a launcher Y bloques `.jkfw-launcher-hex-gallery` en contenido.
  */
 .jkfw-launcher .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkhive-hex-gallery-icon,
-.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkhive-hex-gallery-icon {
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkhive-hex-gallery-icon,
+.jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkfw-launcher-hexlink.jkhive-itemgallery-med .jkhive-hex-gallery-icon {
   width: auto !important;
   height: auto !important;
   margin-top: 0 !important;
@@ -457,19 +514,22 @@ html body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-he
 }
 
 .jkfw-launcher .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkhive-itemgallery-med .jkhive-hex-gallery-icon,
-.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkhive-itemgallery-med .jkhive-hex-gallery-icon {
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkhive-itemgallery-med .jkhive-hex-gallery-icon,
+.jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkfw-launcher-hexlink.jkhive-itemgallery-med .jkhive-hex-gallery-icon {
   font-size: 2.292rem !important;
 }
 
 .jkfw-launcher .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkhive-hex-gallery-title,
-.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkhive-hex-gallery-title {
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkhive-hex-gallery-title,
+.jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkfw-launcher-hexlink.jkhive-itemgallery-med .jkhive-hex-gallery-title {
   font-size: clamp(0.92rem, 2.35vw, 1.065rem) !important;
   line-height: 1.15 !important;
   margin-bottom: 0.28rem !important;
 }
 
 .jkfw-launcher .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkhive-hex-gallery-subtitle,
-.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkhive-hex-gallery-subtitle {
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkhive-hex-gallery-subtitle,
+.jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkfw-launcher-hexlink.jkhive-itemgallery-med .jkhive-hex-gallery-subtitle {
   font-size: clamp(0.72rem, 1.95vw, 0.86rem) !important;
   line-height: 1.24 !important;
   margin-bottom: 0 !important;
@@ -479,6 +539,15 @@ html body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-he
 .jkhive-showcase-body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium {
   --jkhive-gallery-edge-breath: clamp(0.65rem, 2.35vw, 1.18rem);
   margin-bottom: 1rem;
+}
+
+/*
+ * MEDIUM + clase launcher siempre debe ser grid (solape/translates del panal 5–4 asumen celda CSS Grid).
+ * Esta hoja va al final del <head>; el !important evita que cualquier flex residual en `.jkhive-hex-gallery` gane por orden.
+ */
+html body .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:has(.jkhive-itemgallery-med),
+html body.jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkfw-launcher-hexlink.jkhive-itemgallery-med) {
+  display: grid !important;
 }
 
 .jkfw-admin-theme-hexh-row {
@@ -510,7 +579,7 @@ html body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-he
   font-size: clamp(0.62rem, 2vw, 0.8rem);
 }
 
-main.jkfw-launcher-hive-main .jkhive-hex-gallery .jkhive-itemgallery-med .jkhive-hex-gallery-subtitle {
+main:has(.jkhive-section-dashboard) .jkhive-hex-gallery .jkhive-itemgallery-med .jkhive-hex-gallery-subtitle {
   max-width: min(100%, 16.5rem);
 }
 
@@ -844,8 +913,12 @@ main.jkfw-launcher-hive-main .jkhive-hex-gallery .jkhive-itemgallery-med .jkhive
   border: 0 !important;
 }
 
-/* Galerías landing básica: orden estable y centrado (desktop/mobile) */
-.jkfw-landing-basic-body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium,
+/*
+ * Landing básica: NO forzar flex en panal MEDIUM tipo launcher (.jkhive-itemgallery-med) —
+ * ese layout es grid + stagger (mismo contrato que index.php del showcase → jkfw-launcher-dashboard-gallery.css).
+ * Flex solo donde no hay ítems CRM med del launcher.
+ */
+.jkfw-landing-basic-body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium:not(:has(.jkhive-itemgallery-med)),
 .jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-small {
   display: flex !important;
   flex-wrap: wrap !important;
@@ -855,10 +928,24 @@ main.jkfw-launcher-hive-main .jkhive-hex-gallery .jkhive-itemgallery-med .jkhive
   padding: 0 !important;
 }
 
-.jkfw-landing-basic-body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkhive-itemgallery-med,
+.jkfw-landing-basic-body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium:not(:has(.jkhive-itemgallery-med)) .jkhive-itemgallery-med,
 .jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-small .jkhive-itemgallery-small {
   margin: 0 !important;
   transform: none !important;
+}
+
+/* Honeycomb MEDIUM en landing básica: no recortar translateX del panal (_jkfw-launcher_ § overflow visible). */
+.jkfw-landing-basic-body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium,
+.jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkfw-launcher-hexlink.jkhive-itemgallery-med) {
+  overflow-x: visible;
+}
+
+/* Panal MEDIUM embebido bajo layout CRM (referencia showcase/index.php, sin segundo <main>). */
+.jkfw-launcher-hive-main--embed {
+  overflow-x: visible;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
 }
 
 .jkfw-landing-basic-grid-contact {
@@ -993,6 +1080,40 @@ main.jkfw-launcher-hive-main .jkhive-hex-gallery .jkhive-itemgallery-med .jkhive
   max-width: 62rem;
 }
 
+/*
+ * Noticias / home mirror: mismo ritmo X/Y que el hueco entre celdas (--jkhive-hive-gap-x).
+ * row-gap = column-gap; translateY del panal (nudge) = mismo token que gap-x (no breathe extra en margin-bottom).
+ */
+@media (min-width: 769px) {
+  section#noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery,
+  section#noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium:has(.jkfw-launcher-hexlink.jkhive-itemgallery-med),
+  section#noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium:has(> a.jkhive-itemgallery-med),
+  .jkfw-landing-simple-home-page .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery,
+  .jkfw-landing-basic-body #noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery,
+  .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery.jkfw-medium-hex-extra-row-gap {
+    --jkhive-hive-gap-x: 5px !important;
+    --jkhive-hive-row-gap-y: var(--jkhive-hive-gap-x) !important;
+    --jkhive-hive-row-vertical-nudge: var(--jkhive-hive-gap-x) !important;
+    --jkhive-hive-stagger: calc((var(--jkhive-hive-flat) + var(--jkhive-hive-gap-x)) / 2) !important;
+    gap: var(--jkhive-hive-row-gap-y) var(--jkhive-hive-gap-x) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  section#noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery,
+  section#noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium:has(.jkfw-launcher-hexlink.jkhive-itemgallery-med),
+  section#noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium:has(> a.jkhive-itemgallery-med),
+  .jkfw-landing-simple-home-page .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery,
+  .jkfw-landing-basic-body #noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery,
+  .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery.jkfw-medium-hex-extra-row-gap {
+    --jkhive-hive-gap-x: 3px !important;
+    --jkhive-hive-row-gap-y: var(--jkhive-hive-gap-x) !important;
+    --jkhive-hive-row-vertical-nudge: var(--jkhive-hive-gap-x) !important;
+    --jkhive-hive-stagger: calc((var(--jkhive-hive-flat) + var(--jkhive-hive-gap-x)) / 2) !important;
+    gap: var(--jkhive-hive-row-gap-y) var(--jkhive-hive-gap-x) !important;
+  }
+}
+
 .jkfw-simple-why-icon-a,
 .jkfw-simple-why-icon-b {
   font-size: 1.91rem;
@@ -1024,6 +1145,201 @@ main.jkfw-launcher-hive-main .jkhive-hex-gallery .jkhive-itemgallery-med .jkhive
   color: var(--jk-metal-light);
 }
 
+/* =============================================================================
+   JKHF — Carrusel canónico con ítems .jkhive-carouselitem-big (polea horizontal).
+   Raíz obligatoria: .jkfw-carousel-hex-big. Estructura interna: .jkfw-simple-featured-
+   carousel-row, .jkfw-simple-featured-window, .jkfw-simple-featured-window-xclip,
+   .jkfw-simple-featured-track + artículos .jkhive-carouselitem-big.
+   Variables (definir en la .jkhive-index-section que envuelve h2 + carrusel):
+   --jkfw-carousel-gap-after-section-title, --jkfw-carousel-pad-y
+   ============================================================================= */
+
+.jkhive-page-container .jkhive-index-section:has(> .jkfw-carousel-hex-big),
+.jkhive-index-page .jkhive-index-section:has(> .jkfw-carousel-hex-big),
+.jkhive-content-wrap .jkhive-index-section:has(> .jkfw-carousel-hex-big) {
+  --jkfw-carousel-gap-after-section-title: 0.25rem;
+  --jkfw-carousel-pad-y: 0.3125rem;
+  margin-bottom: 0.75rem;
+}
+
+.jkhive-page-container
+  .jkhive-index-section
+  > h2.jkhive-index-section-title:has(+ .jkfw-carousel-hex-big),
+.jkhive-index-page
+  .jkhive-index-section
+  > h2.jkhive-index-section-title:has(+ .jkfw-carousel-hex-big),
+.jkhive-content-wrap
+  .jkhive-index-section
+  > h2.jkhive-index-section-title:has(+ .jkfw-carousel-hex-big) {
+  margin-bottom: var(--jkfw-carousel-gap-after-section-title, 0.25rem);
+}
+
+.jkhive-page-container
+  .jkhive-index-section:has(> .jkfw-carousel-hex-big)
+  + .jkhive-index-section,
+.jkhive-index-page .jkhive-index-section:has(> .jkfw-carousel-hex-big) + .jkhive-index-section,
+.jkhive-content-wrap
+  .jkhive-index-section:has(> .jkfw-carousel-hex-big)
+  + .jkhive-index-section {
+  padding-top: 0.5rem;
+}
+
+.jkhive-page-container
+  .jkhive-index-section:has(> .jkfw-carousel-hex-big)
+  + .jkhive-index-section
+  > h2.jkhive-section-title.jkhive-index-section-title:first-child,
+.jkhive-index-page
+  .jkhive-index-section:has(> .jkfw-carousel-hex-big)
+  + .jkhive-index-section
+  > h2.jkhive-section-title.jkhive-index-section-title:first-child,
+.jkhive-content-wrap
+  .jkhive-index-section:has(> .jkfw-carousel-hex-big)
+  + .jkhive-index-section
+  > h2.jkhive-section-title.jkhive-index-section-title:first-child {
+  margin-top: 0;
+}
+
+.jkfw-carousel-hex-big {
+  width: min(100%, calc(520px * 2 + 3px + clamp(104px, 16vw, 152px)));
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: var(--jkfw-carousel-pad-y, 0.3125rem) 0 var(--jkfw-carousel-pad-y, 0.3125rem);
+  position: relative;
+}
+
+.jkfw-carousel-hex-big > .jkfw-simple-featured-carousel-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, max-content) auto;
+  grid-template-areas: "featPrev featWindow featNext";
+  align-items: center;
+  justify-content: center;
+  column-gap: clamp(0.65rem, 2.2vw, 1.35rem);
+  row-gap: 0;
+  width: 100%;
+}
+
+.jkfw-carousel-hex-big > .jkfw-simple-featured-carousel-row > .jkfw-simple-carousel-prev {
+  grid-area: featPrev;
+  justify-self: end;
+  align-self: center;
+}
+
+.jkfw-carousel-hex-big > .jkfw-simple-featured-carousel-row > .jkfw-simple-featured-window {
+  grid-area: featWindow;
+  justify-self: center;
+}
+
+.jkfw-carousel-hex-big > .jkfw-simple-featured-carousel-row > .jkfw-simple-carousel-next {
+  grid-area: featNext;
+  justify-self: start;
+  align-self: center;
+}
+
+/* Anular .carousel-nav global (jkhive-style: absolute + left/right) */
+html body .jkfw-carousel-hex-big button.jkfw-simple-featured-nav-btn,
+html body.crm-layout .jkfw-carousel-hex-big button.jkfw-simple-featured-nav-btn,
+html body.jkfw-landing-basic-body .jkfw-carousel-hex-big button.jkfw-simple-featured-nav-btn {
+  position: static !important;
+  inset: auto !important;
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+  margin: 0 !important;
+  transform: none !important;
+  flex-shrink: 0;
+  z-index: 4;
+}
+
+html body .jkfw-carousel-hex-big button.jkfw-simple-featured-nav-btn:hover,
+html body.crm-layout .jkfw-carousel-hex-big button.jkfw-simple-featured-nav-btn:hover,
+html body.jkfw-landing-basic-body .jkfw-carousel-hex-big button.jkfw-simple-featured-nav-btn:hover {
+  transform: scale(1.12) !important;
+}
+
+html body .jkfw-carousel-hex-big button.jkfw-simple-featured-nav-btn:active,
+html body.crm-layout .jkfw-carousel-hex-big button.jkfw-simple-featured-nav-btn:active,
+html body.jkfw-landing-basic-body .jkfw-carousel-hex-big button.jkfw-simple-featured-nav-btn:active {
+  transform: scale(1.04) !important;
+}
+
+.jkfw-carousel-hex-big .jkfw-simple-featured-window {
+  overflow: visible;
+  width: calc(520px * 2 + 3px);
+  max-width: min(calc(520px * 2 + 3px), calc(100vw - clamp(116px, 22vw, 168px)));
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.jkfw-carousel-hex-big .jkfw-simple-featured-window-xclip {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: calc(520px * 1.1547 * 1.04 + clamp(108px, 17vmin, 170px));
+  padding-block: clamp(32px, 5vmin, 54px);
+  overflow-x: hidden;
+  overflow-y: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.jkfw-carousel-hex-big .jkfw-simple-featured-track.service-carousel-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 3px;
+  width: max-content !important;
+  margin: 0;
+  padding-block: clamp(16px, 2.8vmin, 28px);
+  box-sizing: content-box;
+  transition: transform 0.42s linear;
+}
+
+@media (max-width: 900px) {
+  .jkfw-carousel-hex-big {
+    width: min(100%, calc(100vw - 1.25rem));
+  }
+
+  .jkfw-carousel-hex-big > .jkfw-simple-featured-carousel-row {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    column-gap: clamp(0.35rem, 1.8vw, 0.85rem);
+  }
+
+  .jkfw-carousel-hex-big .jkfw-simple-featured-window {
+    width: min(520px, 100%);
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .jkfw-carousel-hex-big .jkfw-simple-featured-window {
+    width: min(520px, calc(100vw - clamp(104px, 28vw, 132px)));
+    max-width: calc(100vw - clamp(104px, 28vw, 132px));
+  }
+
+  html body .jkfw-carousel-hex-big button.jkfw-simple-featured-nav-btn {
+    width: 44px;
+    height: calc(44px * 1.1547);
+    font-size: 1.25rem;
+  }
+
+  .jkfw-carousel-hex-big .jkfw-simple-featured-window-xclip {
+    min-height: calc(520px * 1.1547 * 1.04 + clamp(88px, 14vmin, 140px));
+    padding-block: clamp(26px, 4vmin, 44px);
+  }
+}
+
+/* Modal noticias (landing simple · jkfw_launcher_hex_news_item) */
+.jkfw-simple-news-modal .jkhive-modal-body {
+  max-height: min(62vh, 30rem);
+  overflow-y: auto;
+}
+
+.jkfw-simple-news-modal #jkfwSimpleNewsSubtitle:empty {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .jkfw-landing-basic-hero {
     min-height: clamp(320px, 52vh, 460px);
@@ -1033,4 +1349,28 @@ main.jkfw-launcher-hive-main .jkhive-hex-gallery .jkhive-itemgallery-med .jkhive
   .jkfw-landing-basic-section {
     padding-inline: 0.85rem;
   }
+}
+
+/* Paginación galería hex (launcher): meta compacta, bloque centrado (evita space-between de crm.css) */
+body.admin-layout .jkhive-pagination.jkhive-pagination--hex-gallery,
+.jkfw-launcher-hex-gallery .jkhive-pagination.jkhive-pagination--hex-gallery {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+body.admin-layout .jkhive-pagination.jkhive-pagination--hex-gallery .jkhive-pagination-meta,
+.jkfw-launcher-hex-gallery .jkhive-pagination.jkhive-pagination--hex-gallery .jkhive-pagination-meta {
+  font-size: 0.72rem;
+  font-weight: 400;
+  width: 100%;
+  text-align: center;
+  opacity: 0.88;
+}
+
+body.admin-layout .jkhive-pagination.jkhive-pagination--hex-gallery .jkhive-pagination-actions,
+.jkfw-launcher-hex-gallery .jkhive-pagination.jkhive-pagination--hex-gallery .jkhive-pagination-actions {
+  justify-content: center;
+  width: 100%;
 }

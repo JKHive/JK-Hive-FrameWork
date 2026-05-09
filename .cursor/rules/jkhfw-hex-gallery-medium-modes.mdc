@@ -1,0 +1,30 @@
+---
+description: >-
+  Galería JK Hive MEDIUM sellada al framework: tres escalas del panal, dos modos
+  MEDIUM (sin paginación vs paginada), orden anti-cronológico en feeds.
+alwaysApply: true
+---
+
+# Galería JK Hive — contrato MEDIUM y escalas (no improvisar)
+
+**Fuente normativa:** `docs/JK_HIVE_FRAMEWORK_CONTRACT.md` §§ **2.b** y **2.c** (texto completo, tablas y rutas de archivos). Esta regla solo **refuerza** lo que allí está sellado.
+
+## Tres escalas visuales (big / medium / small)
+
+JK Hive tiene **tres tamaños** de panal con ítems y hovers **distintos** (`jkhive-hex-gallery-big|medium|small` + `jkhive-itemgallery-big|med|small`). Al pedir una galería:
+
+- Elegir **una** escala coherente con el diseño; no mezclar ítems de otra escala en el mismo contenedor.
+- Respetar skins (`jkhive-hex-cyan-item`, etc.) y mitigaciones de CTAs anidados (`jkfw-btn-scope`, `jkfw-launcher.css`) documentadas en el contrato.
+
+## Galería MEDIUM: dos modos excluyentes
+
+1. **Sin paginación** — lista finita que puede crecer en altura; **sin** `data-jkhive-paginate`.
+2. **Con paginación** — feeds acumulativos; **`data-jkhive-paginate="true"`** + comportamiento **idéntico al canónico actual** (`jkhive-hex-gallery-framework.js`, pager `jkhive-pagination--hex-gallery`, meta compacta, centrado, sin “Ir a página”).
+
+## Feeds (noticias): orden
+
+**Anti-cronológico:** más nuevas al inicio del panal / página 1; la más antigua al final. Si el orden visual se invierte en PHP, **preservar índices** para `data-jkfw-news-idx` y el JSON del modal (ver contrato §2.c).
+
+## Mesa XAMPP
+
+Copiar `showcase/assets/` → `c:\xampp\htdocs\JKHFW\assets\` (la mesa **no** usa carpeta `showcase/`).
