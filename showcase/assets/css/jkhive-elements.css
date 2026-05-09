@@ -1297,8 +1297,6 @@ html body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-envelope,
 body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-envelope,
 html body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-paper-plane,
 body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-paper-plane,
-html body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-briefcase,
-body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-briefcase,
 html body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-info-circle,
 body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-info-circle,
 html body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-th-list,
@@ -1339,7 +1337,7 @@ body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-user-plus {
   transform-style: preserve-3d !important;
 }
 
-/* Contactar vendedor / Contáctanos / Enviar - fa-envelope, fa-paper-plane → envelope (+360° Z) */
+/* Contactar vendedor / Contáctanos / Enviar - fa-envelope, fa-paper-plane → envelope */
 html body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-envelope,
 body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-envelope,
 html body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-paper-plane,
@@ -1347,15 +1345,6 @@ body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-paper-plane {
   color: var(--jk-accent-cyan, #06b6d4) !important;
   opacity: 1 !important;
   animation: jkhive-anmtn-envelope 0.6s ease-in-out forwards !important;
-  transform-style: preserve-3d !important;
-}
-
-/* Ver galería (CTA home) — fa-briefcase en bttn-big: inverso al sobre (−360° Z). fa-user-plus sigue con jkhive-anmtn-briefcase. */
-html body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-briefcase,
-body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-briefcase {
-  color: var(--jk-accent-cyan, #06b6d4) !important;
-  opacity: 1 !important;
-  animation: jkhive-anmtn-envelope-reverse 0.6s ease-in-out forwards !important;
   transform-style: preserve-3d !important;
 }
 

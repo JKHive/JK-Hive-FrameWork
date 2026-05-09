@@ -203,10 +203,9 @@ a.jkhive-navbar-hex-item:visited {
 .jkhive-search-input {
   flex: 1;
   min-width: 0;
-  height: 38px;
+  height: 34px;
   padding: 0 12px;
-  font-size: calc(0.85rem * 1.15);
-  text-align: center;
+  font-size: 0.85rem;
   background: linear-gradient(135deg, var(--jk-tech-dark) 0%, var(--jk-tech-medium) 100%);
   border: 1px solid rgba(14, 165, 233, 0.4);
   border-radius: 6px;
@@ -217,7 +216,6 @@ a.jkhive-navbar-hex-item:visited {
 
 .jkhive-search-input::placeholder {
   color: var(--jk-metal);
-  text-align: center;
 }
 
 .jkhive-search-input:focus {
@@ -332,8 +330,8 @@ a.jkhive-navbar-hex-item:visited {
     margin-right: clamp(2px, 0.5vw, 4px); /* menor separación en móvil, proporcional */
   }
   .jkhive-search-input {
-    font-size: calc(0.8rem * 1.15);
-    height: 36px;
+    font-size: 0.8rem;
+    height: 32px;
   }
   .jkhive-search-close {
     width: 24px;

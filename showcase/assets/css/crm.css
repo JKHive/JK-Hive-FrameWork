@@ -296,15 +296,61 @@ body.admin-layout main.jkhive-main-content {
     margin-top: 2rem;
 }
 
-/*
- * Panal MEDIUM (itemgallery-med): geometría canónica en jk-hive.css
- * (--jkhive-hive-gap-x, --jkhive-hive-row-pull, breakpoints). No duplicar aquí.
- * Excluir .jkfw-launcher-hex-gallery: si se fuerza gap/transform aquí con !important se anula el panal canónico.
- */
+/* ============================================================
+   GALERÍA VISTA RÁPIDA - SELLADA - NO MODIFICAR SIN REVISIÓN COMPLETA
+   ============================================================
+   Estructura: main > section.jkhive-section-dashboard > jkhive-hex-gallery.jkhive-hex-gallery-medium
+   Items: a.jkhive-itemgallery-med (enlaces con icono, título, subtítulo).
+
+   IMPORTANTE: Los valores están calibrados para N elementos actuales. Cambiar
+   gap, margin-top, translateX o breakpoints puede desalinear el honeycomb.
+   Si se añaden/quitan ítems, verificar nth-child (5n+4, 9n+6, 3n+3, etc.)
+
+   Breakpoints y layouts:
+   - 769px+: Desktop, 5 cols × 260px, 2 filas (5+4)
+   - 768px: Tablet, 3 cols × 130px, 2 filas (3+2)
+   - 480px: Mobile, 2 cols × 100px, 3 filas (2+1+2)
+   - 360px: Mobile estrecho, 2 cols × 80px, mismo patrón
+
+   Exclusión: .jkfw-launcher-hex-gallery usa geometría canónica jk-hive + launcher;
+   estas reglas NO aplican allí (evita pisar paginación / panal landing).
+   ============================================================ */
+
+/* Base galería - Desktop por defecto
+   Aire vertical (¼ altura hex + breath): --jkhive-gallery-vertical-tip-pad en jk-hive.css — no forzar padding en px. */
+main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) {
+    grid-template-columns: repeat(5, 260px) !important;
+    gap: 0 5px !important;
+    justify-content: center !important;
+}
+
+/* Desktop (769px+): separación entre icono, título y subtítulo; gap 5px, offset fila2 */
 @media (min-width: 769px) {
     main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med .jkhive-hex-gallery-icon,
     main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med .jkhive-hex-gallery-title {
         margin-bottom: 0.375rem;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) {
+        grid-template-columns: repeat(5, 260px) !important;
+        gap: 0 5px !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med {
+        width: 260px !important;
+        height: calc(260px * 1.1547) !important;
+        margin: 0 0 -75px 0 !important;
+    }
+    /* Fila 2: items 6,7,8,9 (9n+6 a 9n+9). translateX = mitad columna+gap = 132.5px */
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+6),
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+7),
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+8),
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+9) {
+        transform: translateX(132.5px);
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+6):hover,
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+7):hover,
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+8):hover,
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+9):hover {
+        transform: translateX(132.5px) scale(1.05);
     }
 }
 
@@ -434,6 +480,50 @@ main:has(.jkhive-section-dashboard) .jkhive-hex-gallery {
         height: 2px !important;
         width: 50% !important;
     }
+
+    /* --- 768px: Layout 3+2 (filas de 3 y 2 ítems). NO mezclar con 480px (3 filas) --- */
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) {
+        grid-template-columns: repeat(3, 130px) !important;
+        gap: 0 3px !important;
+        row-gap: 0 !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med {
+        width: 130px !important;
+        height: 150px !important;
+        margin: -38px 3px 0 3px !important;
+        transform: none !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med .jkhive-hex {
+        width: 130px !important;
+        height: calc(130px * 1.1547) !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med .jkhive-hex::after {
+        width: calc(130px - 4px) !important;
+        height: calc((130px - 4px) * 1.1547) !important;
+    }
+    /* Contenido móvil 768px: ver jkhive-hex-cyan-item en jkhive-elements.css (padding, icono, título, subtítulo) */
+    /* Fila 2 (5n+4, 5n+5, 9n+6..9): margin-top -35px, translateX 66px (130/2). VALOR CALIBRADO */
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(5n+4),
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(5n+5),
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+6),
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+7),
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+8),
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+9) {
+        margin-top: -35px !important;
+        transform: translateX(66px) !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:hover {
+        transform: scale(1.05) !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(5n+4):hover,
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(5n+5):hover,
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+6):hover,
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+7):hover,
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+8):hover,
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(9n+9):hover {
+        transform: translateX(66px) scale(1.05) !important;
+    }
+
     /* Footer CRM móvil (768px): reducir padding y fuente */
     body.crm-layout .jkhive-footer-crm,
     .jkhive-footer-crm {
@@ -474,6 +564,75 @@ main:has(.jkhive-section-dashboard) .jkhive-hex-gallery {
     .jkhive-footer-crm .footer-corporate .small {
         font-size: 0.65rem !important;
     }
+
+    /* --- 480px: Layout 2+1+2 (3 filas). Selectores 3n+1,3n+2,3n+3,3n+4,3n+5. INDEPENDIENTE de 768px --- */
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) {
+        grid-template-columns: repeat(2, 100px) !important;
+        gap: 0 3px !important;
+        row-gap: 0 !important;
+        justify-content: center !important;
+        --jkhive-gallery-hex-flat: 100px;
+        --jkhive-hive-flat: 100px;
+        --jkhive-gallery-hex-bounding-height: calc(var(--jkhive-gallery-hex-flat) * var(--jkhive-hive-apex));
+        --jkhive-gallery-vertical-tip-pad: calc(var(--jkhive-gallery-hex-bounding-height) * var(--jkhive-gallery-tip-fraction) + var(--jkhive-gallery-edge-breath));
+        padding-top: var(--jkhive-gallery-vertical-tip-pad);
+        padding-bottom: var(--jkhive-gallery-vertical-tip-pad);
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med {
+        width: 100px !important;
+        height: 115px !important;
+        margin: -29px 1px 0 1px !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med .jkhive-hex {
+        width: 100px !important;
+        height: calc(100px * 1.1547) !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med .jkhive-hex::after {
+        width: calc(100px - 4px) !important;
+        height: calc((100px - 4px) * 1.1547) !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+1),
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+2) {
+        transform: none !important;
+    }
+    /* Fila 2 (3n+3): ítem centrado. margin-top -26.5px, translateX(1px). VALORES CALIBRADOS */
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+3) {
+        grid-column: 1 / -1 !important;
+        justify-self: center !important;
+        width: 100px !important;
+        height: 115px !important;
+        margin-top: -26.5px !important;
+        transform: translateX(1px) !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med {
+        width: 100px !important;
+        height: 115px !important;
+        margin: -29px 1px 0 1px !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(3n+1),
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(3n+2) {
+        transform: none !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(3n+3) {
+        grid-column: 1 / -1 !important;
+        justify-self: center !important;
+        width: 100px !important;
+        height: 115px !important;
+        margin-top: -26.5px !important;
+        transform: translateX(1px) !important;
+    }
+    /* Fila 3 (3n+4, 3n+5): margin-top -26px. VALOR CALIBRADO - no cambiar sin probar */
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+4),
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+5) {
+        margin-top: -26px !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:hover {
+        transform: scale(1.05) !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkhive-itemgallery-med:nth-child(3n+3):hover {
+        transform: translateX(1px) scale(1.05) !important;
+    }
+    /* Contenido 480px: ver jkhive-hex-cyan-item en jkhive-elements.css */
     
     .crm-header h2 {
         font-size: 1.75rem;
@@ -528,6 +687,47 @@ main:has(.jkhive-section-dashboard) .jkhive-hex-gallery {
     
     .crm-quick-actions h3 {
         font-size: 1.3rem;
+    }
+}
+
+/* --- 360px: Mismo patrón 2+1+2 que 480px, hex 80px. Valores proporcionales --- */
+@media (max-width: 360px) {
+    /* Panal 80px: recalcular reserva vertical (¼ altura + breath) coherente con jk-hive */
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) {
+        grid-template-columns: repeat(2, 80px) !important;
+        gap: 0 1px !important;
+        --jkhive-gallery-hex-flat: 80px;
+        --jkhive-hive-flat: 80px;
+        --jkhive-gallery-hex-bounding-height: calc(var(--jkhive-gallery-hex-flat) * var(--jkhive-hive-apex));
+        --jkhive-gallery-vertical-tip-pad: calc(var(--jkhive-gallery-hex-bounding-height) * var(--jkhive-gallery-tip-fraction) + var(--jkhive-gallery-edge-breath));
+        padding-top: var(--jkhive-gallery-vertical-tip-pad);
+        padding-bottom: var(--jkhive-gallery-vertical-tip-pad);
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med {
+        width: 80px !important;
+        height: 92px !important;
+        margin: -23px 1px 0 1px !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med .jkhive-hex {
+        width: 80px !important;
+        height: calc(80px * 1.1547) !important;
+    }
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med .jkhive-hex::after {
+        width: calc(80px - 4px) !important;
+        height: calc((80px - 4px) * 1.1547) !important;
+    }
+    /* Contenido 360px: ver jkhive-hex-cyan-item en jkhive-elements.css */
+    /* Fila 2 (3n+3): +2.5px abajo, +1px derecha */
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+3) {
+        width: 80px !important;
+        height: 92px !important;
+        margin-top: -20.5px !important;
+        transform: translateX(1px) !important;
+    }
+    /* Fila 3 (3n+4, 3n+5): +3px abajo (+4 -1 hacia arriba) */
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+4),
+    main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkhive-itemgallery-med) .jkhive-itemgallery-med:nth-child(3n+5) {
+        margin-top: -20px !important;
     }
 }
 
