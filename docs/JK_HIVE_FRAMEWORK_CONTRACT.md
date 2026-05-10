@@ -41,7 +41,7 @@ Los **skins** de color (p. ej. `jkhive-hex-cyan-item`, `jkhive-hex-blue-item`) s
 Referencias canónicas:
 
 - Script: `showcase/assets/js/jkhive-hex-gallery-framework.js` (solo actúa si existe el atributo de paginación).
-- Estilos pager en contexto admin/launcher: `showcase/assets/css/jkfw-launcher.css` (clase `jkhive-pagination--hex-gallery`; complementa `jkfw-showcase-shell.css` en listados admin sin romper genéricos).
+- Estilos pager en contexto admin/launcher: `showcase/assets/css/jkfw-launcher.css` (clase `jkhive-pagination--hex-gallery`; listados admin comparten `jkhive-style.css` sin romper genéricos).
 - Carga global del script: `showcase/includes/layout-scripts.php`.
 
 **Modo 1 — Lista finita (sin paginación)**  

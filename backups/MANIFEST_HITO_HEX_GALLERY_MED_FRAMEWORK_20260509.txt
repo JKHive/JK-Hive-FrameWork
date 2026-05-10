@@ -22,7 +22,7 @@ Documentación (normativa):
   showcase/demo-landing-simple.php
   showcase/includes/jkfw-landing-simple-hero.php
   showcase/includes/jkfw-landing-simple-sidebar.php
-  (crm.css integrado en jkfw-showcase-shell.css; archivo retirado)
+  (crm.css y shell showcase fusionados en jkhive-style.css + jkhive-navbar.css; jkfw-showcase-shell.css retirado)
   showcase/assets/css/jk-hive.css
   showcase/assets/css/jkfw-launcher-dashboard-gallery.css
   showcase/assets/css/jkhive-elements.css

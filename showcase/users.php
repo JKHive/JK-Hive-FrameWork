@@ -22,7 +22,7 @@ $rows = [
         <h1 class="jkhive-section-title" style="margin-top:0;">Gestión de usuarios</h1>
         <p style="color:var(--jk-metal-light);max-width:52rem;line-height:1.55;">
           Patrón de administración JK Hive: filtros con <code>select.jkhive-hex-select</code>, acciones de fila con <code>.jkhive-bttn-table-*</code>,
-          estado con <code>.jkhive-bttn-table-toggle</code>, confirmación de borrado con <code>showDeleteConfirmToast</code> y pie de paginación <code>.jkhive-pagination</code> (estilos admin en <code>jkfw-showcase-shell.css</code>).
+          estado con <code>.jkhive-bttn-table-toggle</code>, confirmación de borrado con <code>showDeleteConfirmToast</code> y pie de paginación <code>.jkhive-pagination</code> (estilos admin en <code>jkhive-style.css</code>).
         </p>
 
         <div class="jkfw-admin-toolbar" style="margin-top:1.1rem;display:flex;flex-wrap:wrap;gap:0.85rem;align-items:flex-end;">

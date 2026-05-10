@@ -41,6 +41,9 @@ function jkfw_shell_logout(): void
 function jkfw_shell_ssr_auth_payload(): array
 {
     if (jkfw_shell_session_logged_in()) {
+        $level = (int) ($_SESSION['jkfw_profile_level'] ?? 3);
+        $isSa = jkfw_shell_is_super_admin();
+
         return [
             'authenticated' => true,
             'user' => [
@@ -49,6 +52,8 @@ function jkfw_shell_ssr_auth_payload(): array
                 'email' => 'demo@jkhive.local',
                 'profile_name' => 'Administrador demo',
                 'profile_slug' => 'administrator',
+                'profile_level' => $level,
+                'is_super_admin' => $isSa,
             ],
         ];
     }
@@ -60,6 +65,8 @@ function jkfw_shell_ssr_auth_payload(): array
             'username' => 'Invitado',
             'profile_name' => 'Invitado',
             'unique_id' => '00000000-0000-0000-0000-000000000001',
+            'profile_level' => 0,
+            'is_super_admin' => false,
         ],
     ];
 }
@@ -150,6 +157,46 @@ function jkfw_roles(): array
     $r = $_SESSION['jkfw_roles'];
     /** @phpstan-ignore-next-line */
     return array_values(array_filter(array_map('strval', $r)));
+}
+
+/**
+ * Super admin showcase: rol `super_admin` o nivel ≥ 4 (Deploy paquete / API).
+ */
+function jkfw_shell_is_super_admin(): bool
+{
+    if (in_array('super_admin', jkfw_roles(), true)) {
+        return true;
+    }
+
+    return (int) ($_SESSION['jkfw_profile_level'] ?? 0) >= 4;
+}
+
+/**
+ * @return list<string>
+ */
+function jkfw_showcase_deploy_demo_pages(): array
+{
+    return [
+        'demo-landing-simple.php',
+        'demo-landing-advanced.php',
+        'demo-landing-simple-about.php',
+        'demo-landing-simple-contact.php',
+        'demo-landing-simple-gallery.php',
+        'demo-landing-advanced-about.php',
+        'demo-landing-advanced-contact.php',
+        'demo-landing-advanced-gallery.php',
+        'demo-crm.php',
+        'demo-portal.php',
+        'demo-ecommerce-basic.php',
+        'demo-ecommerce-advanced.php',
+    ];
+}
+
+function jkfw_showcase_is_deploy_demo_page(): bool
+{
+    $b = basename((string) ($_SERVER['SCRIPT_NAME'] ?? ''));
+
+    return in_array($b, jkfw_showcase_deploy_demo_pages(), true);
 }
 
 function jkfw_navbar_title(): string

@@ -45,9 +45,6 @@ $t_slug = jkfw_theme_resolve();
   <link rel="stylesheet" href="assets/css/jkhive-style.css">
   <link rel="stylesheet" href="assets/css/jkhive-elements.css">
   <link rel="stylesheet" href="assets/css/jkhive-navbar.css">
-<?php if ($jk_admin_shell || ! empty($jk_hide_sidebar)) : ?>
-  <link rel="stylesheet" href="assets/css/jkfw-showcase-shell.css">
-<?php endif; ?>
   <link rel="stylesheet" href="assets/css/jkhive-sidebar.css">
   <link rel="stylesheet" href="assets/css/hero-hex-animation.css">
   <link rel="stylesheet" href="assets/css/hero-honeycomb-bar.css">

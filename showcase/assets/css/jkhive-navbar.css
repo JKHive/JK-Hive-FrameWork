@@ -1412,3 +1412,34 @@ a.jkhive-navbar-hex-item:visited {
   filter: brightness(1.05);
 }
 
+
+
+/* =============================================================================
+   Showcase shell navbar (antes jkfw-showcase-shell.css) — sin cambiar reglas.
+   ============================================================================= */
+
+.jkhive-navbar--showcase-shell .jkhive-navbar-right {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 4px;
+}
+
+.jkhive-navbar--showcase-shell .jkfw-navbar-crm-suite {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 2px;
+}
+
+.jkhive-navbar--showcase-shell .jkfw-navbar-hex-cluster {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transform: translateY(1px);
+}
+
+.jkhive-navbar--showcase-shell #userMenuContainer.jkfw-navbar-user-mount {
+  display: flex;
+  align-items: center;
+}
