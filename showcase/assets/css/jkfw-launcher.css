@@ -310,7 +310,6 @@
 
 .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med {
   cursor: default !important;
-  transition: z-index 0s !important;
 }
 
 .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med > .jkhive-hex {
@@ -331,6 +330,21 @@
 .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med:hover > .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item),
 .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med:focus-within > .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) {
   transform: scale(1.022) !important;
+}
+
+/* Filas cortas 9n+6…9 (stagger): NO sustituir translateX del panal por scale suelto — si no, el “orden” visual se rompe. */
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium
+  .jkfw-launcher-hexlink.jkhive-itemgallery-med:is(:nth-child(9n + 6), :nth-child(9n + 7), :nth-child(9n + 8), :nth-child(9n + 9)):hover
+  > .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item),
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium
+  .jkfw-launcher-hexlink.jkhive-itemgallery-med:is(:nth-child(9n + 6), :nth-child(9n + 7), :nth-child(9n + 8), :nth-child(9n + 9)):focus-within
+  > .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) {
+  /* Alineado al panal MEDIUM: la celda lleva translate(X,Y); el hex interior mantiene el mismo par + scale. */
+  transform: translate(
+      var(--jkhive-hive-stagger),
+      var(--jkhive-hive-row-vertical-nudge, 0px)
+    )
+    scale(1.022) !important;
 }
 
 .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-btn-scope.jkfw-jkhive-cta-sm-slot {

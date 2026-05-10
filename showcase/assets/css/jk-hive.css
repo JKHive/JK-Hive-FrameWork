@@ -1347,22 +1347,6 @@ body.page-public .jkhive-main-content {
 .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(9n+8) { grid-column: 3; }
 .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-why-me-item, .jkhive-services-item, [class*="jkhive-itemgallery-"]):nth-child(9n+9) { grid-column: 4; }
 
-/*
- * Launcher MEDIUM (noticias / dashboard): sin translateX panal en filas cortas — mismo reposo que filas largas
- * itemgallery/why-me (solo translateY). El stagger 5+4 en escritorio no aplica aquí; evita “slide” raro en hover.
- */
-.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery
-  > :is(.jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+6),
-.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery
-  > :is(.jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+7),
-.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery
-  > :is(.jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+8),
-.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery
-  > :is(.jkhive-why-me-item, [class*="jkhive-itemgallery-"]):nth-child(9n+9) {
-  transform: translateY(var(--jkhive-hive-row-vertical-nudge, 0px));
-  margin-top: 0;
-}
-
 /* Filas largas (9n+10…14): hex 210 mantiene margin-top 0; itemgallery/why-me heredan bajada 3px (no pisar con 0). */
 .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-services-item):nth-child(9n+10),
 .jkhive-hex-gallery-medium :is(.jkhive-hex-gallery-item, .jkhive-services-item):nth-child(9n+11),
