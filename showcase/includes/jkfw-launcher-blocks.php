@@ -91,7 +91,7 @@ function jkfw_launcher_hex_link_with_inline_link(
 
     return '<div class="jkfw-launcher-hexlink jkfw-launcher-hex-with-cta ' . $h($size) . '" role="group" aria-label="' . $h($title) . '">' .
         '<div class="jkhive-hex ' . $h($skin) . '">' .
-          '<div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">' .
+          '<div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item jkhive-hex-no-hover-scrollbars">' .
             '<div class="jkhive-hex-item-head">' .
               '<div class="jkhive-hex-item-head-tip"></div>' .
               '<div class="jkhive-hex-item-head-main">' .

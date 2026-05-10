@@ -8,6 +8,8 @@
   position: relative;
   /* NUNCA ocultar overflow-x: el stagger translateX del panal (jk-hive § GALLERY MEDIUM) sale del cuerpo del grid — con hidden se cortaban filas 5-4. */
   overflow-x: visible;
+  /* Visible en ambos ejes evita pairwise “auto/hidden” y recorte vertical de puntas al escalar (~10px apex). */
+  overflow-y: visible;
 }
 
 .jkfw-launcher__bg {
@@ -141,6 +143,23 @@
 
 .jkfw-launcher-section {
   margin-bottom: clamp(1.35rem, 3.5vw, 2.25rem);
+}
+
+body.jkfw-launcher-body .jkfw-launcher-hive-main,
+body.jkfw-launcher-body .jkfw-launcher .jkfw-launcher-section {
+  overflow-x: visible;
+  overflow-y: visible;
+}
+
+/* Hover: igual que paneles MEDIUM fuera del launcher (jk-hive lo omite aquí por :not(.jkfw-launcher-hex-gallery)); evita solape con siguiente fila/encabezado. */
+.jkfw-launcher .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med:hover,
+.jkfw-launcher .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med:focus-within {
+  z-index: 12;
+}
+
+.jkfw-launcher .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium {
+  overflow: visible !important;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Título de bloque de galería (patrón jkhive-section-title sobre fondo miel del launcher) */
@@ -321,36 +340,45 @@
   cursor: pointer !important;
 }
 
+/*
+ * Tiles hub (launcher-hex-gallery):
+ * — box-shadow cyan (elements/jk-hive) + clip-path ⇒ halo rectangular; fuera aquí.
+ * — .jkhive-hex-item* overflow:hidden + transform:scale sobre el hex exterior recorta apex/costados (Chromium).
+ * — contain:paint en CTA-slot dibujaba costura horizontal pie/cuerpo al repintar.
+ * — Ítem sin jkhive-hex-no-hover-scrollbars revelaba scrollbar al hover ⇒ línea bajo banda centro.
+ */
+.jkfw-launcher .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink > .jkhive-hex > .jkhive-hex-content.jkhive-hex-item,
+.jkfw-launcher .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink > .jkhive-hex .jkhive-hex-item-head,
+.jkfw-launcher .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink > .jkhive-hex .jkhive-hex-item-body,
+.jkfw-launcher .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink > .jkhive-hex .jkhive-hex-item-foot {
+  overflow: visible !important;
+}
+
+.jkfw-launcher .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink .jkhive-hex-item-body-scroll {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.jkfw-launcher .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink .jkhive-hex-item-body-scroll::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+}
+
 .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med > .jkhive-hex:hover,
 .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med:focus-within > .jkhive-hex {
+  box-shadow: none !important;
   filter: none !important;
 }
 
-/* Fila larga / ítems sin stagger: solo scale (panal oficial jk-hive.css). */
-.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med:hover > .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item),
-.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med:focus-within > .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) {
-  transform: scale(1.022) !important;
-}
-
-/* Filas cortas 9n+6…9 (stagger): NO sustituir translateX del panal por scale suelto — si no, el “orden” visual se rompe. */
-.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium
-  .jkfw-launcher-hexlink.jkhive-itemgallery-med:is(:nth-child(9n + 6), :nth-child(9n + 7), :nth-child(9n + 8), :nth-child(9n + 9)):hover
-  > .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item),
-.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium
-  .jkfw-launcher-hexlink.jkhive-itemgallery-med:is(:nth-child(9n + 6), :nth-child(9n + 7), :nth-child(9n + 8), :nth-child(9n + 9)):focus-within
-  > .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) {
-  /* Alineado al panal MEDIUM: la celda lleva translate(X,Y); el hex interior mantiene el mismo par + scale. */
-  transform: translate(
-      var(--jkhive-hive-stagger),
-      var(--jkhive-hive-row-vertical-nudge, 0px)
-    )
-    scale(1.022) !important;
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med:hover > .jkhive-hex::after,
+.jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med:focus-within > .jkhive-hex::after {
+  animation: none !important;
 }
 
 .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-btn-scope.jkfw-jkhive-cta-sm-slot {
   position: relative;
   z-index: 6;
-  contain: layout style paint;
+  contain: none;
 }
 
 /* Refuerzo: hex del CTA sigue dentro de .itemgallery-med; jk-hive.css usa selector hijo (> .jkhive-hex) para no pisar ese hex anidado. */
