@@ -8,7 +8,6 @@ $jk_body_class = 'page-public jkhive-showcase-body admin-layout crm-layout';
 $jk_demo_auth = false;
 $jk_hide_demo_modal = true;
 $jk_extra_css =
-    '<link rel="stylesheet" href="assets/css/crm.css">' . "\n" .
     '<link rel="stylesheet" href="assets/css/jkfw-catalog-demo.css">' . "\n" .
     '<link rel="stylesheet" href="assets/css/jkhive-dashboard-hex-charts.css">' . "\n";
 $jk_footer_inline_script = <<<'JS'

@@ -6,8 +6,7 @@ $jk_breadcrumb = 'Gestión de productos';
 $jk_body_class = 'page-public jkhive-showcase-body admin-layout crm-layout';
 $jk_crud_modal = true;
 $jk_extra_css =
-    '<link rel="stylesheet" href="assets/css/jkfw-showcase-crud.css">' . "\n" .
-    '<link rel="stylesheet" href="assets/css/crm.css">' . "\n";
+    '<link rel="stylesheet" href="assets/css/jkfw-showcase-crud.css">' . "\n";
 require __DIR__ . '/includes/layout-head.php';
 require __DIR__ . '/includes/layout-sidebar.php';
 require __DIR__ . '/includes/layout-main-open.php';

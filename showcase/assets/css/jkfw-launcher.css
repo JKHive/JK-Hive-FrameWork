@@ -494,7 +494,7 @@ html body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-he
 }
 
 @media (max-width: 768px) {
-  /* Dos ítems: mismo contrato crm.css (jkfw-launcher-dashboard-gallery.css) */
+  /* Dos ítems: mismo contrato jkfw-launcher-dashboard-gallery.css */
   main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med):has(> .jkhive-itemgallery-med:nth-child(2):last-child) {
     justify-content: center !important;
   }
@@ -1351,7 +1351,7 @@ html body.jkfw-landing-basic-body .jkfw-carousel-hex-big button.jkfw-simple-feat
   }
 }
 
-/* Paginación galería hex (launcher): meta compacta, bloque centrado (evita space-between de crm.css) */
+/* Paginación galería hex (launcher): meta compacta, bloque centrado (evita space-between de reglas admin en shell) */
 body.admin-layout .jkhive-pagination.jkhive-pagination--hex-gallery,
 .jkfw-launcher-hex-gallery .jkhive-pagination.jkhive-pagination--hex-gallery {
   flex-direction: column;

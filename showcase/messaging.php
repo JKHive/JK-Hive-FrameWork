@@ -9,7 +9,6 @@ $jk_messaging_full = true;
 $jk_extra_css =
     '<link rel="stylesheet" href="assets/css/messaging.css">' . "\n" .
     '<link rel="stylesheet" href="assets/css/jkfw-showcase-crud.css">' . "\n" .
-    '<link rel="stylesheet" href="assets/css/crm.css">' . "\n" .
     '<link rel="stylesheet" href="assets/css/jk-hive-3danimation-1.css">' . "\n";
 
 $jk_body_top_script = <<<'HTML'

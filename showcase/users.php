@@ -6,8 +6,7 @@ $jk_breadcrumb = 'Gestión de usuarios';
 $jk_body_class = 'page-public jkhive-showcase-body admin-layout crm-layout';
 $jk_crud_modal = true;
 $jk_extra_css =
-    '<link rel="stylesheet" href="assets/css/jkfw-showcase-crud.css">' . "\n" .
-    '<link rel="stylesheet" href="assets/css/crm.css">' . "\n";
+    '<link rel="stylesheet" href="assets/css/jkfw-showcase-crud.css">' . "\n";
 require __DIR__ . '/includes/layout-head.php';
 require __DIR__ . '/includes/layout-sidebar.php';
 require __DIR__ . '/includes/layout-main-open.php';
@@ -23,7 +22,7 @@ $rows = [
         <h1 class="jkhive-section-title" style="margin-top:0;">Gestión de usuarios</h1>
         <p style="color:var(--jk-metal-light);max-width:52rem;line-height:1.55;">
           Patrón de administración JK Hive: filtros con <code>select.jkhive-hex-select</code>, acciones de fila con <code>.jkhive-bttn-table-*</code>,
-          estado con <code>.jkhive-bttn-table-toggle</code>, confirmación de borrado con <code>showDeleteConfirmToast</code> y pie de paginación <code>.jkhive-pagination</code> (estilos en <code>crm.css</code>).
+          estado con <code>.jkhive-bttn-table-toggle</code>, confirmación de borrado con <code>showDeleteConfirmToast</code> y pie de paginación <code>.jkhive-pagination</code> (estilos admin en <code>jkfw-showcase-shell.css</code>).
         </p>
 
         <div class="jkfw-admin-toolbar" style="margin-top:1.1rem;display:flex;flex-wrap:wrap;gap:0.85rem;align-items:flex-end;">

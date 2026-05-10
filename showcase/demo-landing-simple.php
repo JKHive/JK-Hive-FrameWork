@@ -14,8 +14,7 @@ $jk_hide_demo_modal = true;
 $jk_footer_minimal = true;
 $jk_extra_css =
     '<link rel="stylesheet" href="assets/css/jkfw-catalog-demo.css">' . "\n" .
-    '<link rel="stylesheet" href="assets/css/jkfw-launcher.css">' . "\n" .
-    '<link rel="stylesheet" href="assets/css/crm.css">' . "\n";
+    '<link rel="stylesheet" href="assets/css/jkfw-launcher.css">' . "\n";
 
 require __DIR__ . '/includes/layout-head.php';
 require __DIR__ . '/includes/jkfw-landing-simple-sidebar.php';
