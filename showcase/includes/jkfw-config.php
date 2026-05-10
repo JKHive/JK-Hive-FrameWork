@@ -36,13 +36,52 @@ function jkfw_shell_logout(): void
 }
 
 /**
+ * Ruta del flag opcional de mesa (XAMPP). No versionar; ver `jkfw-workbench.flag.example` y `.gitignore`.
+ */
+function jkfw_workbench_flag_path(): string
+{
+    return __DIR__ . DIRECTORY_SEPARATOR . 'jkfw-workbench.flag';
+}
+
+/**
+ * Mesa de trabajo: si `jkfw-workbench.flag` existe y la primera línea activa → super admin para pruebas.
+ * Producción / Git: sin archivo → solo reglas reales en `jkfw_shell_is_super_admin()`.
+ */
+function jkfw_workbench_mesa_super_admin(): bool
+{
+    $path = jkfw_workbench_flag_path();
+    if (! is_readable($path)) {
+        return false;
+    }
+    $raw = file_get_contents($path);
+    if ($raw === false || $raw === '') {
+        return false;
+    }
+    foreach (preg_split("/\r\n|\n|\r/", $raw) as $row) {
+        $line = trim((string) $row);
+        if ($line === '' || str_starts_with($line, '#')) {
+            continue;
+        }
+        $line = preg_replace('/#.*$/', '', $line);
+        $line = strtolower(trim((string) $line));
+
+        return in_array($line, ['1', 'true', 'yes', 'on'], true);
+    }
+
+    return false;
+}
+
+/**
  * @return array{authenticated:bool,user:array<string,mixed>}
  */
 function jkfw_shell_ssr_auth_payload(): array
 {
     if (jkfw_shell_session_logged_in()) {
-        $level = (int) ($_SESSION['jkfw_profile_level'] ?? 3);
         $isSa = jkfw_shell_is_super_admin();
+        $level = (int) ($_SESSION['jkfw_profile_level'] ?? 3);
+        if ($isSa && jkfw_workbench_mesa_super_admin()) {
+            $level = max($level, 4);
+        }
 
         return [
             'authenticated' => true,
@@ -160,10 +199,15 @@ function jkfw_roles(): array
 }
 
 /**
- * Super admin showcase: rol `super_admin` o nivel ≥ 4 (Deploy paquete / API).
+ * Super admin showcase (Deploy, API): mesa opcional vía flag local NO versionado;
+ * en remoto: `super_admin` en roles o profile_level ≥ 4 (sustituir/ampliar cuando el auth sea el mismo que otros sistemas).
  */
 function jkfw_shell_is_super_admin(): bool
 {
+    if (jkfw_workbench_mesa_super_admin()) {
+        return true;
+    }
+
     if (in_array('super_admin', jkfw_roles(), true)) {
         return true;
     }

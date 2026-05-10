@@ -5,27 +5,36 @@ header('Content-Type: application/json; charset=UTF-8');
 
 require_once dirname(__DIR__, 2) . '/includes/jkfw-config.php';
 
+$ssr = jkfw_shell_ssr_auth_payload();
+
 $payload = [
     'success' => true,
-    'authenticated' => jkfw_shell_session_logged_in(),
+    'authenticated' => $ssr['authenticated'],
     'user' => null,
 ];
 
-if ($payload['authenticated']) {
+if ($ssr['authenticated']) {
+    /** @var array<string, mixed> $u */
+    $u = $ssr['user'];
     $payload['user'] = [
-        'id' => 42,
-        'username' => 'Visita Showcase',
-        'email' => 'demo@jkhive.local',
-        'profile_slug' => 'administrator',
-        'profile_level' => 3,
-        'profile_name' => 'Administrador demo',
+        'id' => $u['id'] ?? 42,
+        'username' => $u['username'] ?? '',
+        'email' => $u['email'] ?? '',
+        'profile_slug' => $u['profile_slug'] ?? 'administrator',
+        'profile_level' => (int) ($u['profile_level'] ?? 0),
+        'profile_name' => $u['profile_name'] ?? '',
+        'is_super_admin' => ! empty($u['is_super_admin']),
     ];
 } else {
+    /** @var array<string, mixed> $u */
+    $u = $ssr['user'];
     $payload['user'] = [
-        'profile_slug' => 'guest',
-        'username' => 'Invitado',
-        'profile_name' => 'Invitado',
-        'unique_id' => '00000000-0000-0000-0000-000000000001',
+        'profile_slug' => $u['profile_slug'] ?? 'guest',
+        'username' => $u['username'] ?? 'Invitado',
+        'profile_name' => $u['profile_name'] ?? 'Invitado',
+        'unique_id' => $u['unique_id'] ?? '00000000-0000-0000-0000-000000000001',
+        'profile_level' => (int) ($u['profile_level'] ?? 0),
+        'is_super_admin' => ! empty($u['is_super_admin']),
     ];
 }
 

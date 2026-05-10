@@ -1,0 +1,7 @@
+# Mesa de trabajo (XAMPP): copiar este archivo a `jkfw-workbench.flag` (mismo directorio).
+# Valor activo en la primera línea: 1 | true | yes | on
+# Con archivo activo, Deploy y API tratan la sesión como super admin sin tocar sesión PHP.
+# En repo remoto / entornos reales: NO usar este archivo; la comprobación es rol `super_admin` o profile_level >= 4
+# desde tu sistema de cuentas (acoplable en `jkfw_shell_is_super_admin()` cuando exista backend compartido).
+
+1
