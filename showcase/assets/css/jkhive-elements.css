@@ -1522,6 +1522,91 @@ body .jkhive-bttn-table:hover .jkhive-hex:not(.jkhive-hex-honey):not(.jkhive-hex
 }
 
 /* ========================================
+   jkhive-itemgallery-small-hover-v2 — variante editorial sin escala: anillo/borde (::after) + swap azul/miel.
+   Original canónico (escala 1.05): jk-hive.css § itemgallery-small:hover. Activar con la clase en el contenedor strip/roll.
+   También: raíz `.jkfw-carousel-hex-big` + ítems `.jkhive-carouselitem-big` (misma lógica, selectores .service-*).
+   ======================================== */
+.jkhive-itemgallery-small-hover-v2 .jkhive-itemgallery-small:hover,
+.jkhive-itemgallery-small-hover-v2 .jkhive-itemgallery-small:focus-within {
+  z-index: 10;
+}
+
+.jkhive-itemgallery-small-hover-v2 .jkhive-itemgallery-small:hover > .jkhive-hex,
+.jkhive-itemgallery-small-hover-v2 .jkhive-itemgallery-small:focus-within > .jkhive-hex {
+  background: var(--jk-accent-honey-light) !important;
+  transform: none !important;
+  box-shadow: none !important;
+  position: relative;
+  z-index: 5;
+}
+
+.jkhive-itemgallery-small-hover-v2 .jkhive-itemgallery-small:hover > .jkhive-hex::after,
+.jkhive-itemgallery-small-hover-v2 .jkhive-itemgallery-small:focus-within > .jkhive-hex::after {
+  background: var(--jk-tech-dark) !important;
+  transform: translate(-50%, -50%) !important;
+  box-shadow: 0 0 0 2px var(--jk-primary-blue-light), 0 0 18px rgba(14, 165, 233, 0.45);
+}
+
+.jkhive-itemgallery-small-hover-v2 .jkhive-itemgallery-small:hover > .jkhive-hex .jkhive-hex-gallery-title,
+.jkhive-itemgallery-small-hover-v2 .jkhive-itemgallery-small:focus-within > .jkhive-hex .jkhive-hex-gallery-title {
+  color: var(--jk-primary-blue-light) !important;
+  text-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+}
+
+.jkhive-itemgallery-small-hover-v2 .jkhive-itemgallery-small:hover > .jkhive-hex .jkhive-hex-gallery-icon,
+.jkhive-itemgallery-small-hover-v2 .jkhive-itemgallery-small:focus-within > .jkhive-hex .jkhive-hex-gallery-icon {
+  color: var(--jk-metal-light) !important;
+  filter: none !important;
+}
+
+.jkhive-itemgallery-small-hover-v2 .jkhive-itemgallery-small:hover > .jkhive-hex .jkhive-hex-gallery-subtitle,
+.jkhive-itemgallery-small-hover-v2 .jkhive-itemgallery-small:focus-within > .jkhive-hex .jkhive-hex-gallery-subtitle {
+  color: var(--jk-metal-light) !important;
+  opacity: 1 !important;
+}
+
+/* Misma variante v2 en carrusel «Servicios destacados» (jk-hive .jkhive-carouselitem-big + .service-*).
+   La clase ancla en la raíz `.jkfw-carousel-hex-big` (convive con strips .jkhive-itemgallery-small). */
+.jkhive-itemgallery-small-hover-v2 .jkhive-carouselitem-big:hover,
+.jkhive-itemgallery-small-hover-v2 .jkhive-carouselitem-big:focus-within {
+  z-index: 10;
+}
+
+.jkhive-itemgallery-small-hover-v2 .jkhive-carouselitem-big:hover .jkhive-hex,
+.jkhive-itemgallery-small-hover-v2 .jkhive-carouselitem-big:focus-within .jkhive-hex {
+  background: var(--jk-accent-honey-light) !important;
+  transform: none !important;
+  box-shadow: none !important;
+  position: relative;
+  z-index: 5;
+}
+
+.jkhive-itemgallery-small-hover-v2 .jkhive-carouselitem-big:hover .jkhive-hex::after,
+.jkhive-itemgallery-small-hover-v2 .jkhive-carouselitem-big:focus-within .jkhive-hex::after {
+  background: var(--jk-tech-dark) !important;
+  transform: translate(-50%, -50%) !important;
+  box-shadow: 0 0 0 2px var(--jk-primary-blue-light), 0 0 18px rgba(14, 165, 233, 0.45);
+}
+
+.jkhive-itemgallery-small-hover-v2 .jkhive-carouselitem-big:hover .service-title,
+.jkhive-itemgallery-small-hover-v2 .jkhive-carouselitem-big:focus-within .service-title {
+  color: var(--jk-primary-blue-light) !important;
+  text-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+}
+
+.jkhive-itemgallery-small-hover-v2 .jkhive-carouselitem-big:hover .service-icon,
+.jkhive-itemgallery-small-hover-v2 .jkhive-carouselitem-big:focus-within .service-icon {
+  color: var(--jk-metal-light) !important;
+  filter: none !important;
+}
+
+.jkhive-itemgallery-small-hover-v2 .jkhive-carouselitem-big:hover .service-description,
+.jkhive-itemgallery-small-hover-v2 .jkhive-carouselitem-big:focus-within .service-description {
+  color: var(--jk-metal-light) !important;
+  opacity: 1 !important;
+}
+
+/* ========================================
    HEX ITEM STYLE: CYAN CANÓNICO (galería itemgallery / carrusel index)
    Piel canónica: .jkhive-hex-cyan-item o alias .jkhive-hex-skin-canonical-cyan (mismo aspecto).
    Borde celeste (--jk-primary-blue-light), relleno miel interior (::after). Hover: borde miel,

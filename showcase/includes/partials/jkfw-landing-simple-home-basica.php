@@ -6,8 +6,8 @@ declare(strict_types=1);
  * — Carrusel big (existente).
  * — ¿Por qué elegirnos?: **strip-gallery** `#jklpStripGallery` (panal canónico, sin pole).
  * — Noticias: hueco reservado.
- * — Nuestros clientes: solo **strip-carrousel** `#jklpStripCarrousel` (`jklp-pole`, marquee continuo en `jklp-galleries.js`).
- * — **Mesa PHP** (`demo-landing-simple.php`): el partial incluye `landingpage/basica/assets/js/jklp-galleries.js` al final (esta copia JKHFW no duplica en `layout-scripts.php`).
+ * — Nuestros clientes: solo **strip-carrousel** `#jklpStripCarrousel` (`jklp-pole`); motor `jklp-galleries.js`.
+ * — **Mesa PHP** (`demo-landing-simple.php`): `$jk_landing_basica_jklp_galleries_js = true` → `layout-scripts.php` carga **una sola vez** `landingpage/basica/assets/js/jklp-galleries.js` (no duplicar `<script>` en este partial). El `index.html` estático incluye ese script al final del body.
  */
 $h = static fn (string $s): string => htmlspecialchars($s, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 
@@ -81,7 +81,7 @@ $jklp_render_ventajas_item_jkhive = $jklp_render_small_editorial_hex;
           ['titulo' => 'Servicio 4', 'txt' => 'Demostración de ítem destacado.', 'icon' => 'fa-rocket'],
       ];
       ?>
-      <div id="jkfwSimpleFeaturedCarousel" class="jkfw-carousel-hex-big" aria-roledescription="carrusel" aria-labelledby="jkfw-simple-servicios-destacados-title">
+      <div id="jkfwSimpleFeaturedCarousel" class="jkfw-carousel-hex-big jkhive-itemgallery-small-hover-v2" aria-roledescription="carrusel" aria-labelledby="jkfw-simple-servicios-destacados-title">
         <div class="jkfw-simple-featured-carousel-row">
           <button type="button" class="jkfw-simple-featured-nav-btn carousel-nav carousel-nav-prev jkfw-simple-carousel-prev" aria-label="<?= $h('Anterior ítems destacados') ?>">
             <i class="fas fa-chevron-left" aria-hidden="true"></i>
@@ -423,4 +423,3 @@ $jklp_render_ventajas_item_jkhive = $jklp_render_small_editorial_hex;
   });
 })();
 </script>
-<script src="landingpage/basica/assets/js/jklp-galleries.js"></script>
