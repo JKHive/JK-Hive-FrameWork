@@ -1281,7 +1281,7 @@ body .jkhive-bttn-big:hover .jkhive-hex-content svg,
 /* ========================================
    jkhive-bttn-big: animación por tipo de icono
    Regla: botones uno al lado del otro NUNCA comparten la misma animación.
-   Hero: Catálogo (oil-can) ≠ Ingresar (user). CTA: Crear cuenta ≠ Contactar. About: Ir al Catálogo ≠ Contáctanos.
+   Hero: Catálogo (oil-can) ≠ Ingresar (user). CTA: About (briefcase) y Contact (mismo patrón, espejo en Z).
    Barra: Catálogo, Ingresar, About, Contact, FAQ, Políticas = 6 distintas.
    ======================================== */
 /* Todas las reglas con animation: quitar transición en transform para que la animación se vea */
@@ -1346,6 +1346,14 @@ body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-paper-plane {
   opacity: 1 !important;
   animation: jkhive-anmtn-envelope 0.6s ease-in-out forwards !important;
   transform-style: preserve-3d !important;
+}
+
+/* CTA final (#cta): Contacto = misma lógica que About (briefcase), dirección espejada. */
+html body #cta.cta-section-hex .jkhive-bttn-big:hover .jkhive-hex-icon.fa-envelope,
+body #cta.cta-section-hex .jkhive-bttn-big:hover .jkhive-hex-icon.fa-envelope,
+html body #cta.cta-section-hex .jkhive-bttn-big:focus-within .jkhive-hex-icon.fa-envelope,
+body #cta.cta-section-hex .jkhive-bttn-big:focus-within .jkhive-hex-icon.fa-envelope {
+  animation: jkhive-anmtn-briefcase-mirror 0.8s ease-in-out forwards !important;
 }
 
 /* Información / Conoce más / About - fa-info-circle → handshake */
@@ -1899,6 +1907,25 @@ body .jkhive-bttn-table:hover .jkhive-hex:not(.jkhive-hex-honey):not(.jkhive-hex
   }
   75% {
     transform: rotateZ(30deg);
+  }
+  100% {
+    transform: rotateZ(0deg);
+  }
+}
+
+/* Espejo de briefcase: mismos tiempos, sentido invertido (para CTA Contact vs About). */
+@keyframes jkhive-anmtn-briefcase-mirror {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  25% {
+    transform: rotateZ(30deg);
+  }
+  50% {
+    transform: rotateZ(0deg);
+  }
+  75% {
+    transform: rotateZ(-30deg);
   }
   100% {
     transform: rotateZ(0deg);
