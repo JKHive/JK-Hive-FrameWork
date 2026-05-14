@@ -1281,7 +1281,7 @@ body .jkhive-bttn-big:hover .jkhive-hex-content svg,
 /* ========================================
    jkhive-bttn-big: animación por tipo de icono
    Regla: botones uno al lado del otro NUNCA comparten la misma animación.
-   Hero: Catálogo (oil-can) ≠ Ingresar (user). CTA: About (briefcase) y Contact (mismo patrón, espejo en Z).
+   Hero: Catálogo (oil-can) ≠ Ingresar (user). CTA: About (briefcase) y Contact (mismo patrón, espejo en Z). About: Ir al Catálogo ≠ Contáctanos.
    Barra: Catálogo, Ingresar, About, Contact, FAQ, Políticas = 6 distintas.
    ======================================== */
 /* Todas las reglas con animation: quitar transición en transform para que la animación se vea */
