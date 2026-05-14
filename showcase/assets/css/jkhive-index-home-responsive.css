@@ -140,6 +140,18 @@ body.jkhive-index-home main .jkhive-index-section[id] {
   body.jkhive-index-home main .jkhive-index-section[id] {
     scroll-margin-top: 125px;
   }
+
+  body.jkhive-index-home #ventajas.jkhive-index-section--ventajas,
+  body.jkfw-landing-basic-body.jkhive-index-home #ventajas.jkhive-index-section--ventajas {
+    overflow: visible;
+  }
+
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery.jkhive-hex-gallery-small,
+  body.jkfw-landing-basic-body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery.jkhive-hex-gallery-small,
+  body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jkhive-hex-gallery-small,
+  body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jkhive-hex-gallery-small {
+    overflow: visible !important;
+  }
 }
 
 body.hero-scrolled.jkhive-index-home #contexto-servicio.jkhive-index-section--hub {
@@ -276,6 +288,34 @@ body.hero-scrolled.jkhive-index-home #contexto-servicio.jkhive-index-section--hu
 
   /* Hex 90px: centrado vertical estable (este CSS va después de jkhive-style) */
   body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small .jkhive-hex-content.jkhive-hex-content-editorial {
+    justify-content: center !important;
+    align-items: center !important;
+    align-content: center !important;
+    padding: 0.26rem 6% 0.3rem 6% !important;
+    gap: 0.14rem !important;
+  }
+
+  body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel .jkhive-itemgallery-small,
+  body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel .jkhive-itemgallery-small {
+    width: 90px;
+    height: 104px;
+    margin: -26px 0;
+  }
+
+  body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel .jkhive-itemgallery-small .jkhive-hex,
+  body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel .jkhive-itemgallery-small .jkhive-hex {
+    width: 90px !important;
+    height: calc(90px * 1.1547) !important;
+  }
+
+  body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel .jkhive-itemgallery-small .jkhive-hex::after,
+  body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel .jkhive-itemgallery-small .jkhive-hex::after {
+    width: calc(90px - 4px) !important;
+    height: calc((90px - 4px) * 1.1547) !important;
+  }
+
+  body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel .jkhive-itemgallery-small .jkhive-hex-content.jkhive-hex-content-editorial,
+  body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel .jkhive-itemgallery-small .jkhive-hex-content.jkhive-hex-content-editorial {
     justify-content: center !important;
     align-items: center !important;
     align-content: center !important;
@@ -479,4 +519,45 @@ body.hero-scrolled.jkhive-index-home #contexto-servicio.jkhive-index-section--hu
   body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(4):hover {
     transform: translateX(46px) scale(1.05) !important;
   }
+}
+
+/* ---------- Landing básica (bloques `jklp-section` + noticias) — integrado en hoja home responsive ---------- */
+body.jkfw-landing-basic-body .jklp-section.jkhive-index-section,
+body.jkhive-index-home .jklp-section.jkhive-index-section {
+  scroll-margin-top: 96px;
+}
+
+body.jkfw-landing-basic-body .jklp-section--why .jkhive-index-why-sub,
+body.jkfw-landing-basic-body .jklp-section--news .jklp-news-lead,
+body.jkfw-landing-basic-body .jklp-section--clients .jklp-clients-lead,
+body.jkhive-index-home .jklp-section--why .jkhive-index-why-sub,
+body.jkhive-index-home .jklp-section--news .jklp-news-lead,
+body.jkhive-index-home .jklp-section--clients .jklp-clients-lead {
+  text-align: center;
+  color: var(--jk-metal);
+  max-width: 46rem;
+  margin: 1.25rem auto 0;
+  padding: 0 0.35rem;
+  box-sizing: border-box;
+  line-height: 1.55;
+}
+
+body.jkfw-landing-basic-body .jklp-section--clients .jklp-clients-lead,
+body.jkhive-index-home .jklp-section--clients .jklp-clients-lead {
+  color: var(--jk-metal-light);
+  font-size: 0.95rem;
+}
+
+body.jkfw-landing-basic-body .jklp-news-placeholder,
+body.jkhive-index-home .jklp-news-placeholder {
+  margin: 2rem auto 0;
+  max-width: 36rem;
+  padding: 1.25rem 1rem;
+  text-align: center;
+  color: var(--jk-metal-light);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  border: 1px dashed rgba(14, 165, 233, 0.28);
+  border-radius: 12px;
+  box-sizing: border-box;
 }

@@ -770,8 +770,19 @@ main:has(.jkhive-section-dashboard) .jkhive-hex-gallery .jkhive-itemgallery-med 
 }
 
 /* --- Landing básica (single-page) --- */
-.jkfw-landing-basic-body .jkhive-main-content {
+/* Sin navbar superior: el main puede arrancar arriba del todo. Con buscador JK Hive (.jkfw-landing-basic-has-top-search-nav), reservar el mismo offset que jk-hive.css (70px / 60px mobile). */
+.jkfw-landing-basic-body:not(.jkfw-landing-basic-has-top-search-nav) .jkhive-main-content {
   margin-top: 0 !important;
+}
+
+.jkfw-landing-basic-body.jkfw-landing-basic-has-top-search-nav .jkhive-main-content {
+  margin-top: 70px !important;
+}
+
+@media (max-width: 768px) {
+  .jkfw-landing-basic-body.jkfw-landing-basic-has-top-search-nav .jkhive-main-content {
+    margin-top: 60px !important;
+  }
 }
 
 .jkfw-landing-basic-body .jkhive-content-wrap,
@@ -947,7 +958,7 @@ main:has(.jkhive-section-dashboard) .jkhive-hex-gallery .jkhive-itemgallery-med 
  * Flex solo donde no hay ítems CRM med del launcher.
  */
 .jkfw-landing-basic-body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium:not(:has(.jkhive-itemgallery-med)),
-.jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-small {
+.jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-small:not(.jkhive-index-ventajas-gallery):not(.jklp-pole) {
   display: flex !important;
   flex-wrap: wrap !important;
   justify-content: center !important;
@@ -957,7 +968,7 @@ main:has(.jkhive-section-dashboard) .jkhive-hex-gallery .jkhive-itemgallery-med 
 }
 
 .jkfw-landing-basic-body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium:not(:has(.jkhive-itemgallery-med)) .jkhive-itemgallery-med,
-.jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-small .jkhive-itemgallery-small {
+.jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-small:not(.jkhive-index-ventajas-gallery):not(.jklp-pole) .jkhive-itemgallery-small {
   margin: 0 !important;
   transform: none !important;
 }
@@ -1356,6 +1367,23 @@ html body.jkfw-landing-basic-body .jkfw-carousel-hex-big button.jkfw-simple-feat
     min-height: calc(520px * 1.1547 * 1.04 + clamp(88px, 14vmin, 140px));
     padding-block: clamp(26px, 4vmin, 44px);
   }
+}
+
+/* Landing básica — utilidades de página (antes `jklp-basic-local.css`) */
+body.jkfw-landing-basic-body .jkfw-landing-basic-prose {
+  margin: 0.75rem 0 0 0;
+  line-height: 1.55;
+  color: var(--jk-metal-light);
+  opacity: 0.95;
+  max-width: 46rem;
+}
+
+body.jkfw-landing-basic-body .jklp-cta-emphasis.cta-section-hex,
+body.jkfw-landing-basic-body section#cta.jklp-cta-emphasis {
+  padding-top: clamp(3.5rem, 10vw, 6rem);
+  padding-bottom: clamp(3.5rem, 10vw, 6.25rem);
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: clamp(1.25rem, 4vw, 2.5rem);
 }
 
 /* Modal noticias (landing simple · jkfw_launcher_hex_news_item) */

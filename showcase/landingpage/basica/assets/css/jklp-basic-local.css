@@ -1,0 +1,21 @@
+/**
+ * Landing básica JK Hive — capa local.
+ * #ventajas usa el contrato oficial .jkhive-hex-gallery-small + jkhive-index-home-responsive.css (home JK Hive).
+ */
+
+.jkfw-landing-basic-prose {
+  margin: 0.75rem 0 0 0;
+  line-height: 1.55;
+  color: var(--jk-metal-light);
+  opacity: 0.95;
+  max-width: 46rem;
+}
+
+/* CTA final: más aire vertical (peso visual de invitación, no pie de correo) */
+.jklp-cta-emphasis.cta-section-hex,
+section#cta.jklp-cta-emphasis {
+  padding-top: clamp(3.5rem, 10vw, 6rem);
+  padding-bottom: clamp(3.5rem, 10vw, 6.25rem);
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: clamp(1.25rem, 4vw, 2.5rem);
+}

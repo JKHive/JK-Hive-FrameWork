@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es" data-jkfw-theme="canonical">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Landing básica JK Hive</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/jk-hive.css">
+  <link rel="stylesheet" href="../../assets/css/jkfw-themes.css">
+  <link rel="stylesheet" href="../../assets/css/jkhive-hex-item-layout.css">
+  <link rel="stylesheet" href="../../assets/css/jkhive-style.css">
+  <link rel="stylesheet" href="../../assets/css/jkhive-elements.css">
+  <link rel="stylesheet" href="../../assets/css/jkhive-navbar.css">
+  <link rel="stylesheet" href="../../assets/css/jkhive-sidebar.css">
+  <link rel="stylesheet" href="../../assets/css/krauss-mobile.css">
+  <link rel="stylesheet" href="../../assets/css/modals.css">
+  <link rel="stylesheet" href="../../assets/css/jkhive-modals.css">
+  <link rel="stylesheet" href="../../assets/css/jkfw-button-tokens.css">
+  <link rel="stylesheet" href="../../assets/css/jkfw-catalog-demo.css">
+  <link rel="stylesheet" href="../../assets/css/jkfw-launcher.css">
+  <link rel="stylesheet" href="assets/css/jklp-basic-local.css">
+</head>
+<body class="page-public jkhive-showcase-body admin-layout crm-layout jkfw-landing-basic-body jkfw-landing-basic-no-auth-nav jkfw-landing-basic-has-top-search-nav">
+<script>
+window.JKHIVE_AUTH_STATUS_URL = 'api/auth/status.php';
+window.JKHIVE_MESSAGES_INBOX_URL = 'messaging.php';
+window.JKHIVE_SHOWCASE_SHELL = false;
+window.JKHIVE_SSR_AUTH = {"authenticated":false,"user":{"profile_slug":"guest","username":"Invitado","profile_name":"Invitado","profile_level":0,"is_super_admin":false}};
+window.JKHIVE_NO_PUBLIC_REGISTER = true;
+</script>
+<script src="assets/js/jklp-theme.js"></script>
+<nav class="jkhive-navbar jkhive-navbar--landing-basic-search" aria-label="Barra superior">
+  <div class="jkhive-navbar-left">
+    <h1 class="jkhive-navbar-title" onclick="window.location.href='index.html'" data-tooltip="JK Hive">JK Hive</h1>
+  </div>
+  <div class="jkhive-navbar-right">
+    <div class="jkhive-search-wrapper" id="searchWrapper">
+      <div class="jkhive-search-expandable" id="searchExpandable">
+        <div class="jkhive-search-input-row">
+          <input type="text" id="searchInput" class="jkhive-search-input" placeholder="Buscar en el sitio..." autocomplete="off" />
+          <button type="button" class="jkhive-search-close" id="searchCloseBtn" aria-label="Cerrar búsqueda" data-tooltip="Cerrar">×</button>
+        </div>
+        <div class="jkhive-search-results" id="searchResults"></div>
+      </div>
+      <div class="jkhive-navbar-hex-item" id="searchIcon" data-tooltip="Buscar" style="cursor: pointer;">
+        <i class="fas fa-search"></i>
+      </div>
+    </div>
+  </div>
+</nav>
+<div id="jkhive-sidebar-container">
+  <div id="jkhive-logo-square" class="jkhive-logo-square">
+    <div class="jkhive-sidebar-logo">
+      <a href="index.html" data-tooltip="Home">
+        <div class="jkhive-hex jkhive-hex-jkhive-face">
+          <div class="jkhive-hex-content">
+            <div class="jkhive-logo-editorial-head">
+              <div class="jkhive-logo-main jkhive-logo-main-jkhive">JK</div>
+              <div class="jkhive-logo-divider jkhive-logo-divider-jkhive"></div>
+            </div>
+            <div class="jkhive-logo-sub jkhive-logo-sub-jkhive">HIVE</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <aside id="jkhive-sidebar" class="jkhive-sidebar">
+    <nav class="jkhive-nav-items">
+      <div class="jkhive-nav-item">
+        <a href="index.html" data-tooltip="Home">
+          <div class="jkhive-hex">
+            <div class="jkhive-hex-content jkhive-hex-content-editorial">
+              <i class="jkhive-hex-icon fas fa-house"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="jkhive-nav-item active">
+        <a href="about.html" data-tooltip="About">
+          <div class="jkhive-hex">
+            <div class="jkhive-hex-content jkhive-hex-content-editorial">
+              <i class="jkhive-hex-icon fas fa-id-badge"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="jkhive-nav-item">
+        <a href="gallery.html" data-tooltip="Galería">
+          <div class="jkhive-hex">
+            <div class="jkhive-hex-content jkhive-hex-content-editorial">
+              <i class="jkhive-hex-icon fas fa-images"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="jkhive-nav-item">
+        <a href="contact.html" data-tooltip="Contacto">
+          <div class="jkhive-hex">
+            <div class="jkhive-hex-content jkhive-hex-content-editorial">
+              <i class="jkhive-hex-icon fas fa-envelope"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+    </nav>
+  </aside>
+</div>
+  <main class="jkhive-main-content" id="main-content">
+    <div class="jkhive-content-wrap">
+      <div class="jkhive-page-container">
+        <section class="hero-section jkfw-landing-basic-hero jkhive-surface-panel-honeycomb-sm" aria-labelledby="jkfw-landing-about-hero-title">
+          <div class="jkfw-landing-basic-hero-logo">
+            <a href="index.html" class="jkhive-hero-logo-link" data-tooltip="Home landing básica" aria-label="Home landing básica">
+              <div class="jkhive-editorial-hero-logo">
+                <div class="jkhive-hex jkhive-hex-jkhive-face">
+                  <div class="jkhive-hex-content">
+                    <div class="jkhive-logo-editorial-head">
+                      <div class="jkhive-logo-main jkhive-logo-main-jkhive">JK</div>
+                      <div class="jkhive-logo-divider jkhive-logo-divider-jkhive"></div>
+                    </div>
+                    <div class="jkhive-logo-sub jkhive-logo-sub-jkhive">HIVE</div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <h1 id="jkfw-landing-about-hero-title" class="jkfw-landing-basic-hero-title">About</h1>
+          <p class="jkfw-landing-basic-hero-subtitle">Contenido institucional para la versión pública mínima JK Hive.</p>
+        </section>
+        <div class="jkhive-content-wrap">
+          <div class="jkhive-page-container">
+            <section class="jkfw-landing-basic-section" aria-labelledby="jkfw-about-lead-title">
+              <h2 id="jkfw-about-lead-title" class="jkhive-section-title">Quiénes somos</h2>
+              <div class="jkhive-lead-wrap">
+                <p class="jkhive-lead-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Esta landing básica concentra identidad JK Hive y foco comercial sin autoadministración.</p>
+              </div>
+              <p class="jkfw-landing-basic-prose">Texto genérico de segundo párrafo para reemplazar por contenido real en tu proyecto.</p>
+              <p class="jkfw-landing-basic-prose" style="margin-top:1.25rem;">La vitrina de medios está en <a class="jkhive-link-inline" href="gallery.html">Galería</a>.</p>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="jkhive-footer jkhive-footer--minimal">
+    <div class="jkhive-footer-inner">
+      <div class="footer-right">
+        <div class="footer-corporate">
+          <p class="small footer-copyright-line">
+            <span class="footer-copyright-muted">&copy; </span>
+            <a href="https://jkhive.work" class="footer-link" target="_blank" rel="noopener noreferrer">JK Hive 2016</a>
+          </p>
+          <p class="small">
+            <span class="footer-copyright-muted">Desarrollado por </span>
+            <a href="https://webs.jkhive.work" class="footer-link" target="_blank" rel="noopener noreferrer">JK WebS</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="../../assets/js/hosts-config.js"></script>
+  <script src="../../assets/js/navbar-loader.js"></script>
+  <script src="../../assets/js/jkhive-navbar.js"></script>
+  <script src="../../assets/js/jkhive-toasts.js"></script>
+  <script src="../../assets/js/jk-hive-toast-api.js"></script>
+  <script src="../../assets/js/error-handler.js"></script>
+  <script src="../../assets/js/tooltip.js"></script>
+  <script src="../../assets/js/jkhive-elements.js"></script>
+  <script src="../../assets/js/showcase-interactions.js"></script>
+  <script src="../../assets/js/jkfw-showcase-admin.js"></script>
+</body>
+</html>

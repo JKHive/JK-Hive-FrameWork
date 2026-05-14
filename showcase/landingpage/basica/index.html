@@ -1,0 +1,325 @@
+﻿<!DOCTYPE html>
+<html lang="es" data-jkfw-theme="canonical">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing básica CANON — JK Hive</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/jk-hive.css">
+  <link rel="stylesheet" href="../../assets/css/jkfw-themes.css">
+  <link rel="stylesheet" href="../../assets/css/jkhive-hex-item-layout.css">
+  <link rel="stylesheet" href="../../assets/css/jkhive-style.css">
+  <link rel="stylesheet" href="../../assets/css/jkhive-elements.css">
+  <link rel="stylesheet" href="../../assets/css/jkhive-navbar.css">
+  <link rel="stylesheet" href="../../assets/css/jkhive-sidebar.css">
+  <link rel="stylesheet" href="../../assets/css/krauss-mobile.css">
+  <link rel="stylesheet" href="../../assets/css/modals.css">
+  <link rel="stylesheet" href="../../assets/css/jkhive-modals.css">
+  <link rel="stylesheet" href="../../assets/css/jkfw-button-tokens.css">
+  <link rel="stylesheet" href="../../assets/css/jkfw-catalog-demo.css">
+  <link rel="stylesheet" href="../../assets/css/jkfw-launcher.css">
+  <link rel="stylesheet" href="../../assets/css/jkhive-index-home-responsive.css">
+  <link rel="stylesheet" href="../../assets/css/jkhive-hexfeature-strip.css">
+</head>
+<body class="page-public jkhive-showcase-body admin-layout crm-layout jkfw-landing-basic-body jkhive-index-home jkfw-landing-basic-no-auth-nav jkfw-landing-basic-has-top-search-nav">
+<script>
+window.JKHIVE_AUTH_STATUS_URL = 'api/auth/status.php';
+window.JKHIVE_MESSAGES_INBOX_URL = 'messaging.php';
+window.JKHIVE_SHOWCASE_SHELL = false;
+window.JKHIVE_SSR_AUTH = {"authenticated":false,"user":{"profile_slug":"guest","username":"Invitado","profile_name":"Invitado","profile_level":0,"is_super_admin":false}};
+window.JKHIVE_NO_PUBLIC_REGISTER = true;
+</script>
+<script src="assets/js/jklp-theme.js"></script>
+<nav class="jkhive-navbar jkhive-navbar--landing-basic-search" aria-label="Barra superior">
+  <div class="jkhive-navbar-left">
+    <h1 class="jkhive-navbar-title" onclick="window.location.href='index.html'" data-tooltip="JK Hive">JK Hive</h1>
+  </div>
+  <div class="jkhive-navbar-right">
+    <div class="jkhive-search-wrapper" id="searchWrapper">
+      <div class="jkhive-search-expandable" id="searchExpandable">
+        <div class="jkhive-search-input-row">
+          <input type="text" id="searchInput" class="jkhive-search-input" placeholder="Buscar en el sitio..." autocomplete="off" />
+          <button type="button" class="jkhive-search-close" id="searchCloseBtn" aria-label="Cerrar búsqueda" data-tooltip="Cerrar">×</button>
+        </div>
+        <div class="jkhive-search-results" id="searchResults"></div>
+      </div>
+      <div class="jkhive-navbar-hex-item" id="searchIcon" data-tooltip="Buscar" style="cursor: pointer;">
+        <i class="fas fa-search"></i>
+      </div>
+    </div>
+  </div>
+</nav>
+<div id="jkhive-sidebar-container">
+  <div id="jkhive-logo-square" class="jkhive-logo-square">
+    <div class="jkhive-sidebar-logo">
+      <a href="index.html" data-tooltip="Home">
+        <div class="jkhive-hex jkhive-hex-jkhive-face">
+          <div class="jkhive-hex-content">
+            <div class="jkhive-logo-editorial-head">
+              <div class="jkhive-logo-main jkhive-logo-main-jkhive">JK</div>
+              <div class="jkhive-logo-divider jkhive-logo-divider-jkhive"></div>
+            </div>
+            <div class="jkhive-logo-sub jkhive-logo-sub-jkhive">HIVE</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <aside id="jkhive-sidebar" class="jkhive-sidebar">
+    <nav class="jkhive-nav-items">
+      <div class="jkhive-nav-item active">
+        <a href="index.html" data-tooltip="Home">
+          <div class="jkhive-hex">
+            <div class="jkhive-hex-content jkhive-hex-content-editorial">
+              <i class="jkhive-hex-icon fas fa-house"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="jkhive-nav-item">
+        <a href="about.html" data-tooltip="About">
+          <div class="jkhive-hex">
+            <div class="jkhive-hex-content jkhive-hex-content-editorial">
+              <i class="jkhive-hex-icon fas fa-id-badge"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="jkhive-nav-item">
+        <a href="gallery.html" data-tooltip="Galería">
+          <div class="jkhive-hex">
+            <div class="jkhive-hex-content jkhive-hex-content-editorial">
+              <i class="jkhive-hex-icon fas fa-images"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="jkhive-nav-item">
+        <a href="contact.html" data-tooltip="Contacto">
+          <div class="jkhive-hex">
+            <div class="jkhive-hex-content jkhive-hex-content-editorial">
+              <i class="jkhive-hex-icon fas fa-envelope"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+    </nav>
+  </aside>
+</div>
+  <main class="jkhive-main-content" id="main-content">
+    <div class="jkhive-content-wrap">
+      <div class="jkhive-page-container">
+        <section class="hero-section jkfw-landing-basic-hero jkhive-surface-panel-honeycomb-sm" aria-labelledby="jkfw-landing-basic-hero-title">
+          <div class="jkfw-landing-basic-hero-logo">
+            <a href="index.html" class="jkhive-hero-logo-link" data-tooltip="Home landing básica" aria-label="Home landing básica">
+              <div class="jkhive-editorial-hero-logo">
+                <div class="jkhive-hex jkhive-hex-jkhive-face">
+                  <div class="jkhive-hex-content">
+                    <div class="jkhive-logo-editorial-head">
+                      <div class="jkhive-logo-main jkhive-logo-main-jkhive">JK</div>
+                      <div class="jkhive-logo-divider jkhive-logo-divider-jkhive"></div>
+                    </div>
+                    <div class="jkhive-logo-sub jkhive-logo-sub-jkhive">HIVE</div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <h1 id="jkfw-landing-basic-hero-title" class="jkfw-landing-basic-hero-title">Landing básica CANON</h1>
+          <p class="jkfw-landing-basic-hero-subtitle">Versión simple de Home con identidad JK Hive y foco comercial.</p>
+        </section>
+        <div class="jkhive-content-wrap">
+          <div class="jkhive-page-container jkhive-index-page jkfw-landing-simple-home-page">
+            <section id="servicios-destacados" class="jkhive-index-section jkhive-index-section--destacados" aria-labelledby="jkfw-simple-servicios-destacados-title">
+              <h2 id="jkfw-simple-servicios-destacados-title" class="jkhive-section-title jkhive-index-section-title">Servicios destacados</h2>
+              <div id="jkfwSimpleFeaturedCarousel" class="jkfw-carousel-hex-big" aria-roledescription="carrusel" aria-labelledby="jkfw-simple-servicios-destacados-title">
+                <div class="jkfw-simple-featured-carousel-row">
+                  <button type="button" class="jkfw-simple-featured-nav-btn carousel-nav carousel-nav-prev jkfw-simple-carousel-prev" aria-label="Anterior ítems destacados">
+                    <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                  </button>
+                  <div class="jkfw-simple-featured-window">
+                    <div class="jkfw-simple-featured-window-xclip">
+                      <div class="service-carousel-wrapper jkfw-simple-featured-track">
+                        <article class="jkhive-carouselitem-big">
+                          <a href="about.html">
+                            <div class="jkhive-hex">
+                              <div class="jkhive-hex-content">
+                                <span class="service-icon" aria-hidden="true"><i class="fas fa-cubes"></i></span>
+                                <h3 class="service-title">Servicio 1</h3>
+                                <p class="service-description">Demostración de ítem destacado.</p>
+                              </div>
+                            </div>
+                          </a>
+                        </article>
+                        <article class="jkhive-carouselitem-big">
+                          <a href="about.html">
+                            <div class="jkhive-hex">
+                              <div class="jkhive-hex-content">
+                                <span class="service-icon" aria-hidden="true"><i class="fas fa-box"></i></span>
+                                <h3 class="service-title">Servicio 2</h3>
+                                <p class="service-description">Demostración de ítem destacado.</p>
+                              </div>
+                            </div>
+                          </a>
+                        </article>
+                        <article class="jkhive-carouselitem-big">
+                          <a href="about.html">
+                            <div class="jkhive-hex">
+                              <div class="jkhive-hex-content">
+                                <span class="service-icon" aria-hidden="true"><i class="fas fa-gem"></i></span>
+                                <h3 class="service-title">Servicio 3</h3>
+                                <p class="service-description">Demostración de ítem destacado.</p>
+                              </div>
+                            </div>
+                          </a>
+                        </article>
+                        <article class="jkhive-carouselitem-big">
+                          <a href="about.html">
+                            <div class="jkhive-hex">
+                              <div class="jkhive-hex-content">
+                                <span class="service-icon" aria-hidden="true"><i class="fas fa-rocket"></i></span>
+                                <h3 class="service-title">Servicio 4</h3>
+                                <p class="service-description">Demostración de ítem destacado.</p>
+                              </div>
+                            </div>
+                          </a>
+                        </article>
+                      </div>
+                    </div>
+                  </div>
+                  <button type="button" class="jkfw-simple-featured-nav-btn carousel-nav carousel-nav-next jkfw-simple-carousel-next" aria-label="Siguiente ítems destacados">
+                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </section>
+            <section id="ventajas" class="jkhive-index-section jkhive-index-section--ventajas" aria-labelledby="jkfw-simple-ventajas-title">
+              <h2 id="jkfw-simple-ventajas-title" class="jkhive-section-title jkhive-index-section-title">¿Por qué elegirnos?</h2>
+              <p class="jkhive-index-why-sub">Más de 18 años transformando desafíos tecnológicos en soluciones reales y medibles. Respeta «reduced motion».</p>
+              <div id="jklpStripGallery" class="jklp-strip-gallery jkhive-hex-gallery jkhive-hex-gallery-small jkhive-hex-gallery-display-only jkhive-index-ventajas-gallery jkhive-hexfeature-strip jkhive-itemgallery-small-hover-v2" data-jkhive-hexfeature-max="7" style="--jkhive-hexfeature-strip-max: 7;" aria-label="Refuerzos — strip-gallery">
+                <div class="jkhive-itemgallery-small"><div class="jkhive-hex"><div class="jkhive-hex-content jkhive-hex-content-editorial"><div class="jkhive-hex-gallery-icon jkfw-simple-why-icon-a"><i class="fas fa-award"></i></div><h3 class="jkhive-hex-gallery-title jkfw-simple-why-title-a">+18 Años</h3><p class="jkhive-hex-gallery-subtitle jkfw-simple-why-sub">Experiencia</p></div></div></div>
+                <div class="jkhive-itemgallery-small"><div class="jkhive-hex"><div class="jkhive-hex-content jkhive-hex-content-editorial"><div class="jkhive-hex-gallery-icon jkfw-simple-why-icon-b"><i class="fas fa-certificate"></i></div><h3 class="jkhive-hex-gallery-title jkfw-simple-why-title-b">Certificado</h3><p class="jkhive-hex-gallery-subtitle jkfw-simple-why-sub">Google &amp; otros</p></div></div></div>
+                <div class="jkhive-itemgallery-small"><div class="jkhive-hex"><div class="jkhive-hex-content jkhive-hex-content-editorial"><div class="jkhive-hex-gallery-icon jkfw-simple-why-icon-a"><i class="fas fa-users"></i></div><h3 class="jkhive-hex-gallery-title jkfw-simple-why-title-a">Confianza</h3><p class="jkhive-hex-gallery-subtitle jkfw-simple-why-sub">100+ clientes</p></div></div></div>
+                <div class="jkhive-itemgallery-small"><div class="jkhive-hex"><div class="jkhive-hex-content jkhive-hex-content-editorial"><div class="jkhive-hex-gallery-icon jkfw-simple-why-icon-b"><i class="fas fa-globe-americas"></i></div><h3 class="jkhive-hex-gallery-title jkfw-simple-why-title-b">Remoto</h3><p class="jkhive-hex-gallery-subtitle jkfw-simple-why-sub">Work expert</p></div></div></div>
+                <div class="jkhive-itemgallery-small"><div class="jkhive-hex"><div class="jkhive-hex-content jkhive-hex-content-editorial"><div class="jkhive-hex-gallery-icon jkfw-simple-why-icon-a"><i class="fas fa-rocket"></i></div><h3 class="jkhive-hex-gallery-title jkfw-simple-why-title-a">Innovación</h3><p class="jkhive-hex-gallery-subtitle jkfw-simple-why-sub">Constante</p></div></div></div>
+                <div class="jkhive-itemgallery-small"><div class="jkhive-hex"><div class="jkhive-hex-content jkhive-hex-content-editorial"><div class="jkhive-hex-gallery-icon jkfw-simple-why-icon-b"><i class="fas fa-handshake"></i></div><h3 class="jkhive-hex-gallery-title jkfw-simple-why-title-b">Compromiso</h3><p class="jkhive-hex-gallery-subtitle jkfw-simple-why-sub">Total</p></div></div></div>
+                <div class="jkhive-itemgallery-small"><div class="jkhive-hex"><div class="jkhive-hex-content jkhive-hex-content-editorial"><div class="jkhive-hex-gallery-icon jkfw-simple-why-icon-a"><i class="fas fa-shield-halved"></i></div><h3 class="jkhive-hex-gallery-title jkfw-simple-why-title-a">Seguridad</h3><p class="jkhive-hex-gallery-subtitle jkfw-simple-why-sub">Buenas prácticas</p></div></div></div>
+              </div>
+            </section>
+            <section id="jklp-noticias" class="jklp-section jklp-section--news jkhive-index-section" aria-labelledby="jklp-news-heading">
+              <h2 id="jklp-news-heading" class="jkhive-section-title jkhive-index-section-title">Noticias</h2>
+              <p class="jklp-news-lead">Canal de novedades: la galería hexagonal de noticias se integrará aquí en la siguiente iteración.</p>
+              <div class="jklp-news-placeholder" role="status">Sin ítems por ahora.</div>
+            </section>
+            <section id="jklp-nuestros-clientes" class="jklp-section jklp-section--clients jkhive-index-section" aria-labelledby="jklp-clients-heading">
+              <h2 id="jklp-clients-heading" class="jkhive-section-title jkhive-index-section-title">Nuestros clientes</h2>
+              <p class="jklp-clients-lead">Marcas en strip-carrousel (polea). Respeta «reduced motion».</p>
+              <div id="jklpStripCarrousel" class="jklp-strip-carrousel jkhive-hex-gallery jkhive-hex-gallery-small jkhive-hex-gallery-display-only jkhive-hexfeature-strip jklp-pole jkhive-itemgallery-small-hover-v2" data-jkhive-hexfeature-max="9" style="--jkhive-hexfeature-strip-max: 9;" aria-roledescription="cinta" aria-label="Marcas — strip-carrousel">
+                <div class="jklp-pole__viewport">
+                  <div class="jklp-pole__track" data-jklp-original-count="9">
+                    <div class="jklp-pole__cell"><div class="jkhive-itemgallery-small"><div class="jkhive-hex jkhive-hex-skin-canonical-honey"><div class="jkhive-hex-content jkhive-hex-content-editorial"><div class="jkhive-hex-gallery-icon"><i class="fas fa-handshake" aria-hidden="true"></i></div><h3 class="jkhive-hex-gallery-title">Compromiso</h3><p class="jkhive-hex-gallery-subtitle">Total</p></div></div></div></div>
+                    <div class="jklp-pole__cell"><div class="jkhive-itemgallery-small"><div class="jkhive-hex jkhive-hex-skin-canonical-honey"><div class="jkhive-hex-content jkhive-hex-content-editorial"><div class="jkhive-hex-gallery-icon"><i class="fas fa-building" aria-hidden="true"></i></div><h3 class="jkhive-hex-gallery-title">Cliente A</h3><p class="jkhive-hex-gallery-subtitle">Sector servicios</p></div></div></div></div>
+                    <div class="jklp-pole__cell"><div class="jkhive-itemgallery-small"><div class="jkhive-hex jkhive-hex-skin-canonical-honey"><div class="jkhive-hex-content jkhive-hex-content-editorial"><div class="jkhive-hex-gallery-icon"><i class="fas fa-industry" aria-hidden="true"></i></div><h3 class="jkhive-hex-gallery-title">Cliente B</h3><p class="jkhive-hex-gallery-subtitle">Industria</p></div></div></div></div>
+                    <div class="jklp-pole__cell"><div class="jkhive-itemgallery-small"><div class="jkhive-hex jkhive-hex-skin-canonical-honey"><div class="jkhive-hex-content jkhive-hex-content-editorial"><div class="jkhive-hex-gallery-icon"><i class="fas fa-store" aria-hidden="true"></i></div><h3 class="jkhive-hex-gallery-title">Cliente C</h3><p class="jkhive-hex-gallery-subtitle">Retail</p></div></div></div></div>
+                    <div class="jklp-pole__cell"><div class="jkhive-itemgallery-small"><div class="jkhive-hex jkhive-hex-skin-canonical-honey"><div class="jkhive-hex-content jkhive-hex-content-editorial"><div class="jkhive-hex-gallery-icon"><i class="fas fa-landmark" aria-hidden="true"></i></div><h3 class="jkhive-hex-gallery-title">Cliente D</h3><p class="jkhive-hex-gallery-subtitle">Institucional</p></div></div></div></div>
+                    <div class="jklp-pole__cell"><div class="jkhive-itemgallery-small"><div class="jkhive-hex jkhive-hex-skin-canonical-honey"><div class="jkhive-hex-content jkhive-hex-content-editorial"><div class="jkhive-hex-gallery-icon"><i class="fas fa-heart-pulse" aria-hidden="true"></i></div><h3 class="jkhive-hex-gallery-title">Cliente E</h3><p class="jkhive-hex-gallery-subtitle">Salud</p></div></div></div></div>
+                    <div class="jklp-pole__cell"><div class="jkhive-itemgallery-small"><div class="jkhive-hex jkhive-hex-skin-canonical-honey"><div class="jkhive-hex-content jkhive-hex-content-editorial"><div class="jkhive-hex-gallery-icon"><i class="fas fa-graduation-cap" aria-hidden="true"></i></div><h3 class="jkhive-hex-gallery-title">Cliente F</h3><p class="jkhive-hex-gallery-subtitle">Educación</p></div></div></div></div>
+                    <div class="jklp-pole__cell"><div class="jkhive-itemgallery-small"><div class="jkhive-hex jkhive-hex-skin-canonical-honey"><div class="jkhive-hex-content jkhive-hex-content-editorial"><div class="jkhive-hex-gallery-icon"><i class="fas fa-truck-fast" aria-hidden="true"></i></div><h3 class="jkhive-hex-gallery-title">Cliente G</h3><p class="jkhive-hex-gallery-subtitle">Logística</p></div></div></div></div>
+                    <div class="jklp-pole__cell"><div class="jkhive-itemgallery-small"><div class="jkhive-hex jkhive-hex-skin-canonical-honey"><div class="jkhive-hex-content jkhive-hex-content-editorial"><div class="jkhive-hex-gallery-icon"><i class="fas fa-server" aria-hidden="true"></i></div><h3 class="jkhive-hex-gallery-title">Cliente H</h3><p class="jkhive-hex-gallery-subtitle">Tech</p></div></div></div></div>
+                    <div class="jklp-pole__cell"><div class="jkhive-itemgallery-small"><div class="jkhive-hex"><div class="jkhive-hex-content jkhive-hex-content-editorial"><div class="jkhive-hex-gallery-icon" style="font-size: 1.91rem; color: var(--jk-accent-honey);"><i class="fas fa-leaf" aria-hidden="true"></i></div><h3 class="jkhive-hex-gallery-title" style="font-size: 1rem; color: var(--jk-primary-blue);">Cliente I</h3><p class="jkhive-hex-gallery-subtitle" style="font-size: 0.675rem; color: var(--jk-metal-light);">Sustentable</p></div></div></div></div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section id="cta" class="cta-section-hex jkhive-index-section jkhive-index-section--cta jklp-section jklp-section--cta jklp-cta-emphasis" aria-labelledby="jklp-cta-heading">
+              <h2 id="jklp-cta-heading" class="jkhive-section-title">¿Listo para comenzar?</h2>
+              <div class="jkhive-index-cta-html"><p class="jkhive-lead-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Contáctanos para una propuesta personalizada.</p></div>
+              <div class="cta-buttons-hex">
+                <div class="jkhive-bttn-big">
+                  <a href="about.html" data-tooltip="About"><div class="jkhive-hex"><div class="jkhive-hex-content jkhive-hex-content-editorial"><i class="jkhive-hex-icon fas fa-briefcase"></i></div></div></a>
+                </div>
+                <div class="jkhive-bttn-big">
+                  <a href="contact.html" data-tooltip="Contacto"><div class="jkhive-hex"><div class="jkhive-hex-content jkhive-hex-content-editorial"><i class="jkhive-hex-icon fas fa-envelope"></i></div></div></a>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="jkhive-footer jkhive-footer--minimal">
+    <div class="jkhive-footer-inner">
+      <div class="footer-right">
+        <div class="footer-corporate">
+          <p class="small footer-copyright-line">
+            <span class="footer-copyright-muted">&copy; </span>
+            <a href="https://jkhive.work" class="footer-link" target="_blank" rel="noopener noreferrer">JK Hive 2016</a>
+          </p>
+          <p class="small">
+            <span class="footer-copyright-muted">Desarrollado por </span>
+            <a href="https://webs.jkhive.work" class="footer-link" target="_blank" rel="noopener noreferrer">JK WebS</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="../../assets/js/hosts-config.js"></script>
+  <script src="../../assets/js/navbar-loader.js"></script>
+  <script src="../../assets/js/jkhive-navbar.js"></script>
+  <script src="../../assets/js/jkhive-toasts.js"></script>
+  <script src="../../assets/js/jk-hive-toast-api.js"></script>
+  <script src="../../assets/js/error-handler.js"></script>
+  <script src="../../assets/js/tooltip.js"></script>
+  <script src="../../assets/js/jkhive-elements.js"></script>
+  <script src="../../assets/js/showcase-interactions.js"></script>
+  <script src="../../assets/js/jkfw-showcase-admin.js"></script>
+  <script src="assets/js/jklp-galleries.js"></script>
+  <!-- Carrusel big (misma lógica que demo PHP) -->
+  <script>
+(function(){
+'use strict';
+var root=document.getElementById('jkfwSimpleFeaturedCarousel');
+if(!root)return;
+var viewport=root.querySelector('.jkfw-simple-featured-window');
+var track=root.querySelector('.jkfw-simple-featured-track');
+var prevBtn=root.querySelector('.jkfw-simple-carousel-prev');
+var nextBtn=root.querySelector('.jkfw-simple-carousel-next');
+if(!viewport||!track||!prevBtn||!nextBtn)return;
+var originalCount=track.children.length;
+if(originalCount===0)return;
+var reduceMotion=typeof window.matchMedia==='function'&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var STEP_HOLD_MS=reduceMotion?3600:750;
+var TRANS=reduceMotion?'transform 0.28s linear':'transform 0.42s linear';
+var page=0,loopWidth=0,pauseHover=false,pauseFocusInside=false,pendingLoopSnap=false,autoEnabled=false,autoTimeoutId=null;
+function slidesPerPage(){var vw=viewport.clientWidth;var c0=track.children[0];var c1=originalCount>1?track.children[1]:c0;var w0=c0.offsetWidth||520;var gapApprox=originalCount>1?c1.offsetLeft-c0.offsetLeft-w0:0;if(gapApprox<0)gapApprox=3;return vw>=w0+gapApprox+(c1.offsetWidth||w0)-2?2:1;}
+function maxPageOrig(){var spp=slidesPerPage();return Math.max(0,Math.ceil(originalCount/spp)-1);}
+function offsetForPage(p){var spp=slidesPerPage();var idx=Math.min(p*spp,originalCount-1);if(idx<=0)return 0;return track.children[idx].offsetLeft-track.children[0].offsetLeft;}
+function measureLoopWidth(){if(track.children.length<=originalCount)return 0;return track.children[originalCount].offsetLeft-track.children[0].offsetLeft;}
+function syncClones(){while(track.children.length>originalCount){track.removeChild(track.lastChild);}for(var i=0;i<originalCount;i++){var node=track.children[i];var c=node.cloneNode(true);c.setAttribute('aria-hidden','true');var f=c.querySelectorAll('a[href], button, input, select, textarea, [tabindex]');for(var k=0;k<f.length;k++){f[k].setAttribute('tabindex','-1');}track.appendChild(c);}loopWidth=measureLoopWidth();}
+function applyTx(px,animate){if(animate!==false){track.style.transition=TRANS;}else{track.style.transition='none';}track.style.transform='translateX('+-px+'px)';if(animate===false){void track.offsetHeight;track.style.transition=TRANS;}}
+function onTrackTransitionEnd(ev){if(ev.target!==track)return;var prop=ev.propertyName||'';if(prop!=='transform'&&prop!=='-webkit-transform')return;if(pendingLoopSnap){pendingLoopSnap=false;page=0;applyTx(0,false);}if(autoEnabled&&canAuto()){scheduleAutoStep();}}
+track.addEventListener('transitionend',onTrackTransitionEnd);
+function advanceForward(){var m=maxPageOrig();if(m<=0||loopWidth<=0)return;if(page<m){page+=1;applyTx(offsetForPage(page),true);}else{pendingLoopSnap=true;applyTx(loopWidth,true);}}
+function stopAuto(){autoEnabled=false;if(autoTimeoutId!==null){window.clearTimeout(autoTimeoutId);autoTimeoutId=null;}}
+function canAuto(){if(document.hidden)return false;if(pauseHover||pauseFocusInside)return false;return maxPageOrig()>0&&loopWidth>0;}
+function scheduleAutoStep(){if(autoTimeoutId!==null){window.clearTimeout(autoTimeoutId);autoTimeoutId=null;}if(!autoEnabled||!canAuto())return;autoTimeoutId=window.setTimeout(function(){autoTimeoutId=null;advanceForward();},STEP_HOLD_MS);}
+function enableAutoDeferToTransition(){if(!canAuto()){stopAuto();return;}autoEnabled=true;}
+function startAuto(){if(!canAuto()){stopAuto();return;}autoEnabled=true;scheduleAutoStep();}
+var layoutScheduled=false;function scheduleLayout(){if(layoutScheduled)return;layoutScheduled=true;window.requestAnimationFrame(function(){layoutScheduled=false;var prevPage=page;var wasAuto=autoEnabled;pendingLoopSnap=false;syncClones();var m=maxPageOrig();if(m<=0){page=0;applyTx(0,false);}else{if(prevPage>m)prevPage=m;page=prevPage;applyTx(offsetForPage(page),false);}stopAuto();if(wasAuto)startAuto();});}
+function goNextManual(){stopAuto();advanceForward();enableAutoDeferToTransition();}
+function goPrev(){var m=maxPageOrig();if(m<=0)return;pendingLoopSnap=false;stopAuto();if(page>0){page-=1;}else{page=m;}applyTx(offsetForPage(page),true);enableAutoDeferToTransition();}
+nextBtn.addEventListener('click',goNextManual);prevBtn.addEventListener('click',goPrev);
+window.addEventListener('resize',scheduleLayout,{passive:true});
+if(typeof ResizeObserver!=='undefined'){var ro=new ResizeObserver(scheduleLayout);ro.observe(viewport);ro.observe(track);}
+root.addEventListener('mouseenter',function(){pauseHover=true;stopAuto();});
+root.addEventListener('mouseleave',function(){pauseHover=false;startAuto();});
+root.addEventListener('focusin',function(){pauseFocusInside=true;stopAuto();});
+root.addEventListener('focusout',function(){window.requestAnimationFrame(function(){pauseFocusInside=root.contains(document.activeElement);if(!pauseFocusInside)startAuto();});});
+document.addEventListener('visibilitychange',function(){if(document.hidden)stopAuto();else startAuto();});
+syncClones();page=0;applyTx(0,false);autoEnabled=true;
+window.requestAnimationFrame(function(){window.requestAnimationFrame(function(){scheduleLayout();});});
+})();
+  </script>
+</body>
+</html>

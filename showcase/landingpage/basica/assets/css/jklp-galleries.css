@@ -1,0 +1,199 @@
+/**
+ * JK Hive landing básica — galerías especializadas (hijas semánticas del ítem small editorial).
+ *
+ * Pieles canónicas de ítem hex (referencia indiscutible):
+ * data/jkhive/www/public/assets/docs/HEX-ITEM-CANONICAL-SKINS.md
+ * — Blue (.jkhive-hex-skin-canonical-blue + services-hex)
+ * — Cyan (.jkhive-hex-cyan-item / .jkhive-hex-skin-canonical-cyan + itemgallery)
+ * — Miel (.jkhive-hex-skin-canonical-honey / why-me + jkhive-hex-skin-ventajas.css)
+ *
+ * Bloques:
+ * — `#ventajas` / `jkhive-hexfeature-strip`: panal mirror (`jkfw-landing-simple-home-mirror.php`) — sin pole en esta hoja.
+ * — `jkhive-hexfeatstripe-roll`: polea discreta (jklp-galleries.js bindFeatstripeRoll).
+ *
+ * Contrato ítem small editorial: `jkhive-itemgallery-small` + `jkhive-hex-content-editorial` (jk-hive.css / jkhive-style.css).
+ */
+
+:root {
+  --jklp-pole-gap: 1rem;
+  --jklp-pole-viewport-pad-x: 0.25rem;
+}
+
+/* ---------- Secciones ---------- */
+.jklp-section.jkhive-index-section {
+  scroll-margin-top: 96px;
+}
+
+.jklp-section--why .jkhive-index-why-sub,
+.jklp-section--news .jklp-news-lead,
+.jklp-section--clients .jklp-clients-lead {
+  text-align: center;
+  color: var(--jk-metal);
+  max-width: 46rem;
+  margin: 1.25rem auto 0;
+  padding: 0 0.35rem;
+  box-sizing: border-box;
+  line-height: 1.55;
+}
+
+.jklp-section--clients .jklp-clients-lead {
+  color: var(--jk-metal-light);
+  font-size: 0.95rem;
+}
+
+/* ---------- Polo genérico (viewport + track) ---------- */
+.jklp-pole {
+  width: 100%;
+  margin-top: calc(1.75rem + 8px);
+}
+
+.jklp-pole__viewport {
+  width: 100%;
+  overflow: hidden;
+  padding-left: var(--jklp-pole-viewport-pad-x);
+  padding-right: var(--jklp-pole-viewport-pad-x);
+  box-sizing: border-box;
+}
+
+.jklp-pole__track {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--jklp-pole-gap);
+  width: max-content;
+  max-width: none;
+  margin-left: auto;
+  margin-right: auto;
+  transition: transform 0s linear;
+  will-change: transform;
+}
+
+.jkhive-hexfeatstripe-roll .jklp-pole__track {
+  gap: 0;
+}
+
+/* Modo estático centrado: el track encoge al contenido y centra en viewport */
+.jklp-pole.jklp-pole--static .jklp-pole__viewport {
+  overflow: visible;
+}
+
+.jklp-pole.jklp-pole--static .jklp-pole__track {
+  width: auto;
+  max-width: 100%;
+  flex-wrap: nowrap;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.jklp-pole.jklp-pole--carousel .jklp-pole__viewport {
+  overflow: hidden;
+}
+
+.jklp-pole.jklp-pole--carousel .jklp-pole__track {
+  justify-content: flex-start;
+  /* Sin centrado horizontal: el JS mide desplazamiento respecto al track; margin:auto rompe la equivalencia con el ancho del viewport. */
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Celda: envoltorio para tooltip + escalado editorial */
+.jklp-pole__cell {
+  flex: 0 0 auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jklp-pole__cell:focus-visible {
+  outline: 2px solid var(--jk-primary-blue-light);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* Escala uniforme en fila única (legibilidad): solo envoltorio, preserva proporciones hex */
+.jklp-why-row .jklp-pole__cell,
+.jkhive-hexfeature-strip .jklp-pole__cell {
+  transform-origin: center center;
+}
+
+.jklp-why-row,
+.jkhive-hexfeature-strip {
+  --jklp-why-scale: 1;
+}
+
+@media (max-width: 900px) {
+  .jklp-why-row:not(.jklp-why-row--icon-tooltip),
+  .jkhive-hexfeature-strip:not(.jklp-why-row--icon-tooltip) {
+    --jklp-why-scale: 0.92;
+  }
+}
+
+@media (max-width: 640px) {
+  .jklp-why-row:not(.jklp-why-row--icon-tooltip),
+  .jkhive-hexfeature-strip:not(.jklp-why-row--icon-tooltip) {
+    --jklp-why-scale: 0.82;
+  }
+}
+
+@media (max-width: 480px) {
+  .jklp-why-row:not(.jklp-why-row--icon-tooltip),
+  .jkhive-hexfeature-strip:not(.jklp-why-row--icon-tooltip) {
+    --jklp-why-scale: 0.72;
+  }
+}
+
+.jklp-why-row .jklp-pole__cell > .jkhive-itemgallery-small,
+.jkhive-hexfeature-strip .jklp-pole__cell > .jkhive-itemgallery-small {
+  transform: scale(var(--jklp-why-scale));
+}
+
+/* Icono + tooltip: ocultar tipografía dentro del hex, mantener lectura vía tooltip / aria */
+.jklp-why-row.jklp-why-row--icon-tooltip .jkhive-hex-gallery-title,
+.jklp-why-row.jklp-why-row--icon-tooltip .jkhive-hex-gallery-subtitle,
+.jkhive-hexfeature-strip.jklp-why-row--icon-tooltip .jkhive-hex-gallery-title,
+.jkhive-hexfeature-strip.jklp-why-row--icon-tooltip .jkhive-hex-gallery-subtitle {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.jklp-why-row.jklp-why-row--icon-tooltip,
+.jkhive-hexfeature-strip.jklp-why-row--icon-tooltip {
+  --jklp-why-scale: 0.95;
+}
+
+@media (max-width: 360px) {
+  .jklp-why-row.jklp-why-row--icon-tooltip,
+  .jkhive-hexfeature-strip.jklp-why-row--icon-tooltip {
+    --jklp-why-scale: 0.88;
+  }
+}
+
+.jklp-why-row.jklp-why-row--icon-tooltip .jkhive-hex-gallery-icon,
+.jkhive-hexfeature-strip.jklp-why-row--icon-tooltip .jkhive-hex-gallery-icon {
+  margin-top: 8px !important;
+  margin-bottom: 0.35rem !important;
+}
+
+/* ---------- Noticias (placeholder) ---------- */
+.jklp-news-placeholder {
+  margin: 2rem auto 0;
+  max-width: 36rem;
+  padding: 1.25rem 1rem;
+  text-align: center;
+  color: var(--jk-metal-light);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  border: 1px dashed rgba(14, 165, 233, 0.28);
+  border-radius: 12px;
+  box-sizing: border-box;
+}

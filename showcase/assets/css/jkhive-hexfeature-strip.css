@@ -1,0 +1,372 @@
+/**
+ * jkhive-hexfeature-strip — **strip-gallery** (`#ventajas` / `#jklpStripGallery`) y **strip-carrousel** (`#jklp-nuestros-clientes` / `#jklpStripCarrousel`).
+ * Incluye flex panal small, pole (`.jklp-pole__*`) solo en strip-carrousel, y overrides móviles.
+ * Layout canónico: `data/jkhive/www/index.php` (flex panal small + márgenes jk-hive.css), no gap launcher.
+ *
+ * --jkhive-hexfeature-strip-max: máximo de ítems en plantilla (default 7).
+ */
+:root {
+  --jkhive-page-body-max: 1320px;
+  --jkhive-hexfeature-strip-max: 7;
+  --jklp-pole-gap: 1rem;
+  --jklp-pole-viewport-pad-x: 0.25rem;
+}
+
+/* Desktop: panal small canónico (flex base + márgenes jk-hive); sin gap launcher ni margin:0. */
+@media (min-width: 769px) {
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery.jkhive-hex-gallery.jkhive-hex-gallery-small,
+  body.jkfw-landing-basic-body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery.jkhive-hex-gallery.jkhive-hex-gallery-small {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    gap: 0 !important;
+  }
+
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small,
+  body.jkfw-landing-basic-body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small {
+    margin: -38px 1px !important;
+    transform: unset;
+  }
+
+  /**
+   * strip-carrousel (`#jklpStripCarrousel` + `jklp-pole`): el contenedor no es flex de ítems;
+   * viewport + track en esta hoja.
+   */
+  body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jkhive-hex-gallery.jkhive-hex-gallery-small.jklp-pole,
+  body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jkhive-hex-gallery.jkhive-hex-gallery-small.jklp-pole {
+    display: block !important;
+    flex-wrap: nowrap !important;
+    justify-content: initial !important;
+    align-items: initial !important;
+    gap: initial !important;
+  }
+
+  /* Cinta clientes: misma separación horizontal que `#jklpStripGallery` (márgenes honeycomb small). */
+  body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole .jklp-pole__track,
+  body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole .jklp-pole__track {
+    gap: 0 !important;
+    align-items: flex-start !important;
+  }
+
+  body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole .jklp-pole__cell > .jkhive-itemgallery-small,
+  body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole .jklp-pole__cell > .jkhive-itemgallery-small {
+    margin: -38px 1px !important;
+  }
+}
+
+.jkhive-hexfeature-strip--skin-cyan {
+  --jk-theme-highlight: var(--jk-accent-cyan, #06b6d4);
+}
+
+.jkhive-hexfeature-strip--skin-blue {
+  --jk-theme-highlight: var(--jk-primary-blue-light);
+}
+
+/* Editorial small canónico: #ventajas y cinta clientes. */
+:is(#ventajas, #jklp-nuestros-clientes) .jkhive-hex-gallery-small .jkhive-itemgallery-small .jkhive-hex-content.jkhive-hex-content-editorial {
+  justify-content: center !important;
+  align-items: center !important;
+  align-content: center !important;
+  box-sizing: border-box !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0.5rem 10% 0.55rem 10% !important;
+  gap: 0.28rem !important;
+}
+
+:is(#ventajas, #jklp-nuestros-clientes) .jkhive-hex-gallery-small .jkhive-hex-gallery-icon {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+:is(#ventajas, #jklp-nuestros-clientes) .jkhive-hex-gallery-small .jkhive-hex-gallery-title,
+:is(#ventajas, #jklp-nuestros-clientes) .jkhive-hex-gallery-small .jkhive-hex-gallery-subtitle {
+  margin: 0 !important;
+  padding: 0 !important;
+  flex-shrink: 0 !important;
+}
+
+:is(#ventajas, #jklp-nuestros-clientes) .jkhive-hex-gallery-small .jkhive-hex-gallery-title {
+  line-height: 1.15 !important;
+}
+
+:is(#ventajas, #jklp-nuestros-clientes) .jkhive-hex-gallery-small .jkhive-hex-gallery-subtitle {
+  line-height: 1.2 !important;
+}
+
+@media (max-width: 768px) {
+  :is(#ventajas, #jklp-nuestros-clientes) .jkhive-hex-gallery-small .jkhive-itemgallery-small .jkhive-hex-content.jkhive-hex-content-editorial {
+    padding: 0.4rem 8% 0.45rem 8% !important;
+    gap: 0.22rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  :is(#ventajas, #jklp-nuestros-clientes) .jkhive-hex-gallery-small .jkhive-itemgallery-small .jkhive-hex-content.jkhive-hex-content-editorial {
+    padding: 0.32rem 7% 0.38rem 7% !important;
+    gap: 0.18rem !important;
+  }
+}
+
+/* ---------- Pole — strip-carrousel (`jklp-galleries.js` · `bindPole`) ---------- */
+.jklp-pole {
+  width: 100%;
+  max-width: min(100%, var(--jkhive-page-body-max, 1320px));
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  margin-top: calc(1.75rem + 8px);
+}
+
+.jklp-pole__viewport {
+  width: 100%;
+  overflow: hidden;
+  padding-left: var(--jklp-pole-viewport-pad-x);
+  padding-right: var(--jklp-pole-viewport-pad-x);
+  box-sizing: border-box;
+}
+
+.jklp-pole__track {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--jklp-pole-gap);
+  width: max-content;
+  max-width: none;
+  margin-left: auto;
+  margin-right: auto;
+  transition: transform 0s linear;
+  will-change: transform;
+}
+
+.jklp-pole.jklp-pole--static .jklp-pole__viewport {
+  overflow: visible;
+}
+
+.jklp-pole.jklp-pole--static .jklp-pole__track {
+  width: auto;
+  max-width: 100%;
+  flex-wrap: nowrap;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.jklp-pole.jklp-pole--carousel .jklp-pole__viewport {
+  overflow: hidden;
+}
+
+/**
+ * «Nuestros clientes» — viewport en modo carrusel:
+ * NO usar overflow-x:hidden + overflow-y:visible: el spec fuerza overflow-y → auto (barra vertical
+ * nativa) y el hex queda en una “caja” con scroll.
+ * Con `clip` en X + Y visible (solo dentro de @supports) se evita ese cálculo; sin soporte `clip`,
+ * padding vertical + overflow hidden (como roll con fallback).
+ */
+@supports (overflow-x: clip) {
+  body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole--carousel .jklp-pole__viewport,
+  body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole--carousel .jklp-pole__viewport {
+    overflow-x: clip;
+    overflow-y: visible;
+    overflow-clip-margin-inline: 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole--carousel .jklp-pole__viewport::-webkit-scrollbar,
+  body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole--carousel .jklp-pole__viewport::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+}
+
+@supports not (overflow-x: clip) {
+  body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole--carousel .jklp-pole__viewport,
+  body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole--carousel .jklp-pole__viewport {
+    overflow: hidden;
+    padding-top: var(--jkhive-gallery-vertical-tip-pad, clamp(2.5rem, 6vw, 3.5rem));
+    padding-bottom: var(--jkhive-gallery-vertical-tip-pad, clamp(2.5rem, 6vw, 3.5rem));
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole--carousel .jklp-pole__viewport::-webkit-scrollbar,
+  body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole--carousel .jklp-pole__viewport::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+}
+
+/**
+ * Carrusel clientes: sin padding horizontal en el viewport. El padding “interno” grande dejó ver
+ * más sombra/pintura hacia el borde; aquí el clip coincide con el borde del viewport.
+ * El desplazamiento del track se redondea a px enteros en `jklp-galleries.js` (anti subpíxeles).
+ */
+body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole--carousel .jklp-pole__viewport,
+body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole--carousel .jklp-pole__viewport {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.jklp-pole.jklp-pole--carousel .jklp-pole__track {
+  justify-content: flex-start;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@keyframes jklp-strip-carrousel-marquee-x {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/**
+ * strip-carrousel: bucle lineal continuo (misma idea que `jklp-roll-seamless-x` en roll).
+ * El JS duplica el track (`syncClones`); `-50%` = exactamente un ciclo.
+ */
+body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole--carousel .jklp-pole__track.jklp-pole__track--strip-marquee,
+body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole--carousel .jklp-pole__track.jklp-pole__track--strip-marquee {
+  animation-name: jklp-strip-carrousel-marquee-x;
+  animation-duration: var(--jklp-strip-marquee-sec, 48s);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-play-state: running;
+  transition: none !important;
+}
+
+body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole--carousel:hover .jklp-pole__track.jklp-pole__track--strip-marquee,
+body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole--carousel:focus-within .jklp-pole__track.jklp-pole__track--strip-marquee,
+body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole--carousel:hover .jklp-pole__track.jklp-pole__track--strip-marquee,
+body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole--carousel:focus-within .jklp-pole__track.jklp-pole__track--strip-marquee {
+  animation-play-state: paused;
+}
+
+.jklp-pole__cell {
+  flex: 0 0 auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jklp-pole__cell:focus-visible {
+  outline: 2px solid var(--jk-primary-blue-light);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.jklp-why-row .jklp-pole__cell,
+.jkhive-hexfeature-strip .jklp-pole__cell {
+  transform-origin: center center;
+}
+
+.jklp-why-row,
+.jkhive-hexfeature-strip {
+  --jklp-why-scale: 1;
+}
+
+@media (max-width: 900px) {
+  .jklp-why-row:not(.jklp-why-row--icon-tooltip),
+  .jkhive-hexfeature-strip:not(.jklp-why-row--icon-tooltip) {
+    --jklp-why-scale: 0.92;
+  }
+}
+
+@media (max-width: 640px) {
+  .jklp-why-row:not(.jklp-why-row--icon-tooltip),
+  .jkhive-hexfeature-strip:not(.jklp-why-row--icon-tooltip) {
+    --jklp-why-scale: 0.82;
+  }
+}
+
+@media (max-width: 480px) {
+  .jklp-why-row:not(.jklp-why-row--icon-tooltip),
+  .jkhive-hexfeature-strip:not(.jklp-why-row--icon-tooltip) {
+    --jklp-why-scale: 0.72;
+  }
+}
+
+.jklp-why-row .jklp-pole__cell > .jkhive-itemgallery-small,
+.jkhive-hexfeature-strip .jklp-pole__cell > .jkhive-itemgallery-small {
+  transform: scale(var(--jklp-why-scale));
+}
+
+.jklp-why-row.jklp-why-row--icon-tooltip .jkhive-hex-gallery-title,
+.jklp-why-row.jklp-why-row--icon-tooltip .jkhive-hex-gallery-subtitle,
+.jkhive-hexfeature-strip.jklp-why-row--icon-tooltip .jkhive-hex-gallery-title,
+.jkhive-hexfeature-strip.jklp-why-row--icon-tooltip .jkhive-hex-gallery-subtitle {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.jklp-why-row.jklp-why-row--icon-tooltip,
+.jkhive-hexfeature-strip.jklp-why-row--icon-tooltip {
+  --jklp-why-scale: 0.95;
+}
+
+@media (max-width: 360px) {
+  .jklp-why-row.jklp-why-row--icon-tooltip,
+  .jkhive-hexfeature-strip.jklp-why-row--icon-tooltip {
+    --jklp-why-scale: 0.88;
+  }
+}
+
+.jklp-why-row.jklp-why-row--icon-tooltip .jkhive-hex-gallery-icon,
+.jkhive-hexfeature-strip.jklp-why-row--icon-tooltip .jkhive-hex-gallery-icon {
+  margin-top: 8px !important;
+  margin-bottom: 0.35rem !important;
+}
+
+/**
+ * strip-carrousel: anula grid móvil honeycomb del índice (ítems bajo `.jklp-pole__cell`).
+ * Debe cargarse esta hoja después de `jkhive-index-home-responsive.css`.
+ */
+@media (max-width: 768px) {
+  body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole,
+  body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole {
+    --jklp-pole-gap: 2px;
+  }
+
+  body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jkhive-hex-gallery-small.jklp-pole,
+  body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jkhive-hex-gallery-small.jklp-pole {
+    display: block !important;
+    grid-template-columns: none !important;
+    grid-template-rows: none !important;
+    row-gap: 0 !important;
+    column-gap: 0 !important;
+    justify-content: initial !important;
+    align-content: initial !important;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+}
+
+@media (max-width: 300px) {
+  body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jkhive-hex-gallery-small.jklp-pole,
+  body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jkhive-hex-gallery-small.jklp-pole {
+    display: block !important;
+    grid-template-columns: none !important;
+  }
+}

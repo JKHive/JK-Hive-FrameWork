@@ -1158,7 +1158,7 @@ body.page-public .jkhive-main-content {
  */
 .jkhive-hex-gallery.jkhive-hex-gallery-medium,
 .jkhive-hex-gallery.jkhive-hex-gallery-big,
-.jkhive-hex-gallery.jkhive-hex-gallery-small {
+.jkhive-hex-gallery.jkhive-hex-gallery-small:not(.jkhive-index-ventajas-gallery):not(.jklp-pole) {
   display: grid;
 }
 
@@ -4422,6 +4422,60 @@ body .empty-trash-btn-small .jkhive-actionbutton-small:hover .jkhive-hex-honey {
   width: 100%;
   height: 100%;
   text-align: center;
+}
+
+/* Small editorial canónico: stack icono + título + subtítulo (independiente de strip / cinta roll). */
+.jkhive-itemgallery-small > .jkhive-hex > .jkhive-hex-content.jkhive-hex-content-editorial {
+  justify-content: center !important;
+  align-items: center !important;
+  align-content: center !important;
+  box-sizing: border-box !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0.5rem 10% 0.55rem 10% !important;
+  gap: 0.28rem !important;
+}
+
+.jkhive-itemgallery-small > .jkhive-hex > .jkhive-hex-content.jkhive-hex-content-editorial .jkhive-hex-gallery-icon {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+.jkhive-itemgallery-small > .jkhive-hex > .jkhive-hex-content.jkhive-hex-content-editorial .jkhive-hex-gallery-title,
+.jkhive-itemgallery-small > .jkhive-hex > .jkhive-hex-content.jkhive-hex-content-editorial .jkhive-hex-gallery-subtitle {
+  margin: 0 !important;
+  padding: 0 !important;
+  flex-shrink: 0 !important;
+}
+
+.jkhive-itemgallery-small > .jkhive-hex > .jkhive-hex-content.jkhive-hex-content-editorial .jkhive-hex-gallery-title {
+  line-height: 1.15 !important;
+}
+
+.jkhive-itemgallery-small > .jkhive-hex > .jkhive-hex-content.jkhive-hex-content-editorial .jkhive-hex-gallery-subtitle {
+  line-height: 1.2 !important;
+}
+
+@media (max-width: 768px) {
+  .jkhive-itemgallery-small > .jkhive-hex > .jkhive-hex-content.jkhive-hex-content-editorial {
+    padding: 0.4rem 8% 0.45rem 8% !important;
+    gap: 0.22rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .jkhive-itemgallery-small > .jkhive-hex > .jkhive-hex-content.jkhive-hex-content-editorial {
+    padding: 0.32rem 7% 0.38rem 7% !important;
+    gap: 0.18rem !important;
+  }
 }
 
 /* Iconos - TODOS amarillos miel metálico en estado normal */
