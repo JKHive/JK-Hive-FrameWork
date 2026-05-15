@@ -372,6 +372,24 @@ body.jkfw-theme-elegant .jkhive-logo-square .jkhive-logo-editorial-head .jkhive-
   box-shadow: 0 0 10px rgba(251, 191, 36, 0.85), 0 0 18px rgba(217, 119, 6, 0.35) !important;
 }
 
+body.jkfw-theme-elegant #jkhive-sidebar .jkhive-sidebar-logo .jkhive-logo-main-jkhive,
+body.jkfw-theme-elegant .jkhive-sidebar .jkhive-sidebar-logo .jkhive-logo-main-jkhive {
+  color: #14110e !important;
+  text-shadow:
+    0 0 14px rgba(255, 210, 120, 0.95),
+    0 0 26px rgba(245, 158, 11, 0.4),
+    0 1px 0 rgba(255, 255, 255, 0.88) !important;
+}
+
+body.jkfw-theme-elegant #jkhive-sidebar .jkhive-sidebar-logo .jkhive-logo-sub-jkhive,
+body.jkfw-theme-elegant .jkhive-sidebar .jkhive-sidebar-logo .jkhive-logo-sub-jkhive {
+  color: #9a3412 !important;
+  text-shadow:
+    0 0 10px rgba(254, 243, 199, 0.98),
+    0 0 22px rgba(251, 191, 36, 0.6),
+    0 1px 0 rgba(255, 255, 255, 0.95) !important;
+}
+
 body.jkfw-theme-elegant #jkhive-sidebar .jkhive-nav-item.active .jkhive-hex,
 body.jkfw-theme-elegant .jkhive-sidebar .jkhive-nav-item.active .jkhive-hex,
 body.jkfw-theme-elegant #jkhive-sidebar .jkhive-nav-item a.active .jkhive-hex,
