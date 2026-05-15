@@ -21,7 +21,8 @@ $jk_extra_css =
     '<link rel="stylesheet" href="assets/css/jkfw-catalog-demo.css">' . "\n" .
     '<link rel="stylesheet" href="assets/css/jkfw-launcher.css">' . "\n" .
     '<link rel="stylesheet" href="assets/css/jkhive-index-home-responsive.css">' . "\n" .
-    '<link rel="stylesheet" href="assets/css/jkhive-hexfeature-strip.css">' . "\n";
+    '<link rel="stylesheet" href="assets/css/jkhive-hexfeature-strip.css">' . "\n" .
+    '<link rel="stylesheet" href="assets/css/jkhive-hex-item-framework.css">' . "\n";
 
 require __DIR__ . '/includes/layout-head.php';
 require __DIR__ . '/includes/jkfw-landing-simple-sidebar.php';

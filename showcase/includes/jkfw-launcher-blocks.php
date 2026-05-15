@@ -140,7 +140,7 @@ function jkfw_launcher_landing_basic_theme_hex(array $themeLabels, string $activ
         $tip = $h('Tema: ' . $lab);
         $wVar = jkfw_btn_hex_h_width_style($lab);
         $themeLinks .=
-            '<a class="jkhive-btn-hex-h jkhive-btn-hex-h--fixed' . $spinAlt . '" href="demo-landing-simple.php?theme=' . $h($tid) . '" style="' . $h($wVar) . '" data-tooltip="' . $tip . '">' .
+            '<a class="jkhive-btn-hex-h jkhive-btn-hex-h--fixed' . $spinAlt . '" href="landingpage/basica/index.html?theme=' . $h($tid) . '" style="' . $h($wVar) . '" data-tooltip="' . $tip . '">' .
             '<span class="jkhive-btn-hex-h__inner" aria-hidden="true"></span>' .
             '<span class="jkhive-btn-hex-h__spin">' .
             '<i class="jkhive-btn-hex-h__icon fas fa-palette" aria-hidden="true"></i>' .
@@ -161,7 +161,7 @@ function jkfw_launcher_landing_basic_theme_hex(array $themeLabels, string $activ
               '<div class="jkhive-hex-item-body-scroll">' .
                 '<div class="jkfw-launcher-hex-body-copy">' .
                   '<div class="jkhive-hex-gallery-title">Landing básica</div>' .
-                  '<div class="jkhive-hex-gallery-subtitle">Home/About/Galería/Contacto, responsive, html5+php+js.</div>' .
+                  '<div class="jkhive-hex-gallery-subtitle">Static index/about/contact en landingpage/basica; tema vía theme.txt o ?theme=.</div>' .
                 '</div>' .
                 '<div class="jkfw-btn-scope jkfw-theme-hexh-wrap">' . $themeLinks . '</div>' .
               '</div>' .

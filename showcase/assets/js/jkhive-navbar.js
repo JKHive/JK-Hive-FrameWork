@@ -1214,6 +1214,9 @@
     currentUser: null,
 
     init: async function() {
+      if (document.body && document.body.classList.contains('jkfw-landing-basic-no-auth-nav')) {
+        return;
+      }
       await this.checkAuthStatus();
       this.updateUserMenu();
       this.attachEventListeners();
@@ -1771,6 +1774,9 @@
   }
 
   async function initializeAuth() {
+    if (document.body && document.body.classList.contains('jkfw-landing-basic-no-auth-nav')) {
+      return;
+    }
     const checkNavbar = setInterval(async () => {
       const userMenuContainer = document.getElementById('userMenuContainer');
       if (userMenuContainer) {
@@ -1802,6 +1808,9 @@
 
   // Also listen for navbar loaded event
   window.addEventListener('navbarLoaded', async () => {
+    if (document.body && document.body.classList.contains('jkfw-landing-basic-no-auth-nav')) {
+      return;
+    }
     setTimeout(async () => await AuthManager.init(), 100);
   });
  
@@ -1809,6 +1818,9 @@
   window.AuthManager = AuthManager;
 
   window.addEventListener('pageshow', function(ev) {
+    if (document.body && document.body.classList.contains('jkfw-landing-basic-no-auth-nav')) {
+      return;
+    }
     if (ev.persisted && window.AuthManager && typeof window.AuthManager.init === 'function') {
       window.AuthManager.init();
     }

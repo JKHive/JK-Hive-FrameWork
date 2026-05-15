@@ -4,13 +4,18 @@ declare(strict_types=1);
 $jk_nav = 'standalone';
 $jk_landing_simple_nav_active = 'contact';
 $jk_tier = 'basic';
+$jk_landing_basic_minimal_head = true;
+$jk_top_navbar_search_only = true;
+$jk_top_navbar_brand_href = 'demo-landing-simple.php';
 $jk_page_title = 'Landing básica — Contacto';
 $jk_breadcrumb = 'Landing básica · Contacto';
 $jk_body_class = 'page-public jkhive-showcase-body admin-layout crm-layout jkfw-landing-basic-body';
 $jk_hide_top_navbar = true;
 $jk_hide_demo_modal = true;
 $jk_footer_minimal = true;
-$jk_extra_css = '<link rel="stylesheet" href="assets/css/jkfw-launcher.css">' . "\n";
+$jk_extra_css =
+    '<link rel="stylesheet" href="assets/css/system-messages.css">' . "\n" .
+    '<link rel="stylesheet" href="assets/css/jkfw-launcher.css">' . "\n";
 $jk_footer_inline_script = <<<'JS'
 (function () {
   'use strict';

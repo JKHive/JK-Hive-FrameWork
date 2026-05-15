@@ -5,16 +5,16 @@ $jk_landing_simple_nav_active = isset($jk_landing_simple_nav_active) ? (string) 
 $h = static fn (string $s): string => htmlspecialchars($s, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 
 $jkSimpleNavItems = [
-    ['id' => 'home', 'href' => 'demo-landing-simple.php', 'tip' => 'Home', 'icon' => 'fas fa-house'],
-    ['id' => 'about', 'href' => 'demo-landing-simple-about.php', 'tip' => 'About', 'icon' => 'fas fa-id-badge'],
-    ['id' => 'gallery', 'href' => 'demo-landing-simple-gallery.php', 'tip' => 'Galería', 'icon' => 'fas fa-images'],
-    ['id' => 'contact', 'href' => 'demo-landing-simple-contact.php', 'tip' => 'Contacto', 'icon' => 'fas fa-envelope'],
+    ['id' => 'home', 'href' => 'landingpage/basica/index.html', 'tip' => 'Home', 'icon' => 'fas fa-house'],
+    ['id' => 'about', 'href' => 'landingpage/basica/about.html', 'tip' => 'About', 'icon' => 'fas fa-id-badge'],
+    ['id' => 'gallery', 'href' => 'landingpage/basica/gallery.html', 'tip' => 'Galería', 'icon' => 'fas fa-images'],
+    ['id' => 'contact', 'href' => 'landingpage/basica/contact.html', 'tip' => 'Contacto', 'icon' => 'fas fa-envelope'],
 ];
 ?>
 <div id="jkhive-sidebar-container">
   <div id="jkhive-logo-square" class="jkhive-logo-square">
     <div class="jkhive-sidebar-logo">
-      <a href="demo-landing-simple.php" data-tooltip="Home">
+      <a href="landingpage/basica/index.html" data-tooltip="Home">
         <div class="jkhive-hex jkhive-hex-jkhive-face">
           <div class="jkhive-hex-content">
             <div class="jkhive-logo-editorial-head">

@@ -1415,7 +1415,7 @@ a.jkhive-navbar-hex-item:visited {
 
 
 /* =============================================================================
-   Showcase shell navbar (antes jkfw-showcase-shell.css) — sin cambiar reglas.
+   Showcase shell navbar (antes jkfw-showcase-shell.css) ï¿½ sin cambiar reglas.
    ============================================================================= */
 
 .jkhive-navbar--showcase-shell .jkhive-navbar-right {
@@ -1442,4 +1442,8 @@ a.jkhive-navbar-hex-item:visited {
 .jkhive-navbar--showcase-shell #userMenuContainer.jkfw-navbar-user-mount {
   display: flex;
   align-items: center;
+}
+
+.jkhive-navbar.jkhive-navbar--landing-basic-search {
+  z-index: 1700;
 }

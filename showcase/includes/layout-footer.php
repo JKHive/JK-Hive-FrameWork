@@ -5,9 +5,11 @@ require_once __DIR__ . '/jkfw-config.php';
 
 $h = static fn (string $s): string => htmlspecialchars($s, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 $footer = jkfw_footer_data();
+$jk_footer_minimal = ! empty($jk_footer_minimal);
 ?>
-  <footer class="jkhive-footer">
+  <footer class="jkhive-footer<?= $jk_footer_minimal ? ' jkhive-footer--minimal' : '' ?>">
     <div class="jkhive-footer-inner">
+      <?php if (! $jk_footer_minimal) : ?>
       <div class="footer-left">
         <?php foreach ($footer['columns'] as $col) : ?>
         <div class="footer-col footer-col-site">
@@ -22,6 +24,7 @@ $footer = jkfw_footer_data();
         </div>
         <?php endforeach; ?>
       </div>
+      <?php endif; ?>
       <div class="footer-right">
         <div class="footer-corporate">
           <p class="small footer-copyright-line">

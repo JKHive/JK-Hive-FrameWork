@@ -1120,36 +1120,91 @@ main:has(.jkhive-section-dashboard) .jkhive-hex-gallery .jkhive-itemgallery-med 
 }
 
 /*
- * Noticias / home mirror: mismo ritmo X/Y que el hueco entre celdas (--jkhive-hive-gap-x).
- * row-gap = column-gap; translateY del panal (nudge) = mismo token que gap-x (no breathe extra en margin-bottom).
+ * Panal MEDIUM — separación horizontal canónica (jk-hive.css § itemgallery-med / hex-item-med).
+ * --jkhive-hive-gap-x: hueco entre columnas (5px escritorio, 3px móvil).
+ * --jkhive-hive-stagger: (flat + gap-x) / 2 — fila 2 desplazada media celda.
+ * No usar gap: 0 55px legacy (JK Lubs); opción marketing: .jkhive-hex-gallery-medium--spread.
  */
 @media (min-width: 769px) {
-  section#noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery,
-  section#noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium:has(.jkfw-launcher-hexlink.jkhive-itemgallery-med),
-  section#noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium:has(> a.jkhive-itemgallery-med),
-  .jkfw-landing-simple-home-page .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery,
-  .jkfw-landing-basic-body #noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery,
-  .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery.jkfw-medium-hex-extra-row-gap {
+  section#noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:has(:is(.jkhive-itemgallery-med, .jkhive-hex-item-med, .jkfw-home-news-spot)),
+  section#noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium:has(:is(.jkhive-itemgallery-med, .jkhive-hex-item-med, .jkfw-home-news-spot)),
+  .jkfw-landing-simple-home-page .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:has(:is(.jkhive-itemgallery-med, .jkhive-hex-item-med, .jkfw-home-news-spot)),
+  .jkfw-landing-basic-body #noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:has(:is(.jkhive-itemgallery-med, .jkhive-hex-item-med, .jkfw-home-news-spot)),
+  #jklp-noticias #jkfwHomeNewsSpotGallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery,
+  #jkfwHomeNewsSpotGallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery,
+  .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery.jkfw-medium-hex-extra-row-gap:has(:is(.jkhive-itemgallery-med, .jkhive-hex-item-med)) {
     --jkhive-hive-gap-x: 5px !important;
     --jkhive-hive-row-gap-y: var(--jkhive-hive-gap-x) !important;
-    --jkhive-hive-row-vertical-nudge: var(--jkhive-hive-gap-x) !important;
     --jkhive-hive-stagger: calc((var(--jkhive-hive-flat) + var(--jkhive-hive-gap-x)) / 2) !important;
     gap: var(--jkhive-hive-row-gap-y) var(--jkhive-hive-gap-x) !important;
+  }
+
+  /* Nudge vertical en otros bloques med (no noticias): mismo token que gap-x */
+  section#noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:not(#jkfwHomeNewsSpotGallery):has(:is(.jkhive-itemgallery-med, .jkhive-hex-item-med)),
+  .jkfw-landing-simple-home-page .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:not(#jkfwHomeNewsSpotGallery):has(:is(.jkhive-itemgallery-med, .jkhive-hex-item-med)) {
+    --jkhive-hive-row-vertical-nudge: var(--jkhive-hive-gap-x) !important;
   }
 }
 
 @media (max-width: 768px) {
-  section#noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery,
-  section#noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium:has(.jkfw-launcher-hexlink.jkhive-itemgallery-med),
-  section#noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium:has(> a.jkhive-itemgallery-med),
-  .jkfw-landing-simple-home-page .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery,
-  .jkfw-landing-basic-body #noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery,
-  .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery.jkfw-medium-hex-extra-row-gap {
+  section#noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:has(:is(.jkhive-itemgallery-med, .jkhive-hex-item-med, .jkfw-home-news-spot)),
+  section#noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium:has(:is(.jkhive-itemgallery-med, .jkhive-hex-item-med, .jkfw-home-news-spot)),
+  .jkfw-landing-simple-home-page .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:has(:is(.jkhive-itemgallery-med, .jkhive-hex-item-med, .jkfw-home-news-spot)),
+  .jkfw-landing-basic-body #noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:has(:is(.jkhive-itemgallery-med, .jkhive-hex-item-med, .jkfw-home-news-spot)),
+  #jklp-noticias #jkfwHomeNewsSpotGallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery,
+  #jkfwHomeNewsSpotGallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery,
+  .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery.jkfw-medium-hex-extra-row-gap:has(:is(.jkhive-itemgallery-med, .jkhive-hex-item-med)) {
     --jkhive-hive-gap-x: 3px !important;
     --jkhive-hive-row-gap-y: var(--jkhive-hive-gap-x) !important;
-    --jkhive-hive-row-vertical-nudge: var(--jkhive-hive-gap-x) !important;
     --jkhive-hive-stagger: calc((var(--jkhive-hive-flat) + var(--jkhive-hive-gap-x)) / 2) !important;
     gap: var(--jkhive-hive-row-gap-y) var(--jkhive-hive-gap-x) !important;
+  }
+
+  section#noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:not(#jkfwHomeNewsSpotGallery):has(:is(.jkhive-itemgallery-med, .jkhive-hex-item-med)),
+  .jkfw-landing-simple-home-page .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:not(#jkfwHomeNewsSpotGallery):has(:is(.jkhive-itemgallery-med, .jkhive-hex-item-med)) {
+    --jkhive-hive-row-vertical-nudge: var(--jkhive-hive-gap-x) !important;
+  }
+}
+
+/*
+ * Noticias (#jkfwHomeNewsSpotGallery): microajuste vertical fila 2 (+0.5px).
+ * Compensa ~1,5px de hueco visual extra en columnas (gap-x 5px) sin tocar gap-x ni stagger.
+ */
+@media (min-width: 769px) {
+  #jkfwHomeNewsSpotGallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery,
+  #jklp-noticias #jkfwHomeNewsSpotGallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery {
+    --jkhive-hive-row-vertical-nudge: 0.5px !important;
+  }
+
+  #jkfwHomeNewsSpotGallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery
+    > :is(.jkfw-home-news-spot, .jkhive-itemgallery-med, .jkhive-hex-item-med):nth-child(9n+6),
+  #jkfwHomeNewsSpotGallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery
+    > :is(.jkfw-home-news-spot, .jkhive-itemgallery-med, .jkhive-hex-item-med):nth-child(9n+7),
+  #jkfwHomeNewsSpotGallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery
+    > :is(.jkfw-home-news-spot, .jkhive-itemgallery-med, .jkhive-hex-item-med):nth-child(9n+8),
+  #jkfwHomeNewsSpotGallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery
+    > :is(.jkfw-home-news-spot, .jkhive-itemgallery-med, .jkhive-hex-item-med):nth-child(9n+9) {
+    transform: translate(var(--jkhive-hive-stagger), 0.5px) !important;
+    margin-top: 0 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  #jkfwHomeNewsSpotGallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery,
+  #jklp-noticias #jkfwHomeNewsSpotGallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery {
+    --jkhive-hive-row-vertical-nudge: 0.5px !important;
+  }
+
+  #jkfwHomeNewsSpotGallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery
+    > :is(.jkfw-home-news-spot, .jkhive-itemgallery-med, .jkhive-hex-item-med):nth-child(9n+6),
+  #jkfwHomeNewsSpotGallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery
+    > :is(.jkfw-home-news-spot, .jkhive-itemgallery-med, .jkhive-hex-item-med):nth-child(9n+7),
+  #jkfwHomeNewsSpotGallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery
+    > :is(.jkfw-home-news-spot, .jkhive-itemgallery-med, .jkhive-hex-item-med):nth-child(9n+8),
+  #jkfwHomeNewsSpotGallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery
+    > :is(.jkfw-home-news-spot, .jkhive-itemgallery-med, .jkhive-hex-item-med):nth-child(9n+9) {
+    transform: translate(var(--jkhive-hive-stagger), 0.5px) !important;
+    margin-top: 0 !important;
   }
 }
 
@@ -1182,6 +1237,33 @@ main:has(.jkhive-section-dashboard) .jkhive-hex-gallery .jkhive-itemgallery-med 
 .jkfw-simple-why-sub {
   font-size: 0.675rem;
   color: var(--jk-metal-light);
+}
+
+/*
+ * Home landing básica — noticias destacadas (galería mediana, tope 9).
+ * Misma estructura de ítem que el launcher (`jkhive-hex-item-head` / body / foot vacío).
+ */
+.jkfw-home-news-spotlight {
+  max-width: 100%;
+}
+
+a.jkfw-home-news-spot:is(.jkhive-itemgallery-med, .jkhive-hex-item-med) {
+  text-decoration: none;
+  color: inherit;
+}
+
+a.jkfw-home-news-spot:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):focus-visible {
+  outline: 2px solid var(--jk-primary-blue-light);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+.jkfw-home-news-spot-meta {
+  margin-top: 0.35rem;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: var(--jk-metal-light);
+  font-weight: 600;
 }
 
 /* =============================================================================
@@ -1367,6 +1449,95 @@ html body.jkfw-landing-basic-body .jkfw-carousel-hex-big button.jkfw-simple-feat
     min-height: calc(520px * 1.1547 * 1.04 + clamp(88px, 14vmin, 140px));
     padding-block: clamp(26px, 4vmin, 44px);
   }
+}
+
+/*
+ * Carrusel «Servicios destacados»: mismo hover editorial que strip-gallery / strip-carrousel
+ * (sin scale en el hex exterior; anillo celeste en ::after; tipografía alineada a perfil editorial).
+ * Refuerzo con #jkfwSimpleFeaturedCarousel: jk-hive.css declara `.jkhive-carouselitem-big:hover .jkhive-hex`
+ * con la misma especificidad que el bloque en jkhive-elements.css; según orden/copia de hojas puede empatar
+ * y quedar el scale legacy. Esta hoja carga después → gana siempre.
+ */
+#jkfwSimpleFeaturedCarousel:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:hover,
+#jkfwSimpleFeaturedCarousel:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:focus-within {
+  z-index: 10;
+}
+
+#jkfwSimpleFeaturedCarousel:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:hover .jkhive-hex,
+#jkfwSimpleFeaturedCarousel:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:focus-within .jkhive-hex {
+  background: var(--jk-accent-honey-light) !important;
+  transform: none !important;
+  box-shadow: none !important;
+  position: relative;
+  z-index: 5;
+}
+
+#jkfwSimpleFeaturedCarousel:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:hover .jkhive-hex::after,
+#jkfwSimpleFeaturedCarousel:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:focus-within .jkhive-hex::after {
+  background: var(--jk-tech-dark) !important;
+  transform: translate(-50%, -50%) !important;
+  box-shadow: 0 0 0 2px var(--jk-primary-blue-light), 0 0 18px rgba(14, 165, 233, 0.45) !important;
+}
+
+#jkfwSimpleFeaturedCarousel:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:hover .service-title,
+#jkfwSimpleFeaturedCarousel:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:focus-within .service-title {
+  color: var(--jk-primary-blue-light) !important;
+  text-shadow: 0 0 15px rgba(56, 189, 248, 0.6) !important;
+}
+
+#jkfwSimpleFeaturedCarousel:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:hover .service-icon,
+#jkfwSimpleFeaturedCarousel:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:focus-within .service-icon {
+  color: var(--jk-metal-light) !important;
+  filter: none !important;
+}
+
+#jkfwSimpleFeaturedCarousel:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:hover .service-description,
+#jkfwSimpleFeaturedCarousel:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:focus-within .service-description {
+  color: var(--jk-metal-light) !important;
+  opacity: 1 !important;
+}
+
+#jkfwSimpleFeaturedCarousel:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:hover .jkhive-hex-gallery-title,
+#jkfwSimpleFeaturedCarousel:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:focus-within .jkhive-hex-gallery-title {
+  color: var(--jk-primary-blue-light) !important;
+  text-shadow: 0 0 15px rgba(56, 189, 248, 0.6) !important;
+}
+
+#jkfwSimpleFeaturedCarousel:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:hover .jkhive-hex-gallery-icon,
+#jkfwSimpleFeaturedCarousel:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:focus-within .jkhive-hex-gallery-icon {
+  color: var(--jk-metal-light) !important;
+  filter: none !important;
+}
+
+#jkfwSimpleFeaturedCarousel:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:hover .jkhive-hex-gallery-subtitle,
+#jkfwSimpleFeaturedCarousel:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:focus-within .jkhive-hex-gallery-subtitle {
+  color: var(--jk-metal-light) !important;
+  opacity: 1 !important;
+}
+
+/*
+ * Landing básica — barra lateral: About (fa-id-badge) y Contacto (fa-envelope).
+ * Misma animación que CTA (jkhive-anmtn-envelope / envelope-reverse en Z), sentidos opuestos.
+ * Keyframes definidos en jkhive-elements.css (carga antes que esta hoja).
+ */
+html body.jkfw-landing-basic-body #jkhive-sidebar .jkhive-nav-item a:hover .jkhive-hex .jkhive-hex-icon.fa-id-badge,
+html body.jkfw-landing-basic-body .jkhive-sidebar .jkhive-nav-item a:hover .jkhive-hex .jkhive-hex-icon.fa-id-badge,
+html body.jkfw-landing-basic-body #jkhive-sidebar .jkhive-nav-item a:focus-visible .jkhive-hex .jkhive-hex-icon.fa-id-badge,
+html body.jkfw-landing-basic-body .jkhive-sidebar .jkhive-nav-item a:focus-visible .jkhive-hex .jkhive-hex-icon.fa-id-badge {
+  color: var(--jk-accent-cyan, #06b6d4) !important;
+  opacity: 1 !important;
+  animation: jkhive-anmtn-envelope 0.6s ease-in-out forwards !important;
+  transform-style: preserve-3d !important;
+}
+
+html body.jkfw-landing-basic-body #jkhive-sidebar .jkhive-nav-item a:hover .jkhive-hex .jkhive-hex-icon.fa-envelope,
+html body.jkfw-landing-basic-body .jkhive-sidebar .jkhive-nav-item a:hover .jkhive-hex .jkhive-hex-icon.fa-envelope,
+html body.jkfw-landing-basic-body #jkhive-sidebar .jkhive-nav-item a:focus-visible .jkhive-hex .jkhive-hex-icon.fa-envelope,
+html body.jkfw-landing-basic-body .jkhive-sidebar .jkhive-nav-item a:focus-visible .jkhive-hex .jkhive-hex-icon.fa-envelope {
+  color: var(--jk-accent-cyan, #06b6d4) !important;
+  opacity: 1 !important;
+  animation: jkhive-anmtn-envelope-reverse 0.6s ease-in-out forwards !important;
+  transform-style: preserve-3d !important;
 }
 
 /* Landing básica — utilidades de página (antes `jklp-basic-local.css`) */

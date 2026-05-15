@@ -1,0 +1,34 @@
+/**
+ * Botón Deploy (solo showcase): flotante arriba al centro, hex horizontal JK Hive.
+ * No ocupa flujo del main: el contenido no se desplaza.
+ */
+.jkfw-showcase-deploy-wrap {
+  position: fixed;
+  top: 0.65rem;
+  left: 50%;
+  z-index: 10050;
+  transform: translateX(-50%);
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  width: auto;
+  max-width: calc(100vw - 1.5rem);
+}
+
+.jkfw-showcase-deploy-wrap .jkfw-showcase-deploy-btn {
+  pointer-events: auto;
+  text-decoration: none;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+}
+
+/* Móvil: no tapar logo sidebar */
+@media (max-width: 768px) {
+  .jkfw-showcase-deploy-wrap {
+    top: 0.5rem;
+    left: auto;
+    right: 0.65rem;
+    transform: none;
+    justify-content: flex-end;
+    max-width: none;
+  }
+}

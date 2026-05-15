@@ -29,7 +29,7 @@ article[id] {
   }
 }
 
-/* Hero Section - Cybernetic Style (igual que Housesitting: honeycomb + gradient; imagen opcional solo aquí) */
+/* Hero Section - Cybernetic Style (igual que Housesitting: honeycomb + gradient; imagen opcional solo aquÃ­) */
 .hero-section {
   background: 
     var(--honeycomb-url) repeat,
@@ -51,7 +51,7 @@ article[id] {
   transition: all 0.35s ease;
 }
 
-/* Imagen de fondo hero desactivada; la franja de íconos (engranaje, tractor, moto, auto, camión) va debajo del logo */
+/* Imagen de fondo hero desactivada; la franja de Ã­conos (engranaje, tractor, moto, auto, camiÃ³n) va debajo del logo */
 .hero-section::before {
   content: none;
 }
@@ -60,7 +60,7 @@ article[id] {
   content: none;
 }
 
-/* Franja de íconos debajo del logo: engranaje, tractor, moto, auto, camión (como representación visual) */
+/* Franja de Ã­conos debajo del logo: engranaje, tractor, moto, auto, camiÃ³n (como representaciÃ³n visual) */
 .hero-icons-strip {
   display: flex;
   flex-wrap: wrap;
@@ -121,7 +121,7 @@ article[id] {
   margin-bottom: 0.5rem;
 }
 
-/* Logo del hero: imagen dentro del hex, se adapta al tamaño del contenedor */
+/* Logo del hero: imagen dentro del hex, se adapta al tamaÃ±o del contenedor */
 .hero-section .jkhive-editorial-hero-logo .jkhive-hex-content-img {
   padding: 8%;
   display: flex;
@@ -137,7 +137,7 @@ article[id] {
   filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
 }
 
-/* Full mode: orden logo, título, subtítulo, luego 4 CTAs en fila */
+/* Full mode: orden logo, tÃ­tulo, subtÃ­tulo, luego 4 CTAs en fila */
 .hero-inner .hero-logo-wrapper { order: 1; }
 .hero-inner .hero-icons-strip { order: 2; }
 .hero-inner .hero-title { order: 3; }
@@ -170,9 +170,9 @@ article[id] {
 
 /* Hero collapsed: estilos base en hero-honeycomb-bar.css */
 /*
- * Transición hero �?? barra: mismos márgenes fijos que JK Lubs (jklubs/www/public/assets/css/jkhive-style.css).
- * Ver jklubs/www/views/partials/README-hero.md. No usar calc(--hero-collapse-spacer-h): allí el espaciador
- * conserva la altura del hero expandido pero el acercamiento del contenido al viewport está calibrado así.
+ * TransiciÃ³n hero â?? barra: mismos mÃ¡rgenes fijos que JK Lubs (jklubs/www/public/assets/css/jkhive-style.css).
+ * Ver jklubs/www/views/partials/README-hero.md. No usar calc(--hero-collapse-spacer-h): allÃ­ el espaciador
+ * conserva la altura del hero expandido pero el acercamiento del contenido al viewport estÃ¡ calibrado asÃ­.
  */
 
 .hero-collapse-spacer {
@@ -191,7 +191,7 @@ body.hero-scrolled .hero-collapse-spacer::before {
   top: 0;
   left: 0;
   right: 0;
-  height: 160px; /* Solo la altura de la hero barra; no extender honeycomb más abajo. */
+  height: 160px; /* Solo la altura de la hero barra; no extender honeycomb mÃ¡s abajo. */
   background-image: var(--honeycomb-url);
   background-size: var(--honeycomb-size-sidebar);
   background-repeat: repeat;
@@ -207,7 +207,7 @@ body.hero-scrolled .hero-collapse-spacer::before {
   body.hero-scrolled .hero-collapse-spacer::before {
     height: 115px;
   }
-  /* Barra colapsada 115px móvil: alinear contenido bajo navbar+barra (60+115); igual que JK Lubs */
+  /* Barra colapsada 115px mÃ³vil: alinear contenido bajo navbar+barra (60+115); igual que JK Lubs */
   body.hero-scrolled .hero-collapse-spacer + .jkhive-content-wrap {
     margin-top: -290px;
   }
@@ -226,7 +226,7 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
 }
 
 @media (max-width: 768px) {
-  /* Hero full: mismo 85% que el resto del sitio (55.39px, 1.35rem). La regla global de jkhive-bttn-big ya lo aplica; aquí solo ajustamos el wrapper .hero-cta-item para que no fuerce otro tamaño. */
+  /* Hero full: mismo 85% que el resto del sitio (55.39px, 1.35rem). La regla global de jkhive-bttn-big ya lo aplica; aquÃ­ solo ajustamos el wrapper .hero-cta-item para que no fuerce otro tamaÃ±o. */
   .hero-section:not(.hero-collapsed) .hero-cta-item,
   html body .hero-section:not(.hero-collapsed) .hero-cta-item {
     width: 55.39px !important;
@@ -243,11 +243,11 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
 
   .hero-section.hero-collapsed {
     top: 60px;
-    left: 101px; /* Mismo borde que la línea del sidebar en mobile. */
+    left: 101px; /* Mismo borde que la lÃ­nea del sidebar en mobile. */
     height: 115px; /* Alineado con hero-honeycomb-bar.css (barra colapsada) */
     padding: 4px 1rem;
   }
-  /* Barra colapsada: 32px (definido en hero-honeycomb-bar.css; aquí por si se carga antes) */
+  /* Barra colapsada: 32px (definido en hero-honeycomb-bar.css; aquÃ­ por si se carga antes) */
   .hero-section.hero-collapsed .hero-cta-item,
   html body .hero-section.hero-collapsed .hero-cta-item {
     width: 32px !important;
@@ -258,7 +258,7 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
     width: 32px !important;
     height: calc(32px * 1.1547) !important;
   }
-  /* Alineado a hero-honeycomb-bar.css: barra CTAs +10% en ícono; html body coherente con ese archivo */
+  /* Alineado a hero-honeycomb-bar.css: barra CTAs +10% en Ã­cono; html body coherente con ese archivo */
   html body .hero-section.hero-collapsed .hero-cta-item .jkhive-hex-icon,
   html body .hero-section.hero-collapsed .hero-cta-registro-cliente .jkhive-hex-icon,
   html body .hero-section.hero-collapsed .hero-cta-ingresar-cliente .jkhive-hex-icon {
@@ -266,7 +266,7 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
   }
 }
 
-/* Hero section - la textura honeycomb ya está aplicada en el background del .hero-section */
+/* Hero section - la textura honeycomb ya estÃ¡ aplicada en el background del .hero-section */
 
 /* Animated Glow */
 .hero-section::after {
@@ -308,7 +308,7 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
   text-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
 }
 
-/* Desktop: texto hero - más padding bot (+5px), menos espacio arriba (-5px) */
+/* Desktop: texto hero - mÃ¡s padding bot (+5px), menos espacio arriba (-5px) */
 @media (min-width: 769px) {
   .hero-subtitle {
     margin-top: -5px;
@@ -423,7 +423,7 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
 }
 
 /* Service Cards - Using Hexagonal Gallery System */
-/* Usa el sistema de galería hexagonal (puntas vertical) */
+/* Usa el sistema de galerÃ­a hexagonal (puntas vertical) */
 
 /* Service Card Container - Similar a jkhive-hex-gallery */
 .service-cards-container {
@@ -437,7 +437,7 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
   margin: 0 auto;
 }
 
-/* Service Card Base - Hexágono vertical */
+/* Service Card Base - HexÃ¡gono vertical */
 .service-card {
   position: relative;
   transition: transform 0.3s ease, z-index 0s;
@@ -492,8 +492,8 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
 
 /* Service Card Sizes - BIG (2 por fila) - Mantener para compatibilidad, pero usar jkhive-carouselitem-big */
 .service-card-big {
-  width: 390px; /* Tamaño más grande (jkhive-itemgallery-big) */
-  height: 450px; /* Proporción hexagonal */
+  width: 390px; /* TamaÃ±o mÃ¡s grande (jkhive-itemgallery-big) */
+  height: 450px; /* ProporciÃ³n hexagonal */
 }
 
 /* Service Card Sizes - MEDIUM (4 por fila) */
@@ -508,7 +508,7 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
   height: 162px;
 }
 
-/* Content Elements - Los estilos de carousel items están ahora en jk-hive.css */
+/* Content Elements - Los estilos de carousel items estÃ¡n ahora en jk-hive.css */
 /* Mantener solo para service-card-big para compatibilidad */
 .service-card-big .service-icon {
   font-size: 3.5rem;
@@ -539,7 +539,7 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
   margin-bottom: 0rem;
 }
 
-/* Estilos base para service-card (NO para jkhive-carouselitem - esos están en jk-hive.css) */
+/* Estilos base para service-card (NO para jkhive-carouselitem - esos estÃ¡n en jk-hive.css) */
 .service-card .service-icon {
   font-size: 3rem;
   color: var(--jk-accent-cyan);
@@ -576,7 +576,7 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
   z-index: 10;
 }
 
-/* Tamaño ajustado para cards pequeñas */
+/* TamaÃ±o ajustado para cards pequeÃ±as */
 .service-card-small .service-icon {
   font-size: 2rem;
   margin-bottom: 0.5rem;
@@ -598,7 +598,7 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
   margin-top: 0.5rem;
 }
 
-/* Tamaño ajustado para cards medianas */
+/* TamaÃ±o ajustado para cards medianas */
 .service-card-medium .service-icon {
   font-size: 2.5rem;
   margin-bottom: 0.75rem;
@@ -677,7 +677,7 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
 }
 
 /* ========================================
-   QU�? ES + C�?MO FUNCIONA - Tamaños homogéneos con sección anterior
+   QUÃ? ES + CÃ?MO FUNCIONA - TamaÃ±os homogÃ©neos con secciÃ³n anterior
    ======================================== */
 #que-es-como-funciona {
   margin-top: -40px;
@@ -703,11 +703,11 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
 }
 
 @media (min-width: 769px) {
-  /* Párrafo izquierdo: 120px hacia la derecha */
+  /* PÃ¡rrafo izquierdo: 120px hacia la derecha */
   #que-es-como-funciona .jkhive-row > .jkhive-col-half:first-child .que-es-card {
     margin-left: 120px;
   }
-  /* Párrafo derecho: 60px hacia la izquierda (desde su borde izquierdo) */
+  /* PÃ¡rrafo derecho: 60px hacia la izquierda (desde su borde izquierdo) */
   #que-es-como-funciona .jkhive-row > .jkhive-col-half:last-child .que-es-card {
     margin-left: 60px;
   }
@@ -773,7 +773,7 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
   #que-es-como-funciona .que-es-cta-wrap {
     margin-top: calc(1.3rem - 30px);
   }
-  /* CTA - Forma parte de House Sitting Chile (tamaño botones = regla global 55.39px) */
+  /* CTA - Forma parte de House Sitting Chile (tamaÃ±o botones = regla global 55.39px) */
   #cta {
     margin-top: -90px !important;
     margin-bottom: -50px !important;
@@ -798,9 +798,9 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
 }
 
 /* ========================================
-   CTA SECTION HEX - Estándar sitio (index #cta, about #cta-about, etc.)
-   Mismos botones hex, tamaños y animaciones en todo el sitio.
-   Ver housesitting-docs/Botones_Estándar_Housesitting.txt
+   CTA SECTION HEX - EstÃ¡ndar sitio (index #cta, about #cta-about, etc.)
+   Mismos botones hex, tamaÃ±os y animaciones en todo el sitio.
+   Ver housesitting-docs/Botones_EstÃ¡ndar_Housesitting.txt
    ======================================== */
 .cta-buttons-hex {
   display: flex;
@@ -812,7 +812,7 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
 
 /* ========================================
    MOBILE (768px): UNA SOLA REGLA GLOBAL para todos los jkhive-bttn-big
-   Reducción 85% (65.17 �?? 55.39px, icono 1.35rem). Aplica a: hero full, #cta, cta-section-hex,
+   ReducciÃ³n 85% (65.17 â?? 55.39px, icono 1.35rem). Aplica a: hero full, #cta, cta-section-hex,
    #destacados, #nosotros, contact submit, checkout, checkout-success, etc.
    La barra hero colapsada mantiene 32px (hero-honeycomb-bar.css).
    ======================================== */
@@ -836,7 +836,7 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
   }
 }
 
-/* Enlaces secundarios (contexto-servicio, CTA): mismo tamaño en desktop */
+/* Enlaces secundarios (contexto-servicio, CTA): mismo tamaÃ±o en desktop */
 @media (min-width: 769px) {
   #contexto-servicio .jkhive-link-contexto,
   #cta .jkhive-link-contexto {
@@ -844,7 +844,7 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
   }
 }
 
-/* Separación carrusel�??link: 1/3 del original (desktop y mobile) */
+/* SeparaciÃ³n carruselâ??link: 1/3 del original (desktop y mobile) */
 #contexto-servicio .contexto-servicio-carousel {
   padding-bottom: 1rem !important;
 }
@@ -914,7 +914,7 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
 
 /* ========================================
    HOUSESITTING ROLES - Estilo perfil jkhive.work/about
-   4 hexágonos con hex-border-yellow, 1 botón por item
+   4 hexÃ¡gonos con hex-border-yellow, 1 botÃ³n por item
    ======================================== */
 #housesitting-roles {
   margin-bottom: 2rem;
@@ -929,7 +929,7 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
   align-items: start;
   max-width: 900px;
   margin: 0 auto;
-  /* Aire vertical alineado con contrato panal (¼ altura + breath), flat 200px */
+  /* Aire vertical alineado con contrato panal (Â¼ altura + breath), flat 200px */
   --jkhive-hive-apex: 1.1547;
   --jkhive-gallery-hex-flat: 200px;
   --jkhive-gallery-edge-breath: clamp(0.6rem, 2.15vw, 1.12rem);
@@ -1040,7 +1040,7 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
   color: var(--jk-metal-light) !important;
 }
 
-/* Animaciones íconos roles - excluir de reglas genéricas jkhive-elements */
+/* Animaciones Ã­conos roles - excluir de reglas genÃ©ricas jkhive-elements */
 .jkhive-hex-gallery-roles .jkhive-bttn-table .jkhive-hex-icon {
   transition: transform 0.5s ease, color 0.3s ease !important;
   transform-origin: center !important;
@@ -1048,15 +1048,15 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
   transform: none !important;
 }
 
-/* Estado base - sin transform (hs-btn-* ya excluidos del genérico) */
+/* Estado base - sin transform (hs-btn-* ya excluidos del genÃ©rico) */
 
-/* Ingresar: 360° (rueda) - NO 180° porque enter�??salir */
+/* Ingresar: 360Â° (rueda) - NO 180Â° porque enterâ??salir */
 .jkhive-hex-gallery-roles .hs-btn-ingresar a:hover .jkhive-hex-icon,
 .jkhive-hex-gallery-roles .hs-btn-ingresar:hover .jkhive-hex-icon {
   transform: rotate(360deg) !important;
 }
 
-/* Registrarse: 360° sobre eje horizontal (flip completo) */
+/* Registrarse: 360Â° sobre eje horizontal (flip completo) */
 .jkhive-hex-gallery-roles .hs-btn-registro {
   perspective: 150px;
 }
@@ -1082,11 +1082,11 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
   }
 }
 
-/* Service Card Carousel Container - UNA LINEA HORIZONTAL DE HEXÁGONOS */
+/* Service Card Carousel Container - UNA LINEA HORIZONTAL DE HEXÃGONOS */
 .service-carousel {
   position: relative;
   width: calc(100% - 120px); /* Espacio para las flechas laterales */
-  max-width: 1176px; /* Ancho para 3 hexágonos medianos (390px �? 3) + 2 separaciones de 3px = 1176px */
+  max-width: 1176px; /* Ancho para 3 hexÃ¡gonos medianos (390px Ã? 3) + 2 separaciones de 3px = 1176px */
   overflow: hidden; /* Oculta los clones fuera de vista */
   padding: 3rem 0;
   margin: 0 auto;
@@ -1095,10 +1095,10 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
 .service-carousel-wrapper {
   display: flex;
   align-items: center;
-  gap: 3px; /* Separación de 3px entre hexágonos */
+  gap: 3px; /* SeparaciÃ³n de 3px entre hexÃ¡gonos */
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
-  padding: 0; /* Sin padding para evitar mostrar partes de hexágonos */
+  padding: 0; /* Sin padding para evitar mostrar partes de hexÃ¡gonos */
   width: 100%;
 }
 
@@ -1107,7 +1107,7 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 200; /* Por encima de los hexágonos */
+  z-index: 200; /* Por encima de los hexÃ¡gonos */
   cursor: pointer;
   width: 50px;
   height: calc(50px * 1.1547);
@@ -1541,15 +1541,15 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
   
   /* Responsive carousel sizes */
   .service-card-big {
-    width: 100%; /* 1 por fila en móvil */
+    width: 100%; /* 1 por fila en mÃ³vil */
   }
   
   .service-card-medium {
-    width: calc(50% - 2rem); /* 2 por fila en móvil */
+    width: calc(50% - 2rem); /* 2 por fila en mÃ³vil */
   }
   
   .service-card-small {
-    width: calc(33.333% - 1.5rem); /* 3 por fila en móvil */
+    width: calc(33.333% - 1.5rem); /* 3 por fila en mÃ³vil */
   }
   
   .service-icon {
@@ -1567,7 +1567,7 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
   
   /* Carousel adjustments for mobile */
   .service-carousel {
-    width: calc(100% - 80px); /* Menos espacio para flechas en móvil */
+    width: calc(100% - 80px); /* Menos espacio para flechas en mÃ³vil */
   }
   
   /* Carousel nav buttons - smaller on mobile */
@@ -1723,7 +1723,7 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
 }
 
 .jkhive-category-select::after {
-  content: '�?�';
+  content: 'â?¼';
   position: absolute;
   right: 1.25rem;
   top: 50%;
@@ -1740,7 +1740,7 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
   text-shadow: 0 0 15px rgba(6, 182, 212, 0.8);
 }
 
-/* Editorial menu item - diseño tipo logo */
+/* Editorial menu item - diseÃ±o tipo logo */
 .jkhive-hex-content-editorial {
   display: flex !important;
   flex-direction: column !important;
@@ -1756,14 +1756,14 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
   color: var(--jk-metal-light) !important;
 }
 
-/* ESTILOS ID�?NTICOS A LA PÁGINA WEB - NO MODIFICAR */
+/* ESTILOS IDÃ?NTICOS A LA PÃGINA WEB - NO MODIFICAR */
 .jkhive-hex-content-editorial .jkhive-logo-main {
-  font-size: 1.75rem !important; /* IGUAL que la página web */
+  font-size: 1.75rem !important; /* IGUAL que la pÃ¡gina web */
   font-weight: 900 !important;
   color: var(--jk-metal-light) !important;
-  letter-spacing: 0 !important; /* Sin letter-spacing adicional, igual que la página web */
+  letter-spacing: 0 !important; /* Sin letter-spacing adicional, igual que la pÃ¡gina web */
   line-height: 1 !important;
-  margin-bottom: 0 !important; /* Sin margin-bottom, igual que la página web */
+  margin-bottom: 0 !important; /* Sin margin-bottom, igual que la pÃ¡gina web */
 }
 
 .jkhive-hex-content-editorial .jkhive-logo-editorial-head .jkhive-logo-divider {
@@ -1776,11 +1776,11 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
 .jkhive-hex-content-editorial .jkhive-logo-sub {
   font-size: 0.5rem !important;
   font-weight: 700 !important;
-  color: var(--jk-accent-honey-light, #f4c430) !important; /* IGUAL que la página web (accent-honey-light no accent-honey) */
-  letter-spacing: 0.15em !important; /* IGUAL que la página web (0.15em no 0.1em) */
+  color: var(--jk-accent-honey-light, #f4c430) !important; /* IGUAL que la pÃ¡gina web (accent-honey-light no accent-honey) */
+  letter-spacing: 0.15em !important; /* IGUAL que la pÃ¡gina web (0.15em no 0.1em) */
   line-height: 1 !important;
   margin-top: 0.05rem !important;
-  text-shadow: 0 0 10px rgba(244, 196, 48, 0.8), 0 0 20px rgba(212, 160, 23, 0.6) !important; /* IGUAL que la página web */
+  text-shadow: 0 0 10px rgba(244, 196, 48, 0.8), 0 0 20px rgba(212, 160, 23, 0.6) !important; /* IGUAL que la pÃ¡gina web */
 }
 
 /* Eliminar subrayados y estilos de enlace por defecto en TODO el sidebar */
@@ -1798,7 +1798,7 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
   box-shadow: none !important;
 }
 
-/* Estilos específicos para enlaces dentro de items del menú */
+/* Estilos especÃ­ficos para enlaces dentro de items del menÃº */
 .jkhive-nav-item a,
 .jkhive-nav-item a:link,
 .jkhive-nav-item a:visited,
@@ -1819,14 +1819,14 @@ body.hero-scrolled .hero-collapse-spacer + .jkhive-gallery-catalog-toolbar-wrap 
   text-shadow: none !important;
 }
 
-/* Asegurar que el contenido dentro de los enlaces también herede estilos */
+/* Asegurar que el contenido dentro de los enlaces tambiÃ©n herede estilos */
 .jkhive-nav-item a * {
   text-decoration: none !important;
   text-decoration-line: none !important;
   color: inherit !important;
 }
 
-/* Submenú: cuando está en body (fuera del sidebar), quitar subrayado de todos los items */
+/* SubmenÃº: cuando estÃ¡ en body (fuera del sidebar), quitar subrayado de todos los items */
 body > .jkhive-submenu-horizontal .jkhive-submenu-item,
 body > .jkhive-submenu-horizontal .jkhive-submenu-item * {
   text-decoration: none !important;
@@ -1834,7 +1834,7 @@ body > .jkhive-submenu-horizontal .jkhive-submenu-item * {
   -webkit-text-decoration-line: none !important;
 }
 
-/* Eliminar text-shadow SOLO de los items del menú (NO del logo) */
+/* Eliminar text-shadow SOLO de los items del menÃº (NO del logo) */
 .jkhive-nav-item .jkhive-hex-icon,
 .jkhive-nav-item .jkhive-hex-text,
 .jkhive-nav-item .jkhive-editorial-icon,
@@ -1894,7 +1894,7 @@ body > .jkhive-submenu-horizontal .jkhive-submenu-item * {
   grid-row: auto !important;
 }
 
-/* Primera fila: items 1-5 - mantener márgenes originales del grid */
+/* Primera fila: items 1-5 - mantener mÃ¡rgenes originales del grid */
 #booksGallery.filtered .jkhive-hex-gallery-item.visible-item[data-visible-index="1"] { 
   grid-column: 1 !important; 
   grid-row: 1 !important;
@@ -1926,7 +1926,7 @@ body > .jkhive-submenu-horizontal .jkhive-submenu-item * {
   margin: 0 3px -60px 3px !important;
 }
 
-/* Segunda fila: items 6-9 desplazados con márgenes originales */
+/* Segunda fila: items 6-9 desplazados con mÃ¡rgenes originales */
 #booksGallery.filtered .jkhive-hex-gallery-item.visible-item[data-visible-index="6"] { 
   grid-column: 1 !important; 
   grid-row: 2 !important; 
@@ -1981,23 +1981,23 @@ body > .jkhive-submenu-horizontal .jkhive-submenu-item * {
 }
 
 /* ========================================
-   CTA SECTION - Botón de Contacto
+   CTA SECTION - BotÃ³n de Contacto
    ======================================== */
-/* El botón de contacto usa jkhive-actionbutton-big con clase jkhive-hex-honey */
-/* Todos los estilos están en jk-hive.css - no necesita estilos adicionales aquí */
+/* El botÃ³n de contacto usa jkhive-actionbutton-big con clase jkhive-hex-honey */
+/* Todos los estilos estÃ¡n en jk-hive.css - no necesita estilos adicionales aquÃ­ */
 
 /* ========================================
    FOOTER - Zona dividida en dos columnas iguales (50% / 50%)
-   Izquierda: enlaces (Sitio + Información) centrados en la columna, texto alineado a la izquierda.
+   Izquierda: enlaces (Sitio + InformaciÃ³n) centrados en la columna, texto alineado a la izquierda.
    Derecha: corporativo centrado en la columna.
-   Mobile: sin línea vertical; primero enlaces, después corporativo.
+   Mobile: sin lÃ­nea vertical; primero enlaces, despuÃ©s corporativo.
    ======================================== */
 .jkhive-footer {
   box-sizing: border-box;
   padding: 2.5rem 2rem 2rem;
 }
 
-/* Grilla: footer mismo borde que main (140px desktop, 101px mobile); vértice con la línea del sidebar. */
+/* Grilla: footer mismo borde que main (140px desktop, 101px mobile); vÃ©rtice con la lÃ­nea del sidebar. */
 body:has(#jkhive-sidebar-container) .jkhive-footer {
   margin-left: 140px;
   width: calc(100% - 140px);
@@ -2008,7 +2008,7 @@ body:has(#jkhive-sidebar-container) .jkhive-main-content {
   box-shadow: none;
 }
 
-/* Una sola capa de brillo suave en lugar de 3 radiales: evita las divisiones/líneas verticales en el fondo (nav hasta abajo). */
+/* Una sola capa de brillo suave en lugar de 3 radiales: evita las divisiones/lÃ­neas verticales en el fondo (nav hasta abajo). */
 body:has(#jkhive-sidebar-container)::after {
   background: radial-gradient(ellipse 120% 100% at 50% 50%, rgba(14, 165, 233, 0.04) 0%, transparent 55%);
   animation: none;
@@ -2024,7 +2024,7 @@ body:has(#jkhive-sidebar-container)::after {
   align-items: stretch;
 }
 
-/* Desktop: dos columnas iguales 50% / 50%, línea vertical solo en desktop */
+/* Desktop: dos columnas iguales 50% / 50%, lÃ­nea vertical solo en desktop */
 @media (min-width: 769px) {
   .jkhive-footer {
     padding: 3rem 2rem 2.5rem;
@@ -2067,7 +2067,7 @@ body:has(#jkhive-sidebar-container)::after {
   }
 
   /* Ecosistema: dos columnas de enlaces (flujo por columnas de hasta 4 filas).
-     6 ítems �?? 4+2; al sumar sistemas sigue llenando columna a columna (4+4+�?�). */
+     6 Ã­tems â?? 4+2; al sumar sistemas sigue llenando columna a columna (4+4+â?¦). */
   .footer-left .footer-col-info .footer-ecosystem-list {
     display: grid;
     grid-auto-flow: column;
@@ -2099,7 +2099,17 @@ body:has(#jkhive-sidebar-container)::after {
   }
 }
 
-/* Título de cada columna (Sitio, Información): alineado a la izquierda */
+/* Pie mínimo (landing básica): solo créditos, sin columnas de enlaces */
+@media (min-width: 769px) {
+  .jkhive-footer--minimal .footer-right {
+    width: 100%;
+    flex: 1 1 100%;
+    max-width: 100%;
+    padding-left: 0;
+  }
+}
+
+/* TÃ­tulo de cada columna (Sitio, InformaciÃ³n): alineado a la izquierda */
 .footer-col-title {
   font-size: 0.75rem;
   font-weight: 700;
@@ -2171,7 +2181,7 @@ body:has(#jkhive-sidebar-container)::after {
 }
 
 @media (max-width: 768px) {
-  /* Main: mismo borde que sidebar en mobile (101px); vértice con la línea lateral. */
+  /* Main: mismo borde que sidebar en mobile (101px); vÃ©rtice con la lÃ­nea lateral. */
   body:has(#jkhive-sidebar-container):not(.page-public) .jkhive-main-content {
     padding: var(--jk-spacing-md);
     margin-left: 101px;
@@ -2201,7 +2211,7 @@ body:has(#jkhive-sidebar-container)::after {
     width: calc(100% - 101px);
   }
 
-  /* Mobile: enlaces-footer en dos columnas iguales (Sitio | Información); después corporativo */
+  /* Mobile: enlaces-footer en dos columnas iguales (Sitio | InformaciÃ³n); despuÃ©s corporativo */
   .footer-left {
     display: flex;
     flex-direction: row;
@@ -2240,7 +2250,7 @@ body:has(#jkhive-sidebar-container)::after {
     font-size: 0.65rem !important;
   }
 
-  /* Tamaños de texto mobile: iguales en enlaces y corporativo (0.65rem cuerpo, 0.6rem títulos) */
+  /* TamaÃ±os de texto mobile: iguales en enlaces y corporativo (0.65rem cuerpo, 0.6rem tÃ­tulos) */
   .footer-col-title {
     font-size: 0.6rem;
     margin-bottom: 0.28rem;
@@ -2266,7 +2276,7 @@ body:has(#jkhive-sidebar-container)::after {
 }
 
 /* ========================================
-   Home �?? sección #ventajas (¿Por qué elegirme?)
+   Home — sección #ventajas (¿Por qué elegirme?)
    Centrado vertical del stack (icono + título + subtítulo): padding vertical en rem,
    no en % (en CSS % top/bottom usa el ancho del contenedor y desvirtúa el centro en hex altos).
    Ámbito estricto: solo #ventajas + galería small.
@@ -2350,7 +2360,7 @@ body.jkfw-shell-login-page .jkhive-page-container {
 /**
  * Housesitting - Panel CRM
  *
- * Estilos espec�ficos del CRM. Hereda la base visual de JK Hive
+ * Estilos específicos del CRM. Hereda la base visual de JK Hive
  * (jk-hive.css, jkhive-sidebar.css, jkhive-navbar.css).
  *
  * Herencia: JK Hive CRM (crm.jkhive.work)
@@ -2371,7 +2381,7 @@ body.admin-layout main.jkhive-main-content {
 }
 
 /* ============================================================
-   CRM: ESTILOS BASE (Restaurados a su versi�n limpia original)
+   CRM: ESTILOS BASE (Restaurados a su versión limpia original)
    ============================================================ */
 
 .crm-container {
@@ -2585,7 +2595,7 @@ body.admin-layout main.jkhive-main-content {
     box-shadow: 0 0 10px rgba(220, 53, 69, 0.5);
 }
 
-/* Dashboard index: secci�n JK Hive (sin crm-container/crm-header que causaban bordes) */
+/* Dashboard index: sección JK Hive (sin crm-container/crm-header que causaban bordes) */
 .jkhive-section-dashboard {
     margin-bottom: 2rem;
 }
@@ -2695,7 +2705,7 @@ body.admin-layout main.jkhive-main-content {
     text-decoration: underline;
 }
 
-/* CRM Footer - Responsive (misma grilla: margin-left 101px en mobile v�a jk-hive.css) */
+/* CRM Footer - Responsive (misma grilla: margin-left 101px en mobile vía jk-hive.css) */
 @media (max-width: 768px) {
     body.crm-layout .jkhive-crm-footer,
     body.admin-layout .jkhive-crm-footer {
@@ -2731,10 +2741,10 @@ body.admin-layout main.jkhive-main-content {
 }
 
 /* ============================================================
-   Login JK Hive ? hex�gono + grilla modal; sin footer p�blico.
-   Fondo: capa base tech (como el CRM detr�s del modal) + .jkhive-login-modal-backdrop
+   Login JK Hive ? hexágono + grilla modal; sin footer público.
+   Fondo: capa base tech (como el CRM detrás del modal) + .jkhive-login-modal-backdrop
    copia visual de .jkhive-modal-overlay (modals.css L492?526). pointer-events: none en el backdrop.
-   Body centrado en viewport (anula flex:1 del main CRM en esta p�gina).
+   Body centrado en viewport (anula flex:1 del main CRM en esta página).
    ============================================================ */
 /* Centrado real en viewport: jk-hive .jkhive-main-content aplica margin-left (sidebar) y margin-top (navbar) al login */
 body.crm-layout.jkhive-page-login {
@@ -2822,7 +2832,7 @@ body.jkhive-page-login .jkhive-login-main.jkhive-main-content {
   box-sizing: border-box;
 }
 
-/* Panel: hex�gono regular; el formulario interior lleva la grilla modal (header / body / footer) */
+/* Panel: hexágono regular; el formulario interior lleva la grilla modal (header / body / footer) */
 body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex {
   width: min(
     633.6px,
@@ -2876,7 +2886,7 @@ body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex form.jkhive-login-he
   margin: 0;
   display: flex;
   flex-direction: column;
-  /* Centrar el bloque header+cuerpo+pie dentro del hex (no franjas 25/50/25 r�gidas) */
+  /* Centrar el bloque header+cuerpo+pie dentro del hex (no franjas 25/50/25 rígidas) */
   justify-content: center;
   align-items: stretch;
   overflow-x: hidden;
@@ -3038,7 +3048,7 @@ body.jkhive-page-login .jkhive-login-panel.jkhive-modal-hex .jkhive-login-submit
   justify-content: center;
 }
 
-/* Bot�n env�o: anillo miel met�lica ? hover azul ne�n; interior siempre oscuro (solo cambia el borde). */
+/* Botón envío: anillo miel metálica ? hover azul neón; interior siempre oscuro (solo cambia el borde). */
 body.jkhive-page-login .jkhive-login-action-submit {
   display: flex;
   justify-content: center;
@@ -3239,7 +3249,7 @@ body.jkhive-page-login .jkhive-login-panel .jkhive-login-footer a:hover {
 }
 
 /* ============================================================
-   ADMIN ? tablas de datos (perfil ten�a .jkhive-table solo inline;
+   ADMIN ? tablas de datos (perfil tenía .jkhive-table solo inline;
    el resto del panel necesita el mismo lenguaje visual JK Hive)
    ============================================================ */
 body.admin-layout .admin-container {
@@ -3253,7 +3263,7 @@ body.admin-layout .jkhive-modal input:not([type="hidden"]):not([type="checkbox"]
 body.admin-layout .jkhive-modal textarea {
   box-sizing: border-box;
   max-width: 100%;
-  /* Sin width:100% aqu�: respeta inline (ej. n�mero orden 80px) */
+  /* Sin width:100% aquí: respeta inline (ej. número orden 80px) */
   padding: 0.65rem 0.85rem !important;
   background: linear-gradient(135deg, var(--jk-tech-dark) 0%, var(--jk-tech-medium) 100%);
   border: 2px solid var(--jk-primary-blue);
@@ -3272,7 +3282,7 @@ body.admin-layout .jkhive-modal textarea {
   resize: vertical;
 }
 
-/* Modales mensajer�a / CRM: campos a ancho �til */
+/* Modales mensajería / CRM: campos a ancho útil */
 body.admin-layout .jkhive-modal textarea.form-control,
 body.admin-layout .jkhive-modal input.form-control:not([type="checkbox"]):not([type="radio"]):not([type="file"]) {
   width: 100%;
@@ -3358,7 +3368,7 @@ body.admin-layout .jkhive-modal select:not(.jkhive-hex-select) option {
   color: var(--jk-metal-light);
 }
 
-/* HTML / c�digo en admin: conservar monoespaciado aunque herede font del campo tech */
+/* HTML / código en admin: conservar monoespaciado aunque herede font del campo tech */
 body.admin-layout .admin-container textarea[style*="monospace"],
 body.admin-layout .admin-container input.jkhive-about-skill-line-input {
   font-family: ui-monospace, SFMono-Regular, "Cascadia Code", Consolas, monospace;
@@ -3592,8 +3602,8 @@ body.admin-layout .jkhive-audit-filter-submit {
   align-self: center;
 }
 
-/* Paginaci�n JK Hive: auditor�a y cualquier listado admin con .jkhive-pagination */
-/* Excluir .jkhive-pagination--hex-gallery: usa controles est�ndar JK Hive + estilos en jkfw-launcher.css */
+/* Paginación JK Hive: auditoría y cualquier listado admin con .jkhive-pagination */
+/* Excluir .jkhive-pagination--hex-gallery: usa controles estándar JK Hive + estilos en jkfw-launcher.css */
 .jkhive-audit-page .jkhive-pagination,
 body.admin-layout .jkhive-pagination:not(.jkhive-pagination--hex-gallery) {
   display: flex;
@@ -3725,7 +3735,7 @@ body.admin-layout .jkhive-audit-empty {
 }
 
 /* ============================================================
-   Admin About ? leng�etas + paneles rectangulares + edici�n en l�nea (perfil)
+   Admin About ? lengüetas + paneles rectangulares + edición en línea (perfil)
    ============================================================ */
 body.admin-layout .jkhive-about-admin-page .jkhive-about-admin-msg {
   color: var(--jk-accent-teal);
@@ -3736,7 +3746,7 @@ body.admin-layout .jkhive-about-admin-page .jkhive-about-admin-db-warning {
   color: var(--jk-accent-red);
 }
 
-/* Un solo recuadro: leng�etas + contenido */
+/* Un solo recuadro: lengüetas + contenido */
 body.admin-layout .jkhive-about-admin-sheet {
   width: 100%;
   max-width: 100%;
@@ -3818,7 +3828,7 @@ body.admin-layout .jkhive-about-admin-sheet-body {
   flex-direction: column;
 }
 
-/* Perfil: el recuadro acompa�a el alto del contenido (no estira hasta el fondo del viewport) */
+/* Perfil: el recuadro acompaña el alto del contenido (no estira hasta el fondo del viewport) */
 body.admin-layout .jkhive-about-admin-sheet:has(#jkhive-about-tab-panel-perfil.is-active) .jkhive-about-admin-sheet-body {
   flex: 0 0 auto;
   max-height: none;
@@ -3878,9 +3888,9 @@ body.admin-layout .jkhive-about-admin-tab-inner {
   overflow: hidden;
 }
 
-/* Perfil: alto seg�n contenido (sin min-height de viewport) */
+/* Perfil: alto según contenido (sin min-height de viewport) */
 
-/* Perfil: dos columnas desktop; una columna m�vil (editores al final por orden DOM) */
+/* Perfil: dos columnas desktop; una columna móvil (editores al final por orden DOM) */
 body.admin-layout .jkhive-about-admin-perfil-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
@@ -4114,7 +4124,7 @@ body.admin-layout .jkhive-about-admin-photo-pick-btn {
   isolation: isolate;
 }
 
-/* Velado detr�s del l�piz (::before) para no mezclar opacidad con el �cono */
+/* Velado detrás del lápiz (::before) para no mezclar opacidad con el ícono */
 body.admin-layout .jkhive-about-admin-photo-pick-btn::before {
   content: '';
   position: absolute;
@@ -4137,7 +4147,7 @@ body.admin-layout .jkhive-about-admin-photo-pick-btn:disabled {
   opacity: 0.7;
 }
 
-/* L�piz foto: encima del velado; oculto por defecto; verde ? cian al hover sobre el hex */
+/* Lápiz foto: encima del velado; oculto por defecto; verde ? cian al hover sobre el hex */
 body.admin-layout .jkhive-about-admin-photo-pick-btn .jkhive-about-inline-btn-hex {
   position: relative;
   z-index: 1;
@@ -4155,7 +4165,7 @@ body.admin-layout .jkhive-about-admin-photo-pick-btn .jkhive-about-inline-btn-he
     filter 0.15s ease;
 }
 
-/* Visible con hover sobre la miniatura o foco teclado: verde; hover directo sobre el hex ? cian ne�n */
+/* Visible con hover sobre la miniatura o foco teclado: verde; hover directo sobre el hex ? cian neón */
 body.admin-layout .jkhive-about-admin-profile-photo-preview-wrap:hover .jkhive-about-admin-photo-pick-btn .jkhive-about-inline-btn-hex,
 body.admin-layout .jkhive-about-admin-photo-pick-btn:focus-visible .jkhive-about-inline-btn-hex {
   opacity: 1;
@@ -4236,8 +4246,8 @@ body.admin-layout .jkhive-about-inline-label {
   cursor: default;
   color: var(--jk-accent-honey-light);
   letter-spacing: 0.02em;
-  /* Color s�lido + sombras: el gradiente con background-clip:text recorr�a el ancho del label
-     y aclaraba tramos distintos seg�n la longitud ("T�tulo profesional:", "Bajo el hex:", etc.). */
+  /* Color sólido + sombras: el gradiente con background-clip:text recorría el ancho del label
+     y aclaraba tramos distintos según la longitud ("Título profesional:", "Bajo el hex:", etc.). */
   text-shadow:
     0 1px 0 var(--jk-accent-honey-dark),
     0 0 12px rgba(244, 196, 48, 0.22),
@@ -4293,7 +4303,7 @@ body.admin-layout .jkhive-about-admin-profile-hint code {
   color: var(--jk-metal-light);
 }
 
-/* Campo en l�nea: l�piz / ticket dentro del borde del control (esquina superior derecha del input) */
+/* Campo en línea: lápiz / ticket dentro del borde del control (esquina superior derecha del input) */
 body.admin-layout .jkhive-about-inline-field {
   position: relative;
   margin-bottom: 0.32rem;
@@ -4307,7 +4317,7 @@ body.admin-layout .jkhive-about-inline-field .jkhive-modal-form-control.jkhive-a
   width: 100%;
   box-sizing: border-box;
   margin: 0;
-  /* padding derecho reservado para �cono dentro del campo (l�piz m�s grande) */
+  /* padding derecho reservado para ícono dentro del campo (lápiz más grande) */
   padding: 0.32rem 2.5rem 0.32rem 0.45rem;
   font-size: 0.8rem;
   line-height: 1.28;
@@ -4354,7 +4364,7 @@ body.admin-layout .jkhive-about-inline-checkbox:disabled {
 
 body.admin-layout .jkhive-about-inline-btn {
   position: absolute;
-  /* Dentro del rect�ngulo del control, no en un canal externo */
+  /* Dentro del rectángulo del control, no en un canal externo */
   top: 5px;
   right: 5px;
   z-index: 3;
@@ -4386,7 +4396,7 @@ body.admin-layout .jkhive-about-inline-btn.jkhive-about-inline-ticket {
   right: 3px;
 }
 
-/* Guardar en l�nea perfil About: ? azul ne�n, sin recuadro relleno; misma posici�n/caja que el l�piz (top/right 3px, 32�32) */
+/* Guardar en línea perfil About: ? azul neón, sin recuadro relleno; misma posición/caja que el lápiz (top/right 3px, 32×32) */
 body.admin-layout .jkhive-about-inline-btn.jkhive-about-inline-ticket.jkhive-inline-save-ticket {
   top: 3px;
   right: 3px;
@@ -4403,7 +4413,7 @@ body.admin-layout .jkhive-about-inline-btn.jkhive-about-inline-ticket.jkhive-inl
   font-weight: 900;
   box-sizing: border-box;
   filter: none;
-  /* ~20 % m�s grueso el trazo del car�cter, mismo tama�o tipogr�fico */
+  /* ~20 % más grueso el trazo del carácter, mismo tamaño tipográfico */
   -webkit-text-stroke: 0.07em #5cefff;
   paint-order: stroke fill;
   text-shadow:
@@ -4429,7 +4439,7 @@ body.admin-layout .jkhive-about-inline-btn.jkhive-about-inline-ticket.jkhive-inl
   }
 }
 
-/* Detalles (columna editores): l�piz/ticket m�s a la izquierda para no montarse en la barra vertical del textarea */
+/* Detalles (columna editores): lápiz/ticket más a la izquierda para no montarse en la barra vertical del textarea */
 body.admin-layout .jkhive-about-admin-perfil-col--editors .jkhive-about-inline-btn.jkhive-about-inline-pen,
 body.admin-layout .jkhive-about-admin-perfil-col--editors .jkhive-about-inline-btn.jkhive-about-inline-ticket {
   right: 0.95rem;

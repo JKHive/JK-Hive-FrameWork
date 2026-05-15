@@ -269,25 +269,25 @@ body.hero-scrolled.jkhive-index-home #contexto-servicio.jkhive-index-section--hu
     overflow: visible;
   }
 
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery.jkhive-hex-gallery-small .jkhive-itemgallery-small {
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery.jkhive-hex-gallery-small :is(.jkhive-itemgallery-small, .jkhive-hex-item-small) {
     width: 90px;
     height: 104px;
     /* Sin margen horizontal: el 1px lateral sumaba desvío a la derecha en la 2.ª fila */
     margin: -26px 0;
   }
 
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small .jkhive-hex {
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex {
     width: 90px !important;
     height: calc(90px * 1.1547) !important;
   }
 
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small .jkhive-hex::after {
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex::after {
     width: calc(90px - 4px) !important;
     height: calc((90px - 4px) * 1.1547) !important;
   }
 
   /* Hex 90px: centrado vertical estable (este CSS va después de jkhive-style) */
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small .jkhive-hex-content.jkhive-hex-content-editorial {
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex-content.jkhive-hex-content-editorial {
     justify-content: center !important;
     align-items: center !important;
     align-content: center !important;
@@ -295,27 +295,27 @@ body.hero-scrolled.jkhive-index-home #contexto-servicio.jkhive-index-section--hu
     gap: 0.14rem !important;
   }
 
-  body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel .jkhive-itemgallery-small,
-  body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel .jkhive-itemgallery-small {
+  body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel :is(.jkhive-itemgallery-small, .jkhive-hex-item-small),
+  body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel :is(.jkhive-itemgallery-small, .jkhive-hex-item-small) {
     width: 90px;
-    height: 104px;
-    margin: -26px 0;
+    height: calc(90px * 1.1547);
+    margin: 0 !important;
   }
 
-  body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel .jkhive-itemgallery-small .jkhive-hex,
-  body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel .jkhive-itemgallery-small .jkhive-hex {
+  body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel :is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex,
+  body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel :is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex {
     width: 90px !important;
     height: calc(90px * 1.1547) !important;
   }
 
-  body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel .jkhive-itemgallery-small .jkhive-hex::after,
-  body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel .jkhive-itemgallery-small .jkhive-hex::after {
+  body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel :is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex::after,
+  body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel :is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex::after {
     width: calc(90px - 4px) !important;
     height: calc((90px - 4px) * 1.1547) !important;
   }
 
-  body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel .jkhive-itemgallery-small .jkhive-hex-content.jkhive-hex-content-editorial,
-  body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel .jkhive-itemgallery-small .jkhive-hex-content.jkhive-hex-content-editorial {
+  body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel :is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex-content.jkhive-hex-content-editorial,
+  body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel :is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex-content.jkhive-hex-content-editorial {
     justify-content: center !important;
     align-items: center !important;
     align-content: center !important;
@@ -323,26 +323,26 @@ body.hero-scrolled.jkhive-index-home #contexto-servicio.jkhive-index-section--hu
     gap: 0.14rem !important;
   }
 
-  /* transform en wrapper: jk-hive fuerza .jkhive-itemgallery-small { transform: none !important } — honeycomb exige !important aquí */
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(1) {
+  /* transform en wrapper: jk-hive fuerza :is(.jkhive-itemgallery-small, .jkhive-hex-item-small) { transform: none !important } — honeycomb exige !important aquí */
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):nth-child(1) {
     grid-row: 1;
     grid-column: 1;
     transform: none !important;
   }
 
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(2) {
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):nth-child(2) {
     grid-row: 1;
     grid-column: 2;
     transform: none !important;
   }
 
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(3) {
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):nth-child(3) {
     grid-row: 1;
     grid-column: 3;
     transform: none !important;
   }
 
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(4) {
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):nth-child(4) {
     grid-row: 2;
     grid-column: 1;
     margin-top: 0;
@@ -350,7 +350,7 @@ body.hero-scrolled.jkhive-index-home #contexto-servicio.jkhive-index-section--hu
     transform: translateX(46px) !important;
   }
 
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(5) {
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):nth-child(5) {
     grid-row: 2;
     grid-column: 2;
     margin-top: 0;
@@ -358,7 +358,7 @@ body.hero-scrolled.jkhive-index-home #contexto-servicio.jkhive-index-section--hu
   }
 
   /* Centrado bajo los dos hex de la fila 2: misma traslación que el 5.º = quedaba bajo la 2.ª columna */
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(6) {
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):nth-child(6) {
     grid-row: 3;
     grid-column: 1 / -1;
     justify-self: center;
@@ -368,19 +368,32 @@ body.hero-scrolled.jkhive-index-home #contexto-servicio.jkhive-index-section--hu
     max-width: 90px;
   }
 
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(1):hover,
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(2):hover,
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(3):hover {
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):not(.jkhive-hex-item-hover-glowV2):nth-child(1):hover,
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):not(.jkhive-hex-item-hover-glowV2):nth-child(2):hover,
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):not(.jkhive-hex-item-hover-glowV2):nth-child(3):hover {
     transform: scale(1.05) !important;
   }
 
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(4):hover,
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(5):hover {
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):not(.jkhive-hex-item-hover-glowV2):nth-child(4):hover,
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):not(.jkhive-hex-item-hover-glowV2):nth-child(5):hover {
     transform: translateX(46px) scale(1.05) !important;
   }
 
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(6):hover {
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):not(.jkhive-hex-item-hover-glowV2):nth-child(6):hover {
     transform: scale(1.05) !important;
+  }
+
+  /* glowV2: mismo transform que en reposo, sin scale (sustituye regla global translateX(stagger)) */
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small).jkhive-hex-item-hover-glowV2:nth-child(1):hover,
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small).jkhive-hex-item-hover-glowV2:nth-child(2):hover,
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small).jkhive-hex-item-hover-glowV2:nth-child(3):hover,
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small).jkhive-hex-item-hover-glowV2:nth-child(6):hover {
+    transform: none !important;
+  }
+
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small).jkhive-hex-item-hover-glowV2:nth-child(4):hover,
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small).jkhive-hex-item-hover-glowV2:nth-child(5):hover {
+    transform: translateX(46px) !important;
   }
 
   body.jkhive-index-home .jkhive-index-section--cta {
@@ -468,56 +481,68 @@ body.hero-scrolled.jkhive-index-home #contexto-servicio.jkhive-index-section--hu
     column-gap: 2px;
   }
 
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(1) {
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):nth-child(1) {
     grid-row: 1;
     grid-column: 1;
     transform: none !important;
   }
 
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(2) {
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):nth-child(2) {
     grid-row: 1;
     grid-column: 2;
     transform: none !important;
   }
 
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(3) {
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):nth-child(3) {
     grid-row: 2;
     grid-column: 1;
     margin-top: 0;
     transform: translateX(46px) !important;
   }
 
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(4) {
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):nth-child(4) {
     grid-row: 2;
     grid-column: 2;
     margin-top: 0;
     transform: translateX(46px) !important;
   }
 
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(5) {
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):nth-child(5) {
     grid-row: 3;
     grid-column: 1;
     margin-top: 0;
     transform: none !important;
   }
 
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(6) {
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):nth-child(6) {
     grid-row: 3;
     grid-column: 2;
     margin-top: 0;
     transform: none !important;
   }
 
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(1):hover,
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(2):hover,
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(5):hover,
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(6):hover {
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):not(.jkhive-hex-item-hover-glowV2):nth-child(1):hover,
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):not(.jkhive-hex-item-hover-glowV2):nth-child(2):hover,
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):not(.jkhive-hex-item-hover-glowV2):nth-child(5):hover,
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):not(.jkhive-hex-item-hover-glowV2):nth-child(6):hover {
     transform: scale(1.05) !important;
   }
 
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(3):hover,
-  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery .jkhive-itemgallery-small:nth-child(4):hover {
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):not(.jkhive-hex-item-hover-glowV2):nth-child(3):hover,
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):not(.jkhive-hex-item-hover-glowV2):nth-child(4):hover {
     transform: translateX(46px) scale(1.05) !important;
+  }
+
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small).jkhive-hex-item-hover-glowV2:nth-child(1):hover,
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small).jkhive-hex-item-hover-glowV2:nth-child(2):hover,
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small).jkhive-hex-item-hover-glowV2:nth-child(5):hover,
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small).jkhive-hex-item-hover-glowV2:nth-child(6):hover {
+    transform: none !important;
+  }
+
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small).jkhive-hex-item-hover-glowV2:nth-child(3):hover,
+  body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small).jkhive-hex-item-hover-glowV2:nth-child(4):hover {
+    transform: translateX(46px) !important;
   }
 }
 

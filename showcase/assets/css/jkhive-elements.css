@@ -1278,10 +1278,26 @@ body .jkhive-bttn-big:hover .jkhive-hex-content svg,
   transform: rotate(360deg);
 }
 
+/* CTA #cta: quitar el giro genérico del wrapper y del ícono — About/Contact usan solo @keyframes envelope ±Z */
+html body #cta.cta-section-hex .jkhive-bttn-big:hover .jkhive-hex-icon,
+body #cta.cta-section-hex .jkhive-bttn-big:hover .jkhive-hex-icon,
+html body #cta.cta-section-hex .jkhive-bttn-big:focus-within .jkhive-hex-icon,
+body #cta.cta-section-hex .jkhive-bttn-big:focus-within .jkhive-hex-icon,
+html body #cta.cta-section-hex .jkhive-bttn-big:hover .jkhive-hex-content,
+body #cta.cta-section-hex .jkhive-bttn-big:hover .jkhive-hex-content,
+html body #cta.cta-section-hex .jkhive-bttn-big:focus-within .jkhive-hex-content,
+body #cta.cta-section-hex .jkhive-bttn-big:focus-within .jkhive-hex-content,
+html body #cta.cta-section-hex .jkhive-bttn-big:hover .jkhive-hex-content svg,
+body #cta.cta-section-hex .jkhive-bttn-big:hover .jkhive-hex-content svg,
+html body #cta.cta-section-hex .jkhive-bttn-big:focus-within .jkhive-hex-content svg,
+body #cta.cta-section-hex .jkhive-bttn-big:focus-within .jkhive-hex-content svg {
+  transform: none;
+}
+
 /* ========================================
    jkhive-bttn-big: animación por tipo de icono
    Regla: botones uno al lado del otro NUNCA comparten la misma animación.
-   Hero: Catálogo (oil-can) ≠ Ingresar (user). CTA #cta: About y Contact comparten giro envelope Z; Contact en sentido inverso. About: Ir al Catálogo ≠ Contáctanos.
+   Hero: Catálogo (oil-can) ≠ Ingresar (user). CTA #cta y sidebar landing (About / Contacto): mismo giro envelope en Z; Contacto en sentido inverso.
    Barra: Catálogo, Ingresar, About, Contact, FAQ, Políticas = 6 distintas.
    ======================================== */
 /* Todas las reglas con animation: quitar transición en transform para que la animación se vea */
@@ -1293,6 +1309,8 @@ html body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-chart-line,
 body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-chart-line,
 html body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-user-plus,
 body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-user-plus,
+html body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-briefcase,
+body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-briefcase,
 html body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-envelope,
 body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-envelope,
 html body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-paper-plane,
@@ -1348,7 +1366,7 @@ body .jkhive-bttn-big:hover .jkhive-hex-icon.fa-paper-plane {
   transform-style: preserve-3d !important;
 }
 
-/* CTA (#cta): About (fa-briefcase) usa el mismo giro Z que envelope; Contacto (fa-envelope), envelope-reverse. */
+/* CTA (#cta): About (fa-briefcase) y Contacto (fa-envelope) — mismo keyframe envelope en Z; Contacto en sentido inverso. */
 html body #cta.cta-section-hex .jkhive-bttn-big:hover .jkhive-hex-icon.fa-briefcase,
 body #cta.cta-section-hex .jkhive-bttn-big:hover .jkhive-hex-icon.fa-briefcase,
 html body #cta.cta-section-hex .jkhive-bttn-big:focus-within .jkhive-hex-icon.fa-briefcase,
@@ -1543,17 +1561,18 @@ body .jkhive-bttn-table:hover .jkhive-hex:not(.jkhive-hex-honey):not(.jkhive-hex
 }
 
 /* ========================================
-   jkhive-itemgallery-small-hover-v2 — variante editorial sin escala: anillo/borde (::after) + swap azul/miel.
-   Original canónico (escala 1.05): jk-hive.css § itemgallery-small:hover. Activar con la clase en el contenedor strip/roll.
-   También: raíz `.jkfw-carousel-hex-big` + ítems `.jkhive-carouselitem-big` (misma lógica, selectores .service-*).
+   Perfil de hover «editorial» (landing canónica): sin scale; anillo vía box-shadow en ::after + swap azul/miel.
+   Contrato: clase en la raíz del bloque (p. ej. carrusel servicios, strips, noticias) = .jkfw-canon-hover--editorial; alias .jkhive-itemgallery-small-hover-v2.
+   Documentación: docs/JKFW_CANON_LANDING_ITEM_CONTRACT.md (pieles .jkhive-hex-* vs perfiles de hover).
+   Ítems bajo ese prefijo: :is(.jkhive-itemgallery-small, .jkhive-hex-item-small), .jkhive-carouselitem-big, .jkfw-home-news-spot:is(.jkhive-itemgallery-med, .jkhive-hex-item-med) (noticias).
    ======================================== */
-.jkhive-itemgallery-small-hover-v2 .jkhive-itemgallery-small:hover,
-.jkhive-itemgallery-small-hover-v2 .jkhive-itemgallery-small:focus-within {
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):hover,
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):focus-within {
   z-index: 10;
 }
 
-.jkhive-itemgallery-small-hover-v2 .jkhive-itemgallery-small:hover > .jkhive-hex,
-.jkhive-itemgallery-small-hover-v2 .jkhive-itemgallery-small:focus-within > .jkhive-hex {
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):hover > .jkhive-hex,
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):focus-within > .jkhive-hex {
   background: var(--jk-accent-honey-light) !important;
   transform: none !important;
   box-shadow: none !important;
@@ -1561,40 +1580,39 @@ body .jkhive-bttn-table:hover .jkhive-hex:not(.jkhive-hex-honey):not(.jkhive-hex
   z-index: 5;
 }
 
-.jkhive-itemgallery-small-hover-v2 .jkhive-itemgallery-small:hover > .jkhive-hex::after,
-.jkhive-itemgallery-small-hover-v2 .jkhive-itemgallery-small:focus-within > .jkhive-hex::after {
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):hover > .jkhive-hex::after,
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):focus-within > .jkhive-hex::after {
   background: var(--jk-tech-dark) !important;
   transform: translate(-50%, -50%) !important;
   box-shadow: 0 0 0 2px var(--jk-primary-blue-light), 0 0 18px rgba(14, 165, 233, 0.45);
 }
 
-.jkhive-itemgallery-small-hover-v2 .jkhive-itemgallery-small:hover > .jkhive-hex .jkhive-hex-gallery-title,
-.jkhive-itemgallery-small-hover-v2 .jkhive-itemgallery-small:focus-within > .jkhive-hex .jkhive-hex-gallery-title {
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):hover > .jkhive-hex .jkhive-hex-gallery-title,
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):focus-within > .jkhive-hex .jkhive-hex-gallery-title {
   color: var(--jk-primary-blue-light) !important;
   text-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
 }
 
-.jkhive-itemgallery-small-hover-v2 .jkhive-itemgallery-small:hover > .jkhive-hex .jkhive-hex-gallery-icon,
-.jkhive-itemgallery-small-hover-v2 .jkhive-itemgallery-small:focus-within > .jkhive-hex .jkhive-hex-gallery-icon {
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):hover > .jkhive-hex .jkhive-hex-gallery-icon,
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):focus-within > .jkhive-hex .jkhive-hex-gallery-icon {
   color: var(--jk-metal-light) !important;
   filter: none !important;
 }
 
-.jkhive-itemgallery-small-hover-v2 .jkhive-itemgallery-small:hover > .jkhive-hex .jkhive-hex-gallery-subtitle,
-.jkhive-itemgallery-small-hover-v2 .jkhive-itemgallery-small:focus-within > .jkhive-hex .jkhive-hex-gallery-subtitle {
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):hover > .jkhive-hex .jkhive-hex-gallery-subtitle,
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) :is(.jkhive-itemgallery-small, .jkhive-hex-item-small):focus-within > .jkhive-hex .jkhive-hex-gallery-subtitle {
   color: var(--jk-metal-light) !important;
   opacity: 1 !important;
 }
 
-/* Misma variante v2 en carrusel «Servicios destacados» (jk-hive .jkhive-carouselitem-big + .service-*).
-   La clase ancla en la raíz `.jkfw-carousel-hex-big` (convive con strips .jkhive-itemgallery-small). */
-.jkhive-itemgallery-small-hover-v2 .jkhive-carouselitem-big:hover,
-.jkhive-itemgallery-small-hover-v2 .jkhive-carouselitem-big:focus-within {
+/* Carrusel «Servicios destacados»: .jkfw-carousel-hex-big + .jkhive-carouselitem-big + .service-* */
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:hover,
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:focus-within {
   z-index: 10;
 }
 
-.jkhive-itemgallery-small-hover-v2 .jkhive-carouselitem-big:hover .jkhive-hex,
-.jkhive-itemgallery-small-hover-v2 .jkhive-carouselitem-big:focus-within .jkhive-hex {
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:hover .jkhive-hex,
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:focus-within .jkhive-hex {
   background: var(--jk-accent-honey-light) !important;
   transform: none !important;
   box-shadow: none !important;
@@ -1602,27 +1620,45 @@ body .jkhive-bttn-table:hover .jkhive-hex:not(.jkhive-hex-honey):not(.jkhive-hex
   z-index: 5;
 }
 
-.jkhive-itemgallery-small-hover-v2 .jkhive-carouselitem-big:hover .jkhive-hex::after,
-.jkhive-itemgallery-small-hover-v2 .jkhive-carouselitem-big:focus-within .jkhive-hex::after {
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:hover .jkhive-hex::after,
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:focus-within .jkhive-hex::after {
   background: var(--jk-tech-dark) !important;
   transform: translate(-50%, -50%) !important;
   box-shadow: 0 0 0 2px var(--jk-primary-blue-light), 0 0 18px rgba(14, 165, 233, 0.45);
 }
 
-.jkhive-itemgallery-small-hover-v2 .jkhive-carouselitem-big:hover .service-title,
-.jkhive-itemgallery-small-hover-v2 .jkhive-carouselitem-big:focus-within .service-title {
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:hover .service-title,
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:focus-within .service-title {
   color: var(--jk-primary-blue-light) !important;
   text-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
 }
 
-.jkhive-itemgallery-small-hover-v2 .jkhive-carouselitem-big:hover .service-icon,
-.jkhive-itemgallery-small-hover-v2 .jkhive-carouselitem-big:focus-within .service-icon {
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:hover .service-icon,
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:focus-within .service-icon {
   color: var(--jk-metal-light) !important;
   filter: none !important;
 }
 
-.jkhive-itemgallery-small-hover-v2 .jkhive-carouselitem-big:hover .service-description,
-.jkhive-itemgallery-small-hover-v2 .jkhive-carouselitem-big:focus-within .service-description {
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:hover .service-description,
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:focus-within .service-description {
+  color: var(--jk-metal-light) !important;
+  opacity: 1 !important;
+}
+
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:hover .jkhive-hex-gallery-title,
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:focus-within .jkhive-hex-gallery-title {
+  color: var(--jk-primary-blue-light) !important;
+  text-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+}
+
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:hover .jkhive-hex-gallery-icon,
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:focus-within .jkhive-hex-gallery-icon {
+  color: var(--jk-metal-light) !important;
+  filter: none !important;
+}
+
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:hover .jkhive-hex-gallery-subtitle,
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:focus-within .jkhive-hex-gallery-subtitle {
   color: var(--jk-metal-light) !important;
   opacity: 1 !important;
 }
@@ -1630,6 +1666,8 @@ body .jkhive-bttn-table:hover .jkhive-hex:not(.jkhive-hex-honey):not(.jkhive-hex
 /* ========================================
    HEX ITEM STYLE: CYAN CANÓNICO (galería itemgallery / carrusel index)
    Piel canónica: .jkhive-hex-cyan-item o alias .jkhive-hex-skin-canonical-cyan (mismo aspecto).
+   Tercera piel en itemgallery: .jkhive-hex-blue-item (azul oscuro). Ver docs/JKFW_CANON_LANDING_ITEM_CONTRACT.md
+   (pieles vs perfiles de hover; landing básica: editorial en carrusel servicios + strips + noticias cuando la raíz declara la clase).
    Borde celeste (--jk-primary-blue-light), relleno miel interior (::after). Hover: borde miel,
    relleno oscuro. Ver HEX-ITEM-CANONICAL-SKINS.md.
 
@@ -1638,25 +1676,25 @@ body .jkhive-bttn-table:hover .jkhive-hex:not(.jkhive-hex-honey):not(.jkhive-hex
 
    REQUISITOS para que se vea y funcione igual (incl. mobile/responsive) en otra página:
    1) Cargar jkhive-elements.css (después de jk-hive.css).
-   2) Estructura: .jkhive-itemgallery-small|med|big > .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan)
+   2) Estructura: :is(.jkhive-itemgallery-small, .jkhive-hex-item-small)|med|big > .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan)
       o .jkhive-hex-blue-item > .jkhive-hex-content con icon/título/subtítulo galería.
 
    Responsive compacto (768/480/360): solo small + med. big (carrusel hub) conserva tipografía grande.
    Ver 11-DASHBOARD-Y-LOGIN.md §4.1.
    ======================================== */
-.jkhive-itemgallery-small .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan),
-.jkhive-itemgallery-med .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan),
-.jkhive-itemgallery-big .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan) {
+:is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan),
+:is(.jkhive-itemgallery-med, .jkhive-hex-item-med) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan),
+:is(.jkhive-itemgallery-big, .jkhive-hex-item-big) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan) {
   background: var(--jk-primary-blue-light) !important;
 }
-.jkhive-itemgallery-small .jkhive-hex.jkhive-hex-blue-item,
-.jkhive-itemgallery-med .jkhive-hex.jkhive-hex-blue-item,
-.jkhive-itemgallery-big .jkhive-hex.jkhive-hex-blue-item {
+:is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex.jkhive-hex-blue-item,
+:is(.jkhive-itemgallery-med, .jkhive-hex-item-med) .jkhive-hex.jkhive-hex-blue-item,
+:is(.jkhive-itemgallery-big, .jkhive-hex-item-big) .jkhive-hex.jkhive-hex-blue-item {
   background: var(--jk-primary-blue-dark) !important;
 }
-.jkhive-itemgallery-small .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item),
-.jkhive-itemgallery-med .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item),
-.jkhive-itemgallery-big .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) {
+:is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item),
+:is(.jkhive-itemgallery-med, .jkhive-hex-item-med) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item),
+:is(.jkhive-itemgallery-big, .jkhive-hex-item-big) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) {
   border: none !important;
   box-shadow: none !important;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
@@ -1667,14 +1705,14 @@ body .jkhive-bttn-table:hover .jkhive-hex:not(.jkhive-hex-honey):not(.jkhive-hex
   align-items: center;
   justify-content: center;
 }
-.jkhive-itemgallery-small .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item)::before,
-.jkhive-itemgallery-med .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item)::before,
-.jkhive-itemgallery-big .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item)::before {
+:is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item)::before,
+:is(.jkhive-itemgallery-med, .jkhive-hex-item-med) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item)::before,
+:is(.jkhive-itemgallery-big, .jkhive-hex-item-big) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item)::before {
   display: none !important;
 }
-.jkhive-itemgallery-small .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item)::after,
-.jkhive-itemgallery-med .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item)::after,
-.jkhive-itemgallery-big .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item)::after {
+:is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item)::after,
+:is(.jkhive-itemgallery-med, .jkhive-hex-item-med) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item)::after,
+:is(.jkhive-itemgallery-big, .jkhive-hex-item-big) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item)::after {
   content: '';
   position: absolute;
   top: 50%;
@@ -1689,12 +1727,12 @@ body .jkhive-bttn-table:hover .jkhive-hex:not(.jkhive-hex-honey):not(.jkhive-hex
   transition: background 0.3s ease, transform 0.3s ease;
 }
 /* Hover y focus-within (touch/mobile): mismo efecto para que funcione en responsive */
-.jkhive-itemgallery-small:hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item),
-.jkhive-itemgallery-med:hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item),
-.jkhive-itemgallery-big:hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item),
-.jkhive-itemgallery-small:focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item),
-.jkhive-itemgallery-med:focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item),
-.jkhive-itemgallery-big:focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) {
+:is(.jkhive-itemgallery-small, .jkhive-hex-item-small):hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item),
+:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):not(.jkfw-home-news-spot):hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item),
+:is(.jkhive-itemgallery-big, .jkhive-hex-item-big):hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item),
+:is(.jkhive-itemgallery-small, .jkhive-hex-item-small):focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item),
+:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):not(.jkfw-home-news-spot):focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item),
+:is(.jkhive-itemgallery-big, .jkhive-hex-item-big):focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) {
   background: var(--jk-accent-honey-light) !important;
   transform: scale(1.05) !important;
   box-shadow: var(--jk-shadow-lg, 0 10px 30px rgba(0, 0, 0, 0.3)), 0 0 30px rgba(244, 196, 48, 0.8) !important;
@@ -1702,48 +1740,97 @@ body .jkhive-bttn-table:hover .jkhive-hex:not(.jkhive-hex-honey):not(.jkhive-hex
   z-index: 5 !important;
   transition: background 0.3s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease !important;
 }
-.jkhive-itemgallery-small:hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item)::after,
-.jkhive-itemgallery-med:hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item)::after,
-.jkhive-itemgallery-big:hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item)::after,
-.jkhive-itemgallery-small:focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item)::after,
-.jkhive-itemgallery-med:focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item)::after,
-.jkhive-itemgallery-big:focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item)::after {
+:is(.jkhive-itemgallery-small, .jkhive-hex-item-small):hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item)::after,
+:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):not(.jkfw-home-news-spot):hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item)::after,
+:is(.jkhive-itemgallery-big, .jkhive-hex-item-big):hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item)::after,
+:is(.jkhive-itemgallery-small, .jkhive-hex-item-small):focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item)::after,
+:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):not(.jkfw-home-news-spot):focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item)::after,
+:is(.jkhive-itemgallery-big, .jkhive-hex-item-big):focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item)::after {
   background: var(--jk-tech-dark) !important;
   transform: translate(-50%, -50%) scale(1.05) !important;
   transition: background 0.3s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 /* Título e icono en hover/focus (cyan-item / blue-item) */
-.jkhive-itemgallery-small:hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-title,
-.jkhive-itemgallery-med:hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-title,
-.jkhive-itemgallery-big:hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-title,
-.jkhive-itemgallery-small:focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-title,
-.jkhive-itemgallery-med:focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-title,
-.jkhive-itemgallery-big:focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-title {
+:is(.jkhive-itemgallery-small, .jkhive-hex-item-small):hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-title,
+:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):not(.jkfw-home-news-spot):hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-title,
+:is(.jkhive-itemgallery-big, .jkhive-hex-item-big):hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-title,
+:is(.jkhive-itemgallery-small, .jkhive-hex-item-small):focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-title,
+:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):not(.jkfw-home-news-spot):focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-title,
+:is(.jkhive-itemgallery-big, .jkhive-hex-item-big):focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-title {
   color: var(--jk-primary-blue-light) !important;
   text-shadow: 0 0 15px rgba(56, 189, 248, 0.6) !important;
 }
-.jkhive-itemgallery-small:hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-icon,
-.jkhive-itemgallery-med:hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-icon,
-.jkhive-itemgallery-big:hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-icon,
-.jkhive-itemgallery-small:focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-icon,
-.jkhive-itemgallery-med:focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-icon,
-.jkhive-itemgallery-big:focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-icon {
+:is(.jkhive-itemgallery-small, .jkhive-hex-item-small):hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-icon,
+:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):not(.jkfw-home-news-spot):hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-icon,
+:is(.jkhive-itemgallery-big, .jkhive-hex-item-big):hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-icon,
+:is(.jkhive-itemgallery-small, .jkhive-hex-item-small):focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-icon,
+:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):not(.jkfw-home-news-spot):focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-icon,
+:is(.jkhive-itemgallery-big, .jkhive-hex-item-big):focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-icon {
   color: var(--jk-metal-light) !important;
 }
-.jkhive-itemgallery-small:hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-subtitle,
-.jkhive-itemgallery-med:hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-subtitle,
-.jkhive-itemgallery-big:hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-subtitle,
-.jkhive-itemgallery-small:focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-subtitle,
-.jkhive-itemgallery-med:focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-subtitle,
-.jkhive-itemgallery-big:focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-subtitle {
+:is(.jkhive-itemgallery-small, .jkhive-hex-item-small):hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-subtitle,
+:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):not(.jkfw-home-news-spot):hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-subtitle,
+:is(.jkhive-itemgallery-big, .jkhive-hex-item-big):hover .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-subtitle,
+:is(.jkhive-itemgallery-small, .jkhive-hex-item-small):focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-subtitle,
+:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):not(.jkfw-home-news-spot):focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-subtitle,
+:is(.jkhive-itemgallery-big, .jkhive-hex-item-big):focus-within .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-subtitle {
+  color: var(--jk-metal-light) !important;
+  opacity: 1 !important;
+}
+
+/*
+ * Noticias destacadas: contenedor .jkfw-home-news-spotlight + perfil :is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2).
+ * Hover editorial en .jkfw-home-news-spot:is(.jkhive-itemgallery-med, .jkhive-hex-item-med). El hover cyan con scale en `med` no aplica a ese enlace (selectores :not(.jkfw-home-news-spot) arriba).
+ */
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2).jkfw-home-news-spotlight .jkfw-home-news-spot:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):hover,
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2).jkfw-home-news-spotlight .jkfw-home-news-spot:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):focus-within {
+  z-index: 10;
+}
+
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2).jkfw-home-news-spotlight .jkfw-home-news-spot:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):hover > .jkhive-hex,
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2).jkfw-home-news-spotlight .jkfw-home-news-spot:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):focus-within > .jkhive-hex {
+  background: var(--jk-accent-honey-light) !important;
+  transform: none !important;
+  box-shadow: none !important;
+  position: relative;
+  z-index: 5;
+}
+
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2).jkfw-home-news-spotlight .jkfw-home-news-spot:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):hover > .jkhive-hex::after,
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2).jkfw-home-news-spotlight .jkfw-home-news-spot:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):focus-within > .jkhive-hex::after {
+  background: var(--jk-tech-dark) !important;
+  transform: translate(-50%, -50%) !important;
+  box-shadow: 0 0 0 2px var(--jk-primary-blue-light), 0 0 18px rgba(14, 165, 233, 0.45);
+}
+
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2).jkfw-home-news-spotlight .jkfw-home-news-spot:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):hover > .jkhive-hex .jkhive-hex-gallery-title,
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2).jkfw-home-news-spotlight .jkfw-home-news-spot:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):focus-within > .jkhive-hex .jkhive-hex-gallery-title {
+  color: var(--jk-primary-blue-light) !important;
+  text-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+}
+
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2).jkfw-home-news-spotlight .jkfw-home-news-spot:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):hover > .jkhive-hex .jkhive-hex-gallery-icon,
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2).jkfw-home-news-spotlight .jkfw-home-news-spot:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):focus-within > .jkhive-hex .jkhive-hex-gallery-icon {
+  color: var(--jk-metal-light) !important;
+  filter: none !important;
+}
+
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2).jkfw-home-news-spotlight .jkfw-home-news-spot:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):hover > .jkhive-hex .jkhive-hex-gallery-subtitle,
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2).jkfw-home-news-spotlight .jkfw-home-news-spot:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):focus-within > .jkhive-hex .jkhive-hex-gallery-subtitle {
+  color: var(--jk-metal-light) !important;
+  opacity: 1 !important;
+}
+
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2).jkfw-home-news-spotlight .jkfw-home-news-spot:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):hover .jkfw-home-news-spot-meta,
+:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2).jkfw-home-news-spotlight .jkfw-home-news-spot:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):focus-within .jkfw-home-news-spot-meta {
   color: var(--jk-metal-light) !important;
   opacity: 1 !important;
 }
 
 /* --- jkhive-hex-cyan-item / jkhive-hex-blue-item: responsive compacto (solo small + med) --- */
 @media (max-width: 768px) {
-  .jkhive-itemgallery-small .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-content,
-  .jkhive-itemgallery-med .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-content {
+  :is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-content,
+  :is(.jkhive-itemgallery-med, .jkhive-hex-item-med) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-content {
     padding: 0.12rem 0.3rem !important;
     gap: 0 !important;
     justify-content: center !important;
@@ -1751,8 +1838,8 @@ body .jkhive-bttn-table:hover .jkhive-hex:not(.jkhive-hex-honey):not(.jkhive-hex
     transform: translateZ(0) !important;
     backface-visibility: hidden !important;
   }
-  .jkhive-itemgallery-small .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-icon,
-  .jkhive-itemgallery-med .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-icon {
+  :is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-icon,
+  :is(.jkhive-itemgallery-med, .jkhive-hex-item-med) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-icon {
     font-size: 18px !important;
     margin: 0 !important;
     line-height: 1 !important;
@@ -1760,16 +1847,16 @@ body .jkhive-bttn-table:hover .jkhive-hex:not(.jkhive-hex-honey):not(.jkhive-hex
     -webkit-font-smoothing: antialiased !important;
     -moz-osx-font-smoothing: grayscale !important;
   }
-  .jkhive-itemgallery-small .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-title,
-  .jkhive-itemgallery-med .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-title {
+  :is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-title,
+  :is(.jkhive-itemgallery-med, .jkhive-hex-item-med) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-title {
     font-size: 12px !important;
     margin: 0 !important;
     line-height: 1 !important;
     -webkit-font-smoothing: antialiased !important;
     -moz-osx-font-smoothing: grayscale !important;
   }
-  .jkhive-itemgallery-small .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-subtitle,
-  .jkhive-itemgallery-med .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-subtitle {
+  :is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-subtitle,
+  :is(.jkhive-itemgallery-med, .jkhive-hex-item-med) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-subtitle {
     font-size: 7px !important;
     padding: 0 !important;
     margin: 0 !important;
@@ -1780,8 +1867,8 @@ body .jkhive-bttn-table:hover .jkhive-hex:not(.jkhive-hex-honey):not(.jkhive-hex
   }
 }
 @media (max-width: 480px) {
-  .jkhive-itemgallery-small .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-content,
-  .jkhive-itemgallery-med .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-content {
+  :is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-content,
+  :is(.jkhive-itemgallery-med, .jkhive-hex-item-med) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-content {
     padding: 0.1rem 0.25rem !important;
     gap: 0 !important;
     justify-content: center !important;
@@ -1789,8 +1876,8 @@ body .jkhive-bttn-table:hover .jkhive-hex:not(.jkhive-hex-honey):not(.jkhive-hex
     transform: translateZ(0) !important;
     backface-visibility: hidden !important;
   }
-  .jkhive-itemgallery-small .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-icon,
-  .jkhive-itemgallery-med .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-icon {
+  :is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-icon,
+  :is(.jkhive-itemgallery-med, .jkhive-hex-item-med) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-icon {
     font-size: 21px !important;
     margin: 0 !important;
     line-height: 1 !important;
@@ -1798,16 +1885,16 @@ body .jkhive-bttn-table:hover .jkhive-hex:not(.jkhive-hex-honey):not(.jkhive-hex
     -webkit-font-smoothing: antialiased !important;
     -moz-osx-font-smoothing: grayscale !important;
   }
-  .jkhive-itemgallery-small .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-title,
-  .jkhive-itemgallery-med .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-title {
+  :is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-title,
+  :is(.jkhive-itemgallery-med, .jkhive-hex-item-med) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-title {
     font-size: 14px !important;
     margin: 0 !important;
     line-height: 1 !important;
     -webkit-font-smoothing: antialiased !important;
     -moz-osx-font-smoothing: grayscale !important;
   }
-  .jkhive-itemgallery-small .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-subtitle,
-  .jkhive-itemgallery-med .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-subtitle {
+  :is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-subtitle,
+  :is(.jkhive-itemgallery-med, .jkhive-hex-item-med) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-subtitle {
     font-size: 8px !important;
     padding: 0 !important;
     margin: 0 !important;
@@ -1818,8 +1905,8 @@ body .jkhive-bttn-table:hover .jkhive-hex:not(.jkhive-hex-honey):not(.jkhive-hex
   }
 }
 @media (max-width: 360px) {
-  .jkhive-itemgallery-small .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-content,
-  .jkhive-itemgallery-med .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-content {
+  :is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-content,
+  :is(.jkhive-itemgallery-med, .jkhive-hex-item-med) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-content {
     padding: 0.08rem 0.2rem !important;
     gap: 0 !important;
     justify-content: center !important;
@@ -1827,8 +1914,8 @@ body .jkhive-bttn-table:hover .jkhive-hex:not(.jkhive-hex-honey):not(.jkhive-hex
     transform: translateZ(0) !important;
     backface-visibility: hidden !important;
   }
-  .jkhive-itemgallery-small .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-icon,
-  .jkhive-itemgallery-med .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-icon {
+  :is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-icon,
+  :is(.jkhive-itemgallery-med, .jkhive-hex-item-med) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-icon {
     font-size: 17px !important;
     margin: 0 !important;
     line-height: 1 !important;
@@ -1836,16 +1923,16 @@ body .jkhive-bttn-table:hover .jkhive-hex:not(.jkhive-hex-honey):not(.jkhive-hex
     -webkit-font-smoothing: antialiased !important;
     -moz-osx-font-smoothing: grayscale !important;
   }
-  .jkhive-itemgallery-small .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-title,
-  .jkhive-itemgallery-med .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-title {
+  :is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-title,
+  :is(.jkhive-itemgallery-med, .jkhive-hex-item-med) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-title {
     font-size: 11px !important;
     margin: 0 !important;
     line-height: 1 !important;
     -webkit-font-smoothing: antialiased !important;
     -moz-osx-font-smoothing: grayscale !important;
   }
-  .jkhive-itemgallery-small .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-subtitle,
-  .jkhive-itemgallery-med .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-subtitle {
+  :is(.jkhive-itemgallery-small, .jkhive-hex-item-small) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-subtitle,
+  :is(.jkhive-itemgallery-med, .jkhive-hex-item-med) .jkhive-hex:is(.jkhive-hex-cyan-item, .jkhive-hex-skin-canonical-cyan, .jkhive-hex-blue-item) .jkhive-hex-gallery-subtitle {
     font-size: 7px !important;
     padding: 0 !important;
     margin: 0 !important;
