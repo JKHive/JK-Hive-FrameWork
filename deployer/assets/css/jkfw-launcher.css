@@ -1531,26 +1531,6 @@ html body.jkfw-landing-basic-body .jkfw-carousel-hex-big button.jkfw-simple-feat
   opacity: 1 !important;
 }
 
-html body.jkfw-landing-basic-body #jkhive-sidebar .jkhive-nav-item a:hover .jkhive-hex .jkhive-hex-icon.fa-id-badge,
-html body.jkfw-landing-basic-body .jkhive-sidebar .jkhive-nav-item a:hover .jkhive-hex .jkhive-hex-icon.fa-id-badge,
-html body.jkfw-landing-basic-body #jkhive-sidebar .jkhive-nav-item a:focus-visible .jkhive-hex .jkhive-hex-icon.fa-id-badge,
-html body.jkfw-landing-basic-body .jkhive-sidebar .jkhive-nav-item a:focus-visible .jkhive-hex .jkhive-hex-icon.fa-id-badge {
-  color: var(--jk-accent-cyan, #06b6d4) !important;
-  opacity: 1 !important;
-  animation: jkhive-anmtn-envelope 0.6s ease-in-out forwards !important;
-  transform-style: preserve-3d !important;
-}
-
-html body.jkfw-landing-basic-body #jkhive-sidebar .jkhive-nav-item a:hover .jkhive-hex .jkhive-hex-icon.fa-envelope,
-html body.jkfw-landing-basic-body .jkhive-sidebar .jkhive-nav-item a:hover .jkhive-hex .jkhive-hex-icon.fa-envelope,
-html body.jkfw-landing-basic-body #jkhive-sidebar .jkhive-nav-item a:focus-visible .jkhive-hex .jkhive-hex-icon.fa-envelope,
-html body.jkfw-landing-basic-body .jkhive-sidebar .jkhive-nav-item a:focus-visible .jkhive-hex .jkhive-hex-icon.fa-envelope {
-  color: var(--jk-accent-cyan, #06b6d4) !important;
-  opacity: 1 !important;
-  animation: jkhive-anmtn-envelope-reverse 0.6s ease-in-out forwards !important;
-  transform-style: preserve-3d !important;
-}
-
 body.jkfw-landing-basic-body .jkfw-landing-basic-prose {
   margin: 0.75rem 0 0 0;
   line-height: 1.55;

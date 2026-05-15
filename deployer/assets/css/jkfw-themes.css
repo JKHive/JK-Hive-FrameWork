@@ -2,8 +2,8 @@
  * Temas JK Hive Showcase — primarios, tech, glows y fondos del launchpad.
  *
  * INVARIANTES
- * - No redefinir `--jk-accent-honey*` (miel metálico en bordes hex / acentos identitarios).
- * - Lo que difieren los temas son superficies, primarios secundarios y atmósfera; el miel se mantiene donde el core ya lo usa.
+ * - Por defecto no redefinir `--jk-accent-honey*` (miel metálica en bordes hex / acentos identitarios).
+ * - Excepción: tema **ELEGANT** redefine miel → **oro brillante** para contraste sobre mármol opaco.
  *
  * Línea de producto: CANON (tech) · ELEGANT (mármol) · Brasas (ember) · NATURE (bosque).
  */
@@ -169,15 +169,18 @@ body.jkfw-theme-nature .jkhive-crm-footer .jkhive-crm-footer-inner {
 }
 
 /**
- * ELEGANT — mármol claro, panal en oro miel resplandeciente (alto contraste sobre claro).
- * Acentos: bronce / ámbar profundo para anillos y estados activos; texto vía --jk-ui-ink.
+ * ELEGANT — mármol claro. Acentos miel del Canon → **oro brillante** (saturado, no metálico opaco) sobre mármol.
+ * Panal mascarado intenso; anillos UI en ámbar; texto vía --jk-ui-ink.
  */
 body.jkfw-theme-elegant {
+  --jk-accent-honey: #e9ab08;
+  --jk-accent-honey-light: #fde047;
+  --jk-accent-honey-dark: #b45309;
   --jk-canon-surface-start: #faf7f2;
   --jk-canon-surface-end: #e7dfd4;
-  /* Máscara honeycomb SVG: oro profundo + opacidad alta para que se lea sobre mármol */
-  --jk-hero-pattern-color-rgb: 165, 98, 18;
-  --jk-hero-pattern-opacity: 0.74;
+  /* Máscara honeycomb SVG: oro vivo */
+  --jk-hero-pattern-color-rgb: 220, 165, 20;
+  --jk-hero-pattern-opacity: 0.78;
   /* Highlight de UI (activo sidebar, anillos): ámbar oscuro legible sobre claro */
   --jk-theme-highlight: #b45309;
   --jk-theme-highlight-rgb: 180, 83, 9;
