@@ -1,0 +1,60 @@
+.jklp-gallery-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(0.95rem, 2vw, 1.35rem) 2.5rem;
+}
+
+.jklp-gallery-page .jkhive-section-title {
+  text-align: center;
+  margin-bottom: 0.85rem;
+}
+
+.jklp-gallery-lead {
+  text-align: center;
+  max-width: 46rem;
+  margin: 0 auto 1.15rem;
+  color: var(--jk-metal-light);
+  line-height: 1.55;
+  font-size: 0.92rem;
+}
+
+.page-gallery .jkhive-gallery-searchbar {
+  max-width: 36rem;
+  margin: 0 auto 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.page-gallery .jkhive-gallery-searchbar-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--jk-primary-blue-light);
+}
+
+.page-gallery .jkhive-gallery-searchbar-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(14, 165, 233, 0.38);
+  background: rgba(6, 14, 30, 0.82);
+  color: var(--jk-metal-light);
+  font-size: 0.92rem;
+}
+
+.page-gallery .jkhive-gallery-searchbar-input::placeholder {
+  color: var(--jk-metal-dark);
+}
+
+.page-gallery .jkhive-gallery-searchbar-input:focus {
+  outline: 2px solid rgba(14, 165, 233, 0.45);
+  outline-offset: 2px;
+  border-color: var(--jk-primary-blue-light);
+}
+
+#jkfwGalleryServicesGrid + .jkhive-pagination.jkhive-pagination--hex-gallery {
+  margin-top: 0.85rem;
+}

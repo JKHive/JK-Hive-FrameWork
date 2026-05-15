@@ -1,0 +1,84 @@
+/**
+ * Contacto landing básica: densidad vertical y menos aire inferior (wrap, tarjetas, formulario).
+ */
+
+body.contact-page.jkfw-landing-basic-body #contact-info.jkhive-contact-section {
+  max-width: 1200px;
+  padding-top: 0.65rem;
+  padding-bottom: 1rem;
+  margin-bottom: 0.85rem;
+}
+
+body.contact-page.jkfw-landing-basic-body #contact-info .jkhive-section-title {
+  margin-bottom: 0.65rem;
+}
+
+body.page-public.contact-page.jkfw-landing-basic-body .jkhive-contact-wrap {
+  padding-top: 0;
+  padding-bottom: 1.25rem;
+}
+
+body.contact-page.jkfw-landing-basic-body .jkhive-contact-intro.jkhive-lead-wrap {
+  margin-bottom: 1rem;
+}
+
+body.contact-page.jkfw-landing-basic-body .jkhive-contact-intro .jkhive-lead-text {
+  margin-bottom: 0;
+}
+
+body.contact-page.jkfw-landing-basic-body #contact-info .jkhive-contact-grid {
+  gap: clamp(1rem, 3vw, 1.35rem);
+  align-items: stretch;
+}
+
+body.contact-page.jkfw-landing-basic-body #contact-info .jkhive-contact-card {
+  padding: 1.35rem clamp(1rem, 2.8vw, 1.35rem) 1.1rem;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+body.contact-page.jkfw-landing-basic-body #contact-info .jkhive-contact-card-title {
+  margin: 0 0 0.85rem;
+  font-size: 1.22rem;
+  padding-bottom: 0.42rem;
+}
+
+body.contact-page.jkfw-landing-basic-body #contact-info .jkhive-contact-channel {
+  margin-bottom: 0.65rem;
+}
+
+body.contact-page.jkfw-landing-basic-body #contact-info .jkhive-contact-form .form-label {
+  margin-bottom: 0.28rem;
+  font-size: 0.82rem;
+}
+
+body.contact-page.jkfw-landing-basic-body #contact-info .jkhive-contact-form .form-control:not(textarea) {
+  padding: 0.52rem 0.75rem;
+  margin-bottom: 0.42rem;
+}
+
+body.contact-page.jkfw-landing-basic-body #contact-info .jkhive-contact-form textarea.form-control {
+  min-height: 88px;
+  padding: 0.52rem 0.75rem;
+  margin-bottom: 0.35rem;
+  resize: vertical;
+}
+
+body.contact-page.jkfw-landing-basic-body #contact-info .jkfw-contact-form-submit-wrap {
+  margin-top: 0.35rem;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+body.contact-page.jkfw-landing-basic-body #contact-info .jkfw-contact-form-result {
+  margin-top: 0.45rem;
+  margin-bottom: 0;
+  min-height: 0;
+}
+
+@media (max-width: 768px) {
+  body.page-public.contact-page.jkfw-landing-basic-body .jkhive-contact-wrap {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}

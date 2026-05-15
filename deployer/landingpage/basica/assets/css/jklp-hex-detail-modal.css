@@ -1,0 +1,114 @@
+/* Hex galería: cursor sobre ítems con modal */
+.jklp-hex-detail-trigger {
+  cursor: pointer;
+}
+
+/* Cuerpo: texto + imagen flotante (⅔) con wrap tipo documento */
+.jklp-hex-detail-modal-hex .jklp-hex-detail-body-wrap {
+  min-height: 0;
+}
+
+.jklp-hex-detail-flow {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--jk-metal-light, #e2e8f0);
+  text-align: left;
+}
+
+.jklp-hex-detail-flow::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.jklp-hex-detail-photo {
+  width: 66.666%;
+  min-height: 200px;
+  border-radius: 10px;
+  background: linear-gradient(
+      135deg,
+      rgba(14, 165, 233, 0.12),
+      rgba(6, 182, 212, 0.06)
+    ),
+    rgba(15, 23, 42, 0.88);
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  box-sizing: border-box;
+}
+
+.jklp-hex-detail-photo--right {
+  float: right;
+  margin: 0 0 0.75rem 1rem;
+}
+
+.jklp-hex-detail-photo--left {
+  float: left;
+  margin: 0 1rem 0.75rem 0;
+}
+
+.jklp-hex-detail-photo__placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 200px;
+  color: rgba(226, 232, 240, 0.32);
+  font-size: 2.25rem;
+}
+
+.jklp-hex-detail-text p {
+  margin: 0 0 0.55rem;
+}
+
+/* Afinación vertical header/body (landing hex detalle) */
+.jklp-hex-detail-modal-hex.jkhive-modal-content.jkhive-modal-hex > .jkhive-modal-header .jkhive-modal-header-top,
+.jklp-hex-detail-modal-hex.jkhive-modal-content.jkhive-modal-hex > .jkhive-modal-header .jkhive-modal-header-bottom {
+  transform: translateY(-3px);
+}
+
+.jklp-hex-detail-modal-hex.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin
+  > .jkhive-modal-body
+  > .jkhive-modal-body-content {
+  padding-top: calc(0.15rem + 5px) !important;
+}
+
+/* Icono del encabezado: escala acorde al modal form-admin */
+.jklp-hex-detail-modal-hex .jkhive-modal-header-top .jkhive-modal-icon {
+  font-size: 2.35rem !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  filter: drop-shadow(0 0 10px rgba(14, 165, 233, 0.55)) !important;
+}
+
+.jklp-hex-detail-modal-hex .jkhive-modal-header-top .jkhive-modal-icon .jkhive-hex-icon {
+  color: var(--jk-accent-cyan, #22d3ee) !important;
+}
+
+/* --- Pie hex: centrado horizontal + vertical en la franja del footer (25%); sin pegar arriba ni abajo --- */
+.jklp-hex-detail-modal-hex.jkhive-modal-content.jkhive-modal-hex > .jkhive-modal-footer > :first-child {
+  margin-top: 0 !important;
+}
+
+.jklp-hex-detail-modal-hex.jkhive-modal-content.jkhive-modal-hex.jkhive-modal-form-admin > .jkhive-modal-footer.jkhive-modal-admin-footer {
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.jklp-hex-detail-modal-hex .jklp-hex-detail-footer-honeycomb {
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.jklp-hex-detail-modal-hex .jklp-hex-detail-footer-row1 {
+  gap: 3px !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+}
+
+/* translateY(-15px) del CRM sube solo «Salir» y rompe la fila cuando hay dos hex */
+.jklp-hex-detail-modal-hex .jklp-hex-detail-footer-honeycomb .jkhive-btn-cart-exit,
+.jklp-hex-detail-modal-hex .jklp-hex-detail-footer-honeycomb .jkhive-bttn-modal-exit {
+  transform: none !important;
+}

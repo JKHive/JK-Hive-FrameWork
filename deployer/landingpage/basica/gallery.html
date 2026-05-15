@@ -18,9 +18,13 @@
   <link rel="stylesheet" href="../../assets/css/jkfw-button-tokens.css">
   <link rel="stylesheet" href="../../assets/css/jkfw-catalog-demo.css">
   <link rel="stylesheet" href="../../assets/css/jkfw-launcher.css">
+  <link rel="stylesheet" href="../../assets/css/jkhive-index-home-responsive.css">
+  <link rel="stylesheet" href="../../assets/css/jkhive-hex-item-framework.css">
   <link rel="stylesheet" href="assets/css/jklp-basic-local.css">
+  <link rel="stylesheet" href="assets/css/jklp-gallery.css">
+  <link rel="stylesheet" href="assets/css/jklp-hex-detail-modal.css">
 </head>
-<body class="page-public jkhive-showcase-body admin-layout crm-layout jkfw-landing-basic-body jkfw-landing-basic-no-auth-nav jkfw-landing-basic-has-top-search-nav">
+<body class="page-public page-gallery jkhive-showcase-body admin-layout crm-layout jkfw-landing-basic-body jkfw-theme-canonical jkfw-landing-basic-no-auth-nav jkfw-landing-basic-has-top-search-nav">
 <script>
 window.JKHIVE_AUTH_STATUS_URL = 'api/auth/status.php';
 window.JKHIVE_MESSAGES_INBOX_URL = 'messaging.php';
@@ -125,18 +129,375 @@ window.JKHIVE_NO_PUBLIC_REGISTER = true;
             </a>
           </div>
           <h1 id="jkfw-landing-gallery-hero-title" class="jkfw-landing-basic-hero-title">Galería</h1>
-          <p class="jkfw-landing-basic-hero-subtitle">Espacio para medios y vitrina hexagonal; la parrilla completa se integrará aquí en la siguiente iteración.</p>
+          <p class="jkfw-landing-basic-hero-subtitle">Catálogo hexagonal de servicios: buscador, paginación y cuatro filas por página en desktop.</p>
         </section>
-        <div class="jkhive-content-wrap">
-          <div class="jkhive-page-container">
-            <section class="jkfw-landing-basic-section jklp-gallery-page" aria-labelledby="jkfw-gallery-section-title">
-              <h2 id="jkfw-gallery-section-title" class="jkhive-section-title">Vitrina</h2>
-              <div class="jkhive-lead-wrap">
-                <p class="jkhive-lead-text">Página lista para acoplar el módulo de galería JK Hive (rejilla hex, tamaños simple/medium…) sin arrastrar el bundle antiguo.</p>
+        <div class="jklp-gallery-page">
+            <section id="jklp-gallery-servicios" class="jkfw-landing-basic-section" aria-labelledby="jkfw-gallery-section-title">
+              <h2 id="jkfw-gallery-section-title" class="jkhive-section-title"><i class="fas fa-layer-group" aria-hidden="true"></i> Servicios en galería</h2>
+              <p class="jklp-gallery-lead">Misma familia visual que los servicios destacados del home; aquí en panal medium con buscador por título o subtítulo.</p>
+              <div id="jkfwGalleryServicesGrid" class="jkhive-hex-gallery jkhive-hex-gallery-medium jkfw-launcher-hex-gallery jkhive-hex-gallery-display-only jkfw-home-news-spotlight jkfw-medium-hex-extra-row-gap jkhive-hex-gallery-pass-page-scroll" data-jkhive-paginate="true" data-jkhive-page-rows="4" data-jkhive-url-section="servicios" aria-label="Galería de servicios">
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" data-jkfw-featured-home="true" data-jklp-modal-media-side="right" aria-label="Servicios cloud nativos — línea 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-cloud" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios cloud nativos — línea 1</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
               </div>
-              <p class="jkfw-landing-basic-prose">El contenido de ejemplo irá aquí cuando conectemos estilos y scripts dedicados desde la nueva estructura de <code style="opacity:.9;">landingpage/basica</code>.</p>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" data-jkfw-featured-home="true" data-jklp-modal-media-side="left" aria-label="Servicios de ciberseguridad — línea 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-shield-halved" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de ciberseguridad — línea 2</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" data-jkfw-featured-home="true" data-jklp-modal-media-side="right" aria-label="Servicios de datos y analítica — línea 3. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-chart-line" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de datos y analítica — línea 3</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" data-jkfw-featured-home="true" data-jklp-modal-media-side="left" aria-label="Servicios de integración API — línea 4. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-plug" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de integración API — línea 4</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de observabilidad — línea 5. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-eye" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de observabilidad — línea 5</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de automatización — línea 6. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-gears" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de automatización — línea 6</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de accesibilidad — línea 7. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-universal-access" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de accesibilidad — línea 7</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de rendimiento — línea 8. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-gauge-high" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de rendimiento — línea 8</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de respaldo y DR — línea 9. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-database" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de respaldo y DR — línea 9</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de identidad — línea 10. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-id-card" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de identidad — línea 10</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios DevSecOps — línea 11. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-lock" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios DevSecOps — línea 11</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de contenedores — línea 12. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-box-open" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de contenedores — línea 12</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de red perimetral — línea 13. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-network-wired" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de red perimetral — línea 13</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de calidad software — línea 14. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-flask" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de calidad software — línea 14</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de experiencia de usuario — línea 15. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-palette" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de experiencia de usuario — línea 15</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de gobernanza — línea 16. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-scale-balanced" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de gobernanza — línea 16</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de cumplimiento — línea 17. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-file-shield" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de cumplimiento — línea 17</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de migración — línea 18. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-arrows-rotate" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de migración — línea 18</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de soporte L2/L3 — línea 19. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-headset" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de soporte L2/L3 — línea 19</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de capacitación técnica — línea 20. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-chalkboard-user" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de capacitación técnica — línea 20</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios cloud nativos — línea 21. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-cloud" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios cloud nativos — línea 21</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de ciberseguridad — línea 22. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-shield-halved" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de ciberseguridad — línea 22</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de datos y analítica — línea 23. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-chart-line" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de datos y analítica — línea 23</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de integración API — línea 24. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-plug" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de integración API — línea 24</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de observabilidad — línea 25. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-eye" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de observabilidad — línea 25</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de automatización — línea 26. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-gears" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de automatización — línea 26</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de accesibilidad — línea 27. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-universal-access" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de accesibilidad — línea 27</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de rendimiento — línea 28. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-gauge-high" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de rendimiento — línea 28</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de respaldo y DR — línea 29. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-database" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de respaldo y DR — línea 29</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de identidad — línea 30. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-id-card" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de identidad — línea 30</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios DevSecOps — línea 31. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-lock" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios DevSecOps — línea 31</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de contenedores — línea 32. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-box-open" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de contenedores — línea 32</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de red perimetral — línea 33. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-network-wired" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de red perimetral — línea 33</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de calidad software — línea 34. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-flask" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de calidad software — línea 34</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de experiencia de usuario — línea 35. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-palette" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de experiencia de usuario — línea 35</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de gobernanza — línea 36. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-scale-balanced" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de gobernanza — línea 36</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de cumplimiento — línea 37. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-file-shield" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de cumplimiento — línea 37</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de migración — línea 38. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-arrows-rotate" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de migración — línea 38</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de soporte L2/L3 — línea 39. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-headset" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de soporte L2/L3 — línea 39</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="jkfw-home-news-spot jkhive-itemgallery-med jkhive-hex-item-med jkhive-hex-item-hover-glowV2 jklp-hex-detail-trigger" tabindex="0" role="button" aria-label="Servicios de capacitación técnica — línea 40. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ves">
+              <div class="jkhive-hex jkhive-hex-item-style-glow">
+                <div class="jkhive-hex-content jkhive-hex-content-editorial jkhive-hex-item">
+                  <div class="jkhive-hex-item-head"><div class="jkhive-hex-item-head-tip"></div><div class="jkhive-hex-item-head-main"><i class="jkhive-hex-gallery-icon fas fa-chalkboard-user" aria-hidden="true"></i></div></div>
+                  <div class="jkhive-hex-item-body"><div class="jkhive-hex-item-body-scroll"><div class="jkfw-launcher-hex-body-copy"><div class="jkhive-hex-gallery-title">Servicios de capacitación técnica — línea 40</div><div class="jkhive-hex-gallery-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus.</div></div></div></div>
+                  <div class="jkhive-hex-item-foot jkfw-launcher-hex-foot-empty" aria-hidden="true"><div class="jkhive-hex-item-foot-main"></div><div class="jkhive-hex-item-foot-tip"></div></div>
+                </div>
+              </div>
+            </div>
+              </div>
             </section>
-          </div>
         </div>
       </div>
     </div>
@@ -166,6 +527,9 @@ window.JKHIVE_NO_PUBLIC_REGISTER = true;
   <script src="../../assets/js/tooltip.js"></script>
   <script src="../../assets/js/jkhive-elements.js"></script>
   <script src="../../assets/js/showcase-interactions.js"></script>
+  <script src="../../assets/js/jkhive-hex-gallery-framework.js"></script>
   <script src="../../assets/js/jkfw-showcase-admin.js"></script>
+  <script src="assets/js/jklp-gallery-deep-link-scroll.js"></script>
+  <script src="assets/js/jklp-hex-detail-modal.js"></script>
 </body>
 </html>

@@ -18,10 +18,10 @@
   <link rel="stylesheet" href="../../assets/css/jkfw-button-tokens.css">
   <link rel="stylesheet" href="../../assets/css/jkfw-catalog-demo.css">
   <link rel="stylesheet" href="../../assets/css/jkfw-launcher.css">
-  <link rel="stylesheet" href="../../assets/css/system-messages.css">
-  <link rel="stylesheet" href="assets/css/jklp-basic-local.css">
+  <link rel="stylesheet" href="../../assets/css/jkhive-contact-page.css">
+  <link rel="stylesheet" href="assets/css/jklp-contact-overrides.css">
 </head>
-<body class="page-public jkhive-showcase-body admin-layout crm-layout jkfw-landing-basic-body jkfw-landing-basic-no-auth-nav jkfw-landing-basic-has-top-search-nav">
+<body class="page-public contact-page jkhive-showcase-body admin-layout crm-layout jkfw-landing-basic-body jkfw-landing-basic-no-auth-nav jkfw-landing-basic-has-top-search-nav">
 <script>
 window.JKHIVE_AUTH_STATUS_URL = 'api/auth/status.php';
 window.JKHIVE_MESSAGES_INBOX_URL = 'messaging.php';
@@ -128,45 +128,61 @@ window.JKHIVE_NO_PUBLIC_REGISTER = true;
           <h1 id="jkfw-contact-hero-title" class="jkfw-landing-basic-hero-title">Contacto</h1>
           <p class="jkfw-landing-basic-hero-subtitle">Canal de contacto público en versión simple, listo para propuesta comercial.</p>
         </section>
-        <div class="jkhive-content-wrap">
-          <div class="jkhive-page-container">
-            <section class="jkfw-landing-basic-section" aria-labelledby="jkfw-contact-title">
+            <div class="jkhive-contact-wrap">
+            <section id="contact-info" class="jkhive-contact-section jkfw-landing-basic-section" aria-labelledby="jkfw-contact-title">
               <h2 id="jkfw-contact-title" class="jkhive-section-title">Conversemos</h2>
-              <div class="jkhive-lead-wrap">
+              <div class="jkhive-contact-intro jkhive-lead-wrap">
                 <p class="jkhive-lead-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Canales de contacto en versión pública simple.</p>
               </div>
-              <div class="jkfw-landing-basic-grid jkfw-landing-basic-grid-contact">
-                <article class="jkfw-landing-basic-card">
-                  <h3 class="jkfw-landing-basic-card-title">Información de contacto</h3>
-                  <p class="jkfw-landing-basic-card-text jkfw-contact-info-text">
-                    Email:
-                    <a class="jkhive-link-inline" href="mailto:contacto@empresa.tld">contacto@empresa.tld</a><br>
-                    LinkedIn:
-                    <a class="jkhive-link-inline" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">linkedin.com/company/empresa</a><br>
-                    Ubicación:
-                    <a class="jkhive-link-inline" href="https://maps.google.com/?q=Region+del+Maule,+Chile" target="_blank" rel="noopener noreferrer">Región del Maule, Chile</a>
-                  </p>
-                  <p class="jkfw-landing-basic-card-text jkfw-contact-info-text">Horario referencial: Lun a Vie de 09:00 a 18:00.</p>
-                </article>
-                <article class="jkfw-landing-basic-card">
-                  <h3 class="jkfw-landing-basic-card-title">Formulario de contacto</h3>
-                  <form id="jkfwSimpleContactForm" class="jkfw-contact-form" novalidate>
-                    <label class="jkfw-contact-form-label" for="jkfwContactName">Nombre</label>
-                    <div class="jkhive-field-surface jkhive-surface-theme-sidebar">
-                      <input id="jkfwContactName" class="jkfw-contact-form-input" type="text" autocomplete="name">
+              <div class="jkhive-contact-grid">
+                <div class="jkhive-contact-card jkhive-contact-card--info">
+                  <h3 class="jkhive-contact-card-title">
+                    <i class="fas fa-address-card" aria-hidden="true"></i>
+                    Información de contacto
+                  </h3>
+                  <div class="jkhive-contact-channel">
+                    <span class="jkhive-contact-channel-icon" aria-hidden="true"><i class="fas fa-envelope"></i></span>
+                    <div class="jkhive-contact-channel-body">
+                      <p><a class="jkhive-link-inline" href="mailto:contacto@empresa.tld">contacto@empresa.tld</a></p>
                     </div>
-                    <label class="jkfw-contact-form-label" for="jkfwContactEmail">Email</label>
-                    <div class="jkhive-field-surface jkhive-surface-theme-sidebar">
-                      <input id="jkfwContactEmail" class="jkfw-contact-form-input" type="email" autocomplete="email" inputmode="email">
+                  </div>
+                  <div class="jkhive-contact-channel">
+                    <span class="jkhive-contact-channel-icon" aria-hidden="true"><i class="fab fa-linkedin"></i></span>
+                    <div class="jkhive-contact-channel-body">
+                      <p>
+                        <a class="jkhive-link-inline" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">linkedin.com/company/empresa</a>
+                      </p>
                     </div>
-                    <label class="jkfw-contact-form-label" for="jkfwContactSubject">Asunto</label>
-                    <div class="jkhive-field-surface jkhive-surface-theme-sidebar">
-                      <input id="jkfwContactSubject" class="jkfw-contact-form-input" type="text" autocomplete="off">
+                  </div>
+                  <div class="jkhive-contact-channel">
+                    <span class="jkhive-contact-channel-icon" aria-hidden="true"><i class="fas fa-location-dot"></i></span>
+                    <div class="jkhive-contact-channel-body">
+                      <p>
+                        <a class="jkhive-link-inline" href="https://maps.google.com/?q=Region+del+Maule,+Chile" target="_blank" rel="noopener noreferrer">Región del Maule, Chile</a>
+                      </p>
                     </div>
-                    <label class="jkfw-contact-form-label" for="jkfwContactMessage">Mensaje</label>
-                    <div class="jkhive-field-surface jkhive-surface-theme-sidebar">
-                      <textarea id="jkfwContactMessage" class="jkfw-contact-form-input jkfw-contact-form-textarea" rows="5"></textarea>
+                  </div>
+                  <div class="jkhive-contact-channel">
+                    <span class="jkhive-contact-channel-icon" aria-hidden="true"><i class="fas fa-clock"></i></span>
+                    <div class="jkhive-contact-channel-body">
+                      <p>Lun a Vie · 09:00 – 18:00</p>
                     </div>
+                  </div>
+                </div>
+                <div class="jkhive-contact-card jkhive-contact-card--form">
+                  <h3 class="jkhive-contact-card-title">
+                    <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                    Formulario de contacto
+                  </h3>
+                  <form id="jkfwSimpleContactForm" class="jkhive-contact-form" novalidate>
+                    <label class="form-label" for="jkfwContactName">Nombre</label>
+                    <input id="jkfwContactName" class="form-control" type="text" autocomplete="name">
+                    <label class="form-label" for="jkfwContactEmail">Email</label>
+                    <input id="jkfwContactEmail" class="form-control" type="email" autocomplete="email" inputmode="email">
+                    <label class="form-label" for="jkfwContactSubject">Asunto</label>
+                    <input id="jkfwContactSubject" class="form-control" type="text" autocomplete="off">
+                    <label class="form-label" for="jkfwContactMessage">Mensaje</label>
+                    <textarea id="jkfwContactMessage" class="form-control" rows="5" autocomplete="off"></textarea>
                     <div class="jkfw-contact-form-submit-wrap">
                       <div class="jkhive-admoptions-bttn jkhive-bttn-big" data-tooltip="Enviar mensaje">
                         <button type="submit" class="jkhive-bttn-inner jkfw-contact-form-submit" aria-label="Enviar mensaje">
@@ -176,11 +192,10 @@ window.JKHIVE_NO_PUBLIC_REGISTER = true;
                     </div>
                   </form>
                   <p id="jkfwSimpleContactResult" class="jkfw-contact-form-result" aria-live="polite"></p>
-                </article>
+                </div>
               </div>
             </section>
-          </div>
-        </div>
+            </div>
       </div>
     </div>
   </main>

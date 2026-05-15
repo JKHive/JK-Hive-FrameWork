@@ -1,0 +1,16 @@
+---
+description: Conservar el layout de landingpage/basica/about.html (secciones bajo el hero).
+globs: landingpage/basica/about.html
+alwaysApply: false
+---
+
+# About landing básica — no borrar bloques
+
+Debajo del hero, el contenido vive dentro de `.jklp-about-page` y debe mantener **en este orden**:
+
+1. **Quiénes somos** — `section.jkfw-landing-basic-section.jkhive-about-section` (`#jkfw-about-lead-title`).
+2. **Valores** — `section` con `.jklp-about-values` y tarjetas `.jklp-about-value-card`.
+3. **Fila dual** — `.jklp-about-dual-row` con dos `section.jklp-about-panel` (Enfoque / Metodología).
+4. **Noticias** — `section#jklp-about-noticias` con `.jklp-about-section--news`, lead `.jklp-about-news-lead` y galería `#jkfwAboutNewsGallery`.
+
+No quitar ni fusionar estas secciones salvo petición explícita del usuario. Los estilos en `assets/css/jklp-about.css` dependen de estas clases.
