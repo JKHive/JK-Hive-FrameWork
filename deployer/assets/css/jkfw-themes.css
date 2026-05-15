@@ -169,14 +169,18 @@ body.jkfw-theme-nature .jkhive-crm-footer .jkhive-crm-footer-inner {
 }
 
 /**
- * ELEGANT — mármol claro, acentos fríos elegantes. `--jk-tech-*` claros + texto vía `--jk-metal-*` oscurecido.
- * Sobre panal/honey/metal claro se re-enlaza `--jk-ui-ink` como `--jk-tech-darker` localmente.
+ * ELEGANT — mármol claro, panal en oro miel resplandeciente (alto contraste sobre claro).
+ * Acentos: bronce / ámbar profundo para anillos y estados activos; texto vía --jk-ui-ink.
  */
 body.jkfw-theme-elegant {
-  --jk-hero-pattern-color-rgb: 212, 160, 23;
-  --jk-hero-pattern-opacity: 0.36;
-  --jk-theme-highlight: #94a3b8;
-  --jk-theme-highlight-rgb: 148, 163, 184;
+  --jk-canon-surface-start: #faf7f2;
+  --jk-canon-surface-end: #e7dfd4;
+  /* Máscara honeycomb SVG: oro profundo + opacidad alta para que se lea sobre mármol */
+  --jk-hero-pattern-color-rgb: 165, 98, 18;
+  --jk-hero-pattern-opacity: 0.74;
+  /* Highlight de UI (activo sidebar, anillos): ámbar oscuro legible sobre claro */
+  --jk-theme-highlight: #b45309;
+  --jk-theme-highlight-rgb: 180, 83, 9;
   --jk-ui-ink: #161412;
   --jk-primary-blue: #64748b;
   --jk-primary-blue-light: #94a3b8;
@@ -193,12 +197,12 @@ body.jkfw-theme-elegant {
   --jk-metal: #3f3a36;
   --jk-metal-dark: #575049;
   --jk-metal-darker: #6e6660;
-  --jk-glow-blue: 0 0 22px rgba(100, 116, 139, 0.22), 0 0 42px rgba(212, 160, 23, 0.14);
-  --jk-glow-cyan: 0 0 18px rgba(148, 163, 184, 0.28), 0 0 36px rgba(212, 160, 23, 0.1);
-  --jkhive-canonical-blue-hex-shadow: 0 8px 32px rgba(100, 116, 139, 0.2), inset 0 0 44px rgba(212, 160, 23, 0.08);
-  --jkhive-canonical-blue-hex-shadow-hover: 0 12px 42px rgba(100, 116, 139, 0.3), 0 0 52px rgba(244, 196, 48, 0.24),
-    inset 0 0 60px rgba(212, 160, 23, 0.1);
-  --jkhive-canonical-blue-hex-glow-radial: radial-gradient(circle at 50% 0%, rgba(148, 163, 184, 0.2) 0%, transparent 72%);
+  --jk-glow-blue: 0 0 22px rgba(180, 83, 9, 0.22), 0 0 48px rgba(251, 191, 36, 0.35);
+  --jk-glow-cyan: 0 0 20px rgba(251, 191, 36, 0.38), 0 0 42px rgba(217, 119, 6, 0.22);
+  --jkhive-canonical-blue-hex-shadow: 0 8px 32px rgba(120, 90, 40, 0.18), inset 0 0 44px rgba(251, 191, 36, 0.12);
+  --jkhive-canonical-blue-hex-shadow-hover: 0 12px 42px rgba(180, 83, 9, 0.28), 0 0 52px rgba(253, 224, 71, 0.45),
+    inset 0 0 60px rgba(251, 191, 36, 0.14);
+  --jkhive-canonical-blue-hex-glow-radial: radial-gradient(circle at 50% 0%, rgba(253, 224, 71, 0.35) 0%, transparent 68%);
 }
 
 /* Texto oscuro sobre miel / metal claro (el tema aclara --jk-tech-darker para fondos). */
@@ -281,13 +285,13 @@ body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher__bg {
 
 body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher__bg::before,
 body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher__bg::after {
-  filter: brightness(0) invert(1) opacity(0.09);
+  filter: brightness(0) saturate(100%) invert(38%) sepia(85%) saturate(520%) hue-rotate(5deg) brightness(1.05) opacity(0.42);
 }
 
 body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher__title,
 body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher__subtitle {
   color: var(--jk-ui-ink);
-  text-shadow: 0 0 22px rgba(255, 255, 255, 0.65), 0 2px 0 rgba(90, 75, 60, 0.15);
+  text-shadow: 0 0 22px rgba(253, 224, 71, 0.42), 0 2px 0 rgba(255, 255, 255, 0.88);
 }
 
 body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher__themes a {
@@ -298,12 +302,12 @@ body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher__themes a {
 
 body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher .jkfw-launcher-section-heading.jkhive-section-title {
   color: var(--jk-ui-ink);
-  text-shadow: 0 0 16px rgba(255, 255, 255, 0.5);
+  text-shadow: 0 0 18px rgba(251, 191, 36, 0.35);
 }
 
 body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher .jkfw-launcher-section-heading.jkhive-section-title::after {
-  background: var(--jk-ui-ink);
-  opacity: 0.35;
+  background: linear-gradient(90deg, transparent, rgba(180, 83, 9, 0.55), transparent);
+  opacity: 0.85;
 }
 
 /* NATURE — bosque, panal teñido verde */
@@ -340,3 +344,80 @@ body.jkfw-theme-nature.jkfw-launcher-body .jkfw-launcher .jkfw-launcher-section-
 }
 
 /* Brasas: mantiene el lavado cálido por defecto de jkfw-launcher.css (sin bloque = comportamiento actual). */
+
+/* =============================================================================
+ * ELEGANT — UI landing / shell: logo cuadrado, sidebar activo, búsqueda, galerías
+ * ============================================================================= */
+body.jkfw-theme-elegant #jkhive-logo-square .jkhive-logo-main-jkhive,
+body.jkfw-theme-elegant .jkhive-logo-square .jkhive-logo-main-jkhive {
+  color: #14110e !important;
+  text-shadow:
+    0 0 14px rgba(255, 210, 120, 0.95),
+    0 0 28px rgba(245, 158, 11, 0.45),
+    0 1px 0 rgba(255, 255, 255, 0.92) !important;
+}
+
+body.jkfw-theme-elegant #jkhive-logo-square .jkhive-logo-sub-jkhive,
+body.jkfw-theme-elegant .jkhive-logo-square .jkhive-logo-sub-jkhive {
+  color: #9a3412 !important;
+  text-shadow:
+    0 0 10px rgba(254, 243, 199, 0.98),
+    0 0 22px rgba(251, 191, 36, 0.65),
+    0 1px 0 rgba(255, 255, 255, 1) !important;
+}
+
+body.jkfw-theme-elegant #jkhive-logo-square .jkhive-logo-editorial-head .jkhive-logo-divider-jkhive,
+body.jkfw-theme-elegant .jkhive-logo-square .jkhive-logo-editorial-head .jkhive-logo-divider-jkhive {
+  background: linear-gradient(90deg, transparent 0%, #c2410c 18%, #f59e0b 50%, #c2410c 82%, transparent 100%) !important;
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.85), 0 0 18px rgba(217, 119, 6, 0.35) !important;
+}
+
+body.jkfw-theme-elegant #jkhive-sidebar .jkhive-nav-item.active .jkhive-hex,
+body.jkfw-theme-elegant .jkhive-sidebar .jkhive-nav-item.active .jkhive-hex,
+body.jkfw-theme-elegant #jkhive-sidebar .jkhive-nav-item a.active .jkhive-hex,
+body.jkfw-theme-elegant .jkhive-sidebar .jkhive-nav-item a.active .jkhive-hex {
+  background: linear-gradient(145deg, #fffbeb 0%, #fde68a 42%, #fbbf24 100%) !important;
+  border: none !important;
+  color: #78350f !important;
+  box-shadow:
+    0 4px 14px rgba(180, 83, 9, 0.22),
+    0 0 0 2px rgba(251, 191, 36, 0.85),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75) !important;
+  filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.55)) drop-shadow(0 0 22px rgba(217, 119, 6, 0.28)) !important;
+}
+
+body.jkfw-theme-elegant #jkhive-sidebar .jkhive-nav-item.active .jkhive-hex .jkhive-hex-icon,
+body.jkfw-theme-elegant .jkhive-sidebar .jkhive-nav-item.active .jkhive-hex .jkhive-hex-icon,
+body.jkfw-theme-elegant #jkhive-sidebar .jkhive-nav-item a.active .jkhive-hex .jkhive-hex-icon,
+body.jkfw-theme-elegant .jkhive-sidebar .jkhive-nav-item a.active .jkhive-hex .jkhive-hex-icon {
+  color: #7c2d12 !important;
+}
+
+body.jkfw-theme-elegant .jkhive-search-input {
+  background: linear-gradient(135deg, rgba(255, 253, 249, 0.98) 0%, rgba(246, 239, 230, 0.98) 100%);
+  border: 1px solid rgba(176, 125, 40, 0.42);
+  color: #1c1410;
+}
+
+body.jkfw-theme-elegant .jkhive-search-input::placeholder {
+  color: rgba(82, 68, 54, 0.55);
+}
+
+body.jkfw-theme-elegant .jkhive-search-input:focus {
+  border-color: rgba(217, 119, 6, 0.72);
+  box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.38);
+}
+
+body.jkfw-theme-elegant .jkhive-gallery-searchbar-input {
+  background: rgba(255, 253, 250, 0.97) !important;
+  color: var(--jk-ui-ink) !important;
+  border: 1px solid rgba(176, 125, 40, 0.42) !important;
+}
+
+body.jkfw-theme-elegant .jkhive-gallery-searchbar-input::placeholder {
+  color: rgba(90, 75, 58, 0.52) !important;
+}
+
+body.jkfw-theme-elegant .jkhive-gallery-searchbar-label {
+  color: #6b5344;
+}

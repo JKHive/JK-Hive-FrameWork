@@ -15,9 +15,9 @@ body.jkfw-theme-elegant {
   --jkfw-hex-item-glow-shell: var(--jk-primary-blue-light);
   --jkfw-hex-item-glow-face: var(--jk-accent-honey-light);
   --jkfw-hex-item-glow-inner: var(--jk-tech-dark);
-  --jkfw-hex-item-glow-title-shadow: 0 0 14px rgba(var(--jk-theme-highlight-rgb, 148, 163, 184), 0.45);
-  --jkfw-hex-item-glow-ring: 0 0 0 2px var(--jk-primary-blue-light), 0 0 16px rgba(100, 116, 139, 0.35);
-  --jkfw-hex-item-glow-scale-shadow: var(--jk-shadow-lg, 0 10px 26px rgba(0, 0, 0, 0.18)), 0 0 26px rgba(212, 160, 23, 0.35);
+  --jkfw-hex-item-glow-title-shadow: 0 0 16px rgba(251, 191, 36, 0.55), 0 0 28px rgba(217, 119, 6, 0.22);
+  --jkfw-hex-item-glow-ring: 0 0 0 2px rgba(251, 191, 36, 0.55), 0 0 18px rgba(180, 83, 9, 0.28);
+  --jkfw-hex-item-glow-scale-shadow: var(--jk-shadow-lg, 0 10px 26px rgba(62, 48, 36, 0.14)), 0 0 28px rgba(253, 224, 71, 0.42);
 }
 
 html[data-jkfw-theme="ember"],
@@ -237,6 +237,13 @@ body.jkfw-theme-nature {
   box-shadow: var(--jkfw-hex-item-glow-ring) !important;
 }
 
+.jkhive-hex-gallery
+  .jkhive-hex-item-hover-glowV2:is(.jkhive-itemgallery-small, .jkhive-hex-item-small, .jkhive-itemgallery-med, .jkhive-hex-item-med, .jkhive-itemgallery-big, .jkhive-hex-item-big, .jkfw-home-news-spot, .jkfw-launcher-hexlink):hover,
+.jkhive-hex-gallery
+  .jkhive-hex-item-hover-glowV2:is(.jkhive-itemgallery-small, .jkhive-hex-item-small, .jkhive-itemgallery-med, .jkhive-hex-item-med, .jkhive-itemgallery-big, .jkhive-hex-item-big, .jkfw-home-news-spot, .jkfw-launcher-hexlink):focus-within {
+  z-index: 10;
+}
+
 .jkhive-hex-item-hover-glowV2:is(.jkhive-itemgallery-small, .jkhive-hex-item-small):hover,
 .jkhive-hex-item-hover-glowV2:is(.jkhive-itemgallery-small, .jkhive-hex-item-small):focus-within,
 .jkhive-hex-item-hover-glowV2:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):hover,
@@ -246,11 +253,37 @@ body.jkfw-theme-nature {
   transform: none !important;
 }
 
-.jkhive-hex-gallery-small:not(.jkhive-index-ventajas-gallery):not(.jklp-pole)
-  .jkhive-hex-item-hover-glowV2:is(.jkhive-itemgallery-small, .jkhive-hex-item-small):hover,
-.jkhive-hex-gallery-small:not(.jkhive-index-ventajas-gallery):not(.jklp-pole)
-  .jkhive-hex-item-hover-glowV2:is(.jkhive-itemgallery-small, .jkhive-hex-item-small):focus-within {
-  transform: translateX(var(--jkhive-hive-stagger, 0px)) !important;
+.jkhive-hex-gallery-medium
+  .jkhive-hex-item-hover-glowV2:is(.jkhive-itemgallery-med, .jkhive-hex-item-med, .jkfw-home-news-spot, .jkfw-launcher-hexlink):is(:nth-child(9n+6), :nth-child(9n+7), :nth-child(9n+8), :nth-child(9n+9)):hover,
+.jkhive-hex-gallery-medium
+  .jkhive-hex-item-hover-glowV2:is(.jkhive-itemgallery-med, .jkhive-hex-item-med, .jkfw-home-news-spot, .jkfw-launcher-hexlink):is(:nth-child(9n+6), :nth-child(9n+7), :nth-child(9n+8), :nth-child(9n+9)):focus-within {
+  transform: translate(
+    var(--jkhive-hive-stagger),
+    var(--jkhive-hive-row-vertical-nudge, 0px)
+  ) !important;
+}
+
+.jkhive-hex-gallery-medium.jkfw-home-news-spotlight.jkfw-medium-hex-extra-row-gap
+  .jkhive-hex-item-hover-glowV2:is(.jkhive-itemgallery-med, .jkhive-hex-item-med, .jkfw-home-news-spot):is(:nth-child(9n+6), :nth-child(9n+7), :nth-child(9n+8), :nth-child(9n+9)):hover,
+.jkhive-hex-gallery-medium.jkfw-home-news-spotlight.jkfw-medium-hex-extra-row-gap
+  .jkhive-hex-item-hover-glowV2:is(.jkhive-itemgallery-med, .jkhive-hex-item-med, .jkfw-home-news-spot):is(:nth-child(9n+6), :nth-child(9n+7), :nth-child(9n+8), :nth-child(9n+9)):focus-within {
+  transform: translate(var(--jkhive-hive-stagger), 0.5px) !important;
+}
+
+.jkhive-hex-gallery-medium
+  .jkhive-hex-item-hover-glowV2:is(.jkhive-itemgallery-med, .jkhive-hex-item-med, .jkfw-home-news-spot, .jkfw-launcher-hexlink):is(:nth-child(9n+10), :nth-child(9n+11), :nth-child(9n+12), :nth-child(9n+13), :nth-child(9n+14)):hover,
+.jkhive-hex-gallery-medium
+  .jkhive-hex-item-hover-glowV2:is(.jkhive-itemgallery-med, .jkhive-hex-item-med, .jkfw-home-news-spot, .jkfw-launcher-hexlink):is(:nth-child(9n+10), :nth-child(9n+11), :nth-child(9n+12), :nth-child(9n+13), :nth-child(9n+14)):focus-within {
+  transform: translateY(var(--jkhive-hive-row-vertical-nudge, 0px)) !important;
+}
+
+@media (max-width: 768px) {
+  .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery)
+    .jkhive-hex-item-hover-glowV2:is(.jkhive-itemgallery-med, .jkhive-hex-item-med, .jkfw-home-news-spot):is(:nth-child(5n+4), :nth-child(5n+5)):hover,
+  .jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery)
+    .jkhive-hex-item-hover-glowV2:is(.jkhive-itemgallery-med, .jkhive-hex-item-med, .jkfw-home-news-spot):is(:nth-child(5n+4), :nth-child(5n+5)):focus-within {
+    transform: translateX(var(--jkhive-hive-stagger)) !important;
+  }
 }
 
 @media (min-width: 769px) {
