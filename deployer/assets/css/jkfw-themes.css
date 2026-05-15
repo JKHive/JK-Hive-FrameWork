@@ -3,7 +3,7 @@
  *
  * INVARIANTES
  * - Por defecto no redefinir `--jk-accent-honey*` (miel metálica en bordes hex / acentos identitarios).
- * - Excepción: tema **ELEGANT** redefine miel → **oro brillante** para contraste sobre mármol opaco.
+ * - Excepción: tema **ELEGANT** redefine miel → **oro brillante** (bordes/hex); la **textura panal** del shell usa **cyan**.
  *
  * Línea de producto: CANON (tech) · ELEGANT (mármol) · Brasas (ember) · NATURE (bosque).
  */
@@ -169,8 +169,8 @@ body.jkfw-theme-nature .jkhive-crm-footer .jkhive-crm-footer-inner {
 }
 
 /**
- * ELEGANT — mármol claro. Acentos miel del Canon → **oro brillante** (saturado, no metálico opaco) sobre mármol.
- * Panal mascarado intenso; anillos UI en ámbar; texto vía --jk-ui-ink.
+ * ELEGANT — mármol claro. Acentos **oro brillante** en bordes/identidad; **textura panal (máscara SVG) en cyan**
+ * para resaltar sobre el mármol opaco (hero, shell, navbar, footer, landing hero).
  */
 body.jkfw-theme-elegant {
   --jk-accent-honey: #e9ab08;
@@ -178,9 +178,9 @@ body.jkfw-theme-elegant {
   --jk-accent-honey-dark: #b45309;
   --jk-canon-surface-start: #faf7f2;
   --jk-canon-surface-end: #e7dfd4;
-  /* Máscara honeycomb SVG: oro vivo */
-  --jk-hero-pattern-color-rgb: 220, 165, 20;
-  --jk-hero-pattern-opacity: 0.78;
+  /* Máscara honeycomb SVG: cyan (mismo canal que resalta bien sobre mármol) */
+  --jk-hero-pattern-color-rgb: 8, 145, 178;
+  --jk-hero-pattern-opacity: 0.44;
   /* Highlight de UI (activo sidebar, anillos): ámbar oscuro legible sobre claro */
   --jk-theme-highlight: #b45309;
   --jk-theme-highlight-rgb: 180, 83, 9;
@@ -280,7 +280,7 @@ body.jkfw-theme-ember {
  * no sustituye la identidad de fondo del selector.
  */
 
-/* ELEGANT — mármol, panal velado cálido */
+/* ELEGANT — mármol; capas honeycomb del launchpad en matiz cyan (coherente con --jk-hero-pattern-*) */
 body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher__bg {
   background: linear-gradient(165deg, #faf8f5 0%, #ebe6df 45%, #e0d8cc 100%);
   backdrop-filter: blur(14px);
@@ -288,29 +288,29 @@ body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher__bg {
 
 body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher__bg::before,
 body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher__bg::after {
-  filter: brightness(0) saturate(100%) invert(38%) sepia(85%) saturate(520%) hue-rotate(5deg) brightness(1.05) opacity(0.42);
+  filter: brightness(0) saturate(100%) invert(42%) sepia(95%) saturate(680%) hue-rotate(158deg) brightness(0.92) opacity(0.4);
 }
 
 body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher__title,
 body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher__subtitle {
   color: var(--jk-ui-ink);
-  text-shadow: 0 0 22px rgba(253, 224, 71, 0.42), 0 2px 0 rgba(255, 255, 255, 0.88);
+  text-shadow: 0 0 20px rgba(165, 243, 252, 0.45), 0 2px 0 rgba(255, 255, 255, 0.88);
 }
 
 body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher__themes a {
   color: var(--jk-ui-ink);
   background: rgba(255, 255, 255, 0.55);
-  border: 1px solid rgba(212, 160, 23, 0.42);
+  border: 1px solid rgba(34, 211, 238, 0.38);
 }
 
 body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher .jkfw-launcher-section-heading.jkhive-section-title {
   color: var(--jk-ui-ink);
-  text-shadow: 0 0 18px rgba(251, 191, 36, 0.35);
+  text-shadow: 0 0 16px rgba(103, 232, 249, 0.35);
 }
 
 body.jkfw-theme-elegant.jkfw-launcher-body .jkfw-launcher .jkfw-launcher-section-heading.jkhive-section-title::after {
-  background: linear-gradient(90deg, transparent, rgba(180, 83, 9, 0.55), transparent);
-  opacity: 0.85;
+  background: linear-gradient(90deg, transparent, rgba(8, 145, 178, 0.55), transparent);
+  opacity: 0.88;
 }
 
 /* NATURE — bosque, panal teñido verde */
