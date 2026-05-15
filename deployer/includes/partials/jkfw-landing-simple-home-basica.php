@@ -1,17 +1,6 @@
 <?php
 declare(strict_types=1);
-/**
- * Home landing básica (JK Hive fuente: data/jkhive/www/index.php #ventajas + HomePublicItemsService::defaultWhyItems).
- *
- * — Contrato ítems hex (tamaño + piel + hover por ítem): docs/JKFW_CANON_LANDING_ITEM_CONTRACT.md y
- *   assets/css/jkhive-hex-item-framework.css — landing básica CANON usa por defecto
- *   `.jkhive-hex-item-{small|med|big}` + `.jkhive-hex-item-style-glow` + `.jkhive-hex-item-hover-glowV2` (sin depender de clases de hover en el contenedor strip/galería).
- * — Carrusel big (`#jkfwSimpleFeaturedCarousel`): `jkhive-hex-item-big` + `jkhive-hex-item-style-glow` + `jkhive-hex-item-hover-glowV2` por ítem (sin hover en contenedor).
- * — ¿Por qué elegirnos?: **strip-gallery** `#jklpStripGallery` (panal canónico, sin pole).
- * — Noticias: **Noticias destacadas** `#jkfwHomeNewsSpotGallery` — panal mediano (`jkhive-hex-gallery-medium` + `jkhive-itemgallery-med`), **tope 9** entradas (últimas N del feed; `array_slice`). Sin paginación ni buscador (5+4 en escritorio).
- * — Nuestros clientes: solo **strip-carrousel** `#jklpStripCarrousel` (`jklp-pole`); motor `jklp-galleries.js`.
- * — **Mesa PHP** (`demo-landing-simple.php`): `$jk_landing_basica_jklp_galleries_js = true` → `layout-scripts.php` carga **una sola vez** `landingpage/basica/assets/js/jklp-galleries.js` (no duplicar `<script>` en este partial). El `index.html` estático incluye ese script al final del body.
- */
+
 $h = static fn (string $s): string => htmlspecialchars($s, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 
 $jk_landing_why_title = isset($jk_landing_why_title) ? (string) $jk_landing_why_title : '¿Por qué elegirnos?';
@@ -23,7 +12,6 @@ $jklp_hexfeature_strip_max = isset($jklp_hexfeature_strip_max)
     ? max(1, min(7, (int) $jklp_hexfeature_strip_max))
     : 7;
 
-/** Ítems CMS fallback (JK Hive — HomePublicItemsService::defaultWhyItems + séptimo showcase). */
 $jkfw_jkhive_why_catalog = [
     ['icon' => 'fa-award', 'h' => '+18 Años', 's' => 'Experiencia', 'c1' => 'var(--jk-accent-honey)', 'c2' => 'var(--jk-primary-blue)'],
     ['icon' => 'fa-certificate', 'h' => 'Certificado', 's' => 'Google & otros', 'c1' => 'var(--jk-primary-blue)', 'c2' => 'var(--jk-accent-honey)'],
@@ -36,16 +24,10 @@ $jkfw_jkhive_why_catalog = [
 
 $jklp_why_items = array_slice($jkfw_jkhive_why_catalog, 0, $jklp_hexfeature_strip_max);
 
-/** Tope de noticias destacadas en home (9 = dos filas 5+4; recortar con `array_slice`). */
 $jklp_home_news_max = isset($jklp_home_news_max)
     ? max(1, min(9, (int) $jklp_home_news_max))
     : 9;
 
-/**
- * Feed demo ordenado de más reciente a más antigua (en integración real: últimas N desde CMS/API).
- *
- * @var list<array{title:string,subtitle:string,meta:string,icon:string,href:string}>
- */
 $jkfw_home_news_feed = [
     ['title' => 'Infra cloud nativa', 'subtitle' => 'Menor TCO y mejor elasticidad', 'meta' => '13 may 2026', 'icon' => 'fa-newspaper', 'href' => 'landingpage/basica/about.html'],
     ['title' => 'Parches de seguridad Q2', 'subtitle' => 'Prioridad alta en entornos expuestos', 'meta' => '12 may 2026', 'icon' => 'fa-bullhorn', 'href' => 'landingpage/basica/contact.html'],
@@ -72,11 +54,6 @@ $jklp_client_items = [
     ['icon' => 'fa-leaf', 'h' => 'Cliente I', 's' => 'Sustentable', 'c1' => 'var(--jk-accent-honey)', 'c2' => 'var(--jk-primary-blue)'],
 ];
 
-/**
- * Ítem small editorial canónico (strip y variantes de tema).
- *
- * @param array{icon:string,h:string,s:string,c1?:string,c2?:string} $b
- */
 $jklp_render_small_editorial_hex = static function (array $b) use ($h): string {
     $c1 = isset($b['c1']) ? (string) $b['c1'] : 'var(--jk-accent-honey)';
     $c2 = isset($b['c2']) ? (string) $b['c2'] : 'var(--jk-primary-blue)';
@@ -94,12 +71,6 @@ $jklp_render_small_editorial_hex = static function (array $b) use ($h): string {
 
 $jklp_render_ventajas_item_jkhive = $jklp_render_small_editorial_hex;
 
-/**
- * Ítem med/big con grilla 25/50/25 (icono · texto · foot). Sin `jkhive-hex-content-editorial` (solo small strip).
- *
- * @param array{icon:string,title:string,subtitle?:string,meta?:string,footHtml?:string} $b
- * @param 'med'|'big' $size
- */
 $jklp_render_hex_grid_item = static function (array $b, string $size) use ($h): string {
     $icon = isset($b['icon']) ? (string) $b['icon'] : 'fa-circle';
     $title = isset($b['title']) ? (string) $b['title'] : '';
@@ -138,7 +109,6 @@ $jklp_render_hex_grid_item = static function (array $b, string $size) use ($h): 
       '</div>';
 };
 
-/** @param array{title:string,subtitle?:string,meta?:string,icon:string,href:string} $n */
 $jklp_render_med_news_hex = static function (array $n) use ($h, $jklp_render_hex_grid_item): string {
     $href = isset($n['href']) ? (string) $n['href'] : 'landingpage/basica/about.html';
     $title = isset($n['title']) ? (string) $n['title'] : 'Noticia';
@@ -152,7 +122,6 @@ $jklp_render_med_news_hex = static function (array $n) use ($h, $jklp_render_hex
       '</a>';
 };
 
-/** @param array{titulo:string,txt:string,icon:string,href?:string} $row */
 $jklp_render_big_carousel_hex = static function (array $row) use ($h, $jklp_render_hex_grid_item): string {
     $href = isset($row['href']) ? (string) $row['href'] : 'landingpage/basica/about.html';
 

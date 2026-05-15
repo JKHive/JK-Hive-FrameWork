@@ -1,10 +1,4 @@
-/**
- * jkhive-hexfeature-strip — **strip-gallery** (`#ventajas` / `#jklpStripGallery`) y **strip-carrousel** (`#jklp-nuestros-clientes` / `#jklpStripCarrousel`).
- * Incluye flex panal small, pole (`.jklp-pole__*`) solo en strip-carrousel, y overrides móviles.
- * Layout canónico: `data/jkhive/www/index.php` (flex panal small + márgenes jk-hive.css), no gap launcher.
- *
- * --jkhive-hexfeature-strip-max: máximo de ítems en plantilla (default 7).
- */
+
 :root {
   --jkhive-page-body-max: 1320px;
   --jkhive-hexfeature-strip-max: 7;
@@ -12,7 +6,6 @@
   --jklp-pole-viewport-pad-x: 0.25rem;
 }
 
-/* Desktop: panal small canónico (flex base + márgenes jk-hive); sin gap launcher ni margin:0. */
 @media (min-width: 769px) {
   body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery.jkhive-hex-gallery.jkhive-hex-gallery-small,
   body.jkfw-landing-basic-body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery.jkhive-hex-gallery.jkhive-hex-gallery-small {
@@ -29,10 +22,7 @@
     transform: unset;
   }
 
-  /**
-   * strip-carrousel (`#jklpStripCarrousel` + `jklp-pole`): el contenedor no es flex de ítems;
-   * viewport + track en esta hoja.
-   */
+  
   body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jkhive-hex-gallery.jkhive-hex-gallery-small.jklp-pole,
   body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jkhive-hex-gallery.jkhive-hex-gallery-small.jklp-pole {
     display: block !important;
@@ -42,7 +32,7 @@
     gap: initial !important;
   }
 
-  /* Cinta clientes: misma separación horizontal que `#jklpStripGallery` (márgenes honeycomb small). */
+  
   body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole .jklp-pole__track,
   body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole .jklp-pole__track {
     gap: 0 !important;
@@ -63,7 +53,6 @@
   --jk-theme-highlight: var(--jk-primary-blue-light);
 }
 
-/* Editorial small canónico: #ventajas y cinta clientes. */
 :is(#ventajas, #jklp-nuestros-clientes) .jkhive-hex-gallery-small .jkhive-itemgallery-small .jkhive-hex-content.jkhive-hex-content-editorial {
   justify-content: center !important;
   align-items: center !important;
@@ -117,7 +106,6 @@
   }
 }
 
-/* ---------- Pole — strip-carrousel (`jklp-galleries.js` · `bindPole`) ---------- */
 .jklp-pole {
   width: 100%;
   max-width: min(100%, var(--jkhive-page-body-max, 1320px));
@@ -166,13 +154,6 @@
   overflow: hidden;
 }
 
-/**
- * «Nuestros clientes» — viewport en modo carrusel:
- * NO usar overflow-x:hidden + overflow-y:visible: el spec fuerza overflow-y → auto (barra vertical
- * nativa) y el hex queda en una “caja” con scroll.
- * Con `clip` en X + Y visible (solo dentro de @supports) se evita ese cálculo; sin soporte `clip`,
- * padding vertical + overflow hidden (como roll con fallback).
- */
 @supports (overflow-x: clip) {
   body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole--carousel .jklp-pole__viewport,
   body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole--carousel .jklp-pole__viewport {
@@ -209,11 +190,6 @@
   }
 }
 
-/**
- * Carrusel clientes: sin padding horizontal en el viewport. El padding “interno” grande dejó ver
- * más sombra/pintura hacia el borde; aquí el clip coincide con el borde del viewport.
- * El desplazamiento del track se redondea a px enteros en `jklp-galleries.js` (anti subpíxeles).
- */
 body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole--carousel .jklp-pole__viewport,
 body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole--carousel .jklp-pole__viewport {
   padding-left: 0;
@@ -235,10 +211,6 @@ body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStri
   }
 }
 
-/**
- * strip-carrousel: bucle lineal continuo (misma idea que `jklp-roll-seamless-x` en roll).
- * El JS duplica el track (`syncClones`); `-50%` = exactamente un ciclo.
- */
 body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole--carousel .jklp-pole__track.jklp-pole__track--strip-marquee,
 body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole--carousel .jklp-pole__track.jklp-pole__track--strip-marquee {
   animation-name: jklp-strip-carrousel-marquee-x;
@@ -339,10 +311,6 @@ body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStri
   margin-bottom: 0.35rem !important;
 }
 
-/**
- * strip-carrousel: anula grid móvil honeycomb del índice (ítems bajo `.jklp-pole__cell`).
- * Debe cargarse esta hoja después de `jkhive-index-home-responsive.css`.
- */
 @media (max-width: 768px) {
   body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole,
   body.jkfw-landing-basic-body.jkhive-index-home #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole {

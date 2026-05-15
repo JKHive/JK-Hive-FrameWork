@@ -13,7 +13,7 @@ $themeLabels = [
     'nature' => 'NATURE',
 ];
 
-$jk_page_title = 'JK Hive — Selector de demos';
+$jk_page_title = 'JK Hive Deployer';
 ?><!DOCTYPE html>
 <html lang="es" data-jkfw-theme="<?= $h(jkfw_theme_resolve()) ?>">
 <head>
@@ -31,12 +31,12 @@ $jk_page_title = 'JK Hive — Selector de demos';
   <link rel="stylesheet" href="assets/css/jkfw-launcher.css">
 </head>
 <body class="jkfw-launcher-body <?= $h(jkfw_theme_body_class_suffix()) ?>">
-  <div class="jkfw-launcher" role="application" aria-label="Selector de demostraciones JK Hive">
+  <div class="jkfw-launcher" role="application" aria-label="JK Hive Deployer">
     <div class="jkfw-launcher__bg" aria-hidden="true"></div>
     <div class="jkfw-launcher__inner">
-      <h1 class="jkfw-launcher__title">Elige lo que quieres ver</h1>
+      <h1 class="jkfw-launcher__title">JK Hive Deployer</h1>
       <p class="jkfw-launcher__subtitle">
-        Galerías de demos JK Hive con ítems hexagonales. La selección pública de juego de color se ofrece solo para Landing básica.
+        Plantillas JK Hive listas para implementar. El selector de tema está disponible en Landing básica.
       </p>
 
       <main class="jkfw-launcher-hive-main">

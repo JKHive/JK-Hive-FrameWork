@@ -1,14 +1,12 @@
-/**
- * Pantalla inicial showcase: mismo lenguaje visual que overlay de modales JK Hive (miel + panal doble).
- */
+
 .jkfw-launcher {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   position: relative;
-  /* NUNCA ocultar overflow-x: el stagger translateX del panal (jk-hive § GALLERY MEDIUM) sale del cuerpo del grid — con hidden se cortaban filas 5-4. */
+  
   overflow-x: visible;
-  /* Visible en ambos ejes evita pairwise “auto/hidden” y recorte vertical de puntas al escalar (~10px apex). */
+  
   overflow-y: visible;
 }
 
@@ -53,7 +51,6 @@
   box-sizing: border-box;
 }
 
-/* Pie con estilos canónicos JK Hive (.jkhive-footer + jkhive-style); solo ajustes layout launcher (sin columna izquierda). */
 .jkfw-launcher .jkfw-launcher-footer-simple.jkhive-footer {
   flex-shrink: 0;
   position: relative;
@@ -151,7 +148,6 @@ body.jkfw-launcher-body .jkfw-launcher .jkfw-launcher-section {
   overflow-y: visible;
 }
 
-/* Hover: igual que paneles MEDIUM fuera del launcher (jk-hive lo omite aquí por :not(.jkfw-launcher-hex-gallery)); evita solape con siguiente fila/encabezado. */
 .jkfw-launcher .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med:hover,
 .jkfw-launcher .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med:focus-within {
   z-index: 12;
@@ -162,13 +158,9 @@ body.jkfw-launcher-body .jkfw-launcher .jkfw-launcher-section {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Título de bloque de galería (patrón jkhive-section-title sobre fondo miel del launcher) */
 .jkfw-launcher .jkfw-launcher-section-heading.jkhive-section-title {
   color: var(--jk-tech-darker);
-  /*
-   * Línea ::after tiene ~10px bajo la caja; el vértice superior del hex sobresale del grid —
-   * sumamos margin-bottom real además del padding superior del panal.
-   */
+  
   margin-bottom: clamp(0.62rem, 2vw, 1.1rem);
   text-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
 }
@@ -179,8 +171,6 @@ body.jkfw-launcher-body .jkfw-launcher .jkfw-launcher-section {
   height: 3px;
   bottom: -10px;
 }
-
-/* Panal: ver jkfw-launcher-dashboard-gallery.css (bloque sellado igual que CRM dashboard) */
 
 .jkfw-launcher-grid {
   display: flex;
@@ -200,7 +190,6 @@ body.jkfw-launcher-body .jkfw-launcher .jkfw-launcher-section {
   line-height: 1.28;
 }
 
-/* Contrato hex item: solo ícono en head; todo el texto/controles en body; foot vacío (banda reservada). */
 .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med .jkhive-hex-item-head-main {
   flex-direction: column;
   align-items: center;
@@ -247,10 +236,6 @@ body.jkfw-launcher-body .jkfw-launcher .jkfw-launcher-section {
   padding-top: 0;
 }
 
-/*
- * Landing básica (#noticias): si el contenedor omitía `jkfw-launcher-hex-gallery`, no se aplicaban
- * body-scroll gap / copy column — distancia vertical interior distinta al launcher canónico.
- */
 .jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkfw-launcher-hexlink.jkhive-itemgallery-med .jkhive-hex-gallery-subtitle {
   max-width: min(100%, 16.5rem);
   line-height: 1.28;
@@ -340,13 +325,6 @@ body.jkfw-launcher-body .jkfw-launcher .jkfw-launcher-section {
   cursor: pointer !important;
 }
 
-/*
- * Tiles hub (launcher-hex-gallery):
- * — box-shadow cyan (elements/jk-hive) + clip-path ⇒ halo rectangular; fuera aquí.
- * — .jkhive-hex-item* overflow:hidden + transform:scale sobre el hex exterior recorta apex/costados (Chromium).
- * — contain:paint en CTA-slot dibujaba costura horizontal pie/cuerpo al repintar.
- * — Ítem sin jkhive-hex-no-hover-scrollbars revelaba scrollbar al hover ⇒ línea bajo banda centro.
- */
 .jkfw-launcher .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink > .jkhive-hex > .jkhive-hex-content.jkhive-hex-item,
 .jkfw-launcher .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink > .jkhive-hex .jkhive-hex-item-head,
 .jkfw-launcher .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink > .jkhive-hex .jkhive-hex-item-body,
@@ -381,7 +359,6 @@ body.jkfw-launcher-body .jkfw-launcher .jkfw-launcher-section {
   contain: none;
 }
 
-/* Refuerzo: hex del CTA sigue dentro de .itemgallery-med; jk-hive.css usa selector hijo (> .jkhive-hex) para no pisar ese hex anidado. */
 html body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-hexlink.jkhive-itemgallery-med .jkfw-btn-scope .jkhive-hex {
   width: 100% !important;
   height: 100% !important;
@@ -407,7 +384,6 @@ html body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-he
   pointer-events: auto;
 }
 
-/* Enlace inline canónico dentro de texto hex */
 .jkfw-launcher-hex-with-cta.jkhive-itemgallery-med .jkfw-launcher-hex-body-copy .jkhive-link-inline,
 .jkfw-launcher-hex-with-cta.jkhive-itemgallery-med .jkfw-launcher-hex-body-copy .jkhive-link-inline * {
   pointer-events: auto !important;
@@ -421,7 +397,6 @@ html body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-he
   cursor: default !important;
 }
 
-/* Foot sin contenido: mantiene proporción 25/50/25 sin meter UI en la punta inferior */
 .jkfw-launcher-hex-foot-empty .jkhive-hex-item-foot-main {
   min-height: 0;
 }
@@ -444,10 +419,6 @@ html body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-he
   pointer-events: auto;
 }
 
-/*
- * Ancho: PHP inyecta --jkhive-btn-hex-h-w por longitud de etiqueta (+ icono/gap/puntas).
- * No Forzar width:100%: aplastaba el texto a tipografía microscopic.
- */
 .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-theme-hexh-wrap.jkfw-btn-scope .jkhive-btn-hex-h.jkhive-btn-hex-h--fixed {
   flex: 0 0 auto;
   width: var(--jkhive-btn-hex-h-w, auto);
@@ -474,7 +445,6 @@ html body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-he
   flex-shrink: 0;
 }
 
-/* Botones hex horizontales: la animación debe ir en el TEXTO (aspas top-down), no en todo el botón. */
 .jkfw-theme-hexh-wrap .jkhive-btn-hex-h .jkhive-btn-hex-h__spin,
 .jkfw-admin-theme-hexh-row .jkhive-btn-hex-h .jkhive-btn-hex-h__spin {
   animation: none !important;
@@ -522,16 +492,12 @@ html body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-he
 }
 
 @media (max-width: 768px) {
-  /* Dos ítems: mismo contrato jkfw-launcher-dashboard-gallery.css */
+  
   main:has(.jkhive-section-dashboard) .jkhive-hex-gallery-medium:has(.jkhive-itemgallery-med):has(> .jkhive-itemgallery-med:nth-child(2):last-child) {
     justify-content: center !important;
   }
 }
 
-/*
- * IMPORTANTE: .jkhive-hex-gallery-medium .jkhive-hex-gallery-{icon,title,subtitle} fuerza tamaños pensados para
- * servicios 210px; chocan con jkhive-itemgallery-med (+ solapamiento). Aplica a launcher Y bloques `.jkfw-launcher-hex-gallery` en contenido.
- */
 .jkfw-launcher .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkhive-hex-gallery-icon,
 .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkhive-hex-gallery-icon,
 .jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery) .jkfw-launcher-hexlink.jkhive-itemgallery-med .jkhive-hex-gallery-icon {
@@ -563,16 +529,11 @@ html body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium .jkfw-launcher-he
   margin-bottom: 0 !important;
 }
 
-/* Landing pro: panal dentro del contenido — no pisar padding; opcional aliento */
 .jkhive-showcase-body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium {
   --jkhive-gallery-edge-breath: clamp(0.65rem, 2.35vw, 1.18rem);
   margin-bottom: 1rem;
 }
 
-/*
- * MEDIUM + clase launcher siempre debe ser grid (solape/translates del panal 5–4 asumen celda CSS Grid).
- * Esta hoja va al final del <head>; el !important evita que cualquier flex residual en `.jkhive-hex-gallery` gane por orden.
- */
 html body .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:has(.jkhive-itemgallery-med),
 html body.jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkfw-launcher-hexlink.jkhive-itemgallery-med) {
   display: grid !important;
@@ -634,7 +595,6 @@ main:has(.jkhive-section-dashboard) .jkhive-hex-gallery .jkhive-itemgallery-med 
   }
 }
 
-/* Landing pública sin sidebar / sin navbar superior: ocupa todo el viewport */
 .jkhive-main-content.jkfw-main-fullbleed {
   margin-left: 0 !important;
   margin-top: 0 !important;
@@ -681,7 +641,6 @@ main:has(.jkhive-section-dashboard) .jkhive-hex-gallery .jkhive-itemgallery-med 
   }
 }
 
-/* --- Landing pública simple (sin chrome de app) --- */
 .jkfw-landing-simple-hero {
   padding: 4rem 1.25rem 3rem;
   text-align: center;
@@ -769,8 +728,6 @@ main:has(.jkhive-section-dashboard) .jkhive-hex-gallery .jkhive-itemgallery-med 
   color: var(--jk-metal-light);
 }
 
-/* --- Landing básica (single-page) --- */
-/* Sin navbar superior: el main puede arrancar arriba del todo. Con buscador JK Hive (.jkfw-landing-basic-has-top-search-nav), reservar el mismo offset que jk-hive.css (70px / 60px mobile). */
 .jkfw-landing-basic-body:not(.jkfw-landing-basic-has-top-search-nav) .jkhive-main-content {
   margin-top: 0 !important;
 }
@@ -819,7 +776,6 @@ main:has(.jkhive-section-dashboard) .jkhive-hex-gallery .jkhive-itemgallery-med 
   overflow: hidden;
 }
 
-/* Fuerza explícita para vencer .hero-section de jkhive-style.css */
 .hero-section.jkfw-landing-basic-hero,
 .hero-section.jkfw-landing-basic-hero.jkhive-surface-panel-honeycomb-sm {
   background: linear-gradient(180deg, rgb(10, 22, 36) 0%, rgb(8, 18, 30) 100%) !important;
@@ -861,7 +817,6 @@ main:has(.jkhive-section-dashboard) .jkhive-hex-gallery .jkhive-itemgallery-med 
   justify-content: center;
 }
 
-/* Override explícito al lock de 90px definido en hero-hex-animation.css */
 .hero-section.jkfw-landing-basic-hero .jkhive-editorial-hero-logo .jkhive-hex {
   width: 180px !important;
   height: calc(180px * 1.1547) !important;
@@ -941,7 +896,6 @@ main:has(.jkhive-section-dashboard) .jkhive-hex-gallery .jkhive-itemgallery-med 
   gap: 0.95rem;
 }
 
-/* Galerías en landing básica: transparentes por defecto (muestran fondo del body o del contenedor padre). */
 .jkfw-landing-basic-body .jkhive-hex-gallery,
 .jkfw-landing-basic-body .jkfw-launcher-hex-gallery,
 .jkfw-landing-basic-body .jkhive-hex-gallery-medium,
@@ -952,11 +906,6 @@ main:has(.jkhive-section-dashboard) .jkhive-hex-gallery .jkhive-itemgallery-med 
   border: 0 !important;
 }
 
-/*
- * Landing básica: NO forzar flex en panal MEDIUM tipo launcher (.jkhive-itemgallery-med) —
- * ese layout es grid + stagger (mismo contrato que index.php del showcase → jkfw-launcher-dashboard-gallery.css).
- * Flex solo donde no hay ítems CRM med del launcher.
- */
 .jkfw-landing-basic-body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium:not(:has(.jkhive-itemgallery-med)),
 .jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-small:not(.jkhive-index-ventajas-gallery):not(.jklp-pole) {
   display: flex !important;
@@ -973,13 +922,11 @@ main:has(.jkhive-section-dashboard) .jkhive-hex-gallery .jkhive-itemgallery-med 
   transform: none !important;
 }
 
-/* Honeycomb MEDIUM en landing básica: no recortar translateX del panal (_jkfw-launcher_ § overflow visible). */
 .jkfw-landing-basic-body .jkfw-launcher-hex-gallery.jkhive-hex-gallery-medium,
 .jkfw-landing-basic-body .jkhive-hex-gallery.jkhive-hex-gallery-medium:not(.jkfw-launcher-hex-gallery):has(.jkfw-launcher-hexlink.jkhive-itemgallery-med) {
   overflow-x: visible;
 }
 
-/* Panal MEDIUM embebido bajo layout CRM (referencia showcase/index.php, sin segundo <main>). */
 .jkfw-launcher-hive-main--embed {
   overflow-x: visible;
   box-sizing: border-box;
@@ -1119,12 +1066,6 @@ main:has(.jkhive-section-dashboard) .jkhive-hex-gallery .jkhive-itemgallery-med 
   max-width: 62rem;
 }
 
-/*
- * Panal MEDIUM — separación horizontal canónica (jk-hive.css § itemgallery-med / hex-item-med).
- * --jkhive-hive-gap-x: hueco entre columnas (5px escritorio, 3px móvil).
- * --jkhive-hive-stagger: (flat + gap-x) / 2 — fila 2 desplazada media celda.
- * No usar gap: 0 55px legacy (JK Lubs); opción marketing: .jkhive-hex-gallery-medium--spread.
- */
 @media (min-width: 769px) {
   section#noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:has(:is(.jkhive-itemgallery-med, .jkhive-hex-item-med, .jkfw-home-news-spot)),
   section#noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium:has(:is(.jkhive-itemgallery-med, .jkhive-hex-item-med, .jkfw-home-news-spot)),
@@ -1139,7 +1080,7 @@ main:has(.jkhive-section-dashboard) .jkhive-hex-gallery .jkhive-itemgallery-med 
     gap: var(--jkhive-hive-row-gap-y) var(--jkhive-hive-gap-x) !important;
   }
 
-  /* Nudge vertical en otros bloques med (no noticias): mismo token que gap-x */
+  
   section#noticias-destacadas .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:not(#jkfwHomeNewsSpotGallery):has(:is(.jkhive-itemgallery-med, .jkhive-hex-item-med)),
   .jkfw-landing-simple-home-page .jkhive-hex-gallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery:not(#jkfwHomeNewsSpotGallery):has(:is(.jkhive-itemgallery-med, .jkhive-hex-item-med)) {
     --jkhive-hive-row-vertical-nudge: var(--jkhive-hive-gap-x) !important;
@@ -1166,10 +1107,6 @@ main:has(.jkhive-section-dashboard) .jkhive-hex-gallery .jkhive-itemgallery-med 
   }
 }
 
-/*
- * Noticias (#jkfwHomeNewsSpotGallery): microajuste vertical fila 2 (+0.5px).
- * Compensa ~1,5px de hueco visual extra en columnas (gap-x 5px) sin tocar gap-x ni stagger.
- */
 @media (min-width: 769px) {
   #jkfwHomeNewsSpotGallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery,
   #jklp-noticias #jkfwHomeNewsSpotGallery.jkhive-hex-gallery-medium.jkfw-launcher-hex-gallery {
@@ -1239,10 +1176,6 @@ main:has(.jkhive-section-dashboard) .jkhive-hex-gallery .jkhive-itemgallery-med 
   color: var(--jk-metal-light);
 }
 
-/*
- * Home landing básica — noticias destacadas (galería mediana, tope 9).
- * Misma estructura de ítem que el launcher (`jkhive-hex-item-head` / body / foot vacío).
- */
 .jkfw-home-news-spotlight {
   max-width: 100%;
 }
@@ -1265,15 +1198,6 @@ a.jkfw-home-news-spot:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):focus-vi
   color: var(--jk-metal-light);
   font-weight: 600;
 }
-
-/* =============================================================================
-   JKHF — Carrusel canónico con ítems .jkhive-carouselitem-big (polea horizontal).
-   Raíz obligatoria: .jkfw-carousel-hex-big. Estructura interna: .jkfw-simple-featured-
-   carousel-row, .jkfw-simple-featured-window, .jkfw-simple-featured-window-xclip,
-   .jkfw-simple-featured-track + artículos .jkhive-carouselitem-big.
-   Variables (definir en la .jkhive-index-section que envuelve h2 + carrusel):
-   --jkfw-carousel-gap-after-section-title, --jkfw-carousel-pad-y
-   ============================================================================= */
 
 .jkhive-page-container .jkhive-index-section:has(> .jkfw-carousel-hex-big),
 .jkhive-index-page .jkhive-index-section:has(> .jkfw-carousel-hex-big),
@@ -1357,7 +1281,6 @@ a.jkfw-home-news-spot:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):focus-vi
   align-self: center;
 }
 
-/* Anular .carousel-nav global (jkhive-style: absolute + left/right) */
 html body .jkfw-carousel-hex-big button.jkfw-simple-featured-nav-btn,
 html body.crm-layout .jkfw-carousel-hex-big button.jkfw-simple-featured-nav-btn,
 html body.jkfw-landing-basic-body .jkfw-carousel-hex-big button.jkfw-simple-featured-nav-btn {
@@ -1451,13 +1374,6 @@ html body.jkfw-landing-basic-body .jkfw-carousel-hex-big button.jkfw-simple-feat
   }
 }
 
-/*
- * Carrusel «Servicios destacados»: mismo hover editorial que strip-gallery / strip-carrousel
- * (sin scale en el hex exterior; anillo celeste en ::after; tipografía alineada a perfil editorial).
- * Refuerzo con #jkfwSimpleFeaturedCarousel: jk-hive.css declara `.jkhive-carouselitem-big:hover .jkhive-hex`
- * con la misma especificidad que el bloque en jkhive-elements.css; según orden/copia de hojas puede empatar
- * y quedar el scale legacy. Esta hoja carga después → gana siempre.
- */
 #jkfwSimpleFeaturedCarousel:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:hover,
 #jkfwSimpleFeaturedCarousel:is(.jkfw-canon-hover--editorial, .jkhive-itemgallery-small-hover-v2) .jkhive-carouselitem-big:focus-within {
   z-index: 10;
@@ -1515,11 +1431,6 @@ html body.jkfw-landing-basic-body .jkfw-carousel-hex-big button.jkfw-simple-feat
   opacity: 1 !important;
 }
 
-/*
- * Landing básica — barra lateral: About (fa-id-badge) y Contacto (fa-envelope).
- * Misma animación que CTA (jkhive-anmtn-envelope / envelope-reverse en Z), sentidos opuestos.
- * Keyframes definidos en jkhive-elements.css (carga antes que esta hoja).
- */
 html body.jkfw-landing-basic-body #jkhive-sidebar .jkhive-nav-item a:hover .jkhive-hex .jkhive-hex-icon.fa-id-badge,
 html body.jkfw-landing-basic-body .jkhive-sidebar .jkhive-nav-item a:hover .jkhive-hex .jkhive-hex-icon.fa-id-badge,
 html body.jkfw-landing-basic-body #jkhive-sidebar .jkhive-nav-item a:focus-visible .jkhive-hex .jkhive-hex-icon.fa-id-badge,
@@ -1540,7 +1451,6 @@ html body.jkfw-landing-basic-body .jkhive-sidebar .jkhive-nav-item a:focus-visib
   transform-style: preserve-3d !important;
 }
 
-/* Landing básica — utilidades de página (antes `jklp-basic-local.css`) */
 body.jkfw-landing-basic-body .jkfw-landing-basic-prose {
   margin: 0.75rem 0 0 0;
   line-height: 1.55;
@@ -1557,7 +1467,6 @@ body.jkfw-landing-basic-body section#cta.jklp-cta-emphasis {
   margin-bottom: clamp(1.25rem, 4vw, 2.5rem);
 }
 
-/* Modal noticias (landing simple · jkfw_launcher_hex_news_item) */
 .jkfw-simple-news-modal .jkhive-modal-body {
   max-height: min(62vh, 30rem);
   overflow-y: auto;
@@ -1578,7 +1487,6 @@ body.jkfw-landing-basic-body section#cta.jklp-cta-emphasis {
   }
 }
 
-/* Paginación galería hex (launcher): meta compacta, bloque centrado (evita space-between de reglas admin en shell) */
 body.admin-layout .jkhive-pagination.jkhive-pagination--hex-gallery,
 .jkfw-launcher-hex-gallery .jkhive-pagination.jkhive-pagination--hex-gallery {
   flex-direction: column;

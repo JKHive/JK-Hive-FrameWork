@@ -1,21 +1,5 @@
-/**
- * JK Hive — contrato de ítem hexagonal (tamaño + estilo visual + hover por ítem).
- *
- * Tamaños (raíz del ítem, hermanos del panal): .jkhive-hex-item-small | .jkhive-hex-item-med | .jkhive-hex-item-big
- *   — misma geometría que :is(.jkhive-itemgallery-*, .jkhive-hex-item-*) en jk-hive.css (alias :is en selectores legacy).
- *
- * Estilo visual (en .jkhive-hex, ortogonal al tamaño):
- *   .jkhive-hex-item-style-glow — CANON; colores vía tokens de tema (--jkfw-hex-item-glow-*).
- *   Futuro mismo tema: .jkhive-hex-item-style-blue, .jkhive-hex-item-style-yellow (aún no implementados).
- *
- * Perfiles de hover (en la raíz interactiva del ítem: div, a, o nodo que recibe :hover / focus-within):
- *   .jkhive-hex-item-hover-glowV1 — escala + resplandor (legacy itemgallery).
- *   .jkhive-hex-item-hover-glowV2 — editorial (sin scale exterior; anillo en ::after).
- *
- * Carga: después de jk-hive.css, jkhive-elements.css y jkfw-launcher.css para poder anular hovers legacy.
- */
 
-/* --- Tokens por tema (landing básica fija tema en html[data-jkfw-theme] o body.jkfw-theme-*) --- */
+
 html[data-jkfw-theme="canonical"],
 body.jkfw-theme-canonical {
   --jkfw-hex-item-glow-shell: var(--jk-primary-blue-light);
@@ -48,7 +32,6 @@ body.jkfw-theme-nature {
   --jkfw-hex-item-glow-scale-shadow: var(--jk-shadow-lg, 0 10px 30px rgba(0, 0, 0, 0.28)), 0 0 28px rgba(244, 196, 48, 0.55);
 }
 
-/* --- Piel «glow» CANON (sustituye o complementa pieles legacy tipo cyan-item) --- */
 :is(.jkhive-itemgallery-small, .jkhive-hex-item-small) > .jkhive-hex.jkhive-hex-item-style-glow,
 :is(.jkhive-itemgallery-med, .jkhive-hex-item-med) > .jkhive-hex.jkhive-hex-item-style-glow,
 :is(.jkhive-itemgallery-big, .jkhive-hex-item-big) > .jkhive-hex.jkhive-hex-item-style-glow {
@@ -61,7 +44,6 @@ body.jkfw-theme-nature {
   background: var(--jkfw-hex-item-glow-face) !important;
 }
 
-/* --- Hover glow V1 (escala + glow; mismo criterio que itemgallery sin perfil editorial en contenedor) --- */
 .jkhive-hex-item-hover-glowV1:is(.jkhive-itemgallery-small, .jkhive-hex-item-small):hover > .jkhive-hex.jkhive-hex-item-style-glow,
 .jkhive-hex-item-hover-glowV1:is(.jkhive-itemgallery-small, .jkhive-hex-item-small):focus-within > .jkhive-hex.jkhive-hex-item-style-glow,
 .jkhive-hex-item-hover-glowV1:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):hover > .jkhive-hex.jkhive-hex-item-style-glow,
@@ -83,7 +65,6 @@ body.jkfw-theme-nature {
   transform: translate(-50%, -50%) scale(1.05) !important;
 }
 
-/* --- Hover glow V2 (editorial; por ítem, sin depender de .jkfw-canon-hover--* en el strip/galería) --- */
 .jkhive-hex-item-hover-glowV2:is(.jkhive-itemgallery-small, .jkhive-hex-item-small):hover,
 .jkhive-hex-item-hover-glowV2:is(.jkhive-itemgallery-small, .jkhive-hex-item-small):focus-within {
   z-index: 10;
@@ -123,7 +104,6 @@ body.jkfw-theme-nature {
   opacity: 1 !important;
 }
 
-/* Med genérico (panal noticias y galerías medium) */
 .jkhive-hex-item-hover-glowV2:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):hover,
 .jkhive-hex-item-hover-glowV2:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):focus-within {
   z-index: 10;
@@ -163,7 +143,6 @@ body.jkfw-theme-nature {
   opacity: 1 !important;
 }
 
-/* Noticias / enlaces med con meta */
 .jkhive-hex-item-hover-glowV2.jkfw-home-news-spot:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):hover,
 .jkhive-hex-item-hover-glowV2.jkfw-home-news-spot:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):focus-within {
   z-index: 10;
@@ -205,7 +184,6 @@ body.jkfw-theme-nature {
   opacity: 1 !important;
 }
 
-/* Carrusel servicios: hover en el enlace */
 .jkhive-carouselitem-big .jkhive-hex-item-hover-glowV2:hover,
 .jkhive-carouselitem-big .jkhive-hex-item-hover-glowV2:focus-within {
   z-index: 10;
@@ -259,7 +237,6 @@ body.jkfw-theme-nature {
   box-shadow: var(--jkfw-hex-item-glow-ring) !important;
 }
 
-/* V2 gana sobre hover scale legacy (jk-hive itemgallery + panal honeycomb + responsive ventajas) */
 .jkhive-hex-item-hover-glowV2:is(.jkhive-itemgallery-small, .jkhive-hex-item-small):hover,
 .jkhive-hex-item-hover-glowV2:is(.jkhive-itemgallery-small, .jkhive-hex-item-small):focus-within,
 .jkhive-hex-item-hover-glowV2:is(.jkhive-itemgallery-med, .jkhive-hex-item-med):hover,
@@ -269,7 +246,6 @@ body.jkfw-theme-nature {
   transform: none !important;
 }
 
-/* Panal honeycomb small (no ventajas flex ni pole): conservar stagger en fila 2 sin scale */
 .jkhive-hex-gallery-small:not(.jkhive-index-ventajas-gallery):not(.jklp-pole)
   .jkhive-hex-item-hover-glowV2:is(.jkhive-itemgallery-small, .jkhive-hex-item-small):hover,
 .jkhive-hex-gallery-small:not(.jkhive-index-ventajas-gallery):not(.jklp-pole)
@@ -277,7 +253,6 @@ body.jkfw-theme-nature {
   transform: translateX(var(--jkhive-hive-stagger, 0px)) !important;
 }
 
-/* strip-gallery ventajas: en reposo `transform: unset` (hexfeature-strip); no aplicar stagger global en hover */
 @media (min-width: 769px) {
   body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small).jkhive-hex-item-hover-glowV2:hover,
   body.jkhive-index-home #ventajas .jkhive-index-ventajas-gallery :is(.jkhive-itemgallery-small, .jkhive-hex-item-small).jkhive-hex-item-hover-glowV2:focus-within,
@@ -305,7 +280,6 @@ body.jkfw-theme-nature {
   transform: translate(-50%, -50%) !important;
 }
 
-/* strip-carrousel (pole): geometría fija en jkhive-hexfeature-strip; sin escala en hover V2 */
 #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole .jklp-pole__cell > :is(.jkhive-itemgallery-small, .jkhive-hex-item-small).jkhive-hex-item-hover-glowV2:hover,
 #jklp-nuestros-clientes #jklpStripCarrousel.jklp-pole .jklp-pole__cell > :is(.jkhive-itemgallery-small, .jkhive-hex-item-small).jkhive-hex-item-hover-glowV2:focus-within {
   transform: none !important;
@@ -323,7 +297,6 @@ body.jkfw-theme-nature {
   box-shadow: var(--jkfw-hex-item-glow-ring) !important;
 }
 
-/* Landing med/big: grilla 25/50/25 (anula flex centrado legacy del carrusel en jk-hive.css) */
 .jkhive-carouselitem-big .jkhive-hex-content.jkhive-hex-item,
 .jkfw-home-news-spot:is(.jkhive-itemgallery-med, .jkhive-hex-item-med) .jkhive-hex-content.jkhive-hex-item {
   display: flex !important;

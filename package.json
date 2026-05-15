@@ -3,6 +3,6 @@
   "private": true,
   "description": "Consolidación del sistema de diseño y layout JK Hive (fuentes: jklubs, jkhive, housesitting, crm, jkhive.work).",
   "scripts": {
-    "showcase:php": "php -S localhost:4180 -t showcase"
+    "deployer:php": "php -S localhost:4180 -t deployer"
   }
 }
